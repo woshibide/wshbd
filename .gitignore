@@ -8,6 +8,5 @@ portfolio-woshibide.pub
 *.png
 *.txt
 *.ai
-node_modules/
 
 unwanted/

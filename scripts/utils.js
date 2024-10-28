@@ -9,10 +9,6 @@ export function redirectToHomepage() {
     window.location.href = '/index.html';
 }
 
-
-let clockInterval;  // To store the interval ID
-let clockTimeout;   // To store the timeout ID
-
 export function toggleTheme() {
     // Toggle the dark-mode class on the body
     document.body.classList.toggle('dark-mode');
@@ -24,45 +20,6 @@ export function toggleTheme() {
         localStorage.setItem('theme', 'light');
     }
 }
-
-
-export function contactPopUp() {
-    const clockElement = document.getElementById('amsterdam-clock');
-    const contactDetails = "t [dot] me [slash] woshibide<br>hello [at] wshbd [dot] com";
-
-    clearInterval(clockInterval);
-
-    clockElement.innerHTML = contactDetails;
-
-    clockTimeout = setTimeout(() => {
-        updateClock();
-    }, 10000);
-}
-
-
-export function updateClock() {
-    const clockElement = document.getElementById('amsterdam-clock');
-    const options = { timeZone: 'Europe/Amsterdam', hour12: false };
-
-    function formatTime(date) {
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-        return `it is now ${hours}:${minutes} in amsterdam`;
-    }
-
-    function setTime() {
-        const now = new Date();
-        const amsterdamTime = new Date(now.toLocaleString('en-US', options));
-        clockElement.innerHTML = formatTime(amsterdamTime);
-    }
-
-    // Start updating the clock 
-    clockInterval = setInterval(setTime, 1000);
-
-    setTime();
-}
-
-
 
 export function showLoader(elementId = null) {
     // Default to covering the whole screen if no elementId is provided

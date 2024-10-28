@@ -1,4 +1,4 @@
-import { toggleTheme, contactPopUp, updateClock, showLoader, hideLoader, handleFooterClick, redirectToHomepage } from './utils.js';
+import { toggleTheme, showLoader, hideLoader, handleFooterClick, redirectToHomepage } from './utils.js';
 
 showLoader();
 
@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     hideLoader();
 
-    updateClock();
     handleFooterClick();
 
     window.redirectToHomepage = redirectToHomepage;

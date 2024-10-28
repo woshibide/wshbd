@@ -10,12 +10,13 @@
 
 
 .hello {
-    margin-top: 40svh;
-    padding: 2rem;
+    position: relative;
+    top: 60svh;
+    padding: 1rem;
 }
 
 .hello h1 {
-    font-size: 10rem;
+    font-size: 5rem;
 }
 
 .hello p {
@@ -27,7 +28,7 @@
 @media (max-width: 768px) {
     .hello {
         padding: 1rem;
-        margin-top: 20svh;
+        top: 70svh;
     }
 
     .hello p {
@@ -542,7 +543,8 @@ font-style: normal;
 
 .project-info h3,
 .project-info h2 {
-    font-size: 2rem;
+    font-family: "degular-text",  "cofo-sans-variable", sans-serif;
+    font-size: 1.5rem;
     letter-spacing: normal;
     margin-block: 1rem;
 }
