@@ -1,0 +1,13 @@
+.DS_Store
+*.pub
+portfolio-woshibide
+portfolio-woshibide.pub
+*.gif
+*.jpg
+*.jpeg
+*.png
+*.txt
+*.ai
+node_modules/
+
+unwanted/

@@ -1,0 +1,478 @@
+:root {
+
+    --special-color: #FF0035;
+
+    --soft-white: #f5f5f5;
+    --soft-black: #212427;
+
+    --main-color: #ffffff;
+
+    font-family: "degular-text", "cofo-sans-variable",  monospace;
+    font-weight: 200;
+    font-style: normal;
+
+    --main-bg: var(--main-color);
+    --text-color: var(--soft-black);
+
+    --border-def: 0rem solid var(--soft-black);
+    --border-red: 0rem solid var(--special-color);
+
+    font-size: 14px;
+
+    --left-cursor: url('/content/misc/black-left.svg'), pointer;
+    --right-cursor: url('/content/misc/black-right.svg'), pointer;
+}
+
+
+
+@media (max-width: 758px) {
+    :root {
+        font-size: 14px;
+        --border-def: 0.0rem solid var(--text-color);
+        --border-red: 0.0rem solid var(--special-color);
+    }
+}
+
+body.dark-mode {
+
+    --main-color: #000000;
+
+    --main-bg: var(--main-color);
+    --text-color: var(--soft-white);
+
+    --border-def: 0rem solid;
+
+    --left-cursor: url('/content/misc/white-left.svg'), pointer;
+    --right-cursor: url('/content/misc/white-right.svg'), pointer;
+}
+
+@media (max-width: 758px) {
+    body.dark-mode {
+        --border-def: 0.0rem solid var(--text-color);
+    }
+}
+
+* {
+    color: var(--text-color);
+    
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    
+    font-variant-ligatures: common-ligatures;
+    /* font-variant-ligatures: common-ligatures; */
+    -moz-font-feature-settings: "liga", "clig";
+    -webkit-font-feature-settings: "liga", "clig";
+    font-feature-settings: "liga", "clig";
+
+    padding: 0rem;
+    margin: 0rem;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+::-moz-selection {
+    color: var(--soft-white);
+    background: var(--special-color);
+}
+
+::selection {
+    color: var(--soft-white);
+    background: var(--special-color);
+}
+
+/* ============================================ */
+
+header {
+    margin: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    header {
+        margin: 1rem;
+    }
+}
+
+header nav div {
+    width: 100%;
+}
+
+nav {
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+nav * {
+    font-size: 0.8rem;
+    font-variation-settings: "slnt" 0, "wght" 200;
+    font-weight: 200;
+}
+
+@media (max-width: 758px) {
+    nav {
+        margin: 0rem;
+    }
+}
+
+nav .links {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+@media (max-width: 758px) {
+    nav .links {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.nav-row {
+    display: flex;
+    gap: 2rem;
+}
+
+nav .contact {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .contact * {
+    flex: 1;
+}
+
+#amsterdam-clock {
+    color: var(--text-color);
+    font-variant-numeric: tabular-nums;
+    padding: 1rem;
+}
+
+nav #theme-toggle {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+nav .links a,
+.contact a {
+    width: 100%;
+}
+
+
+/* ============================================ */
+
+body {
+    background-color: var(--main-bg);
+    color: var(--text-color);
+}
+
+
+/* ============================================ */
+
+/* TODO: mobile friendly footer */
+
+footer {
+    font-size: 0.8rem;
+    margin: 2rem;
+    margin-top: 90svh;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 758px) {
+    footer {
+        margin: 0rem;
+        margin-top: 90svh;
+    }
+}
+
+.footer-wrapper {
+    margin: 1rem;
+}
+
+@media (max-width: 758px) {
+    .footer-wrapper {
+        margin: 0rem;
+    }
+}
+
+.footer-columns {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+
+}
+
+@media (max-width: 758px) {
+    .footer-columns {
+        gap: 0rem;
+        padding: 1rem;
+    }
+}
+
+
+.footer-columns h4 {
+    font-family: "degular-text",  "cofo-sans-variable", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+
+    border-bottom: var(--border-def);
+    margin-bottom: 2rem;
+    padding-inline: 1rem;
+}
+
+.footer-columns p {
+    margin-top: 0.8rem;
+    padding-inline: 1rem;
+}
+
+.footer-columns>div {
+    flex: 1;
+}
+
+#design-brief p:hover,
+#dev-brief p:hover,
+#home:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    border: none;
+    color: var(--special-color);
+}
+
+.extr-link a {
+    padding-inline: 1rem;
+    font-size: 0.8rem;
+    border: none;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.extr-link a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    border: none;
+    background: var(--main-bg);
+    color: var(--special-color);
+}
+
+
+/* ============================================ */
+
+
+img {
+    max-height: 100%;
+    display: block;
+    height: auto;
+}
+
+ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+/* ============================================ */
+
+h1 {
+    font-size: 10rem;
+    font-family: "degular-display",  "cofo-sans-variable", sans-serif;
+    font-weight: 200;
+
+    font-style: normal;
+    color: var(--text-color);
+}
+
+h2 {
+    font-family: "degular-display",  "cofo-sans-variable", sans-serif;
+    font-weight: 200;
+
+    font-style: normal;
+    color: var(--text-color);
+}
+
+h3 {
+    font-style: normal;
+    font-weight: 200;
+    color: var(--text-color);
+}
+
+h4 {
+    font-family: "degular-text",  "cofo-sans-variable", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+
+}
+
+
+h5,
+h6 {
+    color: var(--text-color);
+    font-family: "degular-text",  "cofo-sans-variable", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+
+}
+
+p {
+
+    text-align: inherit;
+    text-justify: inherit;
+    font-style: normal;
+}
+
+
+/* ============================================ */
+
+a {
+    display: flex;
+    cursor: pointer;
+    padding: 1rem;
+    text-decoration: none;
+    font-style: normal;
+    background-color: var(--main-bg);
+    border: var(--border-def);
+    color: var(--text-color);
+}
+
+a:visited {
+    color: var(--special-color);
+    border: var(--border-red);
+}
+
+a:hover {
+    background-color: var(--special-color);
+    border: 0.0rem solid var(--special-color);
+    color: var(--soft-white);
+}
+
+
+@media (max-width: 758px) {
+    a:hover {
+        border: 0.0rem solid var(--special-color);
+    }
+}
+
+button {
+    display: inline-block;
+    padding: 1rem;
+    width: 100%;
+    background-color: var(--main-bg);
+    border: var(--border-def);
+    color: var(--text-color);
+    text-decoration: none;
+    cursor: pointer;
+    text-align: start;
+}
+
+button:hover {
+    background-color: var(--text-color);
+    color: var(--main-bg);
+}
+
+button:focus {
+    outline: none;
+}
+
+/* ============================================ */
+
+
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--main-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    /* Smooth opacity transition */
+    transition: opacity 0.5s ease-out;
+}
+
+.spinner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.spinner:before,
+.spinner:after {
+    content: "";
+    position: absolute;
+    /* border-radius: 50%; */
+    animation: pulsOut 0.9s ease-out infinite;
+}
+
+.spinner:before {
+    width: 100%;
+    padding-bottom: 100%;
+    box-shadow: inset 0 0 0 1rem var(--text-color);
+    animation-name: pulsIn;
+}
+
+.spinner:after {
+    width: calc(100% - 2rem);
+    padding-bottom: calc(100% - 2rem);
+    box-shadow: 0 0 0 0 var(--text-color);
+}
+
+@keyframes pulsIn {
+    0% {
+        box-shadow: inset 0 0 0 1rem var(--text-color);
+        opacity: 1;
+    }
+
+    50%,
+    100% {
+        box-shadow: inset 0 0 0 0 var(--text-color);
+        opacity: 0;
+    }
+}
+
+@keyframes pulsOut {
+
+    0%,
+    50% {
+        box-shadow: 0 0 0 0 var(--special-color);
+        opacity: 0;
+    }
+
+    100% {
+        box-shadow: 0 0 0 1rem var(--special-color);
+        opacity: 1;
+    }
+}
+
+body.loading {
+    overflow: hidden;
+    transition: opacity 0.5s ease-out;
+}
+
+body.loading>*:not(#loader) {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+    visibility: hidden;
+}
+
+body:not(.loading)>* {
+    transition: opacity 0.5s ease-out;
+    opacity: 1;
+    visibility: visible;
+}

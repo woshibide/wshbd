@@ -1,0 +1,113 @@
+@font-face {
+    font-family: 'CoFo Rax V0.1_Regular';
+    src: url('./RAX/CoFo_Rax_V0.1-Regular_web.woff') format('woff'),
+    font-weight: normal;
+    font-style: normal;
+}
+
+* { font-family: 'CoFo Rax V0.1_Regular', monospace; }
+  
+
+  h1{
+    line-height: 0.01;
+    font-size: 64rem; 
+  }
+  
+  h2{
+      pointer-events: none;
+      margin-top: 28rem;
+      padding: 20rem;
+      line-height: 0.8;
+      
+      font-size: 4rem;
+      color: whitesmoke;
+      overflow: hidden;
+    }
+    
+    
+    
+    h4 {
+        background-color: black;
+        line-height: 0.9;
+        text-align: justify;
+        size: 2rem;
+    }
+  
+  p {
+      z-index: 0;
+      top: 2vh;
+      position: sticky;
+      line-height: 0.95;
+      font-size: 2rem;
+      font-family: 'CoFo Rax V0.1_Regular';
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.015);
+  }
+  
+  .summary-eng{
+    z-index: 9999;
+    color: whitesmoke;
+    font-size: 2rem;
+    margin: 10rem;
+    text-align: justify;
+  }
+  
+  .paragraph-in-viewport {
+      position: fixed;
+      top: 2rem;
+      size: 6rem;
+      z-index: 2000;
+      background-color: white;
+      color: whitesmoke;
+  }
+  
+  
+  
+  /* ------- LINK STYLING -------- */
+    /* unvisited link */
+  a:link {
+    color: whitesmoke;
+    background-color: black;
+    text-decoration: none;
+  }
+  
+  /* visited link */
+  a:visited {
+    background-color: rgba(0, 0, 255, 95);
+    color: whitesmoke;
+    text-decoration: none;
+  }
+  
+  /* mouse over link */
+  a:hover {
+    background-color: rgb(55, 55, 55);
+    color: whitesmoke;
+    text-decoration: none;
+  }
+  
+  /* selected link */
+  a:active {
+    background-color: rgba(0, 0, 250, 95);
+    text-decoration: none;
+  } 
+
+  
+  
+  /* ------- TYPOGRAPHY -------- */
+  
+  .chapter{
+    height: auto;
+    pointer-events: visible;
+    position: absolute;
+    line-height: 1;
+    width: 100%;
+    text-align: justify;
+    font-family: Helvetica;
+    font-size: 36rem;
+    
+    color:whitesmoke;
+  }
+  
+  #essay{
+    margin: 10rem;
+  }
