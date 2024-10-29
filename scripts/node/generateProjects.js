@@ -49,8 +49,7 @@ function createHtmlContent(project, imageFiles) {
             <h3>${project.intro}</h3>
             <p>${project.description}</p>
         </div>
-        <div class="images">
-            <h1><a href="/index.html">wshbd</a></h1>`;
+        <div class="images">`;
 
     imageFiles.forEach(image => {
         htmlContent += `\n            <img src="/content/images/${project.id}/${image}" alt="${project.title}">`;

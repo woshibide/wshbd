@@ -143,15 +143,11 @@ section.list {
 }
 
 .spotlight-gallery-container img {
-    /* filter: grayscale(100%); */
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.spotlight-gallery-container img:hover {
-    /* filter: grayscale(0%); */
-}
 
 .spotlight-info {
     display: flex;
@@ -226,8 +222,8 @@ section.list {
     bottom: 1rem;
     left: 1rem;
     font-family: "degular-text",  "cofo-sans-variable", sans-serif;
-font-weight: 200;
-font-style: normal;
+    font-weight: 200;
+    font-style: normal;
 
 }
 
@@ -584,28 +580,6 @@ font-style: normal;
     }
 }
 
-.images h1 a {
-    /* sticky go home wshbd button */
-    font-size: 1rem;
-    position: fixed;
-    background-color: transparent;
-    color: var(--main-color);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-    border: 0rem solid var(--soft-white);
-}
-
-.images h1 a:visited {
-    color: var(--main-color);
-    background-color: transparent;
-}
-
-.images h1 a:visited {
-    border: 0.0rem solid var(--soft-white);
-}
-
 
 /* ============================================ */
 
@@ -628,13 +602,13 @@ font-style: normal;
 }
 
 .archive-filters {
-    border-bottom: 0.1rem solid var(--text-color);
+    border-bottom: 0.075rem solid var(--text-color);
     font-size: 1rem;
     width: 100%;
 }
 
 #when {
-    font-family: "degular-text",  "cofo-sans-variable", sans-serif;
+    /* font-family: "degular-text",  "cofo-sans-variable", sans-serif; */
     font-weight: 300;
     font-style: normal;
 
@@ -644,12 +618,18 @@ font-style: normal;
 
 
 .archive-item {
-
     gap: 1rem;
     display: flex;
     font-size: 0.8rem;
     width: 100%;
     margin-bottom: 0.5rem;
+    position: relative;
+    overflow: hidden;  
+}
+
+.archive-item.expanded {
+    height: 40vh;
+    background-image: none;
 }
 
 @media (max-width: 768px) {
@@ -660,8 +640,7 @@ font-style: normal;
 }
 
 .archive-item:hover {
-    background-color: var(--text-color);
-    color: var(--main-bg);
+    outline: 0.05rem solid var(--text-color);
 }
 
 .item-info {
@@ -671,7 +650,7 @@ font-style: normal;
 }
 
 .archive-item a {
-    /* color: inherit; */
+    color: var(--text-color);
     width: 100%;
     background-color: transparent;
     text-decoration: underline;
@@ -682,18 +661,11 @@ font-style: normal;
     color: var(--soft-white);
 }
 
-.archive-item a:visited {
-    background-color: var(--special-color);
-}
 
 .item-id {
-    font-family: "degular-display",  "cofo-sans-variable", sans-serif;
-    font-weight: 300;
     font-style: normal;
-
     color: inherit;
     width: 100%;
-    /* padding-left: 1rem; */
     display: flex;
 }
 
@@ -708,9 +680,59 @@ font-style: normal;
     font-family: inherit;
 }
 
+.image-container {
+    display: none;
+}
 
+/* When the archive item is expanded, show the image container */
+.archive-item.expanded .image-container {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    gap: 1rem;
+    overflow-y: hidden;
+    overflow-x: auto;
+    padding: 3rem 1rem 1rem 1rem;
+    scrollbar-width: none; 
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .archive-item.expanded .image-container {
+        padding: 4rem 1rem 1rem 1rem;
+    }
+}
+
+
+.archive-item.expanded .image-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Images inside the container */
+.image-container img {
+    pointer-events: all;
+    height: 100%;
+    flex-shrink: 0;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.1s ease-in;
+    scrollbar-width: none; /* Firefox */
+}
+
+
+.image-container img.lazyloaded {
+    opacity: 1;
+}
+
+.image-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
 
 /* ============================================ */
+
 @keyframes blink {
     0% {
         opacity: 1;
@@ -737,13 +759,13 @@ font-style: normal;
 
 .hashtag-container p {
     padding: 1rem;
-    border-bottom: 0.1rem solid var(--text-color);
+    border-bottom: 0.075rem solid var(--text-color);
 }
 
 .hashtag-pool {
     margin-top: 2rem;
     column-count: 4;
-    font-family: "degular-text",  "cofo-sans-variable", sans-serif;
+    /* font-family: "degular-text",  "cofo-sans-variable", sans-serif; */
     font-weight: 200;
     font-style: normal;
 

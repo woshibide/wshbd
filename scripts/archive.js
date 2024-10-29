@@ -167,32 +167,70 @@ async function toggleArchiveItem(item) {
 
     if (isExpanded) {
         // Collapse the item
-        item.style.height = '';
-        item.style.backgroundImage = '';
-        item.style.backgroundSize = '';
-        item.style.backgroundPosition = '';
+        item.classList.remove(expandedClass);
+        // Clear images
+        const imageContainer = item.querySelector('.image-container');
+        if (imageContainer) {
+            imageContainer.innerHTML = '';
+        }
     } else {
         // Expand the item
-        item.style.height = '45svh';
+        item.classList.add(expandedClass);
 
         const projectId = item.id;
         const imageMap = await getImageMapData();
 
-        const imageUrl = imageMap[projectId] ? imageMap[projectId][0] : '/content/misc/non-image.svg';
+        const imageUrls = imageMap[projectId] ? imageMap[projectId] : ['/content/misc/non-image.svg'];
 
-        // TODO: all the corresponding images needs to be fetched and shown here. images should take up given height, be shown one after another horizontally with 1rem gap in between, use overflow-y hidden. 
-        // also think of loading speed, they should be lazy loaded you know, upon a click
+        const imageContainer = item.querySelector('.image-container');
 
-        if (imageUrl) {
-            item.style.backgroundImage = `url('/content/images/${projectId}/${imageUrl}')`;
-            item.style.backgroundSize = 'cover';
-            item.style.backgroundPosition = 'center';
-        }
+        // Clear any existing images
+        imageContainer.innerHTML = '';
+
+        // Create and append image elements
+        imageUrls.forEach((imageUrl) => {
+            const img = document.createElement('img');
+            img.dataset.src = `/content/images/${projectId}/${imageUrl}`;
+            img.alt = projectId;
+            img.classList.add('lazy');
+            imageContainer.appendChild(img);
+        });
+
+        // Initiate lazy loading
+        lazyLoadImages();
     }
-
-    // Toggle the expanded class
-    item.classList.toggle(expandedClass);
 }
+
+
+function lazyLoadImages() {
+    const images = document.querySelectorAll('img.lazy');
+
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.onload = () => img.classList.add('lazyloaded');
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        images.forEach(function(img) {
+            imageObserver.observe(img);
+        });
+    } else {
+        // Fallback for browsers that don't support IntersectionObserver
+        images.forEach(function(img) {
+            img.src = img.dataset.src;
+            img.onload = () => img.classList.add('lazyloaded');
+            img.classList.remove('lazy');
+        });
+    }
+}
+
 
 // Cache image map data
 let imageMapData = null;

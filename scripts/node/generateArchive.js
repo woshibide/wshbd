@@ -26,17 +26,17 @@ function extractUniqueHashtags(projects) {
         if (project.hashtags) {
             project.hashtags.split(',').forEach(tag => {
                 hashtagsSet.add(tag.trim());
-                
+
             });
         }
     });
-    console.log('found', hashtagsSet.size,'unique hashtags, in', projectCount, 'projects');
+    console.log('found', hashtagsSet.size, 'unique hashtags, in', projectCount, 'projects');
     return Array.from(hashtagsSet);
 }
 
 // Function to generate the hashtag pool HTML
 function generateHashtagPoolHTML(hashtags) {
-    
+
     let html = `
 
     <div class="hashtag-container">
@@ -77,19 +77,21 @@ function generateArchiveItemsHTML(projects) {
 
 
         const archiveItem = `
-        <ul class="archive-item" id="${project.id}">
-            <a href="/archive/${project.id}.html">
-                <div class="item-id" id="id">
-                    <div class="id-letter">${idLetter}</div>
-                    <div class="id-number">${idNumber}</div>
-                </div>
-            </a>
-            <div class="item-info" id="who">${project.brand}</div>
-            <div class="item-info" id="what">${project.title}</div>
-            <div class="item-info" id="when">${project.date}</div>
-            ${hashtagsDiv}
-        </ul>
-        `;
+<div class="archive-item" id="${project.id}">
+    <a href="/archive/${project.id}.html">
+        <div class="item-id" id="id">
+            <div class="id-letter">${idLetter}</div>
+            <div class="id-number">${idNumber}</div>
+        </div>
+    </a>
+    <div class="item-info" id="who">${project.brand}</div>
+    <div class="item-info" id="what">${project.title}</div>
+    <div class="item-info" id="when">${project.date}</div>
+    ${hashtagsDiv}
+    <div class="image-container"></div>
+</div>
+`;
+
 
         html += archiveItem;
     });
