@@ -7,6 +7,7 @@ import { fetchJSON } from './utils.js';
 let selectedHashtags = [];
 
 function resetHashtagSelection() {
+
     selectedHashtags = [];
 
     const allHashtags = document.querySelectorAll('.hashtag-pool .hashtag');
@@ -172,12 +173,15 @@ async function toggleArchiveItem(item) {
         item.style.backgroundPosition = '';
     } else {
         // Expand the item
-        item.style.height = '30vh';
+        item.style.height = '45svh';
 
         const projectId = item.id;
         const imageMap = await getImageMapData();
 
         const imageUrl = imageMap[projectId] ? imageMap[projectId][0] : '/content/misc/non-image.svg';
+
+        // TODO: all the corresponding images needs to be fetched and shown here. images should take up given height, be shown one after another horizontally with 1rem gap in between, use overflow-y hidden. 
+        // also think of loading speed, they should be lazy loaded you know, upon a click
 
         if (imageUrl) {
             item.style.backgroundImage = `url('/content/images/${projectId}/${imageUrl}')`;
@@ -205,27 +209,27 @@ async function getImageMapData() {
 //////////////////////////////////////////
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // Existing code...
 
-    // Attach event listeners to archive items
     const archiveItems = document.querySelectorAll('.archive-item');
     archiveItems.forEach(item => {
         item.addEventListener('click', () => toggleArchiveItem(item));
     });
 
-    // Attach event listeners to hashtag elements
     const hashtagElements = document.querySelectorAll('.hashtag-pool .hashtag');
     hashtagElements.forEach(tagElement => {
         tagElement.addEventListener('click', () => toggleHashtagSelection(tagElement));
     });
 
-    // Attach event listener to reset button
     const resetButton = document.querySelector('.hashtag-pool .hashtag.reset');
+    // TODO: if selected hashtags = null => change bg and color of this button. if other hashtags are chosen revert to the default colors
+    if (selectedHashtags == []) {
+        resetButton.style.background = 'var(--text-color);';
+        resetButton.style.color = 'var(--main-bg)';
+    }
     if (resetButton) {
         resetButton.addEventListener('click', resetHashtagSelection);
     }
 
-    // Check for selected brief in localStorage
     const selectedBrief = localStorage.getItem('selectedBrief');
 
     if (selectedBrief) {
@@ -237,17 +241,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-// Listen for the custom event
 window.addEventListener('footerHashtagClicked', (e) => {
     const hashtag = e.detail.hashtag;
-    // Deselect any previously selected hashtags
     resetHashtagSelection();
-    // Find the hashtag element
     const hashtagElement = document.querySelector(`.hashtag-pool .hashtag[data-tag="${hashtag}"]`);
     if (hashtagElement) {
-        // Select the clicked hashtag
         toggleHashtagSelection(hashtagElement);
     }
-    // Scroll to the #archive section
     document.getElementById('archive').scrollIntoView();
 });
