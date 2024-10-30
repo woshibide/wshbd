@@ -29,5 +29,4 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('home').addEventListener('click', redirectToHomepage);
 
     document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
-    document.getElementById('contact-btn').addEventListener('click', contactPopUp);
 });
