@@ -3,7 +3,7 @@ const path = require('path');
 
 const archivePath = path.join(__dirname, '../../content/info/archive.json');
 const templatePath = path.join(__dirname, './templates/archive_template.html');
-const outputPath = path.join(__dirname, '../../archive.html');
+const outputPath = path.join(__dirname, '../../archive/index.html');
 
 projectCount = 0;
 
@@ -96,7 +96,7 @@ function generateArchiveItemsHTML(projects) {
         html += archiveItem;
     });
 
-    console.log('Created', projectCount, 'list items for archive.html');
+    console.log('Created', projectCount, 'list items for archive');
     return html;
 }
 

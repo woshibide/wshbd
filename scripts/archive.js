@@ -54,17 +54,18 @@ function filterProjectsByHashtags() {
         }
     });
 
-    
-    archiveItems.forEach(tagElement => {
-        tagElement.classList.remove('selected');
-
-        tagElement.classList.add('blinking');
-
-        setTimeout(() => {
-            tagElement.classList.remove('blinking');
-        }, 1000); // match the animation duration
-    });
+    // Add a check here
+    if (archiveItems.length > 0) {
+        archiveItems.forEach(tagElement => {
+            tagElement.classList.remove('selected');
+            tagElement.classList.add('blinking');
+            setTimeout(() => {
+                tagElement.classList.remove('blinking');
+            }, 1000); // match the animation duration
+        });
+    }
 }
+
 
 //////////////////////////////////////////
 //         Filter and Sort Functions
@@ -184,22 +185,28 @@ async function toggleArchiveItem(item) {
 
         const imageContainer = item.querySelector('.image-container');
 
-        // Clear any existing images
-        imageContainer.innerHTML = '';
+        // Check if imageContainer exists
+        if (imageContainer) {
+            // Clear any existing images
+            imageContainer.innerHTML = '';
 
-        // Create and append image elements
-        imageUrls.forEach((imageUrl) => {
-            const img = document.createElement('img');
-            img.dataset.src = `/content/images/${projectId}/${imageUrl}`;
-            img.alt = projectId;
-            img.classList.add('lazy');
-            imageContainer.appendChild(img);
-        });
+            // Create and append image elements
+            imageUrls.forEach((imageUrl) => {
+                const img = document.createElement('img');
+                img.dataset.src = `/content/images/${projectId}/${imageUrl}`;
+                img.alt = projectId;
+                img.classList.add('lazy');
+                imageContainer.appendChild(img);
+            });
 
-        // Initiate lazy loading
-        lazyLoadImages();
+            // Initiate lazy loading
+            lazyLoadImages();
+        } else {
+            console.warn('No image container found within the archive item.');
+        }
     }
 }
+
 
 
 function lazyLoadImages() {
@@ -247,29 +254,26 @@ async function getImageMapData() {
 //////////////////////////////////////////
 
 document.addEventListener('DOMContentLoaded', async () => {
-
     const archiveItems = document.querySelectorAll('.archive-item');
-    archiveItems.forEach(item => {
-        item.addEventListener('click', () => toggleArchiveItem(item));
-    });
+    if (archiveItems.length > 0) {
+        archiveItems.forEach(item => {
+            item.addEventListener('click', () => toggleArchiveItem(item));
+        });
+    }
 
     const hashtagElements = document.querySelectorAll('.hashtag-pool .hashtag');
-    hashtagElements.forEach(tagElement => {
-        tagElement.addEventListener('click', () => toggleHashtagSelection(tagElement));
-    });
+    if (hashtagElements.length > 0) {
+        hashtagElements.forEach(tagElement => {
+            tagElement.addEventListener('click', () => toggleHashtagSelection(tagElement));
+        });
+    }
 
     const resetButton = document.querySelector('.hashtag-pool .hashtag.reset');
-    // TODO: if selected hashtags = null => change bg and color of this button. if other hashtags are chosen revert to the default colors
-    if (selectedHashtags == []) {
-        resetButton.style.background = 'var(--text-color);';
-        resetButton.style.color = 'var(--main-bg)';
-    }
     if (resetButton) {
         resetButton.addEventListener('click', resetHashtagSelection);
     }
 
     const selectedBrief = localStorage.getItem('selectedBrief');
-
     if (selectedBrief) {
         const hashtagElement = document.querySelector(`.hashtag-pool .hashtag[data-tag="${selectedBrief}"]`);
         if (hashtagElement) {
@@ -279,12 +283,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-window.addEventListener('footerHashtagClicked', (e) => {
-    const hashtag = e.detail.hashtag;
-    resetHashtagSelection();
-    const hashtagElement = document.querySelector(`.hashtag-pool .hashtag[data-tag="${hashtag}"]`);
-    if (hashtagElement) {
-        toggleHashtagSelection(hashtagElement);
-    }
-    document.getElementById('archive').scrollIntoView();
-});
+if (document.getElementById('archive')) {
+    window.addEventListener('footerHashtagClicked', (e) => {
+        const hashtag = e.detail.hashtag;
+        resetHashtagSelection();
+        const hashtagElement = document.querySelector(`.hashtag-pool .hashtag[data-tag="${hashtag}"]`);
+        if (hashtagElement) {
+            toggleHashtagSelection(hashtagElement);
+        }
+        document.getElementById('archive').scrollIntoView();
+    });
+}

@@ -226,11 +226,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://wshbd.com/archive.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://wshbd.com/index.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

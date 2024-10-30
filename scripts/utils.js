@@ -78,15 +78,15 @@ export function handleFooterClick() {
     const devBriefElements = document.querySelectorAll('#dev-brief p');
 
     function handleClick(hashtag) {
-        if (window.location.pathname.endsWith('/archive.html')) {
-            // We're already on archive.html
+        if (window.location.pathname.endsWith('/archive')) {
+            // We're already on /archive/
             // Dispatch a custom event with the hashtag
             const event = new CustomEvent('footerHashtagClicked', { detail: { hashtag } });
             window.dispatchEvent(event);
             // Scroll to the #archive section
             document.getElementById('archive').scrollIntoView();
         } else {
-            // Store the selected hashtag and navigate to archive.html
+            // Store the selected hashtag and navigate to /archive
             localStorage.setItem('selectedBrief', hashtag);
             window.location.href = '/archive#archive';
         }
