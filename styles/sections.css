@@ -684,7 +684,6 @@ section.list {
     display: none;
 }
 
-/* When the archive item is expanded, show the image container */
 .archive-item.expanded .image-container {
     display: flex;
     position: absolute;
@@ -692,7 +691,7 @@ section.list {
     left: 0;
     right: 0;
     bottom: 0;
-    gap: 1rem;
+    /* gap: 1rem; */
     overflow-y: hidden;
     overflow-x: auto;
     padding: 3rem 1rem 1rem 1rem;
@@ -711,7 +710,6 @@ section.list {
     display: none;
 }
 
-/* Images inside the container */
 .image-container img {
     pointer-events: all;
     height: 100%;
