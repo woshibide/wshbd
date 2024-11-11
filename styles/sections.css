@@ -697,6 +697,7 @@ section.list {
     padding: 3rem 1rem 1rem 1rem;
     scrollbar-width: none; 
     pointer-events: none;
+    -webkit-overflow-scrolling: touch;
 }
 
 @media (max-width: 768px) {
