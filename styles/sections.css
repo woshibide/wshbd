@@ -691,13 +691,13 @@ section.list {
     left: 0;
     right: 0;
     bottom: 0;
-    /* gap: 1rem; */
     overflow-y: hidden;
     overflow-x: auto;
     padding: 3rem 1rem 1rem 1rem;
     scrollbar-width: none; 
     pointer-events: none;
     -webkit-overflow-scrolling: touch;
+    width: 100%;
 }
 
 @media (max-width: 768px) {

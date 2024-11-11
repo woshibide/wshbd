@@ -10,7 +10,7 @@ function createHtmlContent(project, imageFiles) {
     <html lang="en">
     <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Pyotr Goloub">
     <meta name="keywords" content="${metaKeywords}">
     <meta name="description" content="portfolio of graphic designer & developer Pyotr Goloub">
