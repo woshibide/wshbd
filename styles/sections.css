@@ -682,6 +682,7 @@ section.list {
 
 .image-container {
     display: none;
+    -webkit-overflow-scrolling: touch;
 }
 
 .archive-item.expanded .image-container {
@@ -695,8 +696,7 @@ section.list {
     overflow-x: auto;
     padding: 3rem 1rem 1rem 1rem;
     scrollbar-width: none; 
-    pointer-events: none;
-    -webkit-overflow-scrolling: touch;
+    pointer-events: touch;
     width: 100%;
 }
 
