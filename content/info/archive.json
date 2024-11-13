@@ -459,7 +459,7 @@
       "description": "Felt blue, might delete later",
       "brand": "wshbd",
       "title": "Editorial",
-      "intro": "This is lif",
+      "intro": "This is life",
       "hashtags": "poster"
     },
     {
@@ -472,6 +472,17 @@
       "title": "Publication",
       "intro": "A periodical combining critical thought with visual flair",
       "hashtags": "editorial, magazine"
+    },
+    {
+      "spotlight": false,
+      "location": "Netherlands",
+      "id": "E14",
+      "date": "2024 Oct",
+      "description": "A collective creation, pieced together from a curated collection of cool, captivating images that we found on the web. There is a story in it, reflecting the spontaneity and shared excitement of finding beauty in unexpected places.",
+      "brand": "wshbd",
+      "title": "Zine",
+      "intro": "A zine, woven from captivating found images, tells a story alongside lyrics from Andrea Laszlo De Simone — Immensità, translated into five languages.",
+      "hashtags": "editorial, riso, zine"
     },
     {
       "spotlight": false,
