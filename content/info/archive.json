@@ -283,7 +283,7 @@
       "description": "Bold, dynamic, and clear—just like the energy of a design workshop. This poster grabs attention, not just because of its visual flair, but because it captures the creative pulse of the event. It doesn’t just announce the workshop—it dares you to engage with it.",
       "brand": "Shura Novikov",
       "title": "Editorial",
-      "intro": "Poster for design worksho",
+      "intro": "Poster for design workshop",
       "hashtags": "poster"
     },
     {
@@ -494,6 +494,17 @@
       "title": "Apparel",
       "intro": "Happy hour. Coffee to be sweet. Forward momentum, clarity of purpose. Good luck in business endeavors, skill in decisions. Strategic moves, optimized processes",
       "hashtags": "apparel, "
+    },
+    {
+      "spotlight": false,
+      "location": "Netherlands",
+      "id": "A252",
+      "date": "2024 Nov",
+      "description": "",
+      "brand": "wshbd",
+      "title": "Zine",
+      "intro": "An affiche for painting exhibition",
+      "hashtags": "poster"
     }
   ]
 }
