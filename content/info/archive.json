@@ -505,6 +505,17 @@
       "title": "Poster",
       "intro": "An affiche for painting exhibition",
       "hashtags": "poster"
+    },
+    {
+      "spotlight": true,
+      "location": "Netherlands",
+      "id": "E15",
+      "date": "2024 Nov",
+      "description": "Exploration of eclectic opportunism as it emerges within art academies, examining the diverse and often unpredictable ways ideas and aesthetics evolve in such spaces. The book intentionally leaves textual descriptions, allowing what is seen to speak for itself through their shapes, textures, compositions and etc. It invites viewer to engage directly with the visuals, embracing ambiguity and the impossibility of pinning down what these objects truly are.",
+      "brand": "wshbd",
+      "title": "Flying Over The Dutch Nest",
+      "intro": "Visual essay born out of explorations of Best Dutch Design Book collection",
+      "hashtags": "editorial, book design"
     }
   ]
 }
