@@ -507,7 +507,7 @@
       "hashtags": "poster"
     },
     {
-      "spotlight": true,
+      "spotlight": false,
       "location": "Netherlands",
       "id": "E15",
       "date": "2024 Nov",
