@@ -271,22 +271,6 @@ section.list {
     }
 }
 
-
-/* miraculously easier to just fake this element being <a> */
-.open-in-tab {
-    font-size: 1rem;
-    z-index: 1000;
-    border: var(--border-def);
-    color: var(--text-color);
-}
-
-.open-in-tab:hover {
-    background-color: var(--special-color);
-    color: var(--soft-white);
-}
-
-
-
 .spotlight-vertical .xtr-info a {
     text-decoration: underline;
     margin: 0rem;
@@ -624,23 +608,26 @@ section.list {
     width: 100%;
     margin-bottom: 0.5rem;
     position: relative;
-    overflow: hidden;  
+    overflow: hidden;
+    outline: 0rem solid var(--text-color);
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .archive-item.expanded {
-    height: 40vh;
+    height: 90vh;
     background-image: none;
 }
 
 @media (max-width: 768px) {
     .archive-item {
         margin-bottom: 1rem;
+        /* should it be border or outline? */
         border: var(--border-def);
     }
 }
 
 .archive-item:hover {
-    outline: 0.05rem solid var(--text-color);
+    outline: 0.1rem solid var(--text-color);
 }
 
 .item-info {
@@ -658,6 +645,7 @@ section.list {
 
 .archive-item a:hover {
     background-color: var(--special-color);
+    
     color: var(--soft-white);
 }
 
@@ -717,7 +705,6 @@ section.list {
     flex-shrink: 0;
     object-fit: cover;
     opacity: 0;
-    transition: opacity 0.1s ease-in;
     scrollbar-width: none; /* Firefox */
 }
 
@@ -747,7 +734,7 @@ section.list {
 }
 
 .blinking {
-    animation: blink 0.1s ease-out;
+    animation: blink 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 
@@ -800,13 +787,11 @@ section.list {
     color: var(--main-bg);
     letter-spacing: normal;
     font-variation-settings: "slnt" -12, "wght" 300;
-    transition: 0.2s ease-in-out;
 }
 
 .hashtag.selected:hover {
     font-variation-settings: "slnt" -12, "wght" 300;
     letter-spacing: normal;
-    transition: 0.2s ease-in-out;
 }
 
 /* ============================================ */

@@ -58,6 +58,16 @@
 
 [x] - custom page loader
 
+[ ] - projects add alike projects section
+[ ] - index post works a something or a something section?
+[ ] - something
+[ ] - archive add boolean to declare if project is to be used in the website
+[ ] - tolstoi images to normalize
+[ ] - archive in mobile to normalize layout
+[ ] - animations
+[ ] - in archive 'what' to normalize 
+[ ] - personal website it should be
+[ ] - certifi should work
 
 
 ==================================================================
