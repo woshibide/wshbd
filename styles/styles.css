@@ -59,7 +59,6 @@ body.dark-mode {
     text-rendering: optimizeLegibility;
     
     font-variant-ligatures: common-ligatures;
-    /* font-variant-ligatures: common-ligatures; */
     -moz-font-feature-settings: "liga", "clig";
     -webkit-font-feature-settings: "liga", "clig";
     font-feature-settings: "liga", "clig";
@@ -67,10 +66,14 @@ body.dark-mode {
     padding: 0rem;
     margin: 0rem;
     box-sizing: border-box;
+
+    transition: color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: background-color 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     scrollbar-width: none;
 }
 
@@ -360,7 +363,6 @@ button:hover {
     align-items: center;
     z-index: 1000;
     opacity: 1;
-    /* Smooth opacity transition */
     transition: opacity 0.5s ease-out;
 }
 

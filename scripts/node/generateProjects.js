@@ -58,6 +58,9 @@ function createHtmlContent(project, imageFiles) {
     htmlContent += `
         </div>
     </main>
+
+    <!-- TODO: add alike projects -->
+
     <footer> </footer>
 
     <script type="module" src="/scripts/scripts.js"></script>
