@@ -29,11 +29,11 @@
 }
 
 ::view-transition-old(root) {
-    animation: 5000ms ease-out both fade-out;
+    animation: 500ms ease-out both fade-out;
 }
 
 ::view-transition-new(root) {
-    animation: 5000ms ease-out both fade-in;
+    animation: 500ms ease-out both fade-in;
 }
 
 
@@ -167,10 +167,9 @@ nav #contact {
     nav * {
         font-size: 1.5rem;
     }
-
 }
 
-nav> {
+nav > {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -256,6 +255,9 @@ nav> {
     display: inline-block;
 }
 
+#theme-toggle {
+    padding-block: 2rem;
+}
 
 #nav-menu.open {
     left: 0;
