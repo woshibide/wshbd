@@ -67,7 +67,8 @@
 [ ] - animations
 [ ] - in archive 'what' to normalize 
 [ ] - personal website it should be
-[ ] - certifi should work
+[x] - certifi should work
+[ ] - no underline for nav menu
 
 
 ==================================================================
@@ -128,4 +129,3 @@ self.addEventListener('fetch', (event) => {
 
 
 
-break-inside for archive not to be splitted

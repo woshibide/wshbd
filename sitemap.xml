@@ -81,11 +81,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://wshbd.com/archive/B07.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://wshbd.com/archive/B08.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

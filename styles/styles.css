@@ -67,8 +67,8 @@ body.dark-mode {
     margin: 0rem;
     box-sizing: border-box;
 
-    transition: color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    transition: background-color 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: color 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: background-color 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
     transition: opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
@@ -212,7 +212,7 @@ footer {
 #dev-brief p:hover,
 #home:hover {
     cursor: pointer;
-    text-decoration: underline;
+    text-decoration: none;
     border: none;
     color: var(--special-color);
 }
@@ -228,7 +228,7 @@ footer {
 
 .extr-link a:hover {
     cursor: pointer;
-    text-decoration: underline;
+    text-decoration: none;
     border: none;
     background: var(--main-bg);
     color: var(--special-color);
@@ -307,7 +307,7 @@ a {
     display: flex;
     cursor: pointer;
     padding: 1rem;
-    text-decoration: underline;
+    text-decoration: none;
     font-style: normal;
     border: var(--border-def);
     color: var(--text-color);
