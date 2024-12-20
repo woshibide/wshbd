@@ -32,24 +32,27 @@ function createHtmlContent(project, imageFiles, nextProjectId, prevProjectId) {
     <link rel="stylesheet" href="https://use.typekit.net/dxz4nuq.css">
     <link rel="stylesheet" href="/styles/styles.css">
     <link rel="stylesheet" href="/styles/sections.css">
-</head>
+    </head>
 
-<body>
-    <main>
-        <div class="project-info">
-            <div class="id">
-                <h1>${project.id}</h1>
+    <body>
+        <header>
+            <div id="menu-icon"> </nav>
+        </header>
+        <main>
+            <div class="project-info">
+                <div class="id">
+                    <h1>${project.id}</h1>
+                </div>
+                <br><br><br>
+                <h2>${project.brand}</h2>
+                <p>${project.title}</p>
+                <p>${project.location}</p>
+                <p>${project.date}</p>
+                <br>
+                <h3>${project.intro}</h3>
+                <p>${project.description}</p>
             </div>
-            <br><br><br>
-            <h2>${project.brand}</h2>
-            <p>${project.title}</p>
-            <p>${project.location}</p>
-            <p>${project.date}</p>
-            <br>
-            <h3>${project.intro}</h3>
-            <p>${project.description}</p>
-        </div>
-        <div class="images">`;
+            <div class="images">`;
 
     imageFiles.forEach(image => {
         htmlContent += `\n            <img src="/content/images/${project.id}/${image}" alt="${project.title}">`;
@@ -77,15 +80,15 @@ function createHtmlContent(project, imageFiles, nextProjectId, prevProjectId) {
 
 </body>
 </html>`;
-    
+
     return htmlContent;
 }
 
 function createHtmlFiles(projects, imageMap) {
-    projects.forEach((project, index) => { // add index as a second parameter
+    projects.forEach((project, index) => {
         projectCount += 1;
         project.id = project.id.toUpperCase();
-        
+
         const projectImages = imageMap[project.id] || [];
         if (projectImages.length === 0) {
             console.log(`>>> No images found for project ${project.id}. Skipping...`);
@@ -93,8 +96,8 @@ function createHtmlFiles(projects, imageMap) {
         }
 
         // calculate next and previous project ids
-        const nextProjectId = projects[index + 1] ? projects[index + 1].id.toUpperCase() : null;
-        const prevProjectId = projects[index - 1] ? projects[index - 1].id.toUpperCase() : null;
+        const nextProjectId = projects[index + 1] ? projects[index + 1].id.toUpperCase() : getRandomProjectId(projects, project.id);
+        const prevProjectId = projects[index - 1] ? projects[index - 1].id.toUpperCase() : getRandomProjectId(projects, project.id);
 
         // pass nextProjectId and prevProjectId to createHtmlContent
         const htmlContent = createHtmlContent(project, projectImages, nextProjectId, prevProjectId);
@@ -103,6 +106,14 @@ function createHtmlFiles(projects, imageMap) {
         fs.writeFileSync(outputFile, htmlContent, 'utf-8');
     });
     console.log('Created', projectCount, 'project pages');
+}
+
+function getRandomProjectId(projects, currentProjectId) {
+    let randomProject;
+    do {
+        randomProject = projects[Math.floor(Math.random() * projects.length)];
+    } while (randomProject.id.toUpperCase() === currentProjectId);
+    return randomProject.id.toUpperCase();
 }
 
 

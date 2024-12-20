@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    const resetButton = document.querySelector('.hashtag-pool .hashtag.reset');
+    const resetButton = document.getElementById('hashtag-reset');
     if (resetButton) {
         resetButton.addEventListener('click', resetHashtagSelection);
     }

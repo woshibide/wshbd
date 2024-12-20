@@ -68,8 +68,9 @@
 [ ] - in archive 'what' to normalize 
 [ ] - personal website it should be
 [x] - certifi should work
-[ ] - no underline for nav menu
-
+[x] - no underline
+[x] - reworked nav
+[ ] - when in something, instead of something else button, when clicked till the end to show new project
 
 ==================================================================
 

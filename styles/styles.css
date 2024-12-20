@@ -1,3 +1,42 @@
+/*  =================
+     page transition 
+    ================= */
+
+@view-transition {
+    navigation: auto;
+}
+
+
+
+@keyframes fade-out {
+    from {
+        opacity: 1
+    }
+
+    to {
+        opacity: 0
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+::view-transition-old(root) {
+    animation: 5000ms ease-out both fade-out;
+}
+
+::view-transition-new(root) {
+    animation: 5000ms ease-out both fade-in;
+}
+
+
 :root {
 
     --special-color: #FF0035;
@@ -7,7 +46,7 @@
 
     --main-color: #ffffff;
 
-    font-family: "degular-text", "cofo-sans-variable",  monospace;
+    font-family: "degular-text", "cofo-sans-variable", monospace;
     font-weight: 200;
     font-style: normal;
 
@@ -54,10 +93,10 @@ body.dark-mode {
 
 * {
     color: var(--text-color);
-    
+
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    
+
     font-variant-ligatures: common-ligatures;
     -moz-font-feature-settings: "liga", "clig";
     -webkit-font-feature-settings: "liga", "clig";
@@ -67,6 +106,7 @@ body.dark-mode {
     margin: 0rem;
     box-sizing: border-box;
 
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     transition: color 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
     transition: background-color 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
     transition: opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -90,52 +130,171 @@ html {
 /* ============================================ */
 
 header {
-    height: 100svh;
-    margin: 1rem 2rem 2rem 2rem;
+    height: auto;
+    margin: 1rem;
+    padding-top: 10rem;
     justify-content: center;
     align-items: center;
 }
 
 
 nav * {
-    font-family: "cofo-sans-variable",  monospace;
-    font-size: 0.8rem;
+    font-family: "cofo-sans-variable", monospace;
+    font-size: 2rem;
     font-variation-settings: "slnt" 0, "wght" 400;
     font-weight: 200;
     color: var(--text-color);
 }
 
 nav {
-    width: 100%;
+    width: 100svh;
     display: flex;
     flex-direction: row;
 }
 
 
 nav #contact {
-    padding-left: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 1rem;
+    margin-bottom: 2rem;
 }
 
 @media (max-width: 758px) {
-    
+
     header {
         margin: 1rem;
     }
 
-    nav #contact {
-        display: none;
+    nav * {
+        font-size: 1.5rem;
     }
+
 }
 
-nav #theme-toggle {
+nav> {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
 }
 
+#menu-icon {
+    position: fixed;
+    cursor: pointer;
+    display: flex;
+    top: 2rem;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 0.8rem;
+    height: 1.5rem;
+    z-index: 1001;
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+#menu-icon:hover {
+    width: calc(100% - 2rem);
+    padding-left: 3rem;
+    height: 2rem;
+}
+
+#menu-icon:hover::before {
+    content: '';
+    transform: translateX(1rem);
+}
+
+#menu-icon .stripe {
+    position: absolute;
+    background-color: var(--text-color);
+    width: 0.1rem;
+    height: 100%;
+    top: 0;
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+#menu-icon .stripe:nth-child(1) {
+    left: 0rem;
+}
+
+#menu-icon .stripe:nth-child(2) {
+    margin-left: calc(50% - 3.5rem);
+}
+
+#menu-icon .stripe:nth-child(3) {
+    margin-left: calc(50% - 1.5rem);
+}
+
+#menu-icon .stripe:nth-child(4) {
+    right: 0rem;
+}
+
+
+
+#nav-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100vh;
+    color: var(--text-color);
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2rem); 
+    -webkit-backdrop-filter: blur(2rem); /* for safari */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    z-index: 2000;
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.nav-links-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.nav-links-container * {
+    display: inline-block;
+}
+
+
+#nav-menu.open {
+    left: 0;
+}
+
+#menu-icon.open {
+    margin-left: calc(50svw + 0.5rem);
+    width: calc(50% - 3.5rem);
+    justify-content: space-between;
+    z-index: 1001;
+    padding-left: 0rem;
+}
+
+@media (max-width: 758px) {
+    #menu-icon.open {
+    width: calc(50% - 1.5rem);
+    }
+}
+
+#menu-icon.open .stripe {
+    margin: 0;
+    width: 0.1rem;
+}
+
+#menu-icon.open .stripe:nth-child(1) {
+    left: 0rem;
+}
+
+#menu-icon.open .stripe:nth-child(2) {
+    margin-left: calc(50% - 1rem);
+}
+
+#menu-icon.open .stripe:nth-child(3) {
+    margin-left: calc(50% + 1rem);
+}
+
+#menu-icon.open .stripe:nth-child(4) {
+    right: 0rem;
+}
 
 /* ============================================ */
 
@@ -147,11 +306,9 @@ body {
 
 /* ============================================ */
 
-/* TODO: mobile friendly footer */
-
 footer {
     font-size: 0.8rem;
-    margin: 2rem;
+    /* margin: 1rem; */
     margin-top: 90svh;
     display: flex;
     flex-direction: column;
@@ -184,15 +341,16 @@ footer {
 @media (max-width: 758px) {
     .footer-columns {
         gap: 0rem;
-        padding: 1rem;
+        /* padding: 1rem; */
     }
 }
 
 
 .footer-columns h4 {
-    font-family: "degular-text",  "cofo-sans-variable", sans-serif;
+    font-family: "cofo-sans-variable", sans-serif;
     font-weight: 200;
     font-style: normal;
+    font-size: 1rem;
 
     border-bottom: var(--border-def);
     margin-bottom: 2rem;
@@ -255,7 +413,7 @@ ol {
 
 h1 {
     font-size: 10rem;
-    font-family: "degular-display",  "cofo-sans-variable", sans-serif;
+    font-family: "degular-display", "cofo-sans-variable", sans-serif;
     font-weight: 200;
 
     font-style: normal;
@@ -263,7 +421,7 @@ h1 {
 }
 
 h2 {
-    font-family: "degular-display",  "cofo-sans-variable", sans-serif;
+    font-family: "degular-display", "cofo-sans-variable", sans-serif;
     font-weight: 200;
 
     font-style: normal;
@@ -277,7 +435,7 @@ h3 {
 }
 
 h4 {
-    font-family: "degular-text",  "cofo-sans-variable", sans-serif;
+    font-family: "degular-text", "cofo-sans-variable", sans-serif;
     font-weight: 200;
     font-style: normal;
 
@@ -287,7 +445,7 @@ h4 {
 h5,
 h6 {
     color: var(--text-color);
-    font-family: "degular-text",  "cofo-sans-variable", sans-serif;
+    font-family: "degular-text", "cofo-sans-variable", sans-serif;
     font-weight: 200;
     font-style: normal;
 

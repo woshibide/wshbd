@@ -397,7 +397,7 @@
       "hashtags": "poster, p5js"
     },
     {
-      "spotlight": true,
+      "spotlight": false,
       "location": "Russia",
       "id": "V01",
       "date": "2022 Jul",
@@ -496,7 +496,7 @@
       "hashtags": "poster"
     },
     {
-      "spotlight": false,
+      "spotlight": true,
       "location": "Netherlands",
       "id": "E15",
       "date": "2024 Nov",

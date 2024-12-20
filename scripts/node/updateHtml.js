@@ -14,7 +14,8 @@ function updateHtmlFile(filePath) {
     let content = fs.readFileSync(filePath, 'utf-8');
 
     // Replace existing content with templates
-    content = content.replace(/<div id="loader">[\s\S]*?<\/nav>/i, navTemplate);
+    // use regex to replace the existing nav section with the nav template
+    content = content.replace(/<div id="menu-icon">[\s\S]*?<\/nav>/i, navTemplate);
     content = content.replace(/<footer[\s\S]*?<\/footer>/i, footerTemplate);
 
     fs.writeFileSync(filePath, content, 'utf-8');

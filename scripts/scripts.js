@@ -1,7 +1,6 @@
-import { toggleTheme, showLoader, hideLoader, handleFooterClick, redirectToHomepage, navigateToProject } from './utils.js';
+import { fetchJSON, toggleTheme, showLoader, hideLoader, handleFooterClick, redirectToHomepage, navigateToProject } from './utils.js';
 
 
-showLoader();
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')
@@ -22,16 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('dark-mode');
     }
     
-    hideLoader();
     handleFooterClick();
 
     const prevProjectButton = document.getElementById('prev-project');
     if (prevProjectButton) { // check if element exists
         prevProjectButton.addEventListener('click', function() {
             const prevProjectId = this.getAttribute('data-prev-id');
-            if (prevProjectId) {
-                navigateToProject(prevProjectId);
-            }
+            navigateToProject(prevProjectId);
         });
     }
 
@@ -39,14 +35,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (nextProjectButton) { // check if element exists
         nextProjectButton.addEventListener('click', function() {
             const nextProjectId = this.getAttribute('data-next-id');
-            if (nextProjectId) {
-                navigateToProject(nextProjectId);
-            }
+            navigateToProject(nextProjectId);
         });
     }
 
     window.redirectToHomepage = redirectToHomepage;
     document.getElementById('home').addEventListener('click', redirectToHomepage);
-
     document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+    
+    const menuIcon = document.getElementById('menu-icon');
+    const navMenu = document.getElementById('nav-menu');
+    menuIcon.addEventListener('click', () => {
+        navMenu.classList.toggle('open');
+        menuIcon.classList.toggle('open');
+    });
 });
