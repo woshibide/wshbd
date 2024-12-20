@@ -25,19 +25,25 @@ document.addEventListener('DOMContentLoaded', () => {
     hideLoader();
     handleFooterClick();
 
-    document.getElementById('prev-project').addEventListener('click', function() {
-        const prevProjectId = this.getAttribute('data-prev-id');
-        if (prevProjectId) {
-            navigateToProject(prevProjectId);
-        }
-    });
- 
-    document.getElementById('next-project').addEventListener('click', function() {
-        const nextProjectId = this.getAttribute('data-next-id');
-        if (nextProjectId) {
-            navigateToProject(nextProjectId);
-        }
-    });
+    const prevProjectButton = document.getElementById('prev-project');
+    if (prevProjectButton) { // check if element exists
+        prevProjectButton.addEventListener('click', function() {
+            const prevProjectId = this.getAttribute('data-prev-id');
+            if (prevProjectId) {
+                navigateToProject(prevProjectId);
+            }
+        });
+    }
+
+    const nextProjectButton = document.getElementById('next-project');
+    if (nextProjectButton) { // check if element exists
+        nextProjectButton.addEventListener('click', function() {
+            const nextProjectId = this.getAttribute('data-next-id');
+            if (nextProjectId) {
+                navigateToProject(nextProjectId);
+            }
+        });
+    }
 
     window.redirectToHomepage = redirectToHomepage;
     document.getElementById('home').addEventListener('click', redirectToHomepage);
