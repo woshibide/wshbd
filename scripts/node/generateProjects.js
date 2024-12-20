@@ -3,8 +3,8 @@ const path = require('path');
 
 let projectCount = 0;
 
-function createHtmlContent(project, imageFiles) {
-    const metaKeywords = Array.isArray(project.hashtags) ? project.hashtags.join(', ') : '';
+function createHtmlContent(project, imageFiles, nextProjectId, prevProjectId) {
+    const metaKeywords = Array.isArray(project.hashtags) ? project.hashtags.join(', ') : 'designed by wshbd'; // doesnt work
 
     let htmlContent = `<!DOCTYPE html>
     <html lang="en">
@@ -59,7 +59,16 @@ function createHtmlContent(project, imageFiles) {
         </div>
     </main>
 
-    <!-- TODO: add alike projects -->
+    <section>
+        <div class="projects-navigator">
+            <div id="prev-project" data-prev-id="${prevProjectId}">
+                previous project
+            </div>
+            <div id="next-project" data-next-id="${nextProjectId}">
+                next project
+            </div>
+        </div>
+    </section>
 
     <footer> </footer>
 
@@ -73,9 +82,8 @@ function createHtmlContent(project, imageFiles) {
 }
 
 function createHtmlFiles(projects, imageMap) {
-    projects.forEach(project => {
+    projects.forEach((project, index) => { // add index as a second parameter
         projectCount += 1;
-        // Convert project.id to uppercase here
         project.id = project.id.toUpperCase();
         
         const projectImages = imageMap[project.id] || [];
@@ -84,14 +92,19 @@ function createHtmlFiles(projects, imageMap) {
             return;
         }
 
-        const htmlContent = createHtmlContent(project, projectImages);
+        // calculate next and previous project ids
+        const nextProjectId = projects[index + 1] ? projects[index + 1].id.toUpperCase() : null;
+        const prevProjectId = projects[index - 1] ? projects[index - 1].id.toUpperCase() : null;
+
+        // pass nextProjectId and prevProjectId to createHtmlContent
+        const htmlContent = createHtmlContent(project, projectImages, nextProjectId, prevProjectId);
 
         const outputFile = path.join(__dirname, '../../archive', `${project.id}.html`);
         fs.writeFileSync(outputFile, htmlContent, 'utf-8');
-        
     });
     console.log('Created', projectCount, 'project pages');
 }
+
 
 function main() {
     const projectsJsonPath = path.join(__dirname, '../../content/info/archive.json');

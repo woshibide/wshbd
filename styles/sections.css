@@ -174,12 +174,11 @@ section.list {
 
 .spotlight-xtr-info a:hover {
     background-color: transparent;
-    text-decoration: underline;
 }
 
 .spotlight-xtr-info a p:hover {
     color: var(--special-color);
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 
@@ -197,7 +196,7 @@ section.list {
 
 .spotlight-brand {
     text-align: left;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .spotlight-title {
@@ -272,7 +271,7 @@ section.list {
 }
 
 .spotlight-vertical .xtr-info a {
-    text-decoration: underline;
+    text-decoration: none;
     margin: 0rem;
     padding-inline: 0rem;
     background: none;
@@ -435,7 +434,7 @@ section.list {
 
 .spotlight-giant-xtr-info a {
     pointer-events: all;
-    text-decoration: underline;
+    text-decoration: none;
     background: none;
     padding-left: 0rem;
     margin: 0rem;
@@ -540,9 +539,6 @@ section.list {
     }
 }
 
-
-/* ============================================ */
-
 .images {
     display: block;
     overflow-x: hidden;
@@ -563,6 +559,32 @@ section.list {
         margin-block: 1rem;
     }
 }
+
+
+.projects-navigator {
+    margin-top: 50svh;
+    height: 50svh;
+    display: flex;
+}
+
+.projects-navigator #next-project, .projects-navigator #prev-project {
+    font-family: "cofo-sans-variable", sans-serif;
+    font-size: 2rem;
+    display: flex;
+    cursor: pointer;
+    padding-left: 1rem; 
+    margin: 0.5rem; 
+    text-align: center;
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    height: 100%;
+    width: 50%;
+    align-items: center;
+}
+
+.projects-navigator #next-project:hover, .projects-navigator #prev-project:hover {
+    color: var(--special-color);
+}
+
 
 
 /* ============================================ */
@@ -640,7 +662,7 @@ section.list {
     color: var(--text-color);
     width: 100%;
     background-color: transparent;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .archive-item a:hover {

@@ -4,6 +4,11 @@
 //           Shared Functions
 //////////////////////////////////////////
 
+export function navigateToProject(projectId) {
+    if (projectId) {
+        window.location.href = '/archive/' + projectId + '.html';
+    }
+}
 
 export function redirectToHomepage() {
     window.location.href = '/index.html';

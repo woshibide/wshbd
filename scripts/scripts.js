@@ -1,4 +1,5 @@
-import { toggleTheme, showLoader, hideLoader, handleFooterClick, redirectToHomepage } from './utils.js';
+import { toggleTheme, showLoader, hideLoader, handleFooterClick, redirectToHomepage, navigateToProject } from './utils.js';
+
 
 showLoader();
 
@@ -22,8 +23,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     hideLoader();
-
     handleFooterClick();
+
+    document.getElementById('prev-project').addEventListener('click', function() {
+        const prevProjectId = this.getAttribute('data-prev-id');
+        if (prevProjectId) {
+            navigateToProject(prevProjectId);
+        }
+    });
+ 
+    document.getElementById('next-project').addEventListener('click', function() {
+        const nextProjectId = this.getAttribute('data-next-id');
+        if (nextProjectId) {
+            navigateToProject(nextProjectId);
+        }
+    });
 
     window.redirectToHomepage = redirectToHomepage;
     document.getElementById('home').addEventListener('click', redirectToHomepage);
