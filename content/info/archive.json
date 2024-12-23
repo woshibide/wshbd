@@ -496,7 +496,7 @@
       "hashtags": "poster"
     },
     {
-      "spotlight": true,
+      "spotlight": false,
       "location": "Netherlands",
       "id": "E15",
       "date": "2024 Nov",
@@ -504,6 +504,17 @@
       "brand": "Flying Over The Dutch Nest",
       "title": "Editorial",
       "intro": "Visual essay born out of explorations of Best Dutch Design Book collection",
+      "hashtags": "editorial, book design"
+    },
+    {
+      "spotlight": true,
+      "location": "Netherlands",
+      "id": "E16",
+      "date": "2024 Dec",
+      "description": "Working with large archive collections from the Chicago Institute of Art and the Metropolitan Museum of New York through publicly available APIs opened up possibilities for creating a book containing fifteen hundred images. Each spread features two images: one with a chair and another that complements it, aiming to demonstrate that 1+1=3. This opens a poetic landscape for exploring the third element, which emerges from the viewer's imagination.",
+      "brand": "wshbd",
+      "title": "Book",
+      "intro": "This book contains nothing but chairs and things, chairs and things, chairs and things...",
       "hashtags": "editorial, book design"
     }
   ]

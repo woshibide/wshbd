@@ -176,6 +176,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://wshbd.com/archive/E16.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://wshbd.com/archive/M01.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

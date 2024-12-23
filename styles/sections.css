@@ -14,7 +14,7 @@
 }
 
 .hello h1 {
-    font-size: 5rem;
+    font-size: 4rem;
 }
 
 .hello p {
@@ -25,11 +25,12 @@
 
 @media (max-width: 768px) {
     .hello {
-        margin: 1rem;
+        margin: 0;
+        margin-block: 4rem;
     }
 
     .hello p {
-        margin-top: 1rem;
+        margin-block: 2rem;
         width: auto;
         text-justify: none;
     }
@@ -245,12 +246,14 @@ section.list {
         align-items: flex-start;
     }
 
-    .spotlight-brand,
-    .spotlight-title {
+    .spotlight-brand {
         text-align: left;
         margin-bottom: 1rem;
     }
-
+    .spotlight-title {
+        justify-content: flex-end;
+        margin-right: 1rem;
+    }
     .spotlight-gallery-container {
         flex: none;
         width: 100%;
@@ -327,7 +330,7 @@ section.list {
     bottom: 1rem;
 }
 
-.project-id {
+.spotlight-vertical .project-id {
     color: var(--text-color);
 }
 
@@ -351,6 +354,11 @@ section.list {
         margin-right: 0rem;
         width: 100%;
 
+    }
+
+    .spotlight-vertical .project-id {
+        color: var(--text-color);
+        margin-right: 1rem;
     }
 }
 
@@ -576,16 +584,13 @@ section.list {
     align-items: center;
 }
 
+
 @media (max-width: 768px) {
     .projects-navigator #next-project, .projects-navigator #prev-project {
         font-size: 1.5rem;
     }
 }
 
-.projects-navigator #next-project{
-    margin-left: 1.5rem;
-    padding-left: 1rem;
-}
 
 .projects-navigator #next-project:hover, .projects-navigator #prev-project:hover {
     color: var(--special-color);

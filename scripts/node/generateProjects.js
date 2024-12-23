@@ -65,10 +65,10 @@ function createHtmlContent(project, imageFiles, nextProjectId, prevProjectId) {
     <section>
         <div class="projects-navigator">
             <div id="prev-project" data-prev-id="${prevProjectId}">
-                previous project
+                <span>previous</span>
             </div>
             <div id="next-project" data-next-id="${nextProjectId}">
-                next project
+                <span>next</span>
             </div>
         </div>
     </section>

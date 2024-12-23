@@ -17,13 +17,14 @@ function generateImageMap(inputDir, outputPath) {
     // Recursively read directories
     function readDir(dir) {
         dirCount += 1;
-        const items = fs.readdirSync(dir);
+        // sort items to ensure images are processed in order
+        const items = fs.readdirSync(dir).sort();
         let foundImages = false;
-
+    
         items.forEach(item => {
             const fullPath = path.join(dir, item);
             const stat = fs.statSync(fullPath);
-
+    
             if (stat.isDirectory()) {
                 // If it's a directory, recursively read it
                 readDir(fullPath);
@@ -31,25 +32,25 @@ function generateImageMap(inputDir, outputPath) {
                 const ext = path.extname(item).toLowerCase();
                 if (imageExtensions.includes(ext)) {
                     imgCount += 1;
-
+    
                     foundImages = true;
                     const folderName = path.basename(dir);
-
+    
                     // Create directory entry if it doesn't exist
                     if (!imageMap[folderName]) {
                         imageMap[folderName] = [];
                     }
-
+    
                     // Prepare the new name
                     const newName = item.toLowerCase().replace(/\s+/g, '_');
                     const newPath = path.join(dir, newName);
-
+    
                     // Rename the file if the name has changed
                     if (newName !== item) {
                         console.log(`Renaming file: ${fullPath} to ${newPath}`);
                         fs.renameSync(fullPath, newPath);
                     }
-
+    
                     // Add the image to the map
                     imageMap[folderName].push(newName);
                 }
