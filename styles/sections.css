@@ -18,9 +18,13 @@
 }
 
 .hello p {
-    margin-top: 3rem;
     width: 60ch;
-    text-align: left;
+}
+
+.hello span {
+    margin-top: 3rem;
+    right: 2rem;
+    text-align: right;
 }
 
 @media (max-width: 768px) {
@@ -29,9 +33,8 @@
         margin-block: 4rem;
     }
 
-    .hello p {
+    .hello span {
         margin-block: 2rem;
-        width: auto;
         text-justify: none;
     }
 
@@ -641,7 +644,7 @@ section.list {
     margin-bottom: 0.5rem;
     position: relative;
     overflow: hidden;
-    outline: 0rem solid var(--text-color);
+    outline: 0px solid var(--text-color);
     transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
@@ -654,12 +657,12 @@ section.list {
     .archive-item {
         margin-bottom: 1rem;
         /* should it be border or outline? */
-        border: var(--border-def);
+        border: none;
     }
 }
 
 .archive-item:hover {
-    outline: 0.1rem solid var(--text-color);
+    outline: 1px solid var(--text-color);
 }
 
 .item-info {
@@ -847,8 +850,7 @@ section.list {
 
 .info {
     /* right: 3rem; */
-    margin-left: calc(50% + 0.5rem);
-    padding: 1rem;
+    margin-left: calc(50% + 1.5rem);
     display: flex;
     flex-direction: column;
     gap: 15svh;
@@ -887,14 +889,14 @@ section.list {
 .info #media .links {
     /* margin-inline: 2rem; */
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 2fr);
     gap: 1rem;
 }
 
 @media (max-width: 768px) {
     .info #media .links {
         display: grid;
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: repeat(2, 2fr);
         gap: 1rem;
     }
 }
