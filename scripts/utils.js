@@ -11,7 +11,7 @@ export function navigateToProject(projectId) {
 }
 
 export function redirectToHomepage() {
-    window.location.href = '/index.html';
+    window.location.href = '/';
 }
 
 export function toggleTheme() {
