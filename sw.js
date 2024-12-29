@@ -17,10 +17,12 @@ self.addEventListener('install', (event) => {
                 '/errors/504.html',
                 '/something',
                 '/archive/index.html',
-                '/info.html',
+                '/about/index.html',
+                '/something/index.html',
                 '/scripts/scripts.js',
                 '/scripts/archive.js',
                 '/sections.css',
+                '/styles.css',
             ]);
         })
     );

@@ -82,7 +82,7 @@ function generateArchiveItemsHTML(projects) {
     <div class="id-letter">${idLetter}</div>
     <div class="id-number">${idNumber}</div>
 </div>
-    <a href="/archive/${project.id}.html">
+    <a href="/archive/${project.id}">
     <div class="item-info" id="who">${project.brand}</div>
     </a>
     <div class="item-info" id="what">${project.title}</div>

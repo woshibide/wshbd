@@ -85,6 +85,7 @@ function createHtmlContent(project, imageFiles, nextProjectId, prevProjectId) {
 }
 
 function createHtmlFiles(projects, imageMap) {
+    // create html files for each project
     projects.forEach((project, index) => {
         projectCount += 1;
         project.id = project.id.toUpperCase();
@@ -96,13 +97,29 @@ function createHtmlFiles(projects, imageMap) {
         }
 
         // calculate next and previous project ids
-        const nextProjectId = projects[index + 1] ? projects[index + 1].id.toUpperCase() : getRandomProjectId(projects, project.id);
-        const prevProjectId = projects[index - 1] ? projects[index - 1].id.toUpperCase() : getRandomProjectId(projects, project.id);
+        const nextProjectId = projects[index + 1]
+            ? projects[index + 1].id.toUpperCase()
+            : getRandomProjectId(projects, project.id);
+        const prevProjectId = projects[index - 1]
+            ? projects[index - 1].id.toUpperCase()
+            : getRandomProjectId(projects, project.id);
 
-        // pass nextProjectId and prevProjectId to createHtmlContent
-        const htmlContent = createHtmlContent(project, projectImages, nextProjectId, prevProjectId);
+        // create the html content
+        const htmlContent = createHtmlContent(
+            project,
+            projectImages,
+            nextProjectId,
+            prevProjectId
+        );
 
-        const outputFile = path.join(__dirname, '../../archive', `${project.id}.html`);
+        // create directory with the project id
+        const projectDir = path.join(__dirname, '../../archive', project.id);
+        if (!fs.existsSync(projectDir)) {
+            fs.mkdirSync(projectDir, { recursive: true });
+        }
+
+        // place `index.html` inside the project directory
+        const outputFile = path.join(projectDir, 'index.html');
         fs.writeFileSync(outputFile, htmlContent, 'utf-8');
     });
     console.log('Created', projectCount, 'project pages');

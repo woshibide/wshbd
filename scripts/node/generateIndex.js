@@ -43,7 +43,7 @@ function generateProjectHTML(project, imageMap) {
             </div>
             <div class="spotlight-info">
                 <div class="spotlight-xtr-info">
-                    <a href="/archive/${project.id}.html">
+                    <a href="/archive/${project.id}">
                         <p class="spotlight-brand">${project.brand}</p>
                     </a>
                     <p class="spotlight-title">${project.title}</p>
@@ -71,7 +71,7 @@ function generateVerticalProjectHTML(project, imageMap) {
     const verticalHTML = `
     <div class="spotlight-vertical">
         <div class="xtr-info">
-            <a href="/archive/${project.id}.html">${project.brand}</a>
+            <a href="/archive/${project.id}">${project.brand}</a>
             <p>${project.title}</p>
         </div>
         <div class="gallery">
@@ -110,7 +110,7 @@ function generateGiantProjectHTML(project, imageMap) {
 
         <div class="spotlight-giant-info">
             <div class="spotlight-giant-xtr-info">
-                <a href="/archive/${project.id}.html">${project.brand}</a>
+                <a href="/archive/${project.id}">${project.brand}</a>
                 <p class="spotlight-giant-title">${project.title}</p>
             </div>
             <p class="spotlight-giant-description">${project.description}</p>
