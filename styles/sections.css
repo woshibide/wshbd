@@ -11,6 +11,7 @@
 
 .hello {
     margin: 2rem;
+    margin-top: 15rem;
 }
 
 .hello h1 {
@@ -31,6 +32,7 @@
     .hello {
         margin: 0;
         margin-block: 4rem;
+        margin-top: 15rem;
     }
 
     .hello span {
@@ -945,16 +947,13 @@ section.list {
 
 /*  ================
     ================ 
-        random
+        something 
     ================
     ================ */
 
 
 .random-gallery {
-    z-index: 1005;
     background-color: var(--main-bg);
-    /* margin-top: 50svh; */
-    margin-top: 10svh;
     height: 100svh;
     width: 100%;
     position: relative;

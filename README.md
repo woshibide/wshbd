@@ -72,7 +72,8 @@
 [ ] - swipe for something page on mobile
 [ ] - featured preload of the next image
 [ ] - user experience when link accessed from side panel to first hide it 
-
+[ ] - loader either give up or implement normally
+ 
 ==================================================================
 
 
