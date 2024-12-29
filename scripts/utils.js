@@ -6,7 +6,7 @@
 
 export function navigateToProject(projectId) {
     if (projectId) {
-        window.location.href = '/archive/' + projectId + '.html';
+        window.location.href = '/archive/' + projectId;
     }
 }
 
