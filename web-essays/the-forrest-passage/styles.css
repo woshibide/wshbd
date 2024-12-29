@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'CoFo Rax V0.1_Regular';
-    src: url('./RAX/CoFo_Rax_V0.1-Regular_web.woff') format('woff'),
+    src: url('./RAX/CoFo_Rax_V0.1-Regular_web.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }

@@ -15,7 +15,7 @@ self.addEventListener('install', (event) => {
                 '/errors/502.html',
                 '/errors/503.html',
                 '/errors/504.html',
-                '/something.html',
+                '/something',
                 '/archive/index.html',
                 '/info.html',
                 '/scripts/scripts.js',

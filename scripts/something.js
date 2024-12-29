@@ -25,11 +25,11 @@ async function fetchRandomProject() {
 
     // If no images, use a default image
     if (!images || images.length === 0) {
-        images = ['content/misc/non-image.svg'];
+        images = ['/content/misc/non-image.svg'];
     } else {
-        const basePath = 'content/images/';
+        const basePath = '/content/images/';
         images = images.map(image => {
-            return image.startsWith('content/images/')
+            return image.startsWith('/content/images/')
                 ? image
                 : `${basePath}${randomProject.id}/${image}`;
         });
