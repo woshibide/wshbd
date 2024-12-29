@@ -528,8 +528,8 @@ section.list {
 }
 
 .project-info .id h1 {
-    font-family: "degular-display",  "cofo-sans-variable", sans-serif;
-    font-weight: 200;
+    font-family: "cofo-sans-variable", sans-serif;
+    font-weight: 100;
     font-style: normal;
     font-size: 10rem;
     position: relative;
@@ -538,7 +538,8 @@ section.list {
 
 .project-info h3,
 .project-info h2 {
-    font-family: "degular-text",  "cofo-sans-variable", sans-serif;
+    font-family: "cofo-sans-variable", sans-serif;
+    max-width: 30ch;
     font-size: 1.5rem;
     letter-spacing: normal;
     margin-block: 1rem;
@@ -818,7 +819,6 @@ section.list {
 .hashtag-pool {
     margin: 1rem;
     column-count: 4;
-    /* font-family: "degular-text",  "cofo-sans-variable", sans-serif; */
     font-weight: 200;
     font-style: normal;
 
@@ -1045,10 +1045,9 @@ section.list {
 }
 
 #gallery-id {
-    font-family: "degular-display", sans-serif;
-font-weight: 200;
-font-style: normal;
-
+    font-family: "cofo-sans-variable", sans-serif;
+    font-weight: 400;
+    font-style: normal;
     position: relative;
     top: 0;
     text-align: end;

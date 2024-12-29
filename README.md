@@ -21,7 +21,6 @@
 [x] - index add swipe for gallery
 [x] - archive indicate link when hover over id
 [x] - loading spinner while archive image is being fetched
-[ ] - swipe for something page on mobile
 
 [x] - mock ups
 [x] - project texts
@@ -46,7 +45,7 @@
 
 [ ] - email
 [ ] - ipv6
-[ ] - GitLab CI/CD
+[x] - GitLab CI/CD
 [x] - https
 [x] - deprecate password and use ssh only
 [x] - new server (debian or alpine)
@@ -58,19 +57,21 @@
 
 [x] - custom page loader
 
-[ ] - projects add alike projects section
+[x] - projects add alike projects section
 [ ] - index post works a something or a something section?
-[ ] - something
 [ ] - archive add boolean to declare if project is to be used in the website
 [ ] - tolstoi images to normalize
-[ ] - archive in mobile to normalize layout
+[x] - archive in mobile to normalize layout
 [ ] - animations
-[ ] - in archive 'what' to normalize 
 [ ] - personal website it should be
 [x] - certifi should work
 [x] - no underline
 [x] - reworked nav
 [ ] - when in something, instead of something else button, when clicked till the end to show new project
+    [ ] - on scroll down / up new project
+[ ] - swipe for something page on mobile
+[ ] - featured preload of the next image
+[ ] - user experience when link accessed from side panel to first hide it 
 
 ==================================================================
 
