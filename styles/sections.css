@@ -954,16 +954,16 @@ section.list {
 
 .random-gallery {
     background-color: var(--main-bg);
-    height: 100svh;
+    height: 100vh;
     width: 100%;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
 }
 
 .random-gallery-images {
+    z-index: 0;
     position: absolute;
     top: 0;
     left: 0;
@@ -973,6 +973,27 @@ section.list {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+}
+
+.random-gallery-images::before,
+.random-gallery-images::after {
+    position: absolute;
+    inset: 0;
+    width: 50%;
+    content: '';
+    display: inline-block;
+    pointer-events: all;
+    z-index: 1; 
+}
+
+.random-gallery-images::before {
+    right: auto;
+    cursor: var(--left-cursor);
+}
+
+.random-gallery-images::after {
+    left: auto;
+    cursor: var(--right-cursor);
 }
 
 .random-gallery-images img {
@@ -990,9 +1011,10 @@ section.list {
     height: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    align-items: flex-start;
-    padding: 2rem;
-    font-size: 0.8rem;
+    align-items: flex-end;
+    padding: 1rem;
+    /* font-size: 0.8rem; */
+    pointer-events: none;
     z-index: 1;
 }
 
@@ -1019,8 +1041,8 @@ section.list {
 #random-gallery-id-container {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    position: relative;
+    justify-content: flex-end; /* ensures children are aligned to the bottom */
+    height: 100%; 
     z-index: 2;
 }
 
@@ -1030,13 +1052,23 @@ section.list {
 
 #gallery-info,
 #gallery-id {
-    margin: 0;
-    font-variation-settings: "slnt" 0, "wght" 100;
+        margin-top: auto; /* pushes the element to the bottom */
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        margin: 0;
+        margin-left: auto;
+        bottom: 0;
+        font-variation-settings: "slnt" 0, "wght" 100;
 }
+#gallery-id {
+    margin-bottom: -1rem; /* optical compensation */
+}
+
 
 #gallery-info,
 #date {
-    padding-bottom: 90svh;
+
 }
 
 #gallery-info {
@@ -1056,17 +1088,9 @@ section.list {
     margin: 0;
     font-size: 4rem;
     white-space: nowrap;
-
-    padding-bottom: 90svh;
     /* used for picture change */
     cursor: var(--right-cursor);
 }
-
-#random-project-button {
-    margin-bottom: 30svh;
-    padding-inline: 1rem;
-}
-
 
 .text-columns::before {
     content: "";
