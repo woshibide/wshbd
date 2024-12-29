@@ -52,6 +52,13 @@ function filterProjectsByHashtags() {
         } else {
             archiveItem.style.display = 'none';
         }
+
+
+        // get the last child of the archive-list element and scroll it into view
+        const archiveList = document.querySelector('.archive-list');
+        if (archiveList && archiveList.lastElementChild) {
+            archiveList.lastElementChild.scrollIntoView();
+        }
     });
 
     // Add a check here
@@ -150,7 +157,7 @@ function filterWhen() {
     sortState.when = currentOrder === 'asc' ? 'desc' : 'asc';
 }
 
-// Expose functions to global scope
+// exposing functions to global scope
 window.filterIndex = filterIndex;
 window.filterWho = filterWho;
 window.filterWhat = filterWhat;
@@ -159,7 +166,7 @@ window.toggleHashtagSelection = toggleHashtagSelection;
 window.resetHashtagSelection = resetHashtagSelection;
 
 //////////////////////////////////////////
-//            Toggle Archive Item
+//        Toggle Archive Item
 //////////////////////////////////////////
 
 async function toggleArchiveItem(item) {
@@ -167,15 +174,15 @@ async function toggleArchiveItem(item) {
     const isExpanded = item.classList.contains(expandedClass);
 
     if (isExpanded) {
-        // Collapse the item
+        // collapse the item
         item.classList.remove(expandedClass);
-        // Clear images
+
         const imageContainer = item.querySelector('.image-container');
         if (imageContainer) {
             imageContainer.innerHTML = '';
         }
     } else {
-        // Expand the item
+        // expand item
         item.classList.add(expandedClass);
 
         const projectId = item.id;
@@ -185,12 +192,10 @@ async function toggleArchiveItem(item) {
 
         const imageContainer = item.querySelector('.image-container');
 
-        // Check if imageContainer exists
+
         if (imageContainer) {
-            // Clear any existing images
             imageContainer.innerHTML = '';
 
-            // Create and append image elements
             imageUrls.forEach((imageUrl) => {
                 const img = document.createElement('img');
                 img.dataset.src = `/content/images/${projectId}/${imageUrl}`;
@@ -199,7 +204,6 @@ async function toggleArchiveItem(item) {
                 imageContainer.appendChild(img);
             });
 
-            // Initiate lazy loading
             lazyLoadImages();
         } else {
             console.warn('No image container found within the archive item.');
@@ -229,7 +233,6 @@ function lazyLoadImages() {
             imageObserver.observe(img);
         });
     } else {
-        // Fallback for browsers that don't support IntersectionObserver
         images.forEach(function(img) {
             img.src = img.dataset.src;
             img.onload = () => img.classList.add('lazyloaded');
@@ -239,7 +242,6 @@ function lazyLoadImages() {
 }
 
 
-// Cache image map data
 let imageMapData = null;
 
 async function getImageMapData() {

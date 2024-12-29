@@ -1,4 +1,4 @@
-import { fetchJSON, toggleTheme, showLoader, hideLoader, handleFooterClick, redirectToHomepage, navigateToProject } from './utils.js';
+import { fetchJSON, toggleTheme, handleFooterClick, redirectToHomepage, navigateToProject } from './utils.js';
 
 
 

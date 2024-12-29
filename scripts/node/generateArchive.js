@@ -78,13 +78,13 @@ function generateArchiveItemsHTML(projects) {
 
         const archiveItem = `
 <div class="archive-item" id="${project.id}">
+<div class="item-id" id="id">
+    <div class="id-letter">${idLetter}</div>
+    <div class="id-number">${idNumber}</div>
+</div>
     <a href="/archive/${project.id}.html">
-        <div class="item-id" id="id">
-            <div class="id-letter">${idLetter}</div>
-            <div class="id-number">${idNumber}</div>
-        </div>
-    </a>
     <div class="item-info" id="who">${project.brand}</div>
+    </a>
     <div class="item-info" id="what">${project.title}</div>
     <div class="item-info" id="when">${project.date}</div>
     ${hashtagsDiv}

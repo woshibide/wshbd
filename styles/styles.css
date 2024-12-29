@@ -185,7 +185,7 @@ header #home-sticky{
     font-family: "cofo-sans-variable", monospace;
     z-index: 10001;
     padding: 1rem;
-    top: 1.2rem;
+    top: 0rem;
     right: 2px;
 }
 
@@ -199,7 +199,7 @@ header #home-sticky{
     position: fixed;
     cursor: pointer;
     display: flex;
-    top: 2rem;
+    top: 1rem;
     flex-direction: row;
     justify-content: space-between;
     width: 0.8rem;
@@ -418,8 +418,7 @@ footer {
 }
 
 .footer-note{
-    margin-top: 2rem;
-    margin-bottom: 0.5rem;
+    margin-block: 2rem;
     padding-inline: 1rem;
     justify-content: space-between;
     display: flex;

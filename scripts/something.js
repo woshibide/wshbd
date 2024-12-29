@@ -35,8 +35,6 @@ async function fetchRandomProject() {
         });
     }
 
-    //console.log(images);
-
     return { randomProject, images };
 }
 
