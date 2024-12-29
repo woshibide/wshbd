@@ -306,7 +306,6 @@ section.list {
 .spotlight-vertical .xtr-info {
     width: 100%;
     bottom: 1rem;
-    margin-right: 1rem;
     display: flex;
     align-items: baseline;
     justify-content: space-between;
