@@ -12,7 +12,6 @@ if ('serviceWorker' in navigator) {
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    
     const savedTheme = localStorage.getItem('theme');
     
     if (savedTheme === 'dark') {
