@@ -1018,13 +1018,14 @@ section.list {
 
 @media (max-width: 768px) {
     .text-columns {
-        grid-template-columns: 1fr 0fr 0fr 1fr;
+        grid-template-columns: 1fr 1fr;
     }
     
 }
 
 .text-columns * {
     color: #fff;
+    /* outline: 1px white solid; */
 }
 
 .text-columns > div {
@@ -1046,12 +1047,13 @@ section.list {
     font-variation-settings: "slnt" 0, "wght" 100;
 }
 #gallery-info {
+    white-space: nowrap;
     align-items: flex-start;
     align-content: left;
     font-variation-settings: "slnt" 0, "wght" 400;
 }
 div#gallery-info a#brand{
-    font-family: inherit;
+    font-family: "cofo-sans-variable", sans-serif;
     font-variation-settings: inherit;
     pointer-events: all;
     padding: 0;
