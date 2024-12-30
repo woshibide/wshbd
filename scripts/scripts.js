@@ -39,7 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.redirectToHomepage = redirectToHomepage;
-    document.getElementById('home').addEventListener('click', redirectToHomepage);
+    const homeButton = document.getElementById('home');
+    if (homeButton) { 
+        homeButton.addEventListener('click', redirectToHomepage);
+    }
     document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
     

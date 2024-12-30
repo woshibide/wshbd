@@ -186,6 +186,8 @@ header #home-sticky{
     padding: 1rem;
     top: 0rem;
     right: 2px;
+    color: #fff;
+    mix-blend-mode: exclusion;
 }
 
 @media (max-width: 758px) {
@@ -203,7 +205,7 @@ header #home-sticky{
     justify-content: space-between;
     width: 0.8rem;
     height: 1.5rem;
-    z-index: 1001;
+    z-index: +100;
     transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
@@ -221,7 +223,8 @@ header #home-sticky{
 
 #menu-icon .stripe {
     position: absolute;
-    background-color: var(--text-color);
+    background-color: #fff;
+    mix-blend-mode: exclusion;
     width: 1px;
     height: 100%;
     top: 0;
