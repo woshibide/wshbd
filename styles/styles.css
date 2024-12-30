@@ -182,7 +182,7 @@ nav > {
 header #home-sticky{
     position: fixed;
     font-family: "cofo-sans-variable", monospace;
-    z-index: 10001;
+    z-index: 1001;
     padding: 1rem;
     top: 0rem;
     right: 2px;
