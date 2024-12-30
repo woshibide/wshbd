@@ -55,7 +55,7 @@ function addImageNavigation(imageContainer, images, imgElement) {
         const touchEndX = event.changedTouches[0].screenX
         const diffX = touchEndX - touchStartX
 
-        if (Math.abs(diffX) > 50) {
+        if (Math.abs(diffX) > 20) {
             if (diffX > 0) {
                 // swiped right, show previous image
                 currentImageIndex = (currentImageIndex - 1 + images.length) % images.length
@@ -103,6 +103,7 @@ function addProjectNavigation(projectSections) {
     })
 
     function updateProjectView() {
+        // BUG: when just scrolling it doesnt update url
         const currentProject = projectSections[currentProjectIndex]
         currentProject.scrollIntoView({ behavior: 'smooth' })
         currentImageIndex = 0 // reset image index when changing projects

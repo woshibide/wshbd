@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (homeButton) { 
         homeButton.addEventListener('click', redirectToHomepage);
     }
-    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+    // document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
     
     const menuIcon = document.getElementById('menu-icon');

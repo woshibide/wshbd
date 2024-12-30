@@ -6,20 +6,24 @@
     --soft-black: #212427;
     --nav-menu-bg-color: rgba(0, 0, 0, 0.1);
 
-    --main-color: #ffffff;
+    /* --main-color: #ffffff; */
+    --main-color: #000000;
 
     font-family: "degular-text", "cofo-sans-variable", monospace;
     font-weight: 200;
     font-style: normal;
 
     --main-bg: var(--main-color);
-    --text-color: var(--soft-black);
+    /* --text-color: var(--soft-black); */
+    --text-color: var(--soft-white);
 
     --border-def: 0px solid var(--soft-black);
     --border-red: 0px solid var(--special-color);
 
-    --left-cursor: url('/content/misc/black-left.svg'), pointer;
-    --right-cursor: url('/content/misc/black-right.svg'), pointer;
+    --left-cursor: url('/content/misc/white-left.svg'), pointer;
+    --right-cursor: url('/content/misc/white-right.svg'), pointer;
+    /* --left-cursor: url('/content/misc/black-left.svg'), pointer;
+    --right-cursor: url('/content/misc/black-right.svg'), pointer; */
 }
 
 
@@ -193,6 +197,7 @@ header #home-sticky{
 @media (max-width: 758px) {
     header #home-sticky{
         right: 2px;
+        top: 1rem;
     }
 }
 
@@ -297,6 +302,12 @@ header #home-sticky{
 @media (max-width: 758px) {
     #menu-icon.open {
     width: calc(50% - 2.5rem);
+    }
+    #menu-icon {
+        top: 2rem;
+    }
+    #home-sticky{
+
     }
 }
 

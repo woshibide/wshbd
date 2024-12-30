@@ -600,13 +600,6 @@ section.list {
 }
 
 
-@media (max-width: 768px) {
-    .projects-navigator #next-project, .projects-navigator #prev-project {
-        font-size: 1.5rem;
-    }
-}
-
-
 .projects-navigator #next-project:hover, .projects-navigator #prev-project:hover {
     color: var(--special-color);
 }
@@ -1026,7 +1019,6 @@ section.list {
 @media (max-width: 768px) {
     .text-columns {
         grid-template-columns: 1fr 0fr 0fr 1fr;
-        padding-bottom: 2rem;
     }
     
 }
@@ -1050,13 +1042,19 @@ section.list {
     align-items: flex-end;
     margin: 0;
     margin-right: auto;
-    bottom: 0;
+    bottom: 2rem;
     font-variation-settings: "slnt" 0, "wght" 100;
 }
 #gallery-info {
     align-items: flex-start;
     align-content: left;
     font-variation-settings: "slnt" 0, "wght" 400;
+}
+div#gallery-info a#brand{
+    font-family: inherit;
+    font-variation-settings: inherit;
+    pointer-events: all;
+    padding: 0;
 }
 
 #gallery-id {
@@ -1068,7 +1066,7 @@ section.list {
     font-weight: 400;
     font-style: normal;
     position: relative;
-    top: 0;
+    bottom: 2rem;
     text-align: end;
     height: auto;
     line-height: 4rem;

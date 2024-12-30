@@ -37,7 +37,7 @@ try {
                 </div>
                 <div class="text-columns">
                     <div id="gallery-info">
-                        <p id="brand">${project.brand}</p>
+                        <a id="brand" href="/archive/${project.id}">${project.brand}</a>
                         <p id="title">${project.title}</p>
                         <p id="date">${project.date}</p>
                     </div>
