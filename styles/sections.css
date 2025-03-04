@@ -507,6 +507,20 @@ section.list {
 }
 
 
+.other-page {
+    overflow: hidden;
+    margin-inline: -2rem;
+    margin-block: 25svh;
+}
+
+@media (max-width: 768px) {
+    .other-page {
+        overflow: hidden;
+        margin-inline: 0rem;
+        margin-block: 25svh;
+    }
+}
+
 
 
 
@@ -1000,7 +1014,7 @@ section.list {
 
 
 .project-section .text-columns {
-    mix-blend-mode: exclusion;
+    /* mix-blend-mode: exclusion; */
     position: absolute;
     top: 0;
     left: 0;
@@ -1009,7 +1023,8 @@ section.list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: flex-end;
-    padding: 1rem;
+    padding-bottom: 1rem;
+    padding-inline: 2rem;
     pointer-events: none;
     z-index: 1;
 }
@@ -1022,7 +1037,7 @@ section.list {
 }
 
 .text-columns * {
-    color: #fff;
+    color: var(--text-color);
     /* outline: 1px white solid; */
 }
 

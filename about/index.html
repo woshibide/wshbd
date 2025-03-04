@@ -51,7 +51,7 @@
     <p id="contact">hello@wshbd.com</p>
 </nav>
     </header>
-    <main>
+    <main id="extract-me">
         <div class="hello">
             <h1>
                 Pyotr Goloub is a Creative Coder and Graphic Designer based in The Hague, Netherlands. He works across borders, seeking harmony between modern aesthetics and functional design. His work specializes in multidisciplinary approach focusing on editorial and web design. 
@@ -82,6 +82,22 @@
 
             </div>
         </div>
+        <script defer>
+            function updateTime() {
+                const timeElement = document.getElementById('time');
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
+                timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+            }
+        
+            // update the time every second
+            setInterval(updateTime, 1000);
+        
+            // initialize the clock immediately
+            updateTime();
+        </script>
     </main>
 
     <footer>

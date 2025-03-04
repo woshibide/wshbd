@@ -648,9 +648,8 @@ button:hover {
 .spinner:after {
     content: "";
     position: absolute;
-    /* border-radius: 50%; */
     animation: pulsOut 0.9s ease-out infinite;
-}
+} */
 
 .spinner:before {
     width: 100%;
@@ -709,6 +708,6 @@ body:not(.loading)>* {
     visibility: visible;
 }
 
- */
+ 
 
 

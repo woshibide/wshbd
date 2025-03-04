@@ -16,7 +16,7 @@ function runScript(scriptName, args = '') {
         console.error(`\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n
                          @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n
                          @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n >>>>> Error running ${scriptName}:`, error.message);
-        // Record failure with error message
+        // track failure with error message
         executionResults.push({ script: scriptName, status: 'failed', error: error.message });
     }
 }
@@ -35,9 +35,9 @@ function main() {
 
     runScript('generateProjects.js');
     runScript('generateErrorPages.js');
-    runScript('generateIndex.js');
     runScript('generateArchive.js');
     runScript('generateSomething.js');
+    runScript('generateIndex.js');
 
     runScript('updateHtml.js');
     runScript('/sitemap/generateSitemap.js');
