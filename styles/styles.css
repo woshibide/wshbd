@@ -1,31 +1,88 @@
 :root {
 
-    --special-color: #FF0035;
+    /* --special-color: #FF0035; */
+    --special-color: #0044ff;
 
     --soft-white: #f5f5f5;
     --soft-black: #212427;
     --nav-menu-bg-color: rgba(0, 0, 0, 0.1);
 
-    /* --main-color: #ffffff; */
-    --main-color: #000000;
+    --main-color: #ffffff;
+    /* --main-color: #000000; */
 
     font-family: "degular-text", "cofo-sans-variable", monospace;
     font-weight: 200;
     font-style: normal;
 
     --main-bg: var(--main-color);
-    /* --text-color: var(--soft-black); */
-    --text-color: var(--soft-white);
+    --text-color: var(--soft-black);
+    /* --text-color: var(--soft-white); */
 
     --border-def: 0px solid var(--soft-black);
     --border-red: 0px solid var(--special-color);
 
-    --left-cursor: url('/content/misc/white-left.svg'), pointer;
-    --right-cursor: url('/content/misc/white-right.svg'), pointer;
+    --left-cursor: url('/content/misc/black-left.svg'), pointer;
+    --right-cursor: url('/content/misc/black-right.svg'), pointer;
     /* --left-cursor: url('/content/misc/black-left.svg'), pointer;
     --right-cursor: url('/content/misc/black-right.svg'), pointer; */
 }
 
+
+/*  =================
+        dark mode 
+    ================= */
+
+    body.dark-mode {
+
+        /* --main-color: #000000;
+    
+        --main-bg: var(--main-color);
+        --text-color: var(--soft-white);
+        --nav-menu-bg-color: rgba(255, 255, 255, 0.05);
+    
+        --border-def: 0rem solid;
+    
+        --left-cursor: url('/content/misc/white-left.svg'), pointer;
+        --right-cursor: url('/content/misc/white-right.svg'), pointer; */
+    
+        --main-color: #fefefe;
+        
+        --main-bg: var(--main-color);
+        --text-color: var(--soft-white);
+        --nav-menu-bg-color: rgba(255, 255, 255, 0.05);
+    
+        --border-def: 0rem solid;
+    
+        --left-cursor: url('/content/misc/black-left.svg'), pointer;
+        --right-cursor: url('/content/misc/black-right.svg'), pointer;
+    }
+    
+    @media (max-width: 758px) {
+        body.dark-mode {
+            --border-def: 0.0rem solid var(--text-color);
+        }
+    }
+    
+    /*  =================
+           light mode 
+        ================= */
+    
+        body.dark-mode {
+    
+            --main-color: #fefefe;
+        
+            --main-bg: var(--main-color);
+            --text-color: var(--soft-white);
+            --nav-menu-bg-color: rgba(255, 255, 255, 0.05);
+        
+            --border-def: 0rem solid;
+        
+            --left-cursor: url('/content/misc/black-left.svg'), pointer;
+            --right-cursor: url('/content/misc/black-right.svg'), pointer;
+        }
+        
+    
+    /* ============================================ */
 
 
 @media (max-width: 758px) {
@@ -57,7 +114,7 @@
 }
 
 html {
-    font-size: 16px;
+    font-size: 12px;
     scroll-behavior: auto;
     scrollbar-width: none;
 }
@@ -112,35 +169,8 @@ html {
     
 
 
-
-/*  =================
-        dark mode 
-    ================= */
-
-body.dark-mode {
-
-    --main-color: #000000;
-
-    --main-bg: var(--main-color);
-    --text-color: var(--soft-white);
-    --nav-menu-bg-color: rgba(255, 255, 255, 0.05);
-
-    --border-def: 0rem solid;
-
-    --left-cursor: url('/content/misc/white-left.svg'), pointer;
-    --right-cursor: url('/content/misc/white-right.svg'), pointer;
-}
-
-@media (max-width: 758px) {
-    body.dark-mode {
-        --border-def: 0.0rem solid var(--text-color);
-    }
-}
-
-/* ============================================ */
-
 header {
-    margin-inline: 1rem;
+    margin-inline: 2rem;
     justify-content: center;
     align-items: center;
 }
@@ -156,6 +186,8 @@ nav * {
 
 
 nav #contact {
+    position: absolute;
+    bottom: 1rem;
     padding: 1rem;
     margin-bottom: 1rem;
 }
@@ -189,7 +221,7 @@ header #home-sticky{
     z-index: 1001;
     padding: 1rem;
     top: 0rem;
-    right: 2px;
+    right: calc(1rem + 2px);
     color: #fff;
     mix-blend-mode: exclusion;
 }
@@ -201,7 +233,13 @@ header #home-sticky{
     }
 }
 
+header #home-sticky:hover{
+    mix-blend-mode: normal;
+    color: var(--special-color);
+}
+
 #menu-icon {
+    margin-left: 1px;
     position: fixed;
     cursor: pointer;
     display: flex;
@@ -216,10 +254,17 @@ header #home-sticky{
 
 
 #menu-icon:hover {
-    width: calc(100% - 2rem);
+    width: calc(100% - 4rem);
     padding-left: 3rem;
     height: 2.5rem;
 }
+
+@media (max-width: 758px) {
+    #menu-icon:hover {
+    width: calc(100% - 2rem);
+    }
+}
+
 
 #menu-icon:hover::before {
     content: '';
@@ -228,7 +273,7 @@ header #home-sticky{
 
 #menu-icon .stripe {
     position: absolute;
-    background-color: #fff;
+    background-color: var(--soft-black);
     mix-blend-mode: exclusion;
     width: 1px;
     height: 100%;
@@ -237,18 +282,40 @@ header #home-sticky{
 }
 
 #menu-icon .stripe:nth-child(1) {
-    left: 0rem;
+    left: -0.2rem;
 }
 
 #menu-icon .stripe:nth-child(2) {
+    height: 50%;
+    margin-top: .375rem;
+    margin-left: .5rem;
+
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+#menu-icon:hover .stripe:nth-child(2) {
+    height: 100%;
+    margin-top: 0;
     margin-left: calc(50% - 3.5rem);
 }
 
 #menu-icon .stripe:nth-child(3) {
+    height: 50%;
+    margin-top: .375rem;
+    margin-left: 1rem;
+
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+#menu-icon:hover .stripe:nth-child(3) {
+    height: 100%;
+    margin-top: 0;
     margin-left: calc(50% - 1.5rem);
 }
 
 #menu-icon .stripe:nth-child(4) {
+    right: -1rem;
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+#menu-icon:hover .stripe:nth-child(4) {
     right: 0rem;
 }
 
@@ -292,8 +359,8 @@ header #home-sticky{
 }
 
 #menu-icon.open {
-    margin-left: calc(50svw + 0.5rem);
-    width: calc(50% - 2.5rem);
+    margin-left: calc(50svw - 0.5rem);
+    width: calc(50% - 3.5rem);
     justify-content: space-between;
     z-index: 1001;
     padding-left: 0rem;
@@ -301,13 +368,11 @@ header #home-sticky{
 
 @media (max-width: 758px) {
     #menu-icon.open {
-    width: calc(50% - 2.5rem);
+        width: calc(50% - 2rem);
+        margin-left: 50svw;
     }
     #menu-icon {
         top: 2rem;
-    }
-    #home-sticky{
-
     }
 }
 
@@ -315,6 +380,8 @@ header #home-sticky{
     margin: 0;
     width: 1px;
 }
+
+/* TODO: adjust the middle ones to be in the middle */
 
 #menu-icon.open .stripe:nth-child(1) {
     left: 0rem;
@@ -399,20 +466,12 @@ footer {
     flex: 1;
 }
 
-#design-brief p:hover,
-#dev-brief p:hover,
-#home:hover {
-    cursor: pointer;
-    text-decoration: none;
-    border: none;
-    color: var(--special-color);
-}
 
 .extr-link a {
     padding-inline: 1rem;
     border: none;
-    color: inherit;
     text-decoration: none;
+    color: inherit;
     cursor: pointer;
 }
 
@@ -424,15 +483,15 @@ footer {
 
 .extr-link a:hover {
     cursor: pointer;
-    text-decoration: none;
     border: none;
     background: var(--main-bg);
     color: var(--special-color);
 }
 
 .footer-note{
-    margin-block: 2rem;
-    padding-inline: 1rem;
+    margin-bottom: 2rem;
+    margin-top: 10svh;
+    padding-inline: 2rem;
     justify-content: space-between;
     display: flex;
 }
@@ -441,6 +500,7 @@ footer {
     .footer-note{
         margin-top: 5rem;
         font-size: 0.8rem;
+        padding-inline: 1rem;
     }
 }
 
@@ -505,8 +565,8 @@ h6 {
 
 p {
     font-family: "cofo-sans-variable", sans-serif;
-    text-align: inherit;
-    text-justify: inherit;
+    text-align: justify;
+    text-justify: auto;
     font-style: normal;
 }
 
@@ -517,19 +577,17 @@ a {
     display: flex;
     cursor: pointer;
     padding: 1rem;
-    text-decoration: none;
     font-style: normal;
     border: var(--border-def);
     color: var(--text-color);
 }
 
 a:visited {
-    color: var(--text-color);
-    border: var(--border-red);
+    color: var(--special-color);
 }
 
 a:hover {
-    border: var(--border-def);
+    /* border: var(--border-def); */
     color: var(--special-color);
 }
 
@@ -547,7 +605,6 @@ button {
     background-color: var(--main-bg);
     border: var(--border-def);
     color: var(--text-color);
-    text-decoration: none;
     cursor: pointer;
     text-align: start;
 }
@@ -560,7 +617,7 @@ button:hover {
 
 /* ============================================ */
 
-
+/* 
 #loader {
     position: fixed;
     top: 0;
@@ -651,3 +708,7 @@ body:not(.loading)>* {
     opacity: 1;
     visibility: visible;
 }
+
+ */
+
+

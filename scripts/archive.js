@@ -293,6 +293,6 @@ if (document.getElementById('archive')) {
         if (hashtagElement) {
             toggleHashtagSelection(hashtagElement);
         }
-        document.getElementById('archive').scrollIntoView();
+        //document.getElementById('archive').scrollIntoView();
     });
 }

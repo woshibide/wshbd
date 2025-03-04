@@ -38,12 +38,12 @@
 [x] - json image mapper
 [x] - highlight to archive dependency move
 [x] - shared, simple carousel
-[ ] - image index for random
+[x] - image index for random
 [x] - images in archive
 [x] - cache json
 [x] - cache images
 
-[ ] - email
+[x] - email
 [ ] - ipv6
 [x] - GitLab CI/CD
 [x] - https
@@ -58,7 +58,7 @@
 [x] - custom page loader
 
 [x] - projects add alike projects section
-[ ] - index post works a something or a something section?
+[x] - index post works a something or a something section?
 [ ] - archive add boolean to declare if project is to be used in the website
 [ ] - tolstoi images to normalize
 [x] - archive in mobile to normalize layout
@@ -67,68 +67,30 @@
 [x] - certifi should work
 [x] - no underline
 [x] - reworked nav
-[ ] - when in something, instead of something else button, when clicked till the end to show new project
-    [ ] - on scroll down / up new project
-[ ] - swipe for something page on mobile
+[x] - when in something, instead of something else button, when clicked till the end to show new project
+    [x] - on scroll down / up new project
+[x] - swipe for something page on mobile
 [ ] - featured preload of the next image
 [ ] - user experience when link accessed from side panel to first hide it 
 [ ] - loader either give up or implement normally
- 
+[ ] — scrollable 
+[x] - on click to hashtag pool scrolls somewhere -
+                                                  |
+                                                  |
 ==================================================================
-
-
-# caching
-shared cache?! private cache?!
-
-
-## FE
-- service workers is like fine tuning the caching method
-
-### implementation 
-- upon first load jsons to be fetched and cached
-- when visiting other pages fetched images to be stored
-- index.html has ~50 images, preload?
-
-```
-self.addEventListener('fetch', (event) => {
-    const requestUrl = new URL(event.request.url);
-    
-    if (requestUrl.pathname.startsWith('/content/images/')) {
-        event.respondWith(
-            caches.match(event.request).then((cachedResponse) => {
-                if (cachedResponse) {
-                    return cachedResponse;
-                }
-                
-                return fetch(event.request).then((networkResponse) => {
-                    return caches.open('project-images').then((cache) => {
-                        cache.put(event.request, networkResponse.clone());
-                        return networkResponse;
-                    });
-                });
-            })
-        );
-    } else {
-        event.respondWith(fetch(event.request));
-    }
-});
-```
-
-
-## BE
-- headers give instructions to browsers how to deal with files
-- - etag // when last time modified if ? modified : get new version
-- - expires // for how long cache to be in the browser
-- - cache control // 
-
-### implementation
-- cache everything! for long!
-```location /content/images/ {
-    expires 1y;
-    add_header Cache-Control "public, max-age=31536000";
-}```
-
-
-
-
-
+                                                  |
+# BUGS                                            |
+                                                  |
+[ ] — bloody footer links dont work               |
+[ ] — never scrolls to where i need eyes to be  <-
+[ ] — in something keyboard navigation is out of sync with scroll
+[ ] — 
+[ ] — 
+[ ] — 
+[ ] — 
+[ ] — 
+[ ] — 
+[ ] — 
+[ ] — 
+[ ] — 
+[ ] — 

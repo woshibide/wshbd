@@ -9,7 +9,6 @@ const outputPath = path.join(__dirname, '../../', 'index.html');
 const verticalProjectID = 'W04'; // MET Museum
 const giantProjectID = 'B08';    // Ole
 
-// Read and parse JSON files
 function readJSON(filePath) {
     try {
         const data = fs.readFileSync(filePath, 'utf-8');
