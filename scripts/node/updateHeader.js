@@ -47,9 +47,9 @@ function extractMetaData(content, filePath) {
     const metaData = {
         title: 'wshbd',
         keywords: 'design, creative coding, web design, editorial design',
-        description: 'portfolio of graphic designer & developer Pyotr Goloub',
+        description: 'portfolio of graphic designer & creative coder Pyotr Goloub',
         ogTitle: 'works by Pyotr Goloub aka wshbd',
-        ogDescription: 'work by graphic designer & developer Pyotr Goloub',
+        ogDescription: 'works by graphic designer & creative coder Pyotr Goloub',
         ogUrl: 'https://wshbd.com/' // base URL with domain
     };
 
