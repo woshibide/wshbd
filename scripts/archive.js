@@ -109,8 +109,8 @@ function sortArchive(field, type = 'text', order = 'asc') {
             jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11
         };
         const [year, month] = dateString.toLowerCase().split(' ');
-        const monthIndex = monthMap[month.substring(0, 3)]; // Get numeric month
-        return new Date(year, monthIndex); // Create Date object for comparison
+        const monthIndex = monthMap[month.substring(0, 3)]; // get numeric month
+        return new Date(year, monthIndex); 
     }
 }
 
@@ -135,7 +135,7 @@ function filterWhat() {
     let what = document.getElementById('what');
     what.textContent = shuffled;
 
-    // Fisher-Yates shuffle algorithm
+    // fisher-Yates shuffle algorithm
     for (let i = items.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [items[i], items[j]] = [items[j], items[i]]; 
@@ -166,16 +166,16 @@ async function toggleArchiveItem(item) {
     const expandedClass = 'expanded';
     const isExpanded = item.classList.contains(expandedClass);
 
-    if (isExpanded) {
-        // collapse the item
+    if (isExpanded) { // collapse the item
+        
         item.classList.remove(expandedClass);
 
         const imageContainer = item.querySelector('.image-container');
         if (imageContainer) {
             imageContainer.innerHTML = '';
         }
-    } else {
-        // expand item
+    } else { // expand item
+        
         item.classList.add(expandedClass);
 
         const projectId = item.id;

@@ -1,5 +1,5 @@
-// Initialize existing project elements
 function initializeProjects() {
+
     // Initialize vertical projects
     // const vrtProjectElements = document.querySelectorAll('.spotlight-vertical');
     // vrtProjectElements.forEach(projectElement => {
@@ -13,7 +13,7 @@ function initializeProjects() {
     //     }
     // });
 
-    // Initialize giant projects
+    // giant projects
     const giantProjectElements = document.querySelectorAll('.spotlight-giant');
     giantProjectElements.forEach(projectElement => {
         const galleryContainer = projectElement.querySelector('.spotlight-giant-gallery');
@@ -26,7 +26,7 @@ function initializeProjects() {
         }
     });
 
-    // Initialize standard projects
+    // standard projects
     const stdProjectElements = document.querySelectorAll('.spotlight-project');
     stdProjectElements.forEach(projectElement => {
         const spotlightGalleryContainer = projectElement.querySelector('.spotlight-gallery-container');

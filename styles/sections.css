@@ -855,7 +855,7 @@ section.list {
 .hashtag-pool .hashtag:hover {
     font-style: normal;
     font-variation-settings: "slnt" 0, "wght" 300;
-    background-color: var(--text-color);
+    background-color: var(--soft-off-white);
     color: var(--main-bg);
 }
 
@@ -869,6 +869,7 @@ section.list {
 .hashtag.selected:hover {
     font-variation-settings: "slnt" -12, "wght" 300;
     letter-spacing: normal;
+    background-color: var(--text-color);
 }
 
 /* ============================================ */
@@ -916,9 +917,6 @@ section.list {
 
 .extr-link {
     font-style: normal;
-}
-
-.media {
 }
 
 .links {

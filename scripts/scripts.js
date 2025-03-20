@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     handleFooterClick();
 
     const prevProjectButton = document.getElementById('prev-project');
-    if (prevProjectButton) { // check if element exists
+    if (prevProjectButton) { 
         prevProjectButton.addEventListener('click', function() {
             const prevProjectId = this.getAttribute('data-prev-id');
             navigateToProject(prevProjectId);
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const nextProjectButton = document.getElementById('next-project');
-    if (nextProjectButton) { // check if element exists
+    if (nextProjectButton) { 
         nextProjectButton.addEventListener('click', function() {
             const nextProjectId = this.getAttribute('data-next-id');
             navigateToProject(nextProjectId);
@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (homeButton) { 
         homeButton.addEventListener('click', redirectToHomepage);
     }
+    
     // document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
     

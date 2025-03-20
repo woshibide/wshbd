@@ -1,4 +1,3 @@
-// global variable to keep track of the current project index
 let currentProjectIndex = 0
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,6 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // add key navigation
     addProjectNavigation(projectSections)
+    
+    // add scroll tracking
+    trackScrollPosition(projectSections)
 })
 
 function addImageNavigation(imageContainer, images, imgElement) {
@@ -103,11 +105,49 @@ function addProjectNavigation(projectSections) {
     })
 
     function updateProjectView() {
-        // BUG: when just scrolling it doesnt update url
         const currentProject = projectSections[currentProjectIndex]
         currentProject.scrollIntoView({ behavior: 'smooth' })
         currentImageIndex = 0 // reset image index when changing projects
         const projectId = currentProject.getAttribute('id') // get project id
         window.location.hash = projectId // update url hash
     }
+}
+
+function trackScrollPosition(projectSections) {
+    // intersection observer to detect which project is most visible
+    const observer = new IntersectionObserver((entries) => {
+
+        let maxEntry = entries[0];
+        entries.forEach(entry => {
+            if (entry.intersectionRatio > maxEntry.intersectionRatio) {
+                maxEntry = entry;
+            }
+        });
+        
+        // ff the most visible section has significant visibility
+        if (maxEntry && maxEntry.intersectionRatio > 0.5) {
+            const newIndex = Array.from(projectSections).findIndex(
+                section => section === maxEntry.target
+            );
+            
+            // update current project index and URL only if it changed
+            if (newIndex !== -1 && newIndex !== currentProjectIndex) {
+                currentProjectIndex = newIndex;
+                const projectId = maxEntry.target.getAttribute('id');
+                // update URL without triggering a scroll (using history.replaceState)
+                if (projectId && window.location.hash !== `#${projectId}`) {
+                    history.replaceState(null, null, `#${projectId}`);
+                }
+            }
+        }
+    }, {
+        root: null, // viewport
+        threshold: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9], // multiple thresholds for better accuracy
+        rootMargin: "0px"
+    });
+    
+    // observe all project sections
+    projectSections.forEach(section => {
+        observer.observe(section);
+    });
 }
