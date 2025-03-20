@@ -40,6 +40,7 @@ function main() {
     runScript('generateSomething.js');
 
     runScript('updateHtml.js');
+    runScript('updateHeader.js');
     runScript('/sitemap/generateSitemap.js');
 
     // summary

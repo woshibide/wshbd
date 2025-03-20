@@ -4,34 +4,13 @@ const path = require('path');
 let projectCount = 0;
 
 function createHtmlContent(project, imageFiles, nextProjectId, prevProjectId) {
-    const metaKeywords = Array.isArray(project.hashtags) ? project.hashtags.join(', ') : 'designed by wshbd'; // doesnt work
+    const metaKeywords = Array.isArray(project.hashtags) ? project.hashtags.join(', ') : 'designed by wshbd';
 
     let htmlContent = `<!DOCTYPE html>
     <html lang="en">
     <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Pyotr Goloub">
-    <meta name="keywords" content="${metaKeywords}">
-    <meta name="description" content="portfolio of graphic designer & developer Pyotr Goloub">
-    <meta property="og:title" content="works by wshbd">
-    <meta property="og:image" content="/content/misc/og_1200x1200.png">
-    <meta property="og:description" content="work by graphic designer & developer Pyotr Goloub">
-    <meta property="og:url" content="wshbd.com">
-    <meta name="twitter:card" content="/content/misc/og_1200x1200.png" />
-
-    <title>wshbd // ${project.brand}</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="/content/misc/favicon_32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/content/misc/favicon_16x16.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="/content/misc/favicon_48x48.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/content/misc/favicon_192x192.png">
-    <link rel="apple-touch-icon" type="image/png" sizes="167x167" href="/content/misc/favicon_167x167.png">
-    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/content/misc/favicon_180x180.png">
-    <link rel="shortcut icon" type="image/png" href="/content/misc/favicon_180x180.png" />
-
-    <link rel="stylesheet" href="https://use.typekit.net/dxz4nuq.css">
-    <link rel="stylesheet" href="/styles/styles.css">
-    <link rel="stylesheet" href="/styles/sections.css">
+    <!-- This head section will be replaced by updateHeader.js -->
     </head>
 
     <body>

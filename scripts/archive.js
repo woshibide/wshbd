@@ -52,13 +52,6 @@ function filterProjectsByHashtags() {
         } else {
             archiveItem.style.display = 'none';
         }
-
-
-        // get the last child of the archive-list element and scroll it into view
-        const archiveList = document.querySelector('.archive-list');
-        if (archiveList && archiveList.lastElementChild) {
-            archiveList.lastElementChild.scrollIntoView();
-        }
     });
 
     // Add a check here

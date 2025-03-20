@@ -223,17 +223,6 @@
     {
       "spotlight": false,
       "location": "Netherlands",
-      "id": "E09",
-      "date": "2024 Feb",
-      "description": "This book cover dives into mixtape nostalgia with a bold cassette design, celebrating the roots of retro streetwear. It bridges the gap between past and present, capturing the essence of an era when tapes were more than music—they were a statement. The cover becomes a piece of street culture itself, woven into the collection and echoing the timeless vibe of those formative years.",
-      "brand": "Patryck Ochmanski",
-      "title": "Book Cover",
-      "intro": "A book cover for a streetwear collection",
-      "hashtags": "editorial, book design"
-    },
-    {
-      "spotlight": false,
-      "location": "Netherlands",
       "id": "E11",
       "date": "2024 Jun",
       "description": "Playing with perception, this book design for Roland Barthes' Mythologies flips expectations—literally. With \"logies\" on the front cover and \"mytho\" on the back, it turns the title into a two-part journey. Pick it up one way, and you're greeted with logic; flip it over, and you're met with myth. It's a subtle wink to Barthes' exploration of how everyday things carry hidden meanings. The clean typography and split layout invite you to engage from both sides, making the book not just something to read, but an object that embodies the dance between myth and reality.",
@@ -394,7 +383,7 @@
       "brand": "Museon",
       "title": "Development",
       "intro": "Generative composition exploring the balance between precision and chaos",
-      "hashtags": "poster, p5js"
+      "hashtags": "poster, p5js, generative graphics"
     },
     {
       "spotlight": false,
