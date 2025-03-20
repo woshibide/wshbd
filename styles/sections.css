@@ -563,7 +563,7 @@ section.list {
     display: block;
     overflow-x: hidden;
     padding: 1rem;
-    margin: 0;
+    margin-inline: -4rem;
     justify-content: center;
     align-items: center;
 }
@@ -571,12 +571,11 @@ section.list {
 .images img {
     width: 100%;
     height: auto;
-    margin-block: 2rem;
 }
 
 @media (max-width: 768px) {
     .images img {
-        margin-block: 1rem;
+
     }
 }
 
