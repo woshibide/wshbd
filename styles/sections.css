@@ -601,7 +601,7 @@ section.list {
 }
 
 
-.projects-navigator #next-project:hover, .projects-navigator #prev-project:hover {
+#next-project:hover, #prev-project:hover {
     color: var(--special-color);
 }
 
