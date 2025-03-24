@@ -1,82 +1,97 @@
 function initializeProjects() {
+    // Set up horizontal scroll galleries
+    setupHorizontalGalleries();
+}
 
-    // Initialize vertical projects
-    // const vrtProjectElements = document.querySelectorAll('.spotlight-vertical');
-    // vrtProjectElements.forEach(projectElement => {
-    //     const galleryContainer = projectElement.querySelector('.gallery');
-    //     const images = Array.from(galleryContainer.querySelectorAll('.spotlight-gallery-image'));
-    //     const imageCounter = galleryContainer.querySelector('.gallery-nav .image-counter');
-
-    //     if (images.length > 0) {
-    //         images[0].classList.add('active');
-    //         setupGalleryNavigation(galleryContainer, images, imageCounter);
-    //     }
-    // });
-
-    // giant projects
-    const giantProjectElements = document.querySelectorAll('.spotlight-giant');
-    giantProjectElements.forEach(projectElement => {
-        const galleryContainer = projectElement.querySelector('.spotlight-giant-gallery');
-        const images = Array.from(galleryContainer.querySelectorAll('.spotlight-gallery-image'));
-        const imageCounter = projectElement.querySelector('.image-counter');
-
-        if (images.length > 0) {
-            images[0].classList.add('active');
-            setupGalleryNavigation(galleryContainer, images, imageCounter);
+function setupHorizontalGalleries() {
+    // Standard galleries (the ones in list sections)
+    const standardGalleries = document.querySelectorAll('.spotlight-gallery-container');
+    standardGalleries.forEach(gallery => {
+        // Remove any existing "active" classes
+        const images = gallery.querySelectorAll('.spotlight-gallery-image');
+        images.forEach(img => {
+            img.classList.remove('active');
+            // Make sure all images are displayed
+            img.style.display = 'inline-block';
+        });
+        
+        // Update counter to show total images
+        const counter = gallery.querySelector('.image-counter');
+        if (counter) {
+            counter.textContent = `[${images.length} images]`;
         }
     });
+    
+    // Also handle vertical and giant galleries
+    setupVerticalGalleries();
+    setupGiantGalleries();
+}
 
-    // standard projects
-    const stdProjectElements = document.querySelectorAll('.spotlight-project');
-    stdProjectElements.forEach(projectElement => {
-        const spotlightGalleryContainer = projectElement.querySelector('.spotlight-gallery-container');
-        const images = Array.from(spotlightGalleryContainer.querySelectorAll('.spotlight-gallery-image'));
-        const imageCounter = spotlightGalleryContainer.querySelector('.image-counter');
-
+function setupVerticalGalleries() {
+    const verticalGalleries = document.querySelectorAll('.spotlight-vertical .gallery');
+    verticalGalleries.forEach(gallery => {
+        const images = gallery.querySelectorAll('.spotlight-gallery-image');
+        images.forEach((img, idx) => {
+            if (idx === 0) {
+                img.classList.add('active');
+            } else {
+                img.classList.remove('active');
+            }
+        });
+        
+        // Keep the click navigation for vertical galleries
         if (images.length > 0) {
-            images[0].classList.add('active');
-            setupGalleryNavigation(spotlightGalleryContainer, images, imageCounter);
+            setupClickNavigation(gallery, images);
         }
     });
 }
 
+function setupGiantGalleries() {
+    const giantGalleries = document.querySelectorAll('.spotlight-giant-gallery');
+    giantGalleries.forEach(gallery => {
+        const images = gallery.querySelectorAll('.spotlight-gallery-image');
+        images.forEach((img, idx) => {
+            if (idx === 0) {
+                img.classList.add('active');
+            } else {
+                img.classList.remove('active');
+            }
+        });
+        
+        // Keep the click navigation for giant galleries
+        if (images.length > 0) {
+            const counter = gallery.closest('.spotlight-giant').querySelector('.image-counter');
+            setupClickNavigation(gallery, images, counter);
+        }
+    });
+}
 
-function setupGalleryNavigation(container, images, imageCounter) {
-    let newIndex = 0;
-    let touchStartX = 0;
-
-    function updateCounter() {
-        if (imageCounter) {
-            imageCounter.textContent = `[${newIndex + 1}/${images.length}]`;
+function setupClickNavigation(container, images, counter = null) {
+    let currentIndex = 0;
+    
+    function updateDisplay() {
+        images.forEach((img, idx) => {
+            img.classList.toggle('active', idx === currentIndex);
+        });
+        
+        if (counter) {
+            counter.textContent = `[${currentIndex + 1}/${images.length}]`;
         }
     }
-
-    updateCounter();
-
+    
     container.addEventListener('click', (e) => {
-        const clickX = e.clientX - container.getBoundingClientRect().left;
-        const isClickLeft = clickX < container.clientWidth / 2;
-        newIndex = isClickLeft ? (newIndex - 1 + images.length) % images.length : (newIndex + 1) % images.length;
-        images.forEach((img, index) => img.classList.toggle('active', index === newIndex));
-        updateCounter();
-    });
-
-    container.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-    });
-
-    container.addEventListener('touchend', (e) => {
-        const touchEndX = e.changedTouches[0].clientX;
-        const swipeThreshold = 50;
-
-        if (Math.abs(touchStartX - touchEndX) > swipeThreshold) {
-            newIndex = touchStartX > touchEndX ? (newIndex + 1) % images.length : (newIndex - 1 + images.length) % images.length;
-            images.forEach((img, index) => img.classList.toggle('active', index === newIndex));
-            updateCounter();
+        const rect = container.getBoundingClientRect();
+        const clickPosition = e.clientX - rect.left;
+        
+        if (clickPosition < rect.width / 2) {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+        } else {
+            currentIndex = (currentIndex + 1) % images.length;
         }
+        
+        updateDisplay();
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    initializeProjects();
-});
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeProjects);

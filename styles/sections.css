@@ -70,8 +70,19 @@ main {
 /* container holding spotlight items */
 section.list {
     display: flex;
-    flex-direction: column;
-    padding-block: 2rem;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    height: 90svh;
+    padding: 0;
+    margin: 0 -2rem; /* Extend beyond container edges */
+    width: calc(100% + 4rem);
+}
+
+section.list::-webkit-scrollbar {
+    display: none;
 }
 
 .list {
@@ -81,11 +92,10 @@ section.list {
 
 .list li {
     list-style: none;
-    margin-block: 10svh;
+    margin-inline: 1rem;
+    flex: 0 0 85vw; /* Fixed width for each item */
+    height: 100%;
     position: relative;
-    isolation: isolate;
-    display: flex;
-    flex-direction: column;
 }
 
 .project-wrapper {
@@ -96,13 +106,37 @@ section.list {
     height: 100%;
 }
 
+/* Gallery container styling */
 .spotlight-gallery-container {
     flex: 1;
     position: relative;
-    overflow: hidden;
-    height: 95svh;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    height: 100%;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
 }
 
+.spotlight-gallery-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Make all images display side by side */
+.spotlight-gallery-image {
+    display: inline-block;
+    height: 100%;
+    width: auto;
+    margin-right: 10px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+/* Remove the active/inactive classes */
+.spotlight-gallery-image.active {
+    display: inline-block;
+}
 
 .spotlight-giant-gallery::before,
 .spotlight-giant-gallery::after {
@@ -206,16 +240,6 @@ section.list {
 
 .spotlight-title {
     text-align: right;
-}
-
-.spotlight-gallery-image {
-    display: none;
-    /* Hide all images initially */
-}
-
-.spotlight-gallery-image.active {
-    display: block;
-    /* Show the active image */
 }
 
 .image-counter {

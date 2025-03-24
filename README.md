@@ -38,7 +38,6 @@
 [x] - json image mapper
 [x] - highlight to archive dependency move
 [x] - shared, simple carousel
-[ ] - image index for random
 [x] - images in archive
 [x] - cache json
 [x] - cache images
@@ -63,16 +62,17 @@
 [ ] - tolstoi images to normalize
 [x] - archive in mobile to normalize layout
 [ ] - animations
-[ ] - personal website it should be
+[x] - personal website it should be
 [x] - certifi should work
 [x] - no underline
 [x] - reworked nav
-[ ] - when in something, instead of something else button, when clicked till the end to show new project
-    [ ] - on scroll down / up new project
-[ ] - swipe for something page on mobile
-[ ] - featured preload of the next image
+[x] - when in something, instead of something else button, when clicked till the end to show new project
+    [x] - on scroll down / up new project
+[x] - swipe for something page on mobile
+[x] - featured preload of the next image
 [ ] - user experience when link accessed from side panel to first hide it 
 [ ] - loader either give up or implement normally
+[ ] - image index for random
  
 ==================================================================
 
