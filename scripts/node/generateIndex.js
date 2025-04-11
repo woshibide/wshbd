@@ -2,14 +2,17 @@ const fs = require('fs');
 const path = require('path');
 
 const archivePath = path.join(__dirname, '../../', 'content', 'info', 'archive.json');
+const archiveData = readJSON(archivePath);
+
 const imageMapPath = path.join(__dirname, '../../', 'content', 'info', 'image-map.json');
+const imageMapData = readJSON(imageMapPath);
+
 const templatePath = path.join(__dirname, './templates/index_template.html');
 const outputPath = path.join(__dirname, '../../', 'index.html');
 
 const verticalProjectID = 'W04'; // MET Museum
 const giantProjectID = 'B08';    // Ole
 
-// Read and parse JSON files
 function readJSON(filePath) {
     try {
         const data = fs.readFileSync(filePath, 'utf-8');
@@ -25,22 +28,17 @@ function generateProjectHTML(project, imageMap) {
     const projectImages = imageMap[project.id] || [];
     const imageElements = projectImages.map((fileName, index) => {
         const imagePath = `/content/images/${project.id}/${fileName}`;
-        const isActive = index === 0 ? 'active' : '';
         return `
-            <img src="${imagePath}" class="spotlight-gallery-image ${isActive}" loading="lazy" alt="${project.title}">
+            <img src="${imagePath}" class="spotlight-gallery-image" data-index="${index}" loading="lazy" alt="${project.title}">
         `;
     }).join('\n');
 
-    const imageCounter = projectImages.length > 0 ? `[1/${projectImages.length}]` : '';
+    // update counter format to remove brackets
+    const imageCounter = projectImages.length > 0 ? `1/${projectImages.length}` : '';
 
     const projectHTML = `
     <li class="spotlight-project">
         <div class="project-wrapper">
-            <div class="spotlight-gallery-container">
-                ${imageElements}
-                <div class="image-counter">${imageCounter}</div>
-                <div class="spotlight-id">${project.id}</div>
-            </div>
             <div class="spotlight-info">
                 <div class="spotlight-xtr-info">
                     <a href="/archive/${project.id}">
@@ -49,6 +47,13 @@ function generateProjectHTML(project, imageMap) {
                     <p class="spotlight-title">${project.title}</p>
                 </div>
                 <p class="spotlight-description">${project.description}</p>
+            </div>
+            <div class="spotlight-gallery-container">
+                <div class="spotlight-gallery">
+                    ${imageElements}
+                </div>
+                <div class="image-counter">${imageCounter}</div>
+                <div class="spotlight-id">${project.id}</div>
             </div>
         </div>
     </li>
@@ -70,15 +75,15 @@ function generateVerticalProjectHTML(project, imageMap) {
 
     const verticalHTML = `
     <div class="spotlight-vertical">
-        <div class="xtr-info">
-            <a href="/archive/${project.id}">${project.brand}</a>
-            <p>${project.title}</p>
-        </div>
         <div class="gallery">
             <div class="gallery-nav">
                 <p class="project-id">${project.id}</p>
             </div>
             ${imageElements}
+        </div>
+        <div class="xtr-info">
+            <a href="/archive/${project.id}">${project.brand}</a>
+            <p>${project.title}</p>
         </div>
     </div>
     `;
@@ -121,26 +126,15 @@ function generateGiantProjectHTML(project, imageMap) {
 }
 
 
-// Generate HTML for all standard spotlight projects
-function generateStandardProjectsHTML(projects, imageMap) {
-    let projectsHTML = '';
-    projects.forEach(project => {
-        if (project.spotlight && project.id !== verticalProjectID && project.id !== giantProjectID) {
-            const projectHTML = generateProjectHTML(project, imageMap);
-            projectsHTML += projectHTML;
-        }
-    });
-    return projectsHTML;
-}
 
-// Generate HTML for the vertical spotlight project
-function generateVerticalProjectSection(project, imageMap) {
-    return generateVerticalProjectHTML(project, imageMap);
-}
-
-// Generate HTML for the giant spotlight project
-function generateGiantProjectSection(project, imageMap) {
-    return generateGiantProjectHTML(project, imageMap);
+// extracts content from element with id 'extract-me' from provided HTML file
+function getOtherPagesContent(htmlContent) {
+    const extractMeMatch = htmlContent.match(/<(\w+)[^>]*id=["']extract-me["'][^>]*>([\s\S]*?)<\/\1>/);
+    // check if match is found and return only the content inside the tags
+    if (extractMeMatch) {
+        return extractMeMatch[2]; // return only the content inside the tags
+    }
+    return '';
 }
 
 // Helper function to split array into N nearly equal parts
@@ -155,11 +149,9 @@ function splitArrayIntoChunks(array, numChunks) {
     return chunks;
 }
 
-// Main function to generate index.html
+
 function generateIndex() {
-    // Read data
-    const archiveData = readJSON(archivePath);
-    const imageMapData = readJSON(imageMapPath);
+
 
     if (!archiveData || !imageMapData) {
         console.error('Error reading data files. Aborting.');
@@ -183,24 +175,28 @@ function generateIndex() {
 
     // Generate HTML for standard projects
     const standardProjects = archiveData.projects.filter(p => p.spotlight && p.id !== verticalProjectID && p.id !== giantProjectID);
-    const standardProjectsHTML = generateStandardProjectsHTML(standardProjects, imageMapData);
+    // const standardProjectsHTML = generateStandardProjectsHTML(standardProjects, imageMapData);
 
     // Generate HTML for vertical and giant projects
     let verticalProjectHTML = '';
     let giantProjectHTML = '';
 
     if (verticalProject) {
-        verticalProjectHTML = generateVerticalProjectSection(verticalProject, imageMapData);
+        verticalProjectHTML = generateVerticalProjectHTML(verticalProject, imageMapData);
+    } else {
+        console.error(`Vertical project with ID "${verticalProjectID}" not found.`);
     }
 
     if (giantProject) {
-        giantProjectHTML = generateGiantProjectSection(giantProject, imageMapData);
+        giantProjectHTML = generateGiantProjectHTML(giantProject, imageMapData);
+    } else {
+        console.error(`Giant project with ID "${verticalProjectID}" not found.`);
     }
 
-    // Read the main template
+    // get the main template
     let templateContent = fs.readFileSync(templatePath, 'utf-8');
 
-    // Count the number of <!-- PROJECTS_PLACEHOLDER --> in the template
+    // count placeholders to assure script was successfully executed
     const standardPlaceholder = '<!-- PROJECTS_PLACEHOLDER -->';
     const standardPlaceholderRegex = new RegExp(standardPlaceholder, 'g');
     const standardCount = (templateContent.match(standardPlaceholderRegex) || []).length;
@@ -251,9 +247,54 @@ function generateIndex() {
         console.warn(`Not all standard project chunks were inserted. Expected: ${standardChunks.length}, Inserted: ${replacedStandardCount}`);
     }
 
+
+    ////////////////////////////////////////////
+    //  Include other pages inside main page  //
+    ////////////////////////////////////////////
+    
+    // get newly generated pages
+    // TODO: potentially a weak point in maintaining further
+    const archiveContentPath = path.join(__dirname, '../../archive/index.html');
+    const aboutContentPath = path.join(__dirname, '../../about/index.html');
+    // const somethingContentPath = path.join(__dirname, '../../something/index.html');
+
+    let archiveContent = '';
+    let aboutContent = '';
+    // let somethingContent = '';
+
+    try {
+        archiveContent = fs.readFileSync(archiveContentPath, 'utf-8');
+        archiveContent = getOtherPagesContent(archiveContent);
+    } catch (error) {
+        console.error('Error reading archive content:', error.message);
+    }
+
+    try {
+        aboutContent = fs.readFileSync(aboutContentPath, 'utf-8');
+        aboutContent = getOtherPagesContent(aboutContent);
+    } catch (error) {
+        console.error('Error reading about content:', error.message);
+    }
+
+    // try {
+    //     somethingContent = fs.readFileSync(somethingContentPath, 'utf-8');
+    //     // extract the portion you want to include
+    //     somethingContent = getOtherPagesContent(somethingContent);
+    // } catch (error) {
+    //     console.error('Error reading something content:', error.message);
+    // }
+
+    // Replace placeholders with actual content
+    templateContent = templateContent.replace('<!-- ARCHIVE_CONTENT_PLACEHOLDER -->', archiveContent);
+    templateContent = templateContent.replace('<!-- ABOUT_CONTENT_PLACEHOLDER -->', aboutContent);
+    // templateContent = templateContent.replace('<!-- SOMETHING_CONTENT_PLACEHOLDER -->', somethingContent);
+
     // Write the final HTML to index.html
     fs.writeFileSync(outputPath, templateContent);
     console.log('index.html has been generated successfully.');
 }
 
 generateIndex();
+// generate archive
+// insert about
+// generate something

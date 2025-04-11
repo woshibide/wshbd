@@ -29,10 +29,15 @@
     <link rel="stylesheet" href="/styles/sections.css">
 
 </head>
+
 <body>
 
     <header>
-<div id="menu-icon">
+
+
+
+
+        <div id="menu-icon">
     <div class="stripe"></div>
     <div class="stripe"></div>
     <div class="stripe"></div>
@@ -42,33 +47,36 @@
 <nav id="nav-menu">
     <!-- <button id="theme-toggle">lights</button> -->
     <div class="nav-links-container">
-        <a href="/">featured</a>
+        <a href="/">profile</a>
         <a href="/archive">archive</a>
-        <a href="/something">something</a>
         <a href="/about">about</a>
+        <a href="/something">something</a>
     </div>
     <p id="contact">hello@wshbd.com</p>
 </nav>
-        <div class="hello">
-            <h1>archive</h1>
-            <p>Graphic design. Editorial design. Motion design. UX/UI design. Digital design. Spatial design. Web design. Design. Redesign. It’s all here, neatly tucked away. Feel free to explore using the tags below.</p>
-        </div>
     </header>
-
-    <main>
+    <section id="extract-me">
+        <main>
+            <div class="hello">
+                <h1>archive</h1>
+                <p>Graphic design. Editorial design. Motion design. UX/UI design. Digital design. Spatial design. Web
+                    design. 3D. Generative Graphics. Design. Redesign. It’s all here, neatly tucked away. Feel free to
+                    explore using the tags below.</p>
+            </div>
+        </main>
         <div class="archive" id="archive">
             <!-- HASHTAG_CONTAINER_PLACEHOLDER -->
             <div class="archive-headers">
-                <button class="archive-filters" onclick="filterIndex()">index</button>
-                <button class="archive-filters" onclick="filterWho()">who</button>
-                <button class="archive-filters" id="what" onclick="filterWhat()">what</button>
-                <button class="archive-filters" onclick="filterWhen()">when</button>
+                <button id="filter-index" class="archive-filters" onclick="filterIndex()">index <span class="sort-indicator">▼</span></button>
+                <button id="filter-who" class="archive-filters" onclick="filterWho()">who</button>
+                <button id="filter-what" class="archive-filters" onclick="filterWhat()">what</button>
+                <button id="filter-when" class="archive-filters" onclick="filterWhen()">when</button>
             </div>
             <div class="archive-list">
                 <!-- ARCHIVE_ITEMS_PLACEHOLDER -->
             </div>
         </div>
-    </main>
+    </section>
 
 
     <footer>
@@ -125,9 +133,9 @@
     </div>
 </footer>
 
-<script type="module" src="/scripts/scripts.js"></script>
-<script type="module" src="/scripts/utils.js"></script>
-<script type="module" src="/scripts/archive.js"></script>
+    <script type="module" src="/scripts/scripts.js"></script>
+    <script type="module" src="/scripts/utils.js"></script>
+    <script type="module" src="/scripts/archive.js"></script>
 
 </body>
 

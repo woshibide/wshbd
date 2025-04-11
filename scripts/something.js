@@ -1,3 +1,5 @@
+import { animateImageTransition } from './utils.js';
+
 let currentProjectIndex = 0
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -20,13 +22,39 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // add scroll tracking
     trackScrollPosition(projectSections)
+
+    // add styles for transitions
+    addTransitionStyles()
 })
+
+function addTransitionStyles() {
+    // smooth transitions
+    const style = document.createElement('style')
+    style.textContent = `
+        .project-image img {
+            transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            opacity: 1;
+        }
+        .project-image img.transitioning {
+            opacity: 0;
+        }
+    `
+    document.head.appendChild(style)
+}
 
 function addImageNavigation(imageContainer, images, imgElement) {
     let currentImageIndex = 0
+    const counterElement = imageContainer.closest('.project-section').querySelector('#gallery-counter')
 
     function updateImage() {
-        imgElement.src = images[currentImageIndex]
+        // use shared animation function
+        animateImageTransition({
+            element: imgElement,
+            newSrc: images[currentImageIndex],
+            newIndex: currentImageIndex,
+            images: images,
+            counterElement: counterElement
+        });
     }
 
     imageContainer.addEventListener('click', (event) => {
@@ -73,43 +101,110 @@ function addImageNavigation(imageContainer, images, imgElement) {
     })
 }
 
+function updateImageCounter(currentIndex, totalImages, counterElement) {
+    // display 1-based index for user-friendliness
+    counterElement.textContent = `[${currentIndex + 1} / ${totalImages}]`
+}
+
 function addProjectNavigation(projectSections) {
     let currentImageIndex = 0 // track current image index for the current project
 
     document.addEventListener('keydown', (event) => {
         const currentProject = projectSections[currentProjectIndex]
         const imgElement = currentProject.querySelector('.project-image img')
+        const counterElement = currentProject.querySelector('#gallery-counter')
         const images = JSON.parse(imgElement.getAttribute('data-images'))
 
         if (event.key === 'ArrowLeft') {
             event.preventDefault()
             // left arrow key, show previous image
             currentImageIndex = (currentImageIndex - 1 + images.length) % images.length
-            imgElement.src = images[currentImageIndex]
+            // use shared animation function
+            animateImageTransition({
+                element: imgElement,
+                newSrc: images[currentImageIndex],
+                newIndex: currentImageIndex,
+                images: images,
+                counterElement: counterElement
+            });
         } else if (event.key === 'ArrowRight') {
             event.preventDefault()
             // right arrow key, show next image
             currentImageIndex = (currentImageIndex + 1) % images.length
-            imgElement.src = images[currentImageIndex]
+            // use shared animation function
+            animateImageTransition({
+                element: imgElement,
+                newSrc: images[currentImageIndex],
+                newIndex: currentImageIndex,
+                images: images,
+                counterElement: counterElement
+            });
         } else if (event.key === 'ArrowUp') {
             event.preventDefault()
             // show previous project
             currentProjectIndex = (currentProjectIndex - 1 + projectSections.length) % projectSections.length
-            updateProjectView()
+            updateProjectView(true)
         } else if (event.key === 'ArrowDown') {
             event.preventDefault()
             // show next project
             currentProjectIndex = (currentProjectIndex + 1) % projectSections.length
-            updateProjectView()
+            updateProjectView(true)
         }
     })
 
-    function updateProjectView() {
+    function updateProjectView(animate = false) {
         const currentProject = projectSections[currentProjectIndex]
-        currentProject.scrollIntoView({ behavior: 'smooth' })
+        
+        if (animate) {
+            // custom smooth scroll with cubic-bezier
+            smoothScrollTo(currentProject.offsetTop, 800)
+        } else {
+            currentProject.scrollIntoView()
+        }
+        
         currentImageIndex = 0 // reset image index when changing projects
         const projectId = currentProject.getAttribute('id') // get project id
         window.location.hash = projectId // update url hash
+        
+        // update counter for the new project
+        const imgElement = currentProject.querySelector('.project-image img')
+        const counterElement = currentProject.querySelector('#gallery-counter')
+        const images = JSON.parse(imgElement.getAttribute('data-images'))
+        updateImageCounter(currentImageIndex, images.length, counterElement)
+    }
+    
+    // custom smooth scroll with cubic bezier
+    function smoothScrollTo(targetY, duration) {
+        const startY = window.pageYOffset
+        const diff = targetY - startY
+        let startTime = null
+        
+        // cubic-bezier implementation
+        function easeInOutCubicBezier(t) {
+            // cubic-bezier(0.165, 0.84, 0.44, 1)
+            const p1 = {x: 0.165, y: 0.84}
+            const p2 = {x: 0.44, y: 1}
+            
+            // simple approximation of cubic bezier
+            return 3 * Math.pow(1 - t, 2) * t * p1.y +
+                   3 * (1 - t) * Math.pow(t, 2) * p2.y +
+                   Math.pow(t, 3)
+        }
+        
+        function animation(currentTime) {
+            if (startTime === null) startTime = currentTime
+            const timeElapsed = currentTime - startTime
+            const progress = Math.min(timeElapsed / duration, 1)
+            
+            const easedProgress = easeInOutCubicBezier(progress)
+            window.scrollTo(0, startY + diff * easedProgress)
+            
+            if (timeElapsed < duration) {
+                requestAnimationFrame(animation)
+            }
+        }
+        
+        requestAnimationFrame(animation)
     }
 }
 

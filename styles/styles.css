@@ -30,6 +30,9 @@ html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}h1{font-size:2
     --right-cursor: url('/content/misc/white-right.svg'), pointer;
     /* --left-cursor: url('/content/misc/black-left.svg'), pointer;
     --right-cursor: url('/content/misc/black-right.svg'), pointer; */
+
+    /* add transition timing as a CSS variable for consistency */
+    --transition-timing: cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 
@@ -56,10 +59,10 @@ html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}h1{font-size:2
     margin: 0rem;
     box-sizing: border-box;
 
-    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    transition: color 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-    transition: background-color 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-    transition: opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.3s var(--transition-timing);
+    transition: color 0.5s var(--transition-timing);
+    transition: background-color 0.5s var(--transition-timing);
+    transition: opacity 0.5s var(--transition-timing);
 }
 
 html {
@@ -217,7 +220,7 @@ header #home-sticky{
     width: 0.8rem;
     height: 1.5rem;
     z-index: +100;
-    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.5s var(--transition-timing);
 }
 
 
@@ -275,7 +278,7 @@ header #home-sticky{
     justify-content: space-between;
     align-items: flex-start;
     z-index: 2000;
-    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.5s var(--transition-timing);
 }
 
 .nav-links-container {
@@ -341,6 +344,7 @@ header #home-sticky{
 /* ============================================ */
 
 body {
+    width: 100%;
     background-color: var(--main-bg);
     color: var(--text-color);
 }
@@ -409,7 +413,7 @@ footer {
 #dev-brief p:hover,
 #home:hover {
     cursor: pointer;
-    text-decoration: none;
+    text-decoration: underline;
     border: none;
     color: var(--special-color);
 }
@@ -458,6 +462,48 @@ img {
     max-height: 100%;
     display: block;
     height: auto;
+}
+
+/* add smooth transition styles for all image galleries */
+.spotlight-gallery-image,
+.project-image img {
+    transition: opacity 0.4s var(--transition-timing);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* make sure non-active images are hidden */
+.spotlight-gallery-image:not(.active) {
+    opacity: 0;
+}
+
+/* make sure active images are visible */
+.spotlight-gallery-image.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.project-image img.transitioning,
+.spotlight-gallery-image.transitioning {
+    opacity: 0;
+}
+
+.spotlight-gallery-container, 
+.spotlight-giant-gallery,
+.project-image {
+    position: relative;
+    overflow: hidden;
+    /* make containers have a specific height - this is crucial for absolute positioning of images */
+    min-height: 300px; /* adjust as needed */
+}
+
+.spotlight-gallery-container.blinking,
+.spotlight-giant-gallery.blinking {
+    animation: none; /* disable any existing blinking animation */
 }
 
 ol {
@@ -514,6 +560,7 @@ p {
     text-align: inherit;
     text-justify: inherit;
     font-style: normal;
+    line-height: 125%;
 }
 
 .code {
@@ -527,10 +574,10 @@ p {
 /* ============================================ */
 
 a {
+    text-decoration: underline;
     display: flex;
     cursor: pointer;
     padding: 1rem;
-    text-decoration: none;
     font-style: normal;
     border: var(--border-def);
     color: var(--text-color);
@@ -560,7 +607,7 @@ button {
     background-color: var(--main-bg);
     border: var(--border-def);
     color: var(--text-color);
-    text-decoration: none;
+    /* text-decoration: none; */
     cursor: pointer;
     text-align: start;
 }
@@ -570,97 +617,17 @@ button:hover {
     color: var(--main-bg);
 }
 
-
-/* ============================================ */
-
-
-#loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--main-bg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 1;
-    transition: opacity 0.5s ease-out;
+.spotlight-xtr-info a,
+.archive-item a,
+#design-brief p,
+#next-project,
+#prev-project,
+#dev-brief p,
+.xtr-info a,
+a{
+    text-decoration: underline 1px;
 }
 
-.spinner {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 2rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
-.spinner:before,
-.spinner:after {
-    content: "";
-    position: absolute;
-    /* border-radius: 50%; */
-    animation: pulsOut 0.9s ease-out infinite;
-}
-
-.spinner:before {
-    width: 100%;
-    padding-bottom: 100%;
-    box-shadow: inset 0 0 0 1rem var(--text-color);
-    animation-name: pulsIn;
-}
-
-.spinner:after {
-    width: calc(100% - 2rem);
-    padding-bottom: calc(100% - 2rem);
-    box-shadow: 0 0 0 0 var(--text-color);
-}
-
-@keyframes pulsIn {
-    0% {
-        box-shadow: inset 0 0 0 1rem var(--text-color);
-        opacity: 1;
-    }
-
-    50%,
-    100% {
-        box-shadow: inset 0 0 0 0 var(--text-color);
-        opacity: 0;
-    }
-}
-
-@keyframes pulsOut {
-
-    0%,
-    50% {
-        box-shadow: 0 0 0 0 var(--special-color);
-        opacity: 0;
-    }
-
-    100% {
-        box-shadow: 0 0 0 1rem var(--special-color);
-        opacity: 1;
-    }
-}
-
-body.loading {
-    overflow: hidden;
-    transition: opacity 0.5s ease-out;
-}
-
-body.loading>*:not(#loader) {
-    opacity: 0;
-    transition: opacity 0.5s ease-out;
-    visibility: hidden;
-}
-
-body:not(.loading)>* {
-    transition: opacity 0.5s ease-out;
-    opacity: 1;
-    visibility: visible;
+.extr-link{
+    text-decoration: none;
 }

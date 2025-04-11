@@ -1,24 +1,38 @@
 import { fetchJSON } from './utils.js';
 
 //////////////////////////////////////////
-//              Hashtags
+//              hashtags
 //////////////////////////////////////////
 
 let selectedHashtags = [];
+const blinkTimeout = 100;
+const allHashtags = document.querySelectorAll('.hashtag-pool .hashtag');
+
 
 function resetHashtagSelection() {
 
     selectedHashtags = [];
 
-    const allHashtags = document.querySelectorAll('.hashtag-pool .hashtag');
     allHashtags.forEach(tagElement => {
-        tagElement.classList.remove('selected');
 
+        tagElement.classList.remove('selected');
         tagElement.classList.add('blinking');
 
         setTimeout(() => {
             tagElement.classList.remove('blinking');
-        }, 100);
+        }, blinkTimeout);
+    });
+
+    // collapse all expanded items
+    const expandedItems = document.querySelectorAll('.archive-item.expanded');
+    expandedItems.forEach(item => {
+        item.classList.remove('expanded');
+        
+        // clear image container content
+        const imageContainer = item.querySelector('.image-container');
+        if (imageContainer) {
+            imageContainer.innerHTML = '';
+        }
     });
 
     filterProjectsByHashtags();
@@ -35,6 +49,17 @@ function toggleHashtagSelection(element) {
     } else {
         selectedHashtags = selectedHashtags.filter(item => item !== tag);
     }
+
+    allHashtags.forEach(tagElement => {
+
+        // tagElement.classList.remove('selected');
+        tagElement.classList.add('blinking');
+
+        setTimeout(() => {
+            tagElement.classList.remove('blinking');
+        }, blinkTimeout);
+    });
+
     filterProjectsByHashtags();
 }
 
@@ -52,9 +77,15 @@ function filterProjectsByHashtags() {
         } else {
             archiveItem.style.display = 'none';
         }
+
+
+        // TODO: works very strange, could be a better approach
+        // const archiveList = document.querySelector('.archive-list');
+        // if (archiveList && archiveList.firstElementChild) {
+        //     archiveList.firstElementChild.scrollIntoView();
+        // }
     });
 
-    // Add a check here
     if (archiveItems.length > 0) {
         archiveItems.forEach(tagElement => {
             tagElement.classList.remove('selected');
@@ -68,7 +99,7 @@ function filterProjectsByHashtags() {
 
 
 //////////////////////////////////////////
-//         Filter and Sort Functions
+//       Sort State and Globals
 //////////////////////////////////////////
 
 let sortState = {
@@ -77,6 +108,31 @@ let sortState = {
     what: 'asc',
     when: 'asc'
 };
+
+let currentSortedField = 'index';
+let currentWhatIndicator = '☄'; // default indicator for what
+
+function updateSortIndicator() {
+    ['index','who','what','when'].forEach(field => {
+        const btn = document.getElementById('filter-' + field);
+        if (!btn) return;
+        if(field === currentSortedField) {
+            if(field === 'what') {
+                btn.innerHTML = "what <span class='sort-indicator'>" + currentWhatIndicator + "</span>";
+            } else {
+                // For non-'what', use arrow based on sort order: asc => ▼, desc => ▲
+                let arrow = sortState[field] === 'asc' ? '▼' : '▲';
+                btn.innerHTML = field + " <span class='sort-indicator'>" + arrow + "</span>";
+            }
+        } else {
+            btn.innerHTML = field;
+        }
+    });
+}
+
+//////////////////////////////////////////
+//     Filter and Sort Functions
+//////////////////////////////////////////
 
 function sortArchive(field, type = 'text', order = 'asc') {
     const archiveList = document.querySelector('.archive-list');
@@ -110,7 +166,7 @@ function sortArchive(field, type = 'text', order = 'asc') {
         };
         const [year, month] = dateString.toLowerCase().split(' ');
         const monthIndex = monthMap[month.substring(0, 3)]; // get numeric month
-        return new Date(year, monthIndex); 
+        return new Date(year, monthIndex); // create Date object for comparison
     }
 }
 
@@ -118,36 +174,41 @@ function filterIndex() {
     const currentOrder = sortState.index;
     sortArchive('id', 'text', currentOrder);
     sortState.index = currentOrder === 'asc' ? 'desc' : 'asc';
+    currentSortedField = 'index';
+    updateSortIndicator();
 }
 
 function filterWho() {
     const currentOrder = sortState.who;
     sortArchive('who', 'text', currentOrder);
     sortState.who = currentOrder === 'asc' ? 'desc' : 'asc';
+    currentSortedField = 'who';
+    updateSortIndicator();
 }
 
 function filterWhat() {
+    currentSortedField = 'what';
+    const whatIndicators = ['☄','☯','✈','😱','🔫','🏃','👤','😉','𝄞','🚁','†','▩','♬','👾'];
+    currentWhatIndicator = whatIndicators[Math.floor(Math.random() * whatIndicators.length)];
+    
     const archiveList = document.querySelector('.archive-list');
     const items = Array.from(archiveList.getElementsByClassName('archive-item'));
 
-    let tahw = 'what';
-    let shuffled = tahw.split('').sort(() => Math.random() - 0.5).join('');
-    let what = document.getElementById('what');
-    what.textContent = shuffled;
-
-    // fisher-Yates shuffle algorithm
+    // Fisher-Yates shuffle algorithm
     for (let i = items.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [items[i], items[j]] = [items[j], items[i]]; 
     }
-
     items.forEach(item => archiveList.appendChild(item));
+    updateSortIndicator();
 }
 
 function filterWhen() {
     const currentOrder = sortState.when;
     sortArchive('when', 'date', currentOrder);
     sortState.when = currentOrder === 'asc' ? 'desc' : 'asc';
+    currentSortedField = 'when';
+    updateSortIndicator();
 }
 
 // exposing functions to global scope
@@ -166,21 +227,22 @@ async function toggleArchiveItem(item) {
     const expandedClass = 'expanded';
     const isExpanded = item.classList.contains(expandedClass);
 
-    if (isExpanded) { // collapse the item
-        
+    if (isExpanded) {
+        // collapse the item
         item.classList.remove(expandedClass);
 
         const imageContainer = item.querySelector('.image-container');
         if (imageContainer) {
             imageContainer.innerHTML = '';
         }
-    } else { // expand item
-        
+    } else {
+        // expand item
         item.classList.add(expandedClass);
 
         const projectId = item.id;
         const imageMap = await getImageMapData();
 
+        // TODO: doesnt work
         const imageUrls = imageMap[projectId] ? imageMap[projectId] : ['/content/misc/non-image.svg'];
 
         const imageContainer = item.querySelector('.image-container');
@@ -204,7 +266,34 @@ async function toggleArchiveItem(item) {
     }
 }
 
-
+// function to expand random projects on page load
+function expandRandomProjects(maxToExpand = 4) {
+    // get all archive items
+    const archiveItems = document.querySelectorAll('.archive-list .archive-item');
+    
+    // if no items, exit
+    if (archiveItems.length === 0) return;
+    
+    // determine how many to expand (up to maxToExpand or as many as available)
+    const numToExpand = Math.min(maxToExpand, archiveItems.length);
+    
+    // convert nodeList to array for easier manipulation
+    const itemsArray = Array.from(archiveItems);
+    
+    // shuffle the array using fisher-yates algorithm
+    for (let i = itemsArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [itemsArray[i], itemsArray[j]] = [itemsArray[j], itemsArray[i]];
+    }
+    
+    // expand the first numToExpand items
+    for (let i = 0; i < numToExpand; i++) {
+        // use setTimeout to stagger the expansion slightly
+        setTimeout(() => {
+            toggleArchiveItem(itemsArray[i]);
+        }, i * 100);
+    }
+}
 
 function lazyLoadImages() {
     const images = document.querySelectorAll('img.lazy');
@@ -276,16 +365,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         localStorage.removeItem('selectedBrief');
     }
+
+    updateSortIndicator(); // ensure correct default indicator on load
+    
+    // expand random projects on page load
+    expandRandomProjects(4);
 });
 
 if (document.getElementById('archive')) {
     window.addEventListener('footerHashtagClicked', (e) => {
         const hashtag = e.detail.hashtag;
-        resetHashtagSelection();
+        // resetHashtagSelection();
         const hashtagElement = document.querySelector(`.hashtag-pool .hashtag[data-tag="${hashtag}"]`);
         if (hashtagElement) {
             toggleHashtagSelection(hashtagElement);
         }
-        document.getElementById('archive').scrollIntoView();
+        //document.getElementById('archive').scrollIntoView();
     });
 }

@@ -1,14 +1,10 @@
-import { fetchJSON, toggleTheme, handleFooterClick, redirectToHomepage, navigateToProject } from './utils.js';
-
-
+import { fetchJSON, toggleTheme, handleFooterClick, redirectToHomepage, navigateToProject, updateTime } from './utils.js';
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')
         .then((reg) => console.log('service worker registered', reg))
         .catch((err) => console.log('service worker not registered', err));
 }
-
-
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -21,6 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     handleFooterClick();
+
+    // initialize clock if time element exists
+    const timeElement = document.getElementById('time');
+    if (timeElement) {
+        updateTime(); // initial update
+        setInterval(updateTime, 1000); // update every second
+    }
 
     const prevProjectButton = document.getElementById('prev-project');
     if (prevProjectButton) { 
@@ -46,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
-    
     const menuIcon = document.getElementById('menu-icon');
     const navMenu = document.getElementById('nav-menu');
     menuIcon.addEventListener('click', () => {

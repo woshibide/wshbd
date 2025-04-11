@@ -10,8 +10,8 @@
 
 
 .hello {
-    margin: 2rem;
     margin-top: 15rem;
+    margin-left: calc(25% + 1.5rem);
 }
 
 .hello h1 {
@@ -48,8 +48,7 @@
 
 
 main {
-    margin-top: 1rem;
-    padding: 2rem;
+    padding: 0rem;
 }
 
 @media (max-width: 768px) {
@@ -70,19 +69,8 @@ main {
 /* container holding spotlight items */
 section.list {
     display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    height: 90svh;
-    padding: 0;
-    margin: 0 -2rem; /* Extend beyond container edges */
-    width: calc(100% + 4rem);
-}
-
-section.list::-webkit-scrollbar {
-    display: none;
+    flex-direction: column;
+    padding-block: 2rem;
 }
 
 .list {
@@ -92,10 +80,11 @@ section.list::-webkit-scrollbar {
 
 .list li {
     list-style: none;
-    margin-inline: 1rem;
-    flex: 0 0 85vw; /* Fixed width for each item */
-    height: 100%;
+    margin-block: 10svh;
     position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-wrapper {
@@ -106,37 +95,18 @@ section.list::-webkit-scrollbar {
     height: 100%;
 }
 
-/* Gallery container styling */
 .spotlight-gallery-container {
     flex: 1;
     position: relative;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
-    height: 100%;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    display: flex;
+    overflow: hidden;
+    height: 95svh;
 }
 
-.spotlight-gallery-container::-webkit-scrollbar {
-    display: none;
+.spotlight-gallery-container .image-counter, 
+.spotlight-gallery-container .spotlight-id  {
+    z-index: 10000;
 }
 
-/* Make all images display side by side */
-.spotlight-gallery-image {
-    display: inline-block;
-    height: 100%;
-    width: auto;
-    margin-right: 10px;
-    flex-shrink: 0;
-    object-fit: contain;
-}
-
-/* Remove the active/inactive classes */
-.spotlight-gallery-image.active {
-    display: inline-block;
-}
 
 .spotlight-giant-gallery::before,
 .spotlight-giant-gallery::after {
@@ -217,7 +187,6 @@ section.list::-webkit-scrollbar {
 
 .spotlight-xtr-info a p:hover {
     color: var(--special-color);
-    text-decoration: none;
 }
 
 
@@ -235,11 +204,20 @@ section.list::-webkit-scrollbar {
 
 .spotlight-brand {
     text-align: left;
-    text-decoration: none;
 }
 
 .spotlight-title {
     text-align: right;
+}
+
+.spotlight-gallery-image {
+    display: none;
+    /* Hide all images initially */
+}
+
+.spotlight-gallery-image.active {
+    display: block;
+    width: inherit;
 }
 
 .image-counter {
@@ -304,7 +282,6 @@ section.list::-webkit-scrollbar {
 
 
 .spotlight-vertical .xtr-info a {
-    text-decoration: none;
     margin: 0rem;
     padding-inline: 0rem;
     background: none;
@@ -326,13 +303,13 @@ section.list::-webkit-scrollbar {
     height: 200svh;
     width: 100%;
     position: relative;
-    gap: 1rem;
+    /* gap: 1rem; */
 }
 
 
 .spotlight-vertical .xtr-info {
     width: 100%;
-    bottom: 1rem;
+    padding-inline: 1rem;
     display: flex;
     align-items: baseline;
     justify-content: space-between;
@@ -348,8 +325,8 @@ section.list::-webkit-scrollbar {
 }
 
 .spotlight-vertical img.spotlight-gallery-image {
-    margin-right: -2rem;
-    width: calc(100% + 2rem);
+    /* margin-right: -2rem; */
+    width: 100%;
     height: 100%;
     object-fit: cover;
 }
@@ -360,6 +337,7 @@ section.list::-webkit-scrollbar {
     justify-content: end;
     width: 100%;
     bottom: 1rem;
+    right: 1rem;
 }
 
 .spotlight-vertical .project-id {
@@ -382,7 +360,6 @@ section.list::-webkit-scrollbar {
         flex-direction: column;
     }
     .spotlight-vertical .xtr-info {
-        text-decoration: none;
         margin: 0rem;
         padding-left: 1rem;
         background: none;
@@ -405,16 +382,16 @@ section.list::-webkit-scrollbar {
 
 
 .spotlight-giant {
-    margin-left: -2rem;
-    margin-right: -2rem;
+    /* margin-left: -2rem; */
+    /* margin-right: -2rem; */
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 195svh;
-    width: calc(100% + 4rem);
+    width: 100%;
     background-color: none;
-    padding: 4rem;
+    /* padding: 4rem; */
     overflow: hidden; 
 }
 
@@ -443,11 +420,12 @@ section.list::-webkit-scrollbar {
 
 .spotlight-giant-info {
     pointer-events: none;
-    padding-left: 1.5rem;
-    padding-right: 2rem;
+    padding-left: calc(1rem + 8px);
+    padding-right: 1rem;
+    /* margin-right: 1.5rem; */
     position: relative;
     z-index: 1;
-    width: 50svw;
+    width: 50%;
     left: 50%;
     height: 50%;
     display: flex;
@@ -456,14 +434,13 @@ section.list::-webkit-scrollbar {
 }
 
 .spotlight-giant .image-counter{
-    margin-left: 1rem;
     margin-bottom: 3rem;
     z-index: 1;
 }
 
 .spotlight-giant-id{
     color: var(--text-color);
-    margin-left: -2rem;
+    margin-left: -3rem;
     z-index: 1;
 }
 
@@ -477,7 +454,6 @@ section.list::-webkit-scrollbar {
 
 .spotlight-giant-xtr-info a {
     pointer-events: all;
-    text-decoration: none;
     background: none;
     padding-left: 0rem;
     margin: 0rem;
@@ -501,7 +477,6 @@ section.list::-webkit-scrollbar {
 
 .spotlight-giant-description {
     pointer-events: all;
-    margin-top: 1rem;
     font-size: 1rem;
     width: 100%;
 }
@@ -545,9 +520,16 @@ section.list::-webkit-scrollbar {
 
 /*  ================
     ================ 
-        projects 
+        index 
     ================
     ================ */
+
+.other-page{
+    margin-top: 45svh;
+}
+.other-page main{
+    padding: 0rem !important;
+}
 
 .project-info {
     padding: 2rem;
@@ -617,7 +599,7 @@ section.list::-webkit-scrollbar {
     display: flex;
     cursor: pointer;
     text-align: center;
-    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.5s var(--transition-timing);
     height: 100%;
     width: 50%;
     align-items: center;
@@ -674,7 +656,7 @@ section.list::-webkit-scrollbar {
     position: relative;
     overflow: hidden;
     outline: 0px solid var(--text-color);
-    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.5s var(--transition-timing);
 }
 
 .archive-item.expanded {
@@ -705,7 +687,6 @@ section.list::-webkit-scrollbar {
     color: var(--text-color);
     width: 100%;
     background-color: transparent;
-    text-decoration: none;
 }
 .archive-item > a:nth-child(2) > div:nth-child(1){
     padding: 0;
@@ -751,7 +732,7 @@ section.list::-webkit-scrollbar {
     scrollbar-width: none; 
     pointer-events: touch;
     width: 100%;
-    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.5s var(--transition-timing);
 }
 
 @media (max-width: 768px) {
@@ -778,6 +759,7 @@ section.list::-webkit-scrollbar {
     object-fit: cover;
     opacity: 0;
     scrollbar-width: none; /* Firefox */
+    margin-right: 1px;
 }
 
 
@@ -817,7 +799,7 @@ section.list::-webkit-scrollbar {
 }
 
 .blinking {
-    animation: blink 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
+    animation: blink 0.1s var(--transition-timing);
 }
 
 
@@ -1060,7 +1042,7 @@ section.list::-webkit-scrollbar {
 }
 
 #gallery-info,
-#gallery-id {
+#gallery-counter-container {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -1082,13 +1064,11 @@ div#gallery-info a#brand{
     padding: 0;
 }
 
-#gallery-id {
-    margin-bottom: -1rem;
-}
-
-#gallery-id {
+#gallery-counter-container {
     font-family: "cofo-sans-variable", sans-serif;
     font-weight: 400;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.2rem;
     font-style: normal;
     position: relative;
     text-align: end;
