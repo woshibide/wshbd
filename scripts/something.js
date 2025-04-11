@@ -103,7 +103,7 @@ function addImageNavigation(imageContainer, images, imgElement) {
 
 function updateImageCounter(currentIndex, totalImages, counterElement) {
     // display 1-based index for user-friendliness
-    counterElement.textContent = `[${currentIndex + 1} / ${totalImages}]`
+    counterElement.textContent = `[${currentIndex + 1}/${totalImages}]`
 }
 
 function addProjectNavigation(projectSections) {

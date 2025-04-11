@@ -44,7 +44,7 @@ try {
                     <div class="empty-column"></div>
                     <div class="empty-column"></div>
                     <div id="gallery-counter-container">
-                        <p id="gallery-counter">[1 / ${images.length}]</p>
+                        <p id="gallery-counter">[1/${images.length}]</p>
                     </div>
                 </div>
             </div>

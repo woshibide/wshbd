@@ -46,23 +46,40 @@ function getHtmlFiles(dir, fileList = []) {
 
 function generateSitemap(htmlFiles) {
   DOMAINS.forEach((domain) => {
-
+    // create a date object for the lastmod element
+    const today = new Date().toISOString().split('T')[0];
+    
     const urlset = {
       urlset: {
         '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9',
-        url: htmlFiles.map((file) => ({
-          loc: domain + file,
-          changefreq: 'weekly',
-          priority: '0.5',
-        })),
+        url: htmlFiles.map((file) => {
+          // determine priority based on path depth - homepage gets highest priority
+          const depth = (file.match(/\//g) || []).length;
+          const priority = Math.max(0.1, 1.0 - (depth * 0.2)).toFixed(1);
+          
+          return {
+            loc: domain + file,
+            lastmod: today,
+            // dynamic change frequency based on path depth
+            changefreq: depth <= 1 ? 'weekly' : 'monthly',
+            priority: file === '/' || file === '/index.html' ? '1.0' : priority,
+          };
+        }),
       },
     };
 
     const xml = create(urlset).end({ prettyPrint: true });
 
-    // Save sitemap with domain-specific name into ROOT_DIR
+    // check if we're exceeding the 50,000 url limit or 10mb size limit
+    if (htmlFiles.length > 50000 || xml.length > 10 * 1024 * 1024) {
+      console.warn('warning: sitemap exceeds recommended size limits');
+    }
+    
     sitemapPath = path.join(ROOT_DIR, `sitemap.xml`);
     fs.writeFileSync(sitemapPath, xml);
+    
+    // log sitemap size for monitoring
+    console.log(`generated sitemap with ${htmlFiles.length} urls (${(xml.length / 1024).toFixed(2)} kb)`);
   });
 }
 

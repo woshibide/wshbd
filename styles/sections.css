@@ -1104,7 +1104,6 @@ section.list {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    margin: 0;
     margin-right: auto;
     font-variation-settings: "slnt" 0, "wght" 100;
 }
@@ -1114,6 +1113,10 @@ section.list {
     align-content: left;
     font-variation-settings: "slnt" 0, "wght" 400;
 }
+#gallery-info *{
+    margin-bottom: 2px;
+}
+
 div#gallery-info a#brand{
     font-family: "cofo-sans-variable", sans-serif;
     font-variation-settings: inherit;
@@ -1123,7 +1126,6 @@ div#gallery-info a#brand{
 
 #gallery-counter-container {
     font-family: "cofo-sans-variable", sans-serif;
-    font-weight: 400;
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.2rem;
     font-style: normal;
@@ -1137,6 +1139,15 @@ div#gallery-info a#brand{
     white-space: nowrap;
 }
 
+#gallery-counter-container *{
+    font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 768px) {
+    #gallery-counter-container {
+        font-size: 3.5rem;
+    }
+}
 
 
 .web-essays {
