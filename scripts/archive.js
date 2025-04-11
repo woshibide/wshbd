@@ -103,13 +103,13 @@ function filterProjectsByHashtags() {
 //////////////////////////////////////////
 
 let sortState = {
-    index: 'asc',
+    index: 'desc',
     who: 'asc',
     what: 'asc',
-    when: 'asc'
+    when: 'desc'
 };
 
-let currentSortedField = 'index';
+let currentSortedField = 'when';
 let currentWhatIndicator = '☄'; // default indicator for what
 
 function updateSortIndicator() {
@@ -370,6 +370,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // expand random projects on page load
     expandRandomProjects(4);
+
+    filterWhen(); // sort by 'when' on page load
 });
 
 if (document.getElementById('archive')) {

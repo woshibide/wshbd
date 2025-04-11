@@ -106,8 +106,8 @@
       "date": "2024 Apr",
       "description": "This tool rewrites the way type designers interact with fonts, turning the process into something almost physical. Built on p5js, it connects the subtleties of font adjustments to the movements of a mouse, making variable fonts less about numbers and more about intuition. It’s a hands-on experiment where typography gets as flexible as the imagination allows",
       "brand": "NaN",
-      "title": "Custom tool development",
-      "intro": "A tool for exploring variable fonts with p5js",
+      "title": "Data Visualisation",
+      "intro": "A tool for visualizing variable fonts with axises with p5js",
       "hashtags": "p5js, development, data visualisation"
     },
     {

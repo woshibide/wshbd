@@ -31,7 +31,7 @@ function createHtmlContent(project, imageFiles, nextProjectId, prevProjectId) {
                 <h3>${project.intro}</h3>
                 <p>${project.description}</p>
             </div>
-            <div class="images">`;
+            <div class="solo-project-images">`;
 
     imageFiles.forEach(image => {
         htmlContent += `\n            <img src="/content/images/${project.id}/${image}" alt="${project.title}">`;
