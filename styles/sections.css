@@ -921,7 +921,7 @@ section.list {
 
 /*  ================
     ================ 
-          info 
+          about 
     ================
     ================ */
 
@@ -994,6 +994,10 @@ section.list {
         grid-template-columns: repeat(2, 2fr);
         gap: 1rem;
     }
+}
+
+#time {
+    font-variant-numeric: tabular-nums;
 }
 
 /* ============================================ */
