@@ -62,21 +62,16 @@
   "A225": [
     "1.png",
     "2.jpg",
-    "33.jpg",
     "4.jpg",
     "432.jpg",
     "543.jpg",
-    "6.jpg",
     "dasqwds.jpg",
     "dsadadv.jpg",
-    "dsadwfq.jpg",
     "fdsfew.jpg",
     "hnfjdksm.jpg",
     "museon.jpg",
     "screenshot_2024-08-24_at_16.17.37.jpg",
-    "screenshot_2024-08-24_at_16.18.24.jpg",
     "screenshot_2024-08-24_at_16.18.41.jpg",
-    "screenshot_2024-08-24_at_16.19.58.jpg",
     "screenshot_2024-08-24_at_16.22.44.jpg",
     "slim_vectorobject.jpg"
   ],
@@ -119,7 +114,8 @@
     "free_wall_mockup.jpg",
     "paper_envelope_mockup_(7).jpg",
     "sticker_mockup_(5).jpg",
-    "totebag_mockup_copy.jpg"
+    "totebag_mockup_copy.jpg",
+    "vis3.jpg"
   ],
   "B11": [
     "1.jpg",
@@ -184,18 +180,18 @@
     "7.jpg",
     "8.jpg",
     "9.jpg",
-    "yes_what_is_art?_body.jpg",
-    "yes_what_is_art?_body10.jpg",
-    "yes_what_is_art?_body11.jpg",
-    "yes_what_is_art?_body12.jpg",
-    "yes_what_is_art?_body2.jpg",
-    "yes_what_is_art?_body3.jpg",
-    "yes_what_is_art?_body4.jpg",
-    "yes_what_is_art?_body5.jpg",
-    "yes_what_is_art?_body6.jpg",
-    "yes_what_is_art?_body7.jpg",
-    "yes_what_is_art?_body8.jpg",
-    "yes_what_is_art?_body9.jpg"
+    "what-is-art-1.jpg",
+    "what-is-art-10.jpg",
+    "what-is-art-11.jpg",
+    "what-is-art-12.jpg",
+    "what-is-art-2.jpg",
+    "what-is-art-3.jpg",
+    "what-is-art-4.jpg",
+    "what-is-art-5.jpg",
+    "what-is-art-6.jpg",
+    "what-is-art-7.jpg",
+    "what-is-art-8.jpg",
+    "what-is-art-9.jpg"
   ],
   "E05": [
     "1.jpg",
@@ -241,7 +237,10 @@
     "4.jpg",
     "6.jpg",
     "8.jpg",
-    "9.jpg"
+    "9.jpg",
+    "img_0031.jpeg",
+    "img_0041.jpeg",
+    "img_0045.jpeg"
   ],
   "E10": [
     "1.jpg",
@@ -384,10 +383,11 @@
     "6.png"
   ],
   "M02": [
+    "1.gif",
     "1.png",
-    "screenshot_2024-06-25_at_15.31.35.png",
-    "screenshot_2024-06-25_at_15.31.38.png",
-    "screenshot_2024-06-25_at_15.31.47.png"
+    "2.png",
+    "3.png",
+    "4.png"
   ],
   "M04": [
     "1.gif"
@@ -447,14 +447,14 @@
     "4.jpg",
     "5.jpg",
     "6.jpg",
-    "7.png",
-    "8.jpg"
+    "7.png"
   ],
   "W05": [
     "1.jpg",
     "2.jpg",
     "3.jpg",
-    "4.jpg"
+    "4.jpg",
+    "5.gif"
   ],
   "W06": [
     "1.jpg",
@@ -472,8 +472,9 @@
     "3.jpg",
     "4.jpg",
     "5.jpg",
-    "6.jpg",
-    "7.jpg"
+    "6.gif",
+    "7.jpg",
+    "8.jpg"
   ],
   "W08": [
     "1.jpg",
