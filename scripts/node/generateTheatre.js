@@ -61,7 +61,7 @@ try {
 
     template = template.replace('<!-- PROJECT_SECTION_PLACEHOLDER -->', projectSectionsHtml)
 
-    const outputPath = path.join(__dirname, '../../something/index.html')
+    const outputPath = path.join(__dirname, '../../theatre/index.html')
     fs.writeFileSync(outputPath, template, 'utf8')
 
     console.log('HTML file generated successfully at', outputPath)

@@ -37,7 +37,7 @@ function main() {
     runScript('generateErrorPages.js');
     runScript('generateIndex.js');
     runScript('generateArchive.js');
-    runScript('generateSomething.js');
+    runScript('generateTheatre.js');
 
     runScript('updateHtml.js');
     runScript('updateHeader.js');
