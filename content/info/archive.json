@@ -34,7 +34,7 @@
       "hashtags": "web design, landing page, motion design"
     },
     {
-      "spotlight": false,
+      "spotlight": true,
       "location": "Netherlands",
       "id": "E05",
       "date": "2023 Jun",
@@ -96,7 +96,7 @@
       "description": "Browsing through the Metropolitan Museum’s collection is now as sleek as it is inspiring. This web app strips away the clutter, letting the art take center stage. Designed with creatives in mind, each piece is displayed against a clean, minimalist backdrop that lets you explore without distraction",
       "brand": "MET Museum",
       "title": "Web App",
-      "intro": "A minimalist web app for exploring the MET’s collection",
+      "intro": "A better way to browse through MET museum collection",
       "hashtags": "ux/ui, web app, back end, web design, development"
     },
     {
@@ -496,11 +496,22 @@
       "hashtags": "editorial, book design"
     },
     {
+      "spotlight": false,
+      "location": "Netherlands",
+      "id": "E17",
+      "date": "2025 Jan",
+      "description": "blah blah",
+      "brand": "Zanaves",
+      "title": "Literature Magazine",
+      "intro": "Pilot issue for the literature magazine",
+      "hashtags": "web design, data visualisation, editorial"
+    },
+    {
       "spotlight": true,
       "location": "Netherlands",
       "id": "W07",
       "date": "2025 Feb",
-      "description": "Imagine this: trains pass steadily; the place is embraced by a hospital and fire station; across the four-laned road sits a dockyard, alongside tramways and bicycle paths. Amidst all this chaos, humans quietly tend to vines, in a land burdened by endless rain, where everything whispers loneliness and sorrow. The atmosphere is nearly unbearable, yet people persistently torment delicate plants, turning their suffering into wine. Truly, how strange it is: why not simply speak the truth of this place and who you really are?",
+      "description": "De Haagse Stadswijngaard, surrounded by sirens, rails, traffic, and cranes, asked for a new wine label for their 500-bottle batch. Instead, a full rebrand was proposed—shifting from “having fun” to slowness and most importantly sincerity, offering a pause in the city’s rush. The project expanded into a new visual identity, website, label, wine box, and a video series capturing the vineyard’s quiet resistance to the pace around it.",
       "brand": "HSWG",
       "title": "Visual Identity",
       "intro": "Identity for community run wineyard in the middle of the city for people who want to slow down",

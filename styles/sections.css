@@ -29,6 +29,10 @@
 }
 
 @media (max-width: 768px) {
+    #extract-me main .hello {
+        padding: 1rem;
+    }
+
     .hello {
         margin: 0;
         margin-block: 4rem;
@@ -62,9 +66,66 @@ main {
 
 /*  ================
     ================ 
-        spotlight 
+        profile 
     ================
     ================ */
+
+#hero {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content:left;
+}
+
+.hero-column{
+    width: 25%;
+    text-align: left;
+    justify-content: start; 
+    display: flex;
+    flex-direction: column;
+    padding-left: 1rem;
+    padding-top: 50vh;
+    top: 0px;
+}
+
+.hero-column p{
+    font-size: 1rem;
+}
+
+#red-circle{
+    height: 0.5em;
+    width: 0.5em;
+    display: inline-block;
+    border-radius: 100%;
+    background-color: var(--special-color);
+    animation: blink 2s var(--transition-timing) infinite;
+}
+
+.hero-link{
+    font-family: inherit;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    #hero{
+        flex-wrap: wrap;
+        height: 75vh; 
+        margin-bottom: 25vh;
+    }
+    .hero-column{
+        width: 50%;
+        padding: 0;
+        padding-top: 25vh; 
+        box-sizing: border-box;
+    }
+}
+
 
 /* container holding spotlight items */
 section.list {
@@ -96,10 +157,10 @@ section.list {
 }
 
 .spotlight-gallery-container {
-    flex: 1;
     position: relative;
     overflow: hidden;
     height: 95svh;
+    width: 75%;
 }
 
 .spotlight-gallery-container .image-counter, 
@@ -134,7 +195,7 @@ section.list {
 .spotlight-gallery-container::after {
     position: absolute;
     inset: 0;
-    width: 50%;
+    width: auto;
     content: '';
     display: inline-block;
     pointer-events: all;
@@ -162,8 +223,8 @@ section.list {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    flex: 1;
     position: relative;
+    width: 25%;
 }
 
 .spotlight-xtr-info {
@@ -543,7 +604,7 @@ section.list {
 
 @media (max-width: 768px) {
     .other-page main .hello{
-        margin: 1rem;
+        margin: 1rem !important;
     }
 }
 
@@ -676,7 +737,6 @@ section.list {
 #when {
     font-weight: 300;
     font-style: normal;
-
     text-transform: uppercase;
     font-variant-numeric: tabular-nums;
 }
@@ -685,7 +745,6 @@ section.list {
 .archive-item {
     gap: 1rem;
     display: flex;
-    /* font-size: 0.8rem; */
     width: 100%;
     margin-bottom: 0.5rem;
     position: relative;
@@ -701,8 +760,7 @@ section.list {
 
 @media (max-width: 768px) {
     .archive-item {
-        margin-bottom: 1rem;
-        /* should it be border or outline? */
+        margin-bottom: 0;
         border: none;
     }
 }
@@ -1006,7 +1064,7 @@ section.list {
 
 /*  ================
     ================ 
-        something 
+        theatre
     ================
     ================ */
 

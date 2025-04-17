@@ -1,10 +1,44 @@
 import { fetchJSON, toggleTheme, handleFooterClick, redirectToHomepage, navigateToProject, updateTime } from './utils.js';
 
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-        .then((reg) => console.log('service worker registered', reg))
-        .catch((err) => console.log('service worker not registered', err));
-}
+// if ('serviceWorker' in navigator) {
+//     navigator.serviceWorker.register('/sw.js')
+//         .then((reg) => console.log('service worker registered', reg))
+//         .catch((err) => console.log('service worker not registered', err));
+// }
+
+
+console.log(`
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+     o8o      .
+     \`"'    .o8
+    oooo  .o888oo  .oooo.o        .ooooo.  ooo. .oo.
+    \`888    888   d88(  "8       d88' \`88b \`888P"Y88b
+     888    888   \`"Y88b.        888   888  888   888
+     888    888 . o.  )88b       888   888  888   888
+    o888o   "888" 8""888P'       \`Y8bod8P' o888o o888o                                          
+                                                       
+    
+                o8o      .   oooo                     .o8
+                \`"'    .o8   \`888                    "888
+     .oooooooo oooo  .o888oo  888 .oo.   oooo  oooo   888oooo.
+    888' \`88b  \`888    888    888P"Y88b  \`888  \`888   d88' \`88b
+    888   888   888    888    888   888   888   888   888   888
+    \`88bod8P'   888    888 .  888   888   888   888   888   888
+    \`8oooooo.  o888o   "888" o888o o888o  \`V88V"V8P'  \`Y8bod8P'
+    d"     YD
+    "Y88888P'
+
+
+            https://github.com/woshibide/wshbd
+
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+    `)
 
 document.addEventListener('DOMContentLoaded', () => {
     

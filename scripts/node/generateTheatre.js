@@ -12,7 +12,7 @@ try {
 
     console.log('JSON files read successfully.')
 
-    const templatePath = path.join(__dirname, 'templates/something_template.html')
+    const templatePath = path.join(__dirname, 'templates/theatre_template.html')
     let template = fs.readFileSync(templatePath, 'utf8')
 
     console.log('Template file read successfully.')
