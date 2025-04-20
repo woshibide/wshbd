@@ -11,7 +11,7 @@
 
 .hello {
     margin-top: 15rem;
-    margin-left: calc(25% + 1.5rem);
+    margin-left: calc(25% + 0.5rem);
 }
 
 .hello h1 {
@@ -31,6 +31,10 @@
 @media (max-width: 768px) {
     #extract-me main .hello {
         padding: 1rem;
+    }
+
+    #selected-works{
+        padding-inline: 1rem;
     }
 
     .hello {
@@ -77,7 +81,7 @@ main {
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content:left;
+    justify-content: space-evenly;
 }
 
 .hero-column{
@@ -86,8 +90,7 @@ main {
     justify-content: start; 
     display: flex;
     flex-direction: column;
-    padding-left: 1rem;
-    padding-top: 50vh;
+    padding-top: calc(50svh + 1rem);
     top: 0px;
 }
 
@@ -502,7 +505,7 @@ section.list {
 }
 
 .spotlight-giant .image-counter{
-    margin-bottom: 3rem;
+    margin-bottom: 0;
     z-index: 1;
 }
 
@@ -561,6 +564,7 @@ section.list {
     }
 
     .spotlight-giant .image-counter {
+        display: none;
         bottom: 1rem;
     }
 
@@ -633,7 +637,7 @@ section.list {
 .project-info h3,
 .project-info h2 {
     font-family: "cofo-sans-variable", sans-serif;
-    max-width: 30ch;
+    max-width: 40ch;
     font-size: 1.5rem;
     letter-spacing: normal;
     margin-block: 1rem;
@@ -726,6 +730,14 @@ section.list {
     gap: 1rem;
     margin-top: 4rem;
     padding-bottom: 1rem;
+}
+
+.sort-indicator {
+    color: inherit;
+    font-size: 0.75rem;
+    vertical-align: baseline;
+    bottom: 1px;
+    position: relative;
 }
 
 .archive-filters {

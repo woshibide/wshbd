@@ -460,7 +460,7 @@
       "brand": "Morning To The Office",
       "title": "Apparel",
       "intro": "Happy hour. Coffee to be sweet. Forward momentum, clarity of purpose. Good luck in business endeavors, skill in decisions. Strategic moves, optimized processes",
-      "hashtags": "apparel, "
+      "hashtags": "apparel"
     },
     {
       "spotlight": false,
@@ -493,18 +493,18 @@
       "brand": "wshbd",
       "title": "Book",
       "intro": "This book contains nothing but chairs and things, chairs and things, chairs and things..",
-      "hashtags": "editorial, book design"
+      "hashtags": "editorial, book design, back end, development"
     },
     {
       "spotlight": false,
       "location": "Netherlands",
       "id": "E17",
       "date": "2025 Jan",
-      "description": "blah blah",
+      "description": "Concept proposal for pilot issue of literature magazine, with a collectible touch to it",
       "brand": "Zanaves",
       "title": "Literature Magazine",
-      "intro": "Pilot issue for the literature magazine",
-      "hashtags": "web design, data visualisation, editorial"
+      "intro": "Literature magazine with collectible aspect touch to it",
+      "hashtags": "editorial, magazine"
     },
     {
       "spotlight": true,
@@ -515,7 +515,7 @@
       "brand": "HSWG",
       "title": "Visual Identity",
       "intro": "Identity for community run wineyard in the middle of the city for people who want to slow down",
-      "hashtags": "web design, identity, development"
+      "hashtags": "web design, identity, development, front end"
     }, 
     {
       "spotlight": false,
@@ -526,7 +526,18 @@
       "brand": "Taliesin Herb",
       "title": "Data Visualisation",
       "intro": "Custom Dendrogram visualizer with SVG export",
-      "hashtags": "web design, data visualisation, editorial"
+      "hashtags": "web design, data visualisation, editorial, front end"
+    },
+    {
+      "spotlight": false,
+      "location": "Netherlands",
+      "id": "E18",
+      "date": "2025 Apr",
+      "description": "Susanne Snyder talks with Joani Blank and Leigh Davidson about how they used publishing as a tool for sex liberation—doing it their own way, on their own terms. Their work pushed back against the flood of mainstream porn, offering something different, something personal. This magazine is a nod to them—two key voices in feminist self-publishing, who printed what they believed in when it wasn’t easy to do so.",
+      "brand": "wshbd",
+      "title": "I Am My Lover",
+      "intro": "Photoshoots against the backdrop of oral history",
+      "hashtags": "editorial, magazine"
     }
   ]
 }

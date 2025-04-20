@@ -40,7 +40,7 @@ function generateHashtagPoolHTML(hashtags) {
     let html = `
 
     <div class="hashtag-container">
-        <h2>project scope</h2>
+        <h2>Project Scope</h2>
         <ul class="hashtag-pool">
             <li class="hashtag" id="hashtag-reset" data-tag="reset">scope:~# clear</li>`;
 

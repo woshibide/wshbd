@@ -75,6 +75,11 @@
 [x] - image index for random
 [ ] - rename something to theatre
  
+[ ] - purge option on the nginx
+[ ] - progressive image load, a script that generates 5 or so images that are swapped at load
+[ ] - image swapping in general once loaded
+[ ] - htx file?
+
 ==================================================================
 
 

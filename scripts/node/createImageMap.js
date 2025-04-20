@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Supported image extensions
-const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.svg'];
+const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.svg', '.webp'];
 
 let dirCount = 0;
 let imgCount = 0;
