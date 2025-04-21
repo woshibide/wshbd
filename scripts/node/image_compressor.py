@@ -3,21 +3,21 @@ import tempfile
 import argparse
 from PIL import Image
 
-# configuration parameters
-MAX_SIZE = 200000  # maximum file size in bytes
-INITIAL_QUALITY = 99  # starting quality for compression
-MIN_QUALITY = 1  # minimum quality to try
-OUTPUT_PREFIX = ""  # prefix for output files, empty for overwriting
-MAX_DIMENSION = 1400  # maximum width or height in pixels
-RECURSIVE = True  # whether to process subdirectories
+# config
+MAX_SIZE = 200000       # maximum file size in bytes
+INITIAL_QUALITY = 99    # starting quality for compression
+MIN_QUALITY = 1         # minimum quality to try
+OUTPUT_PREFIX = ""      # prefix for output files, empty for overwriting
+MAX_DIMENSION = 1400    # maximum width or height in pixels
+RECURSIVE = True        # whether to process subdirectories
 CONVERT_TO_WEBP = True  # whether to convert images to webp format
-WEBP_LOSSLESS = False  # whether to use lossless compression for webp (for png with alpha)
-DELETE_ORIGINALS = True  # whether to delete original files after successful compression
+WEBP_LOSSLESS = False   # whether to use lossless compression for webp (for png with alpha)
+DELETE_ORIGINALS = True # whether to delete original files after successful compression
 
 # list to track unsuccessful compressions
 FAILED_COMPRESSIONS = []
 
-# variables to track space savings
+# to track space savings
 TOTAL_BYTES_BEFORE = 0
 TOTAL_BYTES_AFTER = 0
 TOTAL_FILES_PROCESSED = 0
@@ -298,7 +298,7 @@ def process_directory(directory, recursive=RECURSIVE):
             count += process_directory(item_path, recursive)
             continue
             
-        # process image files
+        # process image file formats
         if os.path.isfile(item_path) and item.lower().endswith(('.png', '.jpg', '.jpeg')):
             try:
                 size = os.path.getsize(item_path)
@@ -360,7 +360,7 @@ def process_directory(directory, recursive=RECURSIVE):
     return count
 
 def process_failed_compressions():
-    """process images where standard compression failed"""
+    """process images where standard compression failed, absolutely arbitrary params"""
     global TOTAL_BYTES_AFTER
     
     if not FAILED_COMPRESSIONS:
@@ -418,6 +418,8 @@ def format_bytes(size_bytes):
         return f"{size_bytes/1024**3:.2f} GB"
 
 if __name__ == "__main__":
+
+    # cli commands
     parser = argparse.ArgumentParser(description="compress images to target file size")
     parser.add_argument("-r", "--recursive", action="store_true", help="process subdirectories recursively")
     parser.add_argument("-s", "--size", type=int, default=MAX_SIZE, help="maximum file size in bytes")
