@@ -3,6 +3,8 @@ import { animateImageTransition } from './utils.js';
 let currentProjectIndex = 0
 
 document.addEventListener('DOMContentLoaded', () => {
+    // init the curtain loader
+    initTheatreCurtain()
 
     const projectSections = document.querySelectorAll('.project-section')
 
@@ -26,6 +28,138 @@ document.addEventListener('DOMContentLoaded', () => {
     // add styles for transitions
     addTransitionStyles()
 })
+
+function initTheatreCurtain() {
+    const curtain = document.getElementById('theatre-curtain')
+    const leftCurtain = document.querySelector('.curtain-half.left')
+    const rightCurtain = document.querySelector('.curtain-half.right')
+    const loadingPercentage = document.querySelector('.loading-percentage')
+    
+    // only load visible images and initial images
+    const visibleSections = getVisibleSections()
+    const visibleImages = []
+    const heavyGifs = []
+    const otherImages = []
+    
+    // categorize images by priority
+    document.querySelectorAll('.project-section').forEach((section, index) => {
+        const imgElement = section.querySelector('.project-image img')
+        const images = JSON.parse(imgElement.getAttribute('data-images'))
+        
+        // the first image is always the one shown initially
+        if (index === 0 || visibleSections.includes(section)) {
+            // prioritize visible sections' first images
+            visibleImages.push(images[0])
+        }
+        
+        // categorize the rest of the images
+        images.slice(1).forEach(imgSrc => {
+            if (imgSrc.toLowerCase().endsWith('.gif')) {
+                heavyGifs.push(imgSrc)
+            } else {
+                otherImages.push(imgSrc)
+            }
+        })
+    })
+    
+    // load only essential images first
+    const initialImages = visibleImages
+    const totalInitialImages = initialImages.length
+    let loadedImages = 0
+    
+    // update loading percentage based on initial images only
+    const updateProgress = () => {
+        loadedImages++
+        const progress = Math.min(Math.floor((loadedImages / totalInitialImages) * 100), 100)
+        loadingPercentage.textContent = `${progress}%`
+        
+        // open curtains when initial images are loaded
+        if (loadedImages >= totalInitialImages) {
+            setTimeout(() => {
+                loadingPercentage.classList.add('hidden')
+                leftCurtain.classList.add('open')
+                rightCurtain.classList.add('open')
+                
+                // remove curtain after animation completes
+                setTimeout(() => {
+                    curtain.style.display = 'none'
+                    
+                    // start preloading heavy gifs and other images after curtains open
+                    preloadRemainingImages(heavyGifs, otherImages)
+                }, 1500)
+            }, 500)
+        }
+    }
+    
+    // preload initial images
+    initialImages.forEach(src => {
+        const img = new Image()
+        img.onload = updateProgress
+        img.onerror = updateProgress
+        img.src = src
+    })
+    
+    // fallback in case no images load within 5 seconds
+    setTimeout(() => {
+        if (loadedImages < totalInitialImages) {
+            loadingPercentage.textContent = '100%'
+            setTimeout(() => {
+                loadingPercentage.classList.add('hidden')
+                leftCurtain.classList.add('open')
+                rightCurtain.classList.add('open')
+                
+                setTimeout(() => {
+                    curtain.style.display = 'none'
+                    
+                    // start preloading heavy gifs and other images after curtains open
+                    preloadRemainingImages(heavyGifs, otherImages)
+                }, 1500)
+            }, 500)
+        }
+    }, 5000)
+}
+
+// helper function to get visible sections
+function getVisibleSections() {
+    const sections = document.querySelectorAll('.project-section')
+    return Array.from(sections).filter(section => {
+        const rect = section.getBoundingClientRect()
+        return (rect.top >= 0 && rect.top <= window.innerHeight) ||
+               (rect.bottom >= 0 && rect.bottom <= window.innerHeight)
+    })
+}
+
+// preload remaining images in the background
+function preloadRemainingImages(heavyGifs, otherImages) {
+    // use low priority for these images since they're not immediately needed
+    const preloadImage = (src) => {
+        return new Promise(resolve => {
+            const img = new Image()
+            img.onload = resolve
+            img.onerror = resolve
+            img.src = src
+        })
+    }
+    
+    // preload other images first (they're generally smaller)
+    const preloadBatch = async (images, batchSize = 5) => {
+        for (let i = 0; i < images.length; i += batchSize) {
+            const batch = images.slice(i, i + batchSize)
+            await Promise.all(batch.map(preloadImage))
+            
+            // add a small delay between batches to prevent overwhelming the browser
+            if (i + batchSize < images.length) {
+                await new Promise(resolve => setTimeout(resolve, 100))
+            }
+        }
+    }
+    
+    // preload other images first, then heavy GIFs
+    preloadBatch(otherImages).then(() => {
+        // preload GIFs with smaller batches since they're heavy
+        preloadBatch(heavyGifs, 2)
+    })
+}
 
 function addTransitionStyles() {
     // smooth transitions
