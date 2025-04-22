@@ -733,8 +733,9 @@ section.list {
     }
 }
 
-#next-project:hover, #prev-project:hover {
+#next-project:hover *, #prev-project:hover *{
     color: var(--special-color);
+    text-decoration: underline var(--special-color) 1px;
 }
 
 

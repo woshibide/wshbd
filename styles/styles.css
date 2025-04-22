@@ -203,6 +203,11 @@ header #home-sticky{
     mix-blend-mode: exclusion;
 }
 
+header #home-sticky:hover{
+    mix-blend-mode: normal;
+    color: var(--special-color);
+}
+
 @media (max-width: 758px) {
     header #home-sticky{
         right: 0;
