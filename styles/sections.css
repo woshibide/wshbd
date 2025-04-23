@@ -772,10 +772,15 @@ section.list {
     border-bottom: 0.075rem solid var(--text-color);
     font-size: 1rem;
     width: 100%;
+    transition: all 0.2s var(--transition-timing);
 }
 
+.archive-filters * {
+    padding-bottom: 0.2rem !important;
+}
+
+
 #when {
-    font-weight: 300;
     font-style: normal;
     text-transform: uppercase;
     font-variant-numeric: tabular-nums;
@@ -794,8 +799,10 @@ section.list {
 }
 
 .archive-item.expanded {
-    height: 90vh;
+    height: 110vh;
     background-image: none;
+    width: calc(100% + 2rem);
+    margin-inline: -2rem;
 }
 
 @media (max-width: 768px) {
@@ -806,12 +813,14 @@ section.list {
 }
 
 .archive-item:hover {
-    outline: 1px solid var(--text-color);
+    border-bottom: 1px solid;
+    margin-bottom: -1px;
 }
 
 .item-info {
     box-sizing: border-box; 
-    padding: 1rem;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
     color: inherit;
     width: 100%;
 }
@@ -822,6 +831,8 @@ section.list {
     color: var(--text-color);
     width: 100%;
     background-color: transparent;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
 }
 .archive-item > a:nth-child(2) > div:nth-child(1){
     padding: 0;
@@ -832,7 +843,8 @@ section.list {
 
 
 .item-id {
-    padding: 1rem;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
     font-style: normal;
     color: inherit;
     width: 100%;
@@ -875,7 +887,7 @@ section.list {
         padding: 4rem 1rem 1rem 1rem;
     }
     .archive-item .item-info#when, #filter-when{
-        text-align: right;
+        /* text-align: right; */
     }
     .archive-item *{
         font-size: 1rem;
@@ -939,7 +951,7 @@ section.list {
 
 
 .hashtag-container {
-    margin-top: 4rem;
+    margin-top: 6rem;
     padding: 0rem;
 }
 

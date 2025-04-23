@@ -266,7 +266,7 @@ async function toggleArchiveItem(item) {
     }
 }
 
-// function to expand random projects on page load
+// expands random projects on page load
 function expandRandomProjects(maxToExpand = 4) {
     // get all archive items
     const archiveItems = document.querySelectorAll('.archive-list .archive-item');
