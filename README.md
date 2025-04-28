@@ -1,4 +1,19 @@
-# TODO
+# Le Portfolio!
+
+Available at [https://wshbd.com](https://wshbd.com)
+
+## Technical Details
+- Build via `node builder.js` from `./scripts/node/`
+- Image compressor into .webp format available [here](https://github.com/woshibide/bookmaking/blob/main/image_compressor.py)
+- Static site with dynamic content loading from JSON
+- Optimized image loading and caching
+- HTTPS enabled with proper compression
+
+## Development Journal
+
+Below is my ongoing development journal tracking the progress of features and tasks:
+
+===
 
 [x] - on hover over elements long description
 [x] - 404
@@ -80,20 +95,19 @@
 [ ] - image swapping in general once loaded
 [ ] - htx file?
 
-==================================================================
 
 
-# caching
+
+## caching
 shared cache?! private cache?!
 
 
-## FE
+### FE
 - service workers is like fine tuning the caching method
 
-### implementation 
+#### implementation 
 - upon first load jsons to be fetched and cached
 - when visiting other pages fetched images to be stored
-- index.html has ~50 images, preload?
 
 ```
 self.addEventListener('fetch', (event) => {
@@ -121,14 +135,13 @@ self.addEventListener('fetch', (event) => {
 ```
 
 
-## BE
+### BE
 - headers give instructions to browsers how to deal with files
 - - etag // when last time modified if ? modified : get new version
 - - expires // for how long cache to be in the browser
 - - cache control // 
 
-### implementation
-- cache everything! for long!
+- cache everything! for long! on nginx!
 ```location /content/images/ {
     expires 1y;
     add_header Cache-Control "public, max-age=31536000";
