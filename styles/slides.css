@@ -16,10 +16,9 @@
     align-items: center;
     position: relative;
     overflow: hidden;
-    flex-shrink: 0; /* prevent slides from shrinking */
+    flex-shrink: 0;
 }
 
-/* image view modes */
 .slide-image {
     width: 100%;
     height: 100%;
@@ -47,7 +46,6 @@
     object-fit: cover;
 }
 
-/* video container styling */
 .slide-image .video-container {
     width: 100%;
     height: 100%;
@@ -63,7 +61,6 @@
     border: 0;
 }
 
-/* text styling */
 .slide-text {
     padding: 1rem;
     padding-top: 50vh;
@@ -80,7 +77,6 @@
     margin-top: 1rem;
 }
 
-/* for full width slides with text */
 .text-only {
     display: flex;
     align-items: center;
@@ -89,7 +85,6 @@
     width: 100%;
 }
 
-/* navigation bar styling */
 #slides-nav {
     top: 0;
     left: 0;
@@ -101,67 +96,53 @@
     z-index: 1000;
 }
 .half-of-nav{
-    /* revert to original flex row behavior */
     display: flex;
     flex-direction: row;
-    justify-content: space-between; /* space items out */
+    justify-content: space-between;
     width: 100%;
 }
-.half-of-nav span{
-    /* remove fixed width to allow justify-content to work */
-}
 
-/* make the second span (number/project) take available space */
 .half-of-nav span:last-child {
     flex-grow: 1;
 }
 
-/* slide number display container */
 #slides-current-number {
     padding-right: 0.25rem;
-    /* remove relative positioning */
     overflow: hidden;
     height: 1.2em;
     line-height: 1.2;
-    text-align: right; /* align text content right */
+    text-align: right;
 }
 
 /* tall element containing all slide numbers */
 #slides-current-number-container {
-    /* remove absolute positioning and width */
     display: flex;
     flex-direction: column;
     transition: transform 0.6s var(--transition-timing);
 }
 
-/* each slide number in the tall container */
 #slides-current-number-container .number {
     height: 1.2em;
 }
 
-/* project name display container */
 #slides-current-project {
-    /* remove relative positioning */
     overflow: hidden;
     height: 1.2em;
     line-height: 1.2;
-    text-align: right; /* align text content right */
+    text-align: right; 
 }
 
 /* tall element containing all project names */
 #slides-current-project-container {
-    /* remove absolute positioning and width */
     display: flex;
     flex-direction: column;
     transition: transform 0.6s var(--transition-timing);
 }
 
-/* each project name in the tall container */
 #slides-current-project-container .project-name {
     height: 1.2em;
 }
 
-/* slide counter styling */
 #slides-current-number, 
 #slides-total-number {
     font-variant-numeric: tabular-nums;
@@ -185,7 +166,7 @@
 #slides-current-number, #slides-current-project {
 }
 
-/* p5js canvas container with curtain-style loader */
+/* p5js canvas container with curtain loader */
 .p5js-container {
     width: 100%;
     height: 100%;
@@ -210,7 +191,7 @@
     z-index: 10;
 }
 
-/* canvas curtain loader */
+/* loader */
 .canvas-curtain {
     position: absolute;
     top: 0;
@@ -292,4 +273,3 @@
         padding: 1rem;
     }
 }
-

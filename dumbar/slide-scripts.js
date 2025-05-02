@@ -7,12 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // set up navigation elements
     const slidesNavElement = document.getElementById('slides-nav');
-    const currentSlideNumberElement = document.getElementById('slides-current-number');
     const currentSlideNumberContainer = document.getElementById('slides-current-number-container');
     const totalSlidesNumberElement = document.getElementById('slides-total-number');
-    const currentProjectElement = document.getElementById('slides-current-project');
     const currentProjectContainer = document.getElementById('slides-current-project-container');
-    const slidesContainer = document.getElementById('slides-container');
     
     // set up animation variables
     let currentSlideIndex = 0;
@@ -243,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const container = document.getElementById(containerId);
         if (!container || container.classList.contains('initialized')) return;
         
-        // mark as initialized so we don't set it up multiple times
+        // mark as initialized so it doesn't set up multiple times
         container.classList.add('initialized');
         
         // get curtain elements
@@ -298,6 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
             loadingPercentage.textContent = '100%';
             
             // delay to show 100%
+            // TODO: only needed in production
             setTimeout(() => {
                 if (typeof loadP5Sketch === 'function') {
                     // use the script's loadP5Sketch function with curtain animation
@@ -337,6 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.head.appendChild(scriptElem);
         
         // fallback in case script never loads within 5 seconds
+        // TODO: indicate failed state
         setTimeout(() => {
             if (!loadingComplete) {
                 loadingComplete = true;
@@ -372,11 +371,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 p.strokeWeight(2);
             };
             
-            // draw function - this will run continuously
             p.draw = function() {
                 p.background(20, 10);
                 
-                // create a simple generative art piece
+                // TODO: better use this as a fallback sketch with dvd like slider bumping saying something went wrong
                 p.translate(p.width/2, p.height/2);
                 
                 const time = p.millis() * 0.001;
@@ -421,7 +419,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 500);
     }
     
-    // add keyboard navigation
+    // keyboard navigation
     document.addEventListener('keydown', function(event) {
         // find the currently visible slide
         const currentSlide = findCurrentVisibleSlide();
