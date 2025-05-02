@@ -1,0 +1,295 @@
+.slide-project-wrapper {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+#slide-hello{
+    margin-top: 0;
+}
+
+.a-slide {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0; /* prevent slides from shrinking */
+}
+
+/* image view modes */
+.slide-image {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.slide-image.full {
+    width: 100%;
+}
+
+.slide-image.left {
+    width: 50%;
+    margin-right: auto;
+}
+
+.slide-image.right {
+    width: 50%;
+    margin-left: auto;
+}
+
+.slide-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* video container styling */
+.slide-image .video-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.slide-image .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* text styling */
+.slide-text {
+    padding: 1rem;
+    padding-top: 50vh;
+    width: 100%;
+    height: 100%;
+}
+.slide-text h1{
+    line-height: 85%;
+}
+.slide-text p{
+    max-width: 65ch;
+}
+.slide-text *{
+    margin-top: 1rem;
+}
+
+/* for full width slides with text */
+.text-only {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+/* navigation bar styling */
+#slides-nav {
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    z-index: 1000;
+}
+.half-of-nav{
+    /* revert to original flex row behavior */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* space items out */
+    width: 100%;
+}
+.half-of-nav span{
+    /* remove fixed width to allow justify-content to work */
+}
+
+/* make the second span (number/project) take available space */
+.half-of-nav span:last-child {
+    flex-grow: 1;
+}
+
+/* slide number display container */
+#slides-current-number {
+    padding-right: 0.25rem;
+    /* remove relative positioning */
+    overflow: hidden;
+    height: 1.2em;
+    line-height: 1.2;
+    text-align: right; /* align text content right */
+}
+
+/* tall element containing all slide numbers */
+#slides-current-number-container {
+    /* remove absolute positioning and width */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.6s var(--transition-timing);
+}
+
+/* each slide number in the tall container */
+#slides-current-number-container .number {
+    height: 1.2em;
+}
+
+/* project name display container */
+#slides-current-project {
+    /* remove relative positioning */
+    overflow: hidden;
+    height: 1.2em;
+    line-height: 1.2;
+    text-align: right; /* align text content right */
+}
+
+/* tall element containing all project names */
+#slides-current-project-container {
+    /* remove absolute positioning and width */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.6s var(--transition-timing);
+}
+
+/* each project name in the tall container */
+#slides-current-project-container .project-name {
+    height: 1.2em;
+}
+
+/* slide counter styling */
+#slides-current-number, 
+#slides-total-number {
+    font-variant-numeric: tabular-nums;
+}
+
+/* nav opacity transition for hello slide */
+#slides-nav.hello-slide #slides-current-number,
+#slides-nav.hello-slide #slides-total-number,
+#slides-nav.hello-slide #slides-current-project {
+    opacity: 0;
+    transition: opacity 0.5s var(--transition-timing);
+}
+
+#slides-nav #slides-current-number,
+#slides-nav #slides-total-number,
+#slides-nav #slides-current-project {
+    opacity: 1;
+    transition: opacity 0.5s var(--transition-timing);
+}
+
+#slides-current-number, #slides-current-project {
+}
+
+/* p5js canvas container with curtain-style loader */
+.p5js-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.canvas-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.canvas-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--main-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+/* canvas curtain loader */
+.canvas-curtain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.canvas-curtain-half {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    background-color: var(--main-bg);
+    transition: transform 1.2s var(--transition-timing);
+    z-index: 11;
+    pointer-events: all;
+}
+
+.canvas-curtain-half.left {
+    left: 0;
+    transform: translateX(0);
+}
+
+.canvas-curtain-half.right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.canvas-curtain-half.left.open {
+    transform: translateX(-100%);
+}
+
+.canvas-curtain-half.right.open {
+    transform: translateX(100%);
+}
+
+.canvas-loading-percentage {
+    position: absolute;
+    z-index: 12;
+    color: var(--text-color);
+    font-family: "cofo-sans-variable", sans-serif;
+    font-variation-settings: "slnt" 0, "wght" 400;
+    font-size: 2rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.05rem;
+    opacity: 1;
+    transition: opacity 0.5s var(--transition-timing);
+}
+
+.canvas-loading-percentage.hidden {
+    opacity: 0;
+}
+
+/* slides container styling */
+#slides-container {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+/* mobile responsiveness */
+@media (max-width: 768px) {
+    #slides-nav {
+        padding: 0.5rem;
+    }
+    
+    .slide-image.left, 
+    .slide-image.right {
+        width: 100%;
+        margin: 0;
+    }
+    
+    .slide-text {
+        padding: 1rem;
+    }
+}
+
