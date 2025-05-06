@@ -1,17 +1,15 @@
-// wait for dom to load before running script
 document.addEventListener('DOMContentLoaded', function() {
     // get all slides
     const projectWrappers = document.querySelectorAll('.slide-project-wrapper');
     const aSlides = document.querySelectorAll('.a-slide');
     const totalSlides = aSlides.length;
     
-    // set up navigation elements
+    // navigation elements
     const slidesNavElement = document.getElementById('slides-nav');
     const currentSlideNumberContainer = document.getElementById('slides-current-number-container');
     const totalSlidesNumberElement = document.getElementById('slides-total-number');
     const currentProjectContainer = document.getElementById('slides-current-project-container');
     
-    // set up animation variables
     let currentSlideIndex = 0;
     let currentProjectId = '';
     
@@ -23,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function populateSlideNumbers() {
         currentSlideNumberContainer.innerHTML = '';
         
-        // create a number element for each slide
+        // number each slide
         for (let i = 0; i < totalSlides; i++) {
             const numberElement = document.createElement('div');
             numberElement.className = 'number';
@@ -56,18 +54,34 @@ document.addEventListener('DOMContentLoaded', function() {
             const projectElement = document.createElement('div');
             projectElement.className = 'project-name';
             projectElement.textContent = id;
+            projectElement.setAttribute('data-project-id', id);
+            
+            // add click event listener for navigation
+            projectElement.addEventListener('click', function(e) {
+                e.stopPropagation(); // le preventivo
+                const targetId = this.getAttribute('data-project-id');
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({behavior: 'smooth'});
+                    
+                    // update URL hash
+                    history.pushState(null, null, `#${targetId}`);
+                }
+            });
+            
             currentProjectContainer.appendChild(projectElement);
         });
     }
     
-    // initialize intersection observer to detect current slide
+    // to detect current slide
     const options = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.5 // slide needs to be at least 50% visible to be considered "current"
+        threshold: 0.5 // slide needs to be at least 50% visible to be considered current
     };
     
-    // function to update navigation based on current slide
+    // navigation based on current slide
     function updateNavigation(slideElement) {
         // find the index of the current slide
         const slideIndex = Array.from(aSlides).indexOf(slideElement);
@@ -90,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // update the slide number by transforming the container
             const transformAmount = -slideIndex * 1.2; // 1.2em is the height of each number element
-            currentSlideNumberContainer.style.transform = `translateY(${transformAmount}em)`;
+            currentSlideNumberContainer.style.transform = `translateY(calc(${transformAmount}em - 1px))`;
             
             // update the project name by transforming the container
             if (projectId !== currentProjectId) {
@@ -157,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // manage video iframes and HTML5 videos visibility
     function handleVideoVisibility(slideElement, isIntersecting) {
-        // handle Vimeo iframes
+        // handle Vimeo
         const videoContainer = slideElement.querySelector('.video-container iframe');
         if (videoContainer) {
             if (isIntersecting) {
@@ -181,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // handle HTML5 video elements
+        // handle HTML5 video
         const videoElement = slideElement.querySelector('video');
         if (videoElement) {
             if (isIntersecting) {
@@ -255,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // p5.js initialization without simulation
+    // p5.js initialization with loading simulation
     function initializeP5Sketch(containerId, sketchId = 'default') {
         const container = document.getElementById(containerId);
         if (!container || container.classList.contains('initialized')) return;
@@ -272,23 +286,75 @@ document.addEventListener('DOMContentLoaded', function() {
         // determine which sketch to load based on sketchId
         let sketchPath = `/dumbar/p5-sketches/${sketchId}/sketch.js`;
         
-        // hide percentage and immediately set to 100%
-        loadingPercentage.textContent = '100%';
+        // simulate loading process
+        let loadProgress = 0;
+        let loadingTimeoutId = null;
+        let loadingComplete = false;
+        let minLoadingTime = 800; // minimum loading time in ms
         
-        // attempt to load the sketch script
-        const scriptElem = document.createElement('script');
-        scriptElem.src = sketchPath;
+        // update loading percentage visually
+        function updateLoadingUI(progress) {
+            loadingPercentage.textContent = `${Math.floor(progress)}%`;
+        }
         
-        scriptElem.onload = function() {
-            // load the sketch immediately
-            if (typeof loadP5Sketch === 'function') {
-                // use the script's loadP5Sketch function
-                const sketch = loadP5Sketch(container);
+        // start simulated loading progress
+        function startLoadingSimulation() {
+            // reset loading state
+            loadProgress = 0;
+            updateLoadingUI(loadProgress);
+            
+            // make sure curtain is visible
+            curtain.style.display = 'flex';
+            loadingPercentage.classList.remove('hidden');
+            leftCurtain.classList.remove('open');
+            rightCurtain.classList.remove('open');
+            
+            // simulate gradual loading progress
+            const simulateLoading = () => {
+                // increase load progress more slowly as we approach 100%
+                if (loadProgress < 90) {
+                    loadProgress += Math.random() * 8 + 2; // 2-10% increment
+                } else {
+                    loadProgress += Math.random() * 2; // 0-2% increment when near completion
+                }
                 
-                // store sketch instance for later cleanup
-                container.sketchInstance = sketch;
+                if (loadProgress > 99) {
+                    loadProgress = 99; // cap at 99% until actually loaded
+                }
                 
-                // immediately open curtains
+                updateLoadingUI(loadProgress);
+                
+                // continue simulation if not complete
+                if (!loadingComplete) {
+                    loadingTimeoutId = setTimeout(simulateLoading, 100 + Math.random() * 200);
+                }
+            };
+            
+            // start the simulation
+            simulateLoading();
+            
+            // ensure minimum loading time
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve();
+                }, minLoadingTime);
+            });
+        }
+        
+        // complete the loading process
+        function completeLoading() {
+            // clear any pending simulation timeouts
+            if (loadingTimeoutId) {
+                clearTimeout(loadingTimeoutId);
+            }
+            
+            // mark loading as complete
+            loadingComplete = true;
+            loadProgress = 100;
+            updateLoadingUI(loadProgress);
+            
+            // hide percentage and open curtains
+            setTimeout(() => {
                 loadingPercentage.classList.add('hidden');
                 leftCurtain.classList.add('open');
                 rightCurtain.classList.add('open');
@@ -297,73 +363,126 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => {
                     curtain.style.display = 'none';
                 }, 1200);
-            } else {
-                // fallback to default sketch if no loadP5Sketch function found
+            }, 200);
+        }
+        
+        // start the loading simulation
+        startLoadingSimulation().then(() => {
+            // attempt to load the sketch script
+            const scriptElem = document.createElement('script');
+            scriptElem.src = sketchPath;
+            
+            scriptElem.onload = function() {
+                // load the sketch after simulation completes
+                if (typeof loadP5Sketch === 'function') {
+                    // use the script's loadP5Sketch function
+                    const sketch = loadP5Sketch(container);
+                    
+                    // store sketch instance for later cleanup
+                    container.sketchInstance = sketch;
+                    
+                    // complete the loading process
+                    completeLoading();
+                } else {
+                    // fallback to default sketch if no loadP5Sketch function found
+                    loadDefaultSketch(container, curtain, leftCurtain, rightCurtain, loadingPercentage);
+                }
+            };
+            
+            scriptElem.onerror = function() {
+                // if sketch script fails to load, use default sketch
+                console.warn(`failed to load p5 sketch: ${sketchPath}. using default sketch.`);
                 loadDefaultSketch(container, curtain, leftCurtain, rightCurtain, loadingPercentage);
-            }
-        };
+            };
+            
+            document.head.appendChild(scriptElem);
+        });
         
-        scriptElem.onerror = function() {
-            // if sketch script fails to load, use default sketch
-            console.warn(`failed to load p5 sketch: ${sketchPath}. using default sketch.`);
-            loadDefaultSketch(container, curtain, leftCurtain, rightCurtain, loadingPercentage);
-        };
-        
-        document.head.appendChild(scriptElem);
-        
-        // fallback in case script never loads within 3 seconds
+        // fallback in case script never loads within 5 seconds
         setTimeout(() => {
             if (!container.sketchInstance) {
                 console.warn(`p5 sketch failed to load in time: ${sketchPath}`);
                 loadDefaultSketch(container, curtain, leftCurtain, rightCurtain, loadingPercentage);
             }
-        }, 3000);
+        }, 5000);
     }
     
     // default p5 sketch with curtain animation
     function loadDefaultSketch(container, curtain, leftCurtain, rightCurtain, loadingPercentage) {
-        // create default p5 sketch
+
         const sketch = new p5(function(p) {
-            // setup function
+            
+            // dvd stuff
+            let x, y;
+            let xSpeed = 2;
+            let ySpeed = 1.5;
+            let dvdWidth = 350;
+            let dvdHeight = 90;
+            let textColor;
+            
+
             p.setup = function() {
                 const canvas = p.createCanvas(container.clientWidth, container.clientHeight);
                 canvas.parent(container.querySelector('.canvas-wrapper'));
-                p.background(20);
-                p.noFill();
-                p.stroke(255);
-                p.strokeWeight(2);
+                p.background(0);
+                
+                // initialize position to center
+                x = p.width / 2 - dvdWidth / 2;
+                y = p.height / 2 - dvdHeight / 2;
+                
+                textColor = p.color(
+                    p.random(100, 255),
+                    p.random(100, 255),
+                    p.random(100, 255)
+                );
+                
+                p.textSize(16);
+                p.textAlign(p.CENTER, p.CENTER);
             };
             
             p.draw = function() {
-                p.background(20, 10);
+                p.background(20, 20);
                 
-                // fallback sketch with dvd-like message indicating something went wrong
-                p.translate(p.width/2, p.height/2);
+                // draw dvd
+                p.fill(textColor);
+                p.noStroke();
+                p.rect(x, y, dvdWidth, dvdHeight);
                 
-                const time = p.millis() * 0.001;
-                const circles = 12;
+                p.fill(0);
+                p.text("something went wrong...", x + dvdWidth/2, y + dvdHeight/2 - 10);
+                p.text("but at least dvd thingy is here flying", x + dvdWidth/2, y + dvdHeight/2 + 10);
+                p.text("maybe see next one and comeback here later", x + dvdWidth/2, y + dvdHeight/2 + 30);
                 
-                for (let i = 0; i < circles; i++) {
-                    p.push();
-                    p.rotate(p.TWO_PI * i / circles + time * 0.2);
-                    
-                    const size = p.map(Math.sin(time + i), -1, 1, 50, 200);
-                    const offset = p.map(Math.cos(time * 0.5 + i), -1, 1, 0, 200);
-                    
-                    p.stroke(255, 
-                            100 + Math.sin(time + i * 0.2) * 155, 
-                            100 + Math.cos(time + i * 0.5) * 155, 
-                            150);
-                    
-                    p.ellipse(offset, 0, size, size);
-                    p.pop();
+                // update position
+                x += xSpeed;
+                y += ySpeed;
+                
+                // check for bounces on edges
+                if (x <= 0 || x + dvdWidth >= p.width) {
+                    xSpeed *= -1;
+                    changeColor();
+                }
+                
+                if (y <= 0 || y + dvdHeight >= p.height) {
+                    ySpeed *= -1;
+                    changeColor();
                 }
             };
             
-            // handle window resize
+            function changeColor() {
+                textColor = p.color(
+                    p.random(100, 255),
+                    p.random(100, 255),
+                    p.random(100, 255)
+                );
+            }
+            
             p.windowResized = function() {
                 p.resizeCanvas(container.clientWidth, container.clientHeight);
-                p.background(20);
+                
+                // ensure dvd logo stays within bounds after resize
+                x = p.constrain(x, 0, p.width - dvdWidth);
+                y = p.constrain(y, 0, p.height - dvdHeight);
             };
         });
         
