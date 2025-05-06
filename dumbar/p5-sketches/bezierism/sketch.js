@@ -7,7 +7,7 @@ function loadP5Sketch(container) {
 
         let amplitude = 0.08;
         let foo = 10;
-        let step = 10;
+        let step = 30;
         let animate = true;
         let verticalMode = true;
 
@@ -19,7 +19,7 @@ function loadP5Sketch(container) {
             p.strokeWeight(1);
             p.stroke(0);
             p.noFill();
-            p.frameRate(5);
+            p.frameRate(2);
 
             p1 = new p.createVector(0, 0);
             p2 = new p.createVector(0, 0);

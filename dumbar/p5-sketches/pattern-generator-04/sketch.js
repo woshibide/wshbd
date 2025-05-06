@@ -129,29 +129,5 @@ function loadP5Sketch(container) {
                 targetP3.set(p.random(p.width), p.random(p.height));
             }
         }
-
-        p.keyPressed = function () {
-
-            if (p.key == 'b') {
-                showBoth = !showBoth;
-            }
-
-            if (p.key == 'r') {
-                changeSide = !changeSide;
-            }
-
-            if (p.key == 'd') {
-                debugMode = !debugMode;
-            }
-        }
-
-        p.mousePressed = function () {
-            if (!animate) {
-                p2.set(p.random(p.width), p.random(p.height));
-                p3.set(p.random(p.width), p.random(p.height));
-                p.background(0);
-                p.drawStatic();
-            }
-        }
     });
 }
