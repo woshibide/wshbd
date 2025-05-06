@@ -155,8 +155,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // manage video iframes visibility
+    // manage video iframes and HTML5 videos visibility
     function handleVideoVisibility(slideElement, isIntersecting) {
+        // handle Vimeo iframes
         const videoContainer = slideElement.querySelector('.video-container iframe');
         if (videoContainer) {
             if (isIntersecting) {
@@ -176,6 +177,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 // pause the video when not in view
                 if (videoContainer.player) {
                     videoContainer.player.pause();
+                }
+            }
+        }
+        
+        // handle HTML5 video elements
+        const videoElement = slideElement.querySelector('video');
+        if (videoElement) {
+            if (isIntersecting) {
+                // play video when it's visible
+                if (videoElement.paused) {
+                    // attempt to play might fail if user hasn't interacted with page yet
+                    videoElement.play().catch(err => {
+                        // silently handle autoplay restrictions
+                    });
+                }
+            } else {
+                // pause video when it's not visible
+                if (!videoElement.paused) {
+                    videoElement.pause();
                 }
             }
         }
@@ -235,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // p5.js functionality with curtain animation
+    // p5.js initialization without simulation
     function initializeP5Sketch(containerId, sketchId = 'default') {
         const container = document.getElementById(containerId);
         if (!container || container.classList.contains('initialized')) return;
@@ -252,109 +272,52 @@ document.addEventListener('DOMContentLoaded', function() {
         // determine which sketch to load based on sketchId
         let sketchPath = `/dumbar/p5-sketches/${sketchId}/sketch.js`;
         
-        // keep track of loading progress
-        let loadingProgress = 0;
-        let loadingComplete = false;
-        let loadingStartTime = Date.now();
-        
-        // simulate loading progress
-        const updateProgress = () => {
-            if (loadingComplete) return;
-            
-            // calculate elapsed time since loading started
-            const elapsed = Date.now() - loadingStartTime;
-            
-            // simulate loading progress based on time
-            // use an easing function to make it feel more natural
-            const progress = Math.min(Math.floor(ease(elapsed / 3000) * 100), 99);
-            
-            if (progress > loadingProgress) {
-                loadingProgress = progress;
-                loadingPercentage.textContent = `${loadingProgress}%`;
-            }
-            
-            requestAnimationFrame(updateProgress);
-        };
-        
-        // easing function for progress simulation
-        function ease(t) {
-            return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-        }
-        
-        // start progress animation
-        updateProgress();
+        // hide percentage and immediately set to 100%
+        loadingPercentage.textContent = '100%';
         
         // attempt to load the sketch script
         const scriptElem = document.createElement('script');
         scriptElem.src = sketchPath;
         
         scriptElem.onload = function() {
-            // mark as complete
-            loadingComplete = true;
-            loadingProgress = 100;
-            loadingPercentage.textContent = '100%';
-            
-            // delay to show 100%
-            // TODO: only needed in production
-            setTimeout(() => {
-                if (typeof loadP5Sketch === 'function') {
-                    // use the script's loadP5Sketch function with curtain animation
-                    const sketch = loadP5Sketch(container);
-                    
-                    // store sketch instance for later cleanup
-                    container.sketchInstance = sketch;
-                    
-                    // open curtains when sketch is loaded
-                    setTimeout(() => {
-                        loadingPercentage.classList.add('hidden');
-                        leftCurtain.classList.add('open');
-                        rightCurtain.classList.add('open');
-                        
-                        // remove loader after animation completes
-                        setTimeout(() => {
-                            curtain.style.display = 'none';
-                        }, 1200);
-                    }, 200);
-                } else {
-                    // fallback to default sketch if no loadP5Sketch function found
-                    loadDefaultSketch(container, curtain, leftCurtain, rightCurtain, loadingPercentage);
-                }
-            }, 100);
+            // load the sketch immediately
+            if (typeof loadP5Sketch === 'function') {
+                // use the script's loadP5Sketch function
+                const sketch = loadP5Sketch(container);
+                
+                // store sketch instance for later cleanup
+                container.sketchInstance = sketch;
+                
+                // immediately open curtains
+                loadingPercentage.classList.add('hidden');
+                leftCurtain.classList.add('open');
+                rightCurtain.classList.add('open');
+                
+                // remove loader after animation completes
+                setTimeout(() => {
+                    curtain.style.display = 'none';
+                }, 1200);
+            } else {
+                // fallback to default sketch if no loadP5Sketch function found
+                loadDefaultSketch(container, curtain, leftCurtain, rightCurtain, loadingPercentage);
+            }
         };
         
         scriptElem.onerror = function() {
             // if sketch script fails to load, use default sketch
             console.warn(`failed to load p5 sketch: ${sketchPath}. using default sketch.`);
-            loadingComplete = true;
-            loadingProgress = 100;
-            loadingPercentage.textContent = '100%';
-            
             loadDefaultSketch(container, curtain, leftCurtain, rightCurtain, loadingPercentage);
         };
         
         document.head.appendChild(scriptElem);
         
-        // fallback in case script never loads within 5 seconds
-        // TODO: indicate failed state
+        // fallback in case script never loads within 3 seconds
         setTimeout(() => {
-            if (!loadingComplete) {
-                loadingComplete = true;
-                loadingProgress = 100;
-                loadingPercentage.textContent = '100%';
-                
-                setTimeout(() => {
-                    loadingPercentage.classList.add('hidden');
-                    leftCurtain.classList.add('open');
-                    rightCurtain.classList.add('open');
-                    
-                    setTimeout(() => {
-                        curtain.style.display = 'none';
-                    }, 1200);
-                    
-                    loadDefaultSketch(container, curtain, leftCurtain, rightCurtain, loadingPercentage);
-                }, 500);
+            if (!container.sketchInstance) {
+                console.warn(`p5 sketch failed to load in time: ${sketchPath}`);
+                loadDefaultSketch(container, curtain, leftCurtain, rightCurtain, loadingPercentage);
             }
-        }, 5000);
+        }, 3000);
     }
     
     // default p5 sketch with curtain animation
@@ -374,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function() {
             p.draw = function() {
                 p.background(20, 10);
                 
-                // TODO: better use this as a fallback sketch with dvd like slider bumping saying something went wrong
+                // fallback sketch with dvd-like message indicating something went wrong
                 p.translate(p.width/2, p.height/2);
                 
                 const time = p.millis() * 0.001;
@@ -407,16 +370,14 @@ document.addEventListener('DOMContentLoaded', function() {
         // store sketch instance for later cleanup
         container.sketchInstance = sketch;
         
-        // open curtains animation
+        // open curtains immediately
+        loadingPercentage.classList.add('hidden');
+        leftCurtain.classList.add('open');
+        rightCurtain.classList.add('open');
+        
         setTimeout(() => {
-            loadingPercentage.classList.add('hidden');
-            leftCurtain.classList.add('open');
-            rightCurtain.classList.add('open');
-            
-            setTimeout(() => {
-                curtain.style.display = 'none';
-            }, 1200);
-        }, 500);
+            curtain.style.display = 'none';
+        }, 1200);
     }
     
     // keyboard navigation
