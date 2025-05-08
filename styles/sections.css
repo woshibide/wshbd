@@ -15,7 +15,7 @@
 }
 
 .hello h1 {
-    font-size: 4rem;
+    /* font-size: 4rem; */
 }
 
 .hello p {
@@ -296,7 +296,7 @@ section.list {
     position: absolute;
     bottom: 1rem;
     left: 1rem;
-    font-family: "degular-text",  "cofo-sans-variable", sans-serif;
+    font-family: "cofo-sans-variable", sans-serif;
     font-weight: 200;
     font-style: normal;
 
@@ -595,8 +595,13 @@ section.list {
     width: 100%;
 }
 
-#theatre-welcome h1 {
-    font-size: 2rem;
+#theatre-welcome h1 a{
+    /* font-size: 2rem; */
+    text-decoration: none;
+}
+
+#theatre-welcome h1 a:hover{
+    text-decoration: solid 1em inherit;
 }
 
 #theatre-welcome a{
@@ -661,7 +666,6 @@ section.list {
     font-family: "cofo-sans-variable", sans-serif;
     font-weight: 100;
     font-style: normal;
-    font-size: 10rem;
     position: relative;
     text-align: end;
 }
@@ -1262,10 +1266,10 @@ div#gallery-info a#brand{
     position: relative;
     text-align: end;
     height: auto;
-    line-height: 4rem;
+    /* line-height: 4rem; */
     padding: 0;
     margin: 0;
-    font-size: 4rem;
+    font-size: 3rem;
     white-space: nowrap;
 }
 

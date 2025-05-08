@@ -1,133 +1,158 @@
+// fixed p5js pattern generator with proper instance mode
 function loadP5Sketch(container) {
-    return new p5(function (p) {
-
-
-        let p1, p2, p3, p4;
-        let p2Delta, p3Delta;
-        let targetP2, targetP3;
-
-        let foo = 50;
-        let step = 30;
-        let speed = 0.25;
-        let lerpFactor = 0.05;
-
-        let animate = true;
-        let debugMode = false;
-        let changeSide = true;
-        let showBoth = true;
-
-        p.setup = function () {
-            const canvas = p.createCanvas(container.clientWidth, container.clientHeight);
+    return new p5(function(p) {
+        // set fixed colors
+        const bgCol = 'rgb(0, 0, 0)';
+        const txtCol = 'rgb(255, 255, 255)';
+        const xtrCol = 'rgb(255, 0, 53)';
+        
+        // ------ [logic] ------
+        let drawCount = 0;
+        let selectedAction = 0;
+        
+        // ------ [region shifter] ------
+        let region;
+        let regionWidth, regionHeight;
+        
+        let objSize = 28;
+        let repeater = 28;
+        
+        let regions = [];
+        
+        // ------ [misc] ------
+        let foo = 16;
+        
+        let arr = [foo / 2, foo, foo * 2, foo * 3];
+        
+        let currentPatternIndex = 0;
+        let patterns = ["checkerboard"];
+        
+        // define region class inside p instance
+        class Region {
+            constructor(regionX, regionY, regionWidth, regionHeight) {
+                this.regionX = regionX;
+                this.regionY = regionY;
+                this.regionWidth = regionWidth;
+                this.regionHeight = regionHeight;
+                this.region = p.get(this.regionX, this.regionY, this.regionWidth, this.regionHeight);
+                this.selectedAction = p.int(p.random(1, 11)); // use p.int and p.random
+                this.drawCount = 0;
+                this.animationRunning = true;
+                this.foo = foo;
+            }
+        
+            update() {
+                if (this.animationRunning) {
+                    switch (this.selectedAction) {
+                        case 1:
+                            p.translate(this.foo, 0);
+                            break;
+                        case 2:
+                            p.translate(0, -this.foo);
+                            break;
+                        case 4:
+                            // simple action instead of text
+                            p.translate(this.foo, this.foo);
+                            break;
+                        case 5:
+                            p.translate(this.foo, 0);
+                            break;
+                        case 6:
+                            p.translate(0, this.foo);
+                            break;
+                        case 7:
+                            p.translate(this.foo, 0);
+                            break;
+                        case 8:
+                            p.translate(0, this.foo);
+                            break;
+                        case 9:
+                            p.translate(-this.foo, 0);
+                            break;
+                        case 10:
+                            p.translate(0, -this.foo);
+                            break;
+                    }
+        
+                    this.regionX = this.checkBoundary(this.regionX, this.regionWidth, p.width);
+                    this.regionY = this.checkBoundary(this.regionY, this.regionHeight, p.height);
+        
+                    this.region = p.get(this.regionX, this.regionY, this.regionWidth, this.regionHeight);
+                    this.drawCount++;
+        
+                    if (this.drawCount >= repeater) {
+                        this.foo = pickMe(arr);
+                        this.selectedAction = p.int(p.random(1, 11));
+                        this.drawCount = 0;
+                    }
+                }
+            }
+        
+            display() {
+                p.image(this.region, this.regionX, this.regionY);
+            }
+        
+            checkBoundary(position, size, limit) {
+                if (position + size > limit) {
+                    return 0;
+                } else if (position < 0) {
+                    return limit - size;
+                }
+                return position;
+            }
+        }
+        
+        // helper functions inside p instance
+        function checkerboard() {
+            p.push();
+            p.noStroke();
+            for (let y = 0; y < p.height; y += objSize) {
+                for (let x = 0; x < p.width; x += objSize) {
+                    let shouldFill = ((x / objSize) + (y / objSize)) % 2 == 0;
+                    if (shouldFill) {
+                        p.fill(txtCol);
+                    } else {
+                        p.fill(bgCol);
+                    }
+                    p.rect(x, y, objSize, objSize);
+                }
+            }
+            p.pop();
+        }
+        
+        function pickMe(inputArray) {
+            if (inputArray.length == 0) {
+                return 0;
+            }
+            let randomIndex = p.int(p.random(inputArray.length));
+            return inputArray[randomIndex];
+        }
+        
+        p.setup = function() {
+            p.pixelDensity(p.displayDensity(2));
+            p.frameRate(30);
+            const canvas = p.createCanvas(container.clientWidth, container.clientHeight + 200);
             canvas.parent(container.querySelector('.canvas-wrapper'));
             
-            p.colorMode(p.HSB, 360, 100, 100);
-            p.strokeWeight(15);
-            p.stroke(0, 90, 80);
-            p.noFill();
-            p.frameRate(30);
-
-
-            p1 = new p.createVector(0, 0);
-            p2 = new p.createVector(0, 0);
-            p3 = new p.createVector(0, 0);
-            p4 = new p.createVector(0, 0);
-
-            p2Delta = new p.createVector(p.random(-foo, foo) * speed,
-                p.random(-foo, foo) * speed);
-            p3Delta = new p.createVector(p.random(-foo, foo) * speed,
-                p.random(-foo, foo) * speed);
-
-            targetP2 = new p.createVector(p.random(p.width), p.random(p.height));
-            targetP3 = new p.createVector(p.random(p.width), p.random(p.height));
-        }
-
-        p.draw = function () {
-
-            if (!animate) {
-                p.background(0);
-                p.drawStatic();
-                if (showBoth) {
-                    changeSide = !changeSide;
-                    p.drawStatic();
-                }
-
-
-            } else {
-                p.background(0);
-                p.drawAnimated();
-                if (showBoth) {
-                    changeSide = !changeSide;
-                    p.drawAnimated();
-                }
-                p.updateControlPoints();
+            // populate screen with fixed regions
+            regions.push(new Region(0, 0, p.width / 4, p.height));
+            regions.push(new Region(p.width / 4, 0, p.width / 4, p.height));
+            regions.push(new Region((2 * p.width) / 4, 0, p.width / 4, p.height));
+            regions.push(new Region((3 * p.width) / 4, 0, p.width / 4, p.height));
+            regions.push(new Region(0, p.height / 3, p.width, p.height / 4));
+            checkerboard();
+        };
+        
+        p.draw = function() {
+            for (let region of regions) {
+                region.update();
+                region.display();
             }
-
-            if (debugMode) {
-                p.pushStyle();
-                p.stroke(0, 100, 100);
-                p.drawDebug();
-                p.popStyle();
-            }
-        }
-
-        p.drawDebug = function () {
-            p.fill(255, 0, 0);
-            p.ellipse(p2.x, p2.y, 10, 10);
-            p.ellipse(p3.x, p3.y, 10, 10);
-        }
-
-        p.drawStatic = function () {
-            if (changeSide) {
-                for (let i = 0; i <= p.width; i += step) {
-                    for (let j = 0; j <= p.height; j += step) {
-                        p.bezier(i, p1.y, p2.x, p2.y, p3.x, p3.y, i, p.height);
-                    }
-                }
-            } else {
-                for (let i = 0; i <= p.height; i += step) {
-                    for (let j = 0; j <= p.width; j += step) {
-                        p.bezier(p1.x, i, p2.x, p2.y, p3.x, p3.y, p.width, i);
-                    }
-                }
-            }
-        }
-
-        p.drawAnimated = function () {
-
-            let lerpX2 = p.lerp(p2.x, targetP2.x, lerpFactor);
-            let lerpY2 = p.lerp(p2.y, targetP2.y, lerpFactor);
-            let lerpX3 = p.lerp(p3.x, targetP3.x, lerpFactor);
-            let lerpY3 = p.lerp(p3.y, targetP3.y, lerpFactor);
-
-            if (changeSide) {
-                for (let i = 0; i <= p.width; i += step) {
-                    p.bezier(i, p1.y, lerpX2, lerpY2, lerpX3, lerpY3, i, p.height);
-                }
-            } else {
-                for (let i = 0; i <= p.height; i += step) {
-                    p.bezier(p1.x, i, lerpX2, lerpY2, lerpX3, lerpY3, p.width, i);
-                }
-            }
-        }
-
-        p.updateControlPoints = function () {
-            let deltaP2 = p5.Vector.sub(targetP2, p2);
-            let deltaP3 = p5.Vector.sub(targetP3, p3);
-
-            deltaP2.mult(speed);
-            deltaP3.mult(speed);
-
-            p2.add(deltaP2);
-            p3.add(deltaP3);
-
-            if (p5.Vector.dist(p2, targetP2) < 1) {
-                p2.set(targetP2);
-                targetP2.set(p.random(p.width), p.random(p.height));
-            }
-            if (p5.Vector.dist(p3, targetP3) < 1) {
-                p3.set(targetP3);
-                targetP3.set(p.random(p.width), p.random(p.height));
-            }
-        }
-    });
+            p.filter(p.THRESHOLD);
+        };
+        
+        p.windowResized = function() {
+            p.resizeCanvas(container.clientWidth, container.clientHeight + 200);
+        };
+    }, container);
 }

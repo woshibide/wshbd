@@ -88,6 +88,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // only update if the slide index has changed
         if (slideIndex !== currentSlideIndex) {
+            // add "in-view" class to trigger animations
+            aSlides.forEach(slide => slide.classList.remove('in-view'));
+            slideElement.classList.add('in-view');
+            
             // get project name from parent slide-project-wrapper's id
             const projectWrapper = slideElement.closest('.slide-project-wrapper');
             const projectId = projectWrapper ? projectWrapper.id : 'unknown';
@@ -266,8 +270,24 @@ document.addEventListener('DOMContentLoaded', function() {
         // if no hash or invalid hash, show the first slide
         if (aSlides.length > 0) {
             updateNavigation(aSlides[0]);
+            
+            // explicitly add in-view class to first slide when page loads
+            // to ensure animations play right away
+            aSlides[0].classList.add('in-view');
         }
     }
+    
+    // ensure the first visible slide gets the in-view class on page load
+    // this handles cases where intersection observer might miss the initial slide
+    document.addEventListener('DOMContentLoaded', () => {
+        // short timeout to ensure everything is properly loaded
+        setTimeout(() => {
+            const firstVisibleSlide = findCurrentVisibleSlide();
+            if (firstVisibleSlide) {
+                firstVisibleSlide.classList.add('in-view');
+            }
+        }, 100);
+    });
     
     // p5.js initialization with loading simulation
     function initializeP5Sketch(containerId, sketchId = 'default') {

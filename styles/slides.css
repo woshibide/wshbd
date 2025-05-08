@@ -4,8 +4,78 @@
     overflow: hidden;
 }
 
+/* slide animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* animate text elements with consistent timing */
+.a-slide h1,
+.a-slide h2, 
+.a-slide h3, 
+.a-slide h4,
+.a-slide p, 
+.a-slide .slide-project-tags,
+.index-link-container .link-wrapper {
+    opacity: 0;
+    animation: fadeInUp 0.6s var(--transition-timing) forwards;
+    animation-play-state: paused;
+}
+
+/* target only the active slide's elements for animation */
+.a-slide.in-view h1 { animation-delay: 0.1s; }
+.a-slide.in-view h2 { animation-delay: 0.2s; }
+.a-slide.in-view h3 { animation-delay: 0.25s; }
+.a-slide.in-view h4 { animation-delay: 0.3s; }
+.a-slide.in-view p { animation-delay: 0.35s; }
+.a-slide.in-view .slide-project-tags { animation-delay: 0.4s; }
+
+/* animate link-wrapper items in sequence */
+.a-slide.in-view .index-link-container .link-wrapper:nth-child(1) { animation-delay: 0.2s; }
+.a-slide.in-view .index-link-container .link-wrapper:nth-child(2) { animation-delay: 0.3s; }
+.a-slide.in-view .index-link-container .link-wrapper:nth-child(3) { animation-delay: 0.4s; }
+
+/* animate inline links */
+.a-slide.in-view .inline-link {
+    animation-delay: 0.35s;
+}
+
+/* set the play state to running when slide is in view */
+.a-slide.in-view h1,
+.a-slide.in-view h2,
+.a-slide.in-view h3,
+.a-slide.in-view h4,
+.a-slide.in-view p,
+.a-slide.in-view .slide-project-tags,
+.a-slide.in-view .index-link-container .link-wrapper {
+    animation-play-state: running;
+}
+
+/* slideup for image and content containers with slight delay */
+.a-slide .slide-image,
+.a-slide .p5js-container,
+.a-slide .video-container {
+    /* opacity: 0; */
+    /* animation: fadeInUp 0.2s var(--transition-timing) forwards; */
+    /* animation-play-state: paused; */
+}
+
+.a-slide.in-view .slide-image,
+.a-slide.in-view .p5js-container,
+.a-slide.in-view .video-container {
+    animation-delay: 0.3s;
+    animation-play-state: running;
+}
 
 .a-slide {
+    outline: solid 1px rgb(35, 35, 35);
     height: 100svh;
     width: 100%;
     display: flex;
@@ -19,12 +89,16 @@
 .slide-text h2{
     font-size: 3rem;
     margin-bottom: 1rem;
-    letter-spacing: 0.025em;
+    letter-spacing: -2px;
 }
 
-#slide-hello{
+.slide-text, #slide-hello{
+    height: 100vh;
     margin-top: 0;
-
+    justify-content: space-between;
+}
+#slide-hello p{
+    max-width: 30ch;
 }
 
 #index{
@@ -60,12 +134,13 @@
 }
 
 .slide-project-tags>span{
-    margin-inline: 0.5rem;
-    padding-bottom: 0.15rem;
+    margin-right: 0.5rem;
+    padding-bottom: 0.35rem;
     padding-top: 0.25rem;
     padding-inline: 0.75rem;
     outline: 1px solid var(--text-color);
     border-radius: 2rem;
+    font-size: 0.8rem;
 }
 
 .slide-image {
@@ -154,15 +229,19 @@ video::-webkit-media-controls {
 
 /* solo centered big text */
 .slide-center-text{
-    font-size: 2rem;
-    position: absolute;
-    top: calc(50% + 2rem);
-    left: 50%;
-    transform: translate(-50%, -50%);
+    font-size: 1rem;
+    max-width: 80ch;
+    display: flex;
     margin: 0;
-    padding-inline: 2rem;
-    width: 65ch;
-    text-align: center;
+    text-align: left;
+    height: 100%;
+}
+
+.slide-center-text h3{
+    margin-top: auto;
+    position: relative;
+    bottom: 25vh;
+    /* background-color: aquamarine; */
 }
 
 .slide-text {
@@ -190,6 +269,7 @@ video::-webkit-media-controls {
 }
 
 #slides-nav {
+    text-align: baseline;
     top: 0;
     left: 0;
     position: fixed;
@@ -442,8 +522,7 @@ video::-webkit-media-controls {
     }
     
     .slide-text-container p {
-        width: 100%;
-        font-size: 0.9rem;
+        max-width: 65ch;
     }
     
     .slide-center-text {
