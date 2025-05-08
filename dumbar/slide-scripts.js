@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // debug mode - set to true to see debug messages in console
+    const debugMode = true;
+
+    // debug logging function that only logs when debug mode is on
+    function debugLog(...args) {
+        if (debugMode) {
+            console.log(`[DEBUG] ${new Date().toISOString().substr(11, 8)}:`, ...args);
+        }
+    }
+
     // get all slides
     const projectWrappers = document.querySelectorAll('.slide-project-wrapper');
     const aSlides = document.querySelectorAll('.a-slide');
@@ -88,6 +98,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // only update if the slide index has changed
         if (slideIndex !== currentSlideIndex) {
+            debugLog(`Slide changed: ${currentSlideIndex} → ${slideIndex}`);
+            
             // add "in-view" class to trigger animations
             aSlides.forEach(slide => slide.classList.remove('in-view'));
             slideElement.classList.add('in-view');
@@ -143,10 +155,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 // initialize p5 sketch if it's visible and not already initialized
                 const sketchId = p5Container.getAttribute('data-sketch-id');
                 if (sketchId) {
+                    debugLog(`Loading p5 sketch: ${sketchId} in container: ${p5Container.id}`);
                     initializeP5Sketch(p5Container.id, sketchId);
                 }
             } else if (!isIntersecting && p5Container.classList.contains('initialized')) {
                 // deactivate p5 sketch when it's not visible anymore
+                const sketchId = p5Container.getAttribute('data-sketch-id');
+                debugLog(`Unloading p5 sketch: ${sketchId} from container: ${p5Container.id}`);
                 deactivateP5Sketch(p5Container);
             }
         }
@@ -156,6 +171,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function deactivateP5Sketch(p5Container) {
         // p5 instance is stored in the container's sketchInstance property
         if (p5Container.sketchInstance) {
+            const sketchId = p5Container.getAttribute('data-sketch-id') || 'unknown';
+            debugLog(`Removing p5 sketch: ${sketchId} instance`);
+            
             // remove the canvas element
             const canvasWrapper = p5Container.querySelector('.canvas-wrapper');
             if (canvasWrapper && canvasWrapper.firstChild) {
@@ -186,14 +204,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (!videoContainer.player) {
                             videoContainer.player = new Vimeo.Player(videoContainer);
                         }
+                        debugLog(`Playing Vimeo video in slide: ${getSlideIdentifier(slideElement)}`);
                         videoContainer.player.play();
                     } catch (e) {
-                        console.warn('could not initialize vimeo player:', e);
+                        debugLog(`Error initializing Vimeo player:`, e);
                     }
                 }
             } else {
                 // pause the video when not in view
                 if (videoContainer.player) {
+                    debugLog(`Pausing Vimeo video in slide: ${getSlideIdentifier(slideElement)}`);
                     videoContainer.player.pause();
                 }
             }
@@ -206,17 +226,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 // play video when it's visible
                 if (videoElement.paused) {
                     // attempt to play might fail if user hasn't interacted with page yet
+                    debugLog(`Playing HTML5 video in slide: ${getSlideIdentifier(slideElement)}`);
                     videoElement.play().catch(err => {
                         // silently handle autoplay restrictions
+                        debugLog(`Failed to autoplay video:`, err);
                     });
                 }
             } else {
                 // pause video when it's not visible
                 if (!videoElement.paused) {
+                    debugLog(`Pausing HTML5 video in slide: ${getSlideIdentifier(slideElement)}`);
                     videoElement.pause();
                 }
             }
         }
+    }
+
+    // helper function to get slide identifier for debugging
+    function getSlideIdentifier(slideElement) {
+        const slideIndex = Array.from(aSlides).indexOf(slideElement);
+        const projectWrapper = slideElement.closest('.slide-project-wrapper');
+        const projectId = projectWrapper ? projectWrapper.id : 'unknown';
+        return `${projectId}[${slideIndex}]`;
     }
     
     // populate the slide numbers and project names containers
@@ -226,6 +257,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // set up observer for a-slides
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
+            const slideIdentifier = getSlideIdentifier(entry.target);
+            debugLog(`Slide visibility changed: ${slideIdentifier}, isIntersecting: ${entry.isIntersecting}`);
+            
             // handle p5js and video visibility
             handleP5Visibility(entry.target, entry.isIntersecting);
             handleVideoVisibility(entry.target, entry.isIntersecting);
@@ -293,6 +327,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function initializeP5Sketch(containerId, sketchId = 'default') {
         const container = document.getElementById(containerId);
         if (!container || container.classList.contains('initialized')) return;
+        
+        debugLog(`Initializing p5 sketch: ${sketchId} in container: ${containerId}`);
         
         // mark as initialized so it doesn't set up multiple times
         container.classList.add('initialized');
@@ -411,7 +447,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             scriptElem.onerror = function() {
                 // if sketch script fails to load, use default sketch
-                console.warn(`failed to load p5 sketch: ${sketchPath}. using default sketch.`);
+                debugLog(`Failed to load p5 sketch: ${sketchPath}. Using default sketch.`);
                 loadDefaultSketch(container, curtain, leftCurtain, rightCurtain, loadingPercentage);
             };
             
@@ -421,7 +457,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // fallback in case script never loads within 5 seconds
         setTimeout(() => {
             if (!container.sketchInstance) {
-                console.warn(`p5 sketch failed to load in time: ${sketchPath}`);
+                debugLog(`p5 sketch failed to load in time: ${sketchPath}`);
                 loadDefaultSketch(container, curtain, leftCurtain, rightCurtain, loadingPercentage);
             }
         }, 5000);
@@ -429,6 +465,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // default p5 sketch with curtain animation
     function loadDefaultSketch(container, curtain, leftCurtain, rightCurtain, loadingPercentage) {
+        debugLog(`Loading default fallback sketch for container: ${container.id}`);
 
         const sketch = new p5(function(p) {
             
@@ -526,6 +563,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!currentSlide) return;
         
         const currentProject = currentSlide.closest('.slide-project-wrapper');
+        
+        if (['ArrowDown', ' ', 'PageDown', 'ArrowUp', 'PageUp'].includes(event.key)) {
+            debugLog(`Navigation key pressed: ${event.key}`);
+        }
         
         if (event.key === 'ArrowDown' || event.key === ' ' || event.key === 'PageDown') {
             event.preventDefault();
