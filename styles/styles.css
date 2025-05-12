@@ -519,7 +519,7 @@ ol {
 h1 {
     font-size: 5.5em;
     font-family: "cofo-sans-variable", system-ui, -apple-system, 'Helvetica Neue', BlinkMacSystemFont, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
-    font-weight: 300;
+    font-weight: 100;
     font-style: bold;
     letter-spacing: -5px;
     line-height: 0.87em;
@@ -535,7 +535,7 @@ h1 {
 h2 {
     font-size: 3em;
     font-family: "cofo-sans-variable", system-ui, -apple-system, 'Helvetica Neue', BlinkMacSystemFont, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
-    font-weight: 200;
+    font-weight: 150;
     font-style: normal;
     /* letter-spacing: -8px; */
     color: var(--text-color);
