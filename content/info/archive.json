@@ -538,6 +538,28 @@
       "title": "Porn Magazine",
       "intro": "I Am My Lover: Photoshoots Against the Backdrop of Oral History",
       "hashtags": "editorial, magazine"
+    },
+    {
+      "spotlight": false,
+      "location": "Netherlands",
+      "id": "E19",
+      "date": "2025 Apr",
+      "description": "Author explores the intricate relationship between memory and fashion, examining how vintage clothing serves as a vessel for nostalgia and personal history. It touches onto the ways material objects become carriers of remembrance,particularly in the context of immigration, where garment scan hold the weight of past identities and lost places.",
+      "brand": "Vera Abdulina",
+      "title": "Book",
+      "intro": "A book exploring how vintage clothing carries memory and identity",
+      "hashtags": "editorial, book"
+    },
+    {
+      "spotlight": false,
+      "location": "Netherlands",
+      "id": "E20",
+      "date": "2025 May",
+      "description": "Think less of a photobook. More of a space between cinema and sculpture: space within the sculptures, space of the photographs, space of spreads, that add another layer forming a different composition. It is a multilayered non-linear narrative where light and transparent paper are the guides through the layers of time.",
+      "brand": "Alexandra Pavlovskaya-Lokchine",
+      "title": "Book",
+      "intro": "A space between cinema and sculpture: space within the sculptures, space of the photographs, space of the spreads. All united in a book.",
+      "hashtags": "editorial, book"
     }
   ]
 }

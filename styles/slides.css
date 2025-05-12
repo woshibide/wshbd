@@ -108,6 +108,23 @@
     align-items:normal; 
 }
 
+@media (max-width: 768px) {
+    #index{
+        flex-direction: column;
+    }
+
+    .link-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    h3 .inline-link {
+        font-size: 1rem;
+    }
+}
+
 .index-preview{
     max-height: 25vh;
     width: 100%;
@@ -119,6 +136,14 @@
     max-width: 50vw;
     width: 100%;
     justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+    .index-link-container{
+        width: 100%;
+        max-width: 100vw;
+        outline: 1px aqua solid;
+    }
 }
 
 .link-wrapper {
