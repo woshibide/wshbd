@@ -369,7 +369,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateSortIndicator(); // ensure correct default indicator on load
     
     // expand random projects on page load
-    expandRandomProjects(4);
+    // expandRandomProjects(4);
 
     filterWhen(); // sort by 'when' on page load
 });
