@@ -220,26 +220,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // handle HTML5 video
-        const videoElement = slideElement.querySelector('video');
-        if (videoElement) {
-            if (isIntersecting) {
-                // play video when it's visible
-                if (videoElement.paused) {
-                    // attempt to play might fail if user hasn't interacted with page yet
-                    debugLog(`Playing HTML5 video in slide: ${getSlideIdentifier(slideElement)}`);
-                    videoElement.play().catch(err => {
-                        // silently handle autoplay restrictions
-                        debugLog(`Failed to autoplay video:`, err);
-                    });
-                }
-            } else {
-                // pause video when it's not visible
-                if (!videoElement.paused) {
-                    debugLog(`Pausing HTML5 video in slide: ${getSlideIdentifier(slideElement)}`);
-                    videoElement.pause();
-                }
-            }
-        }
+        // const videoElement = slideElement.querySelector('video');
+        // if (videoElement) {
+        //     if (isIntersecting) {
+        //         // play video when it's visible
+        //         if (videoElement.paused) {
+        //             // attempt to play might fail if user hasn't interacted with page yet
+        //             debugLog(`Playing HTML5 video in slide: ${getSlideIdentifier(slideElement)}`);
+        //             videoElement.play().catch(err => {
+        //                 // silently handle autoplay restrictions
+        //                 debugLog(`Failed to autoplay video:`, err);
+        //             });
+        //         }
+        //     } else {
+        //         // pause video when it's not visible
+        //         if (!videoElement.paused) {
+        //             debugLog(`Pausing HTML5 video in slide: ${getSlideIdentifier(slideElement)}`);
+        //             videoElement.pause();
+        //         }
+        //     }
+        // }
     }
 
     // helper function to get slide identifier for debugging

@@ -79,7 +79,6 @@ function filterProjectsByHashtags() {
         }
 
 
-        // TODO: works very strange, could be a better approach
         // const archiveList = document.querySelector('.archive-list');
         // if (archiveList && archiveList.firstElementChild) {
         //     archiveList.firstElementChild.scrollIntoView();

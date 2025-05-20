@@ -277,68 +277,32 @@ function addProjectNavigation(projectSections) {
             event.preventDefault()
             // show previous project
             currentProjectIndex = (currentProjectIndex - 1 + projectSections.length) % projectSections.length
-            updateProjectView(true)
+            updateProjectView()
         } else if (event.key === 'ArrowDown') {
             event.preventDefault()
             // show next project
             currentProjectIndex = (currentProjectIndex + 1) % projectSections.length
-            updateProjectView(true)
+            updateProjectView()
         }
     })
 
-    function updateProjectView(animate = false) {
+    function updateProjectView() {
         const currentProject = projectSections[currentProjectIndex]
         
-        if (animate) {
-            // custom smooth scroll with cubic-bezier
-            smoothScrollTo(currentProject.offsetTop, 800)
-        } else {
-            currentProject.scrollIntoView()
-        }
+        currentProject.scrollIntoView({behavior: 'smooth'});
         
         currentImageIndex = 0 // reset image index when changing projects
         const projectId = currentProject.getAttribute('id') // get project id
-        window.location.hash = projectId // update url hash
+        // update url hash, ensuring it doesn't scroll again if already smooth scrolling
+        if (window.location.hash !== `#${projectId}`) {
+            history.pushState(null, null, `#${projectId}`);
+        }
         
         // update counter for the new project
         const imgElement = currentProject.querySelector('.project-image img')
         const counterElement = currentProject.querySelector('#gallery-counter')
         const images = JSON.parse(imgElement.getAttribute('data-images'))
         updateImageCounter(currentImageIndex, images.length, counterElement)
-    }
-    
-    // custom smooth scroll with cubic bezier
-    function smoothScrollTo(targetY, duration) {
-        const startY = window.pageYOffset
-        const diff = targetY - startY
-        let startTime = null
-        
-        // cubic-bezier implementation
-        function easeInOutCubicBezier(t) {
-            // cubic-bezier(0.165, 0.84, 0.44, 1)
-            const p1 = {x: 0.165, y: 0.84}
-            const p2 = {x: 0.44, y: 1}
-            
-            // simple approximation of cubic bezier
-            return 3 * Math.pow(1 - t, 2) * t * p1.y +
-                   3 * (1 - t) * Math.pow(t, 2) * p2.y +
-                   Math.pow(t, 3)
-        }
-        
-        function animation(currentTime) {
-            if (startTime === null) startTime = currentTime
-            const timeElapsed = currentTime - startTime
-            const progress = Math.min(timeElapsed / duration, 1)
-            
-            const easedProgress = easeInOutCubicBezier(progress)
-            window.scrollTo(0, startY + diff * easedProgress)
-            
-            if (timeElapsed < duration) {
-                requestAnimationFrame(animation)
-            }
-        }
-        
-        requestAnimationFrame(animation)
     }
 }
 

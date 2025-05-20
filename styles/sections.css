@@ -14,9 +14,6 @@
     margin-left: calc(25% + 0.5rem);
 }
 
-.hello h1 {
-    /* font-size: 4rem; */
-}
 
 .hello p {
     max-width: 60ch;
@@ -47,11 +44,6 @@
         margin-block: 2rem;
         text-justify: none;
     }
-
-    .hello h1 {
-        font-size: 2rem;
-    }
-    
 }
 
 
@@ -120,17 +112,21 @@ main {
         flex-wrap: wrap;
         height: 75vh; 
         margin-bottom: 25vh;
+        padding-top: 40vh; 
     }
     .hero-column{
         width: calc(50% - 0.5rem);;
         padding: 0;
-        padding-top: 25vh; 
         box-sizing: border-box;
     }
     .hero-column:nth-child(2), .hero-column:nth-child(4) {
         display: flex;
         width: calc(50% + 0.5rem);
         flex-direction: row-reverse;
+    }
+    .hero-column:nth-child(2) p, .hero-column:nth-child(4) p{
+        text-align: right;
+        width: 100%;
     }
 }
 
@@ -438,7 +434,11 @@ section.list {
         padding-inline: 1rem;
         background: none;
         align-items: flex-end;
-        
+    }
+
+    .spotlight-vertical .xtr-info a{
+        font-size: 0.8rem;
+        padding-top: 0;
     }
     
 
@@ -614,8 +614,8 @@ section.list {
 }
 
 @media (max-width: 768px) {
-    #theatre-welcome{
-
+    #theatre-welcome h1{
+        font-size: 4rem;
     }
 
     #theatre-welcome a{
@@ -653,6 +653,9 @@ section.list {
     padding: 2rem;
     margin: 0;
     position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -663,8 +666,6 @@ section.list {
 }
 
 .project-info .id h1 {
-    font-family: "cofo-sans-variable", sans-serif;
-    font-weight: 100;
     font-style: normal;
     position: relative;
     text-align: end;
@@ -672,11 +673,11 @@ section.list {
 
 .project-info h3,
 .project-info h2 {
-    font-family: "cofo-sans-variable", sans-serif;
     max-width: 40ch;
     font-size: 1.5rem;
-    letter-spacing: normal;
-    margin-block: 1rem;
+    letter-spacing: -2.5%;
+    margin-block: 5rem;
+    font-variation-settings: "slnt" 0, "wght" 450;
 }
 
 .project-info p {
@@ -744,7 +745,7 @@ section.list {
 
 #next-project:hover *, #prev-project:hover *{
     color: var(--special-color);
-    text-decoration: underline var(--special-color) 1px;
+    text-decoration: underline var(--special-color) 0.2rem;
 }
 
 
@@ -778,10 +779,10 @@ section.list {
 }
 
 .archive-filters {
-    border-bottom: 0.075rem solid var(--text-color);
-    font-size: 1rem;
     width: 100%;
+    border-bottom: 0.1rem solid var(--text-color);
     transition: all 0.2s var(--transition-timing);
+    font-variation-settings: "slnt" 0, "wght" 500;
 }
 
 .archive-filters * {
@@ -803,7 +804,6 @@ section.list {
     margin-bottom: 0.5rem;
     position: relative;
     overflow: hidden;
-    outline: 0px solid var(--text-color);
     transition: all 0.5s var(--transition-timing);
 }
 
@@ -830,7 +830,7 @@ section.list {
 }
 
 .archive-item:hover {
-    border-bottom: 1px solid;
+    border-bottom: 2px solid;
     margin-bottom: -1px;
 }
 
@@ -973,7 +973,9 @@ section.list {
 }
 
 .hashtag-container h2 {
-    border-bottom: 0.075rem solid var(--text-color);
+    border-bottom: 0.1rem solid var(--text-color);
+    font-size: 1.5rem;
+    letter-spacing: -2%;
 }
 
 
@@ -1025,8 +1027,8 @@ section.list {
 
 .hashtag-pool .hashtag:hover {
     font-style: normal;
-    font-variation-settings: "slnt" 0, "wght" 300;
-    background-color: var(--soft-off-white);
+    font-variation-settings: "slnt" 0, "wght" 600;
+    background-color: var(--text-color);
     color: var(--main-bg);
 }
 
@@ -1034,11 +1036,11 @@ section.list {
     background-color: var(--text-color);
     color: var(--main-bg);
     letter-spacing: normal;
-    font-variation-settings: "slnt" -12, "wght" 300;
+    font-variation-settings: "wght" 500;
 }
 
 .hashtag.selected:hover {
-    font-variation-settings: "slnt" -12, "wght" 300;
+    font-variation-settings: "wght" 500;
     letter-spacing: normal;
     background-color: var(--text-color);
 }
@@ -1072,6 +1074,13 @@ section.list {
 .info p {
     width: 100%;
     max-width: 100%;
+    padding-right: 1rem;
+}
+
+@media (max-width: 768px) {
+    .info p {
+        padding-right: 0rem;
+    }
 }
 
 #contact-highlight{
@@ -1083,7 +1092,7 @@ section.list {
 }
 #contact-highlight .contact-info{
     position: absolute; 
-    right: 2rem; 
+    right: 1rem; 
     left: auto;
 }
 
@@ -1142,7 +1151,7 @@ section.list {
 
 
 .random-gallery {
-    background-color: black;
+    background-color: var(--main-bg);
     height: 100svh;
     width: 100%;
     overflow-y: scroll;
@@ -1302,7 +1311,7 @@ div#gallery-info a#brand{
     top: 0;
     height: 100%;
     width: 50%;
-    background-color: #000000;
+    background-color: var(--main-bg);
     transition: transform 1.2s var(--transition-timing);
     z-index: 10001;
     pointer-events: all;
@@ -1329,7 +1338,7 @@ div#gallery-info a#brand{
 .loading-percentage {
     position: absolute;
     z-index: 10002;
-    color: #ffffff;
+    color: var(--text-color);
     font-family: "cofo-sans-variable", sans-serif;
     font-variation-settings: "slnt" 0, "wght" 400;
     font-size: 3rem;

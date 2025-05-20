@@ -379,7 +379,6 @@ video::-webkit-media-controls {
 #slides-current-project:hover {
     height: auto;
     overflow: visible;
-    text-shadow: 0 1px 5px rgba(0,0,0,0.5);
     z-index: 1010;
 }
 
