@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // debug mode - set to true to see debug messages in console
-    const debugMode = true;
+    const debugMode = false;
 
     // debug logging function that only logs when debug mode is on
     function debugLog(...args) {

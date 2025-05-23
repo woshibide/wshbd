@@ -9,7 +9,7 @@
       "brand": "Lev Tolstoi",
       "title": "Book",
       "intro": "Tolstoi’s \"What is Art?\" design, loud and uncensored",
-      "hashtags": "book design, editorial"
+      "hashtags": "book, editorial"
     },
     {
       "spotlight": false,
@@ -40,9 +40,9 @@
       "date": "2023 Jun",
       "description": "Think of it as a rebellion in fabric form. Fashion doesn’t just sit here—it erupts, like sound given shape. There’s no neatness, no order, just a raw collision of ideas that challenge you to see clothes as something more than what you wear. It’s not about trends or statements; it’s about the chaos that’s left behind when art and fashion collide at full force",
       "brand": "Karl Yoon",
-      "title": "Catalogue",
+      "title": "Photo-book",
       "intro": "A magazine showcasing Karl's fashion collection",
-      "hashtags": "editorial, magazine"
+      "hashtags": "editorial, book"
     },
     {
       "spotlight": false,
@@ -53,7 +53,7 @@
       "brand": "Max Stirner",
       "title": "Book",
       "intro": "A bilingual edition of Stirner’s work with a blanket-bag twist",
-      "hashtags": "editorial, book design"
+      "hashtags": "editorial, book"
     },
     {
       "spotlight": false,
@@ -225,11 +225,11 @@
       "location": "Netherlands",
       "id": "E11",
       "date": "2024 Jun",
-      "description": "Playing with perception, this book design for Roland Barthes' Mythologies flips expectations—literally. With \"logies\" on the front cover and \"mytho\" on the back, it turns the title into a two-part journey. Pick it up one way, and you're greeted with logic; flip it over, and you're met with myth. It's a subtle wink to Barthes' exploration of how everyday things carry hidden meanings. The clean typography and split layout invite you to engage from both sides, making the book not just something to read, but an object that embodies the dance between myth and reality",
+      "description": "Playing with perception, this book for Roland Barthes' Mythologies flips expectations—literally. With \"logies\" on the front cover and \"mytho\" on the back, it turns the title into a two-part journey. Pick it up one way, and you're greeted with logic; flip it over, and you're met with myth. It's a subtle wink to Barthes' exploration of how everyday things carry hidden meanings. The clean typography and split layout invite you to engage from both sides, making the book not just something to read, but an object that embodies the dance between myth and reality",
       "brand": "Zanaves",
       "title": "Book",
-      "intro": "A book design reflecting Barthes’ analysis of cultural symbols",
-      "hashtags": "editorial, book design"
+      "intro": "A book reflecting Barthes’ analysis of cultural symbols",
+      "hashtags": "editorial, book"
     },
     {
       "spotlight": false,
@@ -240,7 +240,7 @@
       "brand": "fake_trailers",
       "title": "Book",
       "intro": "Book publishing for the last hope of russian underground Leonid Kotelnikov",
-      "hashtags": "editorial, book design"
+      "hashtags": "editorial, book"
     },
     {
       "spotlight": false,
@@ -251,7 +251,7 @@
       "brand": "Zanaves",
       "title": "Book",
       "intro": "Gilles Deleuze’s text, paired with Francis Bacon’s haunting paintings in one book",
-      "hashtags": "editorial, book design"
+      "hashtags": "editorial, book"
     },
     {
       "spotlight": false,
@@ -482,7 +482,7 @@
       "brand": "Flying Over The Dutch Nest",
       "title": "Book",
       "intro": "A visual essay born out of explorations of Best Dutch Design Book collection",
-      "hashtags": "editorial, book design"
+      "hashtags": "editorial, book"
     },
     {
       "spotlight": false,
@@ -493,7 +493,7 @@
       "brand": "wshbd",
       "title": "Book",
       "intro": "This book contains nothing but chairs and things, chairs and things, chairs and things..",
-      "hashtags": "editorial, book design, back end, development"
+      "hashtags": "editorial, book, back end, development"
     },
     {
       "spotlight": false,
@@ -557,7 +557,7 @@
       "date": "2025 May",
       "description": "Think less of a photobook. More of a space between cinema and sculpture: space within the sculptures, space of the photographs, space of spreads, that add another layer forming a different composition. It is a multilayered non-linear narrative where light and transparent paper are the guides through the layers of time.",
       "brand": "Alexandra Pavlovskaya-Lokchine",
-      "title": "Book",
+      "title": "Photo-book",
       "intro": "A space between cinema and sculpture: space within the sculptures, space of the photographs, space of the spreads. All united in a book.",
       "hashtags": "editorial, book"
     }

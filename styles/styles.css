@@ -26,8 +26,8 @@ html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}h1{font-size:2
     --border-def: 0px solid var(--soft-black);
     --border-red: 0px solid var(--special-color);
 
-    /*--left-cursor: url('/content/misc/white-left.svg'), pointer;
-    --right-cursor: url('/content/misc/white-right.svg'), pointer;*/
+    --left-cursor-white: url('/content/misc/white-left.svg'), pointer;
+    --right-cursor-white: url('/content/misc/white-right.svg'), pointer;
     --left-cursor: url('/content/misc/black-left.svg'), pointer;
     --right-cursor: url('/content/misc/black-right.svg'), pointer; 
 
@@ -395,7 +395,7 @@ footer {
 
 
 .footer-columns h4 {
-    font-family: "cofo-sans-variable", sans-serif;
+    font-family: "cofo-sans-variable", Helvetica, sans-serif;
     font-weight: 500;
     font-variation-settings: "slnt" 0, "wght" 500;
     font-style: normal;
@@ -575,14 +575,14 @@ h4 {
 h5,
 h6 {
     color: var(--text-color);
-    font-family: "cofo-sans-variable", sans-serif;
+    font-family: "cofo-sans-variable", Helvetica, sans-serif;
     font-weight: 200;
     font-style: normal;
 
 }
 
 p {
-    font-family: "cofo-sans-variable", sans-serif;
+    font-family: "cofo-sans-variable", Helvetica, sans-serif;
     text-align: justify;
     text-justify: auto;
     font-style: normal;

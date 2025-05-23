@@ -465,7 +465,7 @@ video::-webkit-media-controls {
     position: absolute;
     z-index: 12;
     color: var(--text-color);
-    font-family: "cofo-sans-variable", sans-serif;
+    font-family: "cofo-sans-variable", Helvetica, sans-serif;
     font-variation-settings: "slnt" 0, "wght" 400;
     font-size: 2rem;
     font-variant-numeric: tabular-nums;

@@ -292,7 +292,7 @@ section.list {
     position: absolute;
     bottom: 1rem;
     left: 1rem;
-    font-family: "cofo-sans-variable", sans-serif;
+    font-family: "cofo-sans-variable", Helvetica, sans-serif;
     font-weight: 200;
     font-style: normal;
 
@@ -723,7 +723,7 @@ section.list {
 }
 
 .projects-navigator #next-project, .projects-navigator #prev-project {
-    font-family: "cofo-sans-variable", sans-serif;
+    font-family: "cofo-sans-variable", Helvetica, sans-serif;
     font-size: 2rem;
     display: flex;
     cursor: pointer;
@@ -1151,7 +1151,7 @@ section.list {
 
 
 .random-gallery {
-    background-color: var(--main-bg);
+    background-color: #000;
     height: 100svh;
     width: 100%;
     overflow-y: scroll;
@@ -1192,12 +1192,12 @@ section.list {
 
 .project-section .project-image::before {
     right: auto;
-    cursor: var(--left-cursor); 
+    cursor: var(--left-cursor-white); 
 }
 
 .project-section .project-image::after {
     left: auto;
-    cursor: var(--right-cursor); 
+    cursor: var(--right-cursor-white); 
 }
 
 .project-section .project-image img {
@@ -1261,14 +1261,16 @@ section.list {
 }
 
 div#gallery-info a#brand{
-    font-family: "cofo-sans-variable", sans-serif;
+    color: #fff; /* needed cuz otherwise weird display */
+    font-family: "cofo-sans-variable", Helvetica, sans-serif;
     font-variation-settings: inherit;
     pointer-events: all;
     padding: 0;
 }
 
+
 #gallery-counter-container {
-    font-family: "cofo-sans-variable", sans-serif;
+    font-family: "cofo-sans-variable", Helvetica, sans-serif;
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.2rem;
     font-style: normal;
@@ -1339,7 +1341,7 @@ div#gallery-info a#brand{
     position: absolute;
     z-index: 10002;
     color: var(--text-color);
-    font-family: "cofo-sans-variable", sans-serif;
+    font-family: "cofo-sans-variable", Helvetica, sans-serif;
     font-variation-settings: "slnt" 0, "wght" 400;
     font-size: 3rem;
     font-variant-numeric: tabular-nums;
