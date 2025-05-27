@@ -143,7 +143,7 @@
     .index-link-container{
         width: 100%;
         max-width: 100vw;
-        outline: 1px aqua solid;
+        /* outline: 1px aqua solid; */
     }
 }
 
@@ -216,6 +216,14 @@ video::-webkit-media-controls {
     object-fit: cover;
 }
 
+.img-fit{
+    width: 100% !important; 
+    height: auto !important; 
+    display: block !important; 
+    object-fit: contain !important;
+    margin-top: auto;
+}
+
 .slide-image.left:only-child,
 .slide-image.right:only-child {
     width: auto;
@@ -267,6 +275,7 @@ video::-webkit-media-controls {
     margin-top: auto;
     position: relative;
     bottom: 25vh;
+    text-align: justify;
     /* background-color: aquamarine; */
 }
 
@@ -313,7 +322,7 @@ video::-webkit-media-controls {
     margin: 0;
 }
 .inline-link {
-    text-decoration: underline;
+    text-decoration: 2px solid underline;
     padding: 0;
     margin: 0;
     display: inline-block;
