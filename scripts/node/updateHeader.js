@@ -1,6 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
+// directories that need slides.css specific stylesheets
+const slidesDirectories = ['antecamara', '75b'];
+
 const headerTemplatePath = path.join(__dirname, '/templates/header_template.html');
 const headerTemplate = fs.readFileSync(headerTemplatePath, 'utf-8');
 
@@ -22,6 +25,18 @@ function updateHtmlFile(filePath) {
         let content = fs.readFileSync(filePath, 'utf-8');
         let metaData = extractMetaData(content, filePath);
 
+        // check if the file is in a directory that needs slides.css
+        const pathParts = filePath.split('/');
+        let needsSlides = false;
+        
+        // check if any parent directory is in the slidesDirectories list
+        for (const dir of slidesDirectories) {
+            if (pathParts.includes(dir)) {
+                needsSlides = true;
+                break;
+            }
+        }
+        
         // Create updated header with page-specific metadata
         let updatedHeader = headerTemplate
             .replace('{{KEYWORDS}}', metaData.keywords)
@@ -29,7 +44,10 @@ function updateHtmlFile(filePath) {
             .replace('{{OG_TITLE}}', metaData.ogTitle)
             .replace('{{OG_DESCRIPTION}}', metaData.ogDescription)
             .replace('{{OG_URL}}', metaData.ogUrl)
-            .replace('{{CHANGE_TITLE}}', metaData.title); 
+            .replace('{{CHANGE_TITLE}}', metaData.title)
+            .replace('{{ADD_SLIDES}}', needsSlides ? 
+                '<link rel="stylesheet" href="/styles/slides.css">' : 
+                '<!-- adobe fonts -->');
 
         // Replace existing head with updated template
         content = content.replace(/<head>[\s\S]*?<\/head>/i, updatedHeader);

@@ -1,93 +1,66 @@
 const { execSync } = require('child_process');
 const path = require('path');
-const readline = require('readline');
+const { checkAndProcessImages } = require('./compressImages');
 
-const executionResults = [];
-
-function runScript(scriptName, args = '') {
-    const scriptPath = path.join(__dirname, scriptName);
-    try {
-        console.log(`\n\n >>>>> Running ${scriptName}...`);
-        execSync(`node ${scriptPath} ${args}`, { stdio: 'inherit' });
-        console.log(` >>>>> ${scriptName} completed successfully.`);
-        // Record success
-        executionResults.push({ script: scriptName, status: 'success' });
-    } catch (error) {
-        console.error(`\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n
-                         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n
-                         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n >>>>> Error running ${scriptName}:`, error.message);
-        // Record failure with error message
-        executionResults.push({ script: scriptName, status: 'failed', error: error.message });
-    }
-}
-
-// create readline interface for user input
-function getUserInput(question) {
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
-
-    return new Promise(resolve => {
-        rl.question(question, answer => {
-            rl.close();
-            resolve(answer);
-        });
-    });
-}
-
-// to run python script
-function runPythonScript(scriptName, args = '') {
-    try {
-        console.log(`\n\n >>>>> Running Python script ${scriptName}...`);
-        execSync(`python3 ${scriptName} ${args}`, { stdio: 'inherit' });
-        console.log(` >>>>> ${scriptName} completed successfully.`);
-        executionResults.push({ script: scriptName, status: 'success' });
-    } catch (error) {
-        console.error(`\n>>>>> Error running Python script ${scriptName}:`, error.message);
-        executionResults.push({ script: scriptName, status: 'failed', error: error.message });
-    }
-}
-
-async function main() {
+// complete portfolio build process
+async function buildPortfolio() {
     const inputDirectory = '/Users/usr/design/_portfolio/www/content/images';
     const outputFilePath = path.join(__dirname, '..', '..', 'content', 'info', 'image-map.json');
+    const executionResults = [];
 
-    // should images be compressed
-    const needsCompress = await getUserInput('compress images first? (y/n): ');
-    if (needsCompress.toLowerCase() === 'y') {
-        const pythonScript = path.join(__dirname, '.', 'image_compressor.py');
-
-        // uses hardcoded values from the script
-        runPythonScript(pythonScript, inputDirectory);
+    // helper function to run scripts with error tracking
+    function runScript(scriptName, args = '') {
+        const scriptPath = path.join(__dirname, scriptName);
+        try {
+            console.log(`\n >>>>> running ${scriptName}...`);
+            execSync(`node ${scriptPath} ${args}`, { stdio: 'inherit' });
+            console.log(` >>>>> ${scriptName} success`);
+            executionResults.push({ script: scriptName, status: 'success' });
+        } catch (error) {
+            console.error(`\n >>>>> error running ${scriptName}:`, error.message);
+            executionResults.push({ script: scriptName, status: 'failed', error: error.message });
+        }
     }
 
-    runScript('createImageMap.js', `${inputDirectory} ${outputFilePath}`);
+    console.log('\n🚀 starting build...\n');
 
+    // step 1: process images
+    runScript('compressImages.js');
+    runScript('createImageMap.js', `${inputDirectory} ${outputFilePath}`);
+    
+    // step 3: setup and cleanup
     runScript('createProjectDirectories.js');
     runScript('cleanUpFolder.js');
 
+    // step 4: generate pages
     runScript('generateProjects.js');
     runScript('generateErrorPages.js');
     runScript('generateIndex.js');
     runScript('generateArchive.js');
     runScript('generateTheatre.js');
 
+    // step 5: update and finalize
     runScript('updateHtml.js');
     runScript('updateHeader.js');
-    runScript('/sitemap/generateSitemap.js');
+    runScript('./sitemap/generateSitemap.js');
 
-    // summary
-    console.log('\n\n');
+    // build summary
+    console.log('\n\n🎯 build summary:');
+    console.log('━'.repeat(30));
     executionResults.forEach(result => {
-        if (result.status === 'success') {
-            console.log(`[ ✅ ] - ${result.script}`);
-        } else {
-            console.log(`[ ❌ ] - ${result.script}\n${result.error}\n`);
-        }
+        const icon = result.status === 'success' ? '✅' : '❌';
+        console.log(`${icon} ${result.script}`);
+        if (result.error) console.log(`   ${result.error}\n`);
     });
+    
+    const successCount = executionResults.filter(r => r.status === 'success').length;
+    const totalCount = executionResults.length;
+    if (totalCount == successCount){
+        console.log('\n🚀 TOTAL SUCCESS 🚀\n')
+    } else {
+        console.log(`\n🏁 completed: ${successCount}/${totalCount} scripts successful\n`);
+    }
 }
 
-main();
-
-console.log('\n');
+// run the build
+buildPortfolio();
