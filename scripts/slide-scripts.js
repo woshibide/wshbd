@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const loadingPercentage = container.querySelector('.canvas-loading-percentage');
         
         // determine which sketch to load based on sketchId
-        let sketchPath = `/dumbar/p5-sketches/${sketchId}/sketch.js`;
+        let sketchPath = `/75b/p5-sketches/${sketchId}/sketch.js`;
         
         // simulate loading process
         let loadProgress = 0;
