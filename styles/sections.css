@@ -754,7 +754,7 @@ section.list {
 
 /*  ================
     ================ 
-        archive
+        ARCHIVE
     ================
     ================ */
 
@@ -810,7 +810,7 @@ section.list {
 .archive-item.expanded {
     height: 110vh;
     background-image: none;
-    width: calc(100% + 2rem);
+    width: calc(100% + 3rem);
     margin-inline: -2rem;
 }
 
