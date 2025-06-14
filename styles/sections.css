@@ -162,64 +162,60 @@ section.list {
 
 .spotlight-gallery-container {
     position: relative;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
     height: 95svh;
     width: 75%;
+    scrollbar-width: none;
 }
 
-.spotlight-gallery-container .image-counter, 
-.spotlight-gallery-container .spotlight-id  {
+.spotlight-gallery-container::-webkit-scrollbar {
+    display: none;
+}
+
+.spotlight-gallery {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.spotlight-gallery .gallery-scroll {
+    display: flex;
+    flex-direction: row;
+    width: max-content;
+    animation: marquee 400s linear infinite;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.spotlight-gallery-container .spotlight-id {
     z-index: 10000;
 }
 
-
-.spotlight-giant-gallery::before,
-.spotlight-giant-gallery::after {
-    position: absolute;
-    inset: 0;
-    width: 50%;
-    content: '';
-    display: inline-block;
-    pointer-events: all;
-    z-index: +1;
-}
-
-.spotlight-giant-gallery::before {
-    right: auto;
-    cursor: var(--left-cursor);
-}
-
-.spotlight-giant-gallery::after {
-    left: auto;
-    cursor: var(--right-cursor);
-}
-
-
-.spotlight-gallery-container::before,
-.spotlight-gallery-container::after {
-    position: absolute;
-    inset: 0;
-    width: auto;
-    content: '';
-    display: inline-block;
-    pointer-events: all;
-    z-index: +1;
-}
-
-.spotlight-gallery-container::before {
-    right: auto;
-    cursor: var(--left-cursor);
-}
-
-.spotlight-gallery-container::after {
-    left: auto;
-    cursor: var(--right-cursor);
-}
-
 .spotlight-gallery-container img {
-    width: 100%;
+    flex-shrink: 0;
     height: 100%;
+    width: auto;
     object-fit: cover;
+    margin-right: 2px;
+    transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* lazy loading states for marquee gallery */
+.spotlight-gallery-container img.lazy {
+    opacity: 0.3; /* subtle loading state for marquee */
+}
+
+.spotlight-gallery-container img.lazyloaded {
+    opacity: 1;
 }
 
 
@@ -276,26 +272,8 @@ section.list {
 }
 
 .spotlight-gallery-image {
-    display: none;
-    /* Hide all images initially */
-}
-
-.spotlight-gallery-image.active {
     display: block;
-    width: inherit;
-}
-
-.image-counter {
-    color: var(--text-color);
-    font-size: 0.8rem;
-    font-variant-numeric: tabular-nums;
-    position: absolute;
-    bottom: 1rem;
-    left: 1rem;
-    font-family: "cofo-sans-variable", Helvetica, sans-serif;
-    font-weight: 200;
-    font-style: normal;
-
+    opacity: 1;
 }
 
 .spotlight-id {
@@ -394,24 +372,69 @@ section.list {
     position: relative;
 }
 
+.spotlight-vertical .gallery::before,
+.spotlight-vertical .gallery::after {
+    position: absolute;
+    inset: 0;
+    width: 50%;
+    content: '';
+    display: inline-block;
+    pointer-events: all;
+    z-index: 1; 
+}
+
+.spotlight-vertical .gallery::before {
+    right: auto;
+    cursor: var(--left-cursor); 
+}
+
+.spotlight-vertical .gallery::after {
+    left: auto;
+    cursor: var(--right-cursor); 
+}
+
 .spotlight-vertical img.spotlight-gallery-image {
     /* margin-right: -2rem; */
     width: 100%;
     height: 100%;
     object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none; /* hide all images by default */
+    transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.spotlight-vertical img.spotlight-gallery-image.active {
+    display: block; /* show only the active image */
+}
+
+/* lazy loading states for vertical gallery */
+.spotlight-vertical img.spotlight-gallery-image.lazy {
+    opacity: 0;
+}
+
+.spotlight-vertical img.spotlight-gallery-image.lazyloaded {
+    opacity: 1;
 }
 
 .spotlight-vertical .gallery-nav {
     position: absolute;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     width: 100%;
-    bottom: 1rem;
-    right: 1rem;
+    padding: 1rem;
+    z-index: 2;
 }
 
 .spotlight-vertical .project-id {
     color: var(--text-color);
+}
+
+.spotlight-vertical .vertical-image-counter {
+    color: var(--text-color);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.8rem;
 }
 
 @media (max-width: 768px) {
@@ -509,11 +532,6 @@ section.list {
     justify-content: space-between;   
 }
 
-.spotlight-giant .image-counter{
-    margin-bottom: 0;
-    z-index: 1;
-}
-
 .spotlight-giant-id{
     color: var(--text-color);
     margin-left: -3rem;
@@ -568,12 +586,6 @@ section.list {
         width: auto;
     }
 
-    .spotlight-giant .image-counter {
-        display: none;
-        bottom: 1rem;
-    }
-
-    .spotlight-giant .image-counter,
     .spotlight-giant-id {
         left: 1rem;
     }

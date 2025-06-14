@@ -364,7 +364,7 @@
       "hashtags": "editorial, p5js, poster, zine, riso"
     },
     {
-      "spotlight": true,
+      "spotlight": false,
       "location": "WWW",
       "id": "A225",
       "date": "2024 Jun",
@@ -540,7 +540,7 @@
       "hashtags": "editorial, magazine"
     },
     {
-      "spotlight": false,
+      "spotlight": true,
       "location": "Netherlands",
       "id": "E19",
       "date": "2025 Apr",
@@ -551,7 +551,7 @@
       "hashtags": "editorial, book"
     },
     {
-      "spotlight": false,
+      "spotlight": true,
       "location": "Netherlands",
       "id": "E20",
       "date": "2025 May",

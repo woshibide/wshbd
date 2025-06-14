@@ -57,6 +57,7 @@ html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}h1{font-size:2
     padding: 0rem;
     margin: 0rem;
     box-sizing: border-box;
+    vertical-align: baseline;
 
     transition: all 0.3s var(--transition-timing);
     transition: color 0.5s var(--transition-timing);
@@ -471,7 +472,6 @@ img {
 }
 
 /* add smooth transition styles for all image galleries */
-.spotlight-gallery-image,
 .project-image img {
     transition: opacity 0.4s var(--transition-timing);
     position: absolute;
@@ -480,22 +480,6 @@ img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-/* make sure non-active images are hidden */
-.spotlight-gallery-image:not(.active) {
-    opacity: 0;
-}
-
-/* make sure active images are visible */
-.spotlight-gallery-image.active {
-    opacity: 1;
-    z-index: 1;
-}
-
-.project-image img.transitioning,
-.spotlight-gallery-image.transitioning {
-    opacity: 0;
 }
 
 .spotlight-gallery-container, 

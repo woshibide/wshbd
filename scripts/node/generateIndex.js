@@ -28,8 +28,12 @@ function generateProjectHTML(project, imageMap) {
     const projectImages = imageMap[project.id] || [];
     const imageElements = projectImages.map((fileName, index) => {
         const imagePath = `/content/images/${project.id}/${fileName}`;
+        // use data-src for lazy loading, load first few images immediately for smooth marquee start
+        const shouldLoadImmediately = index < 3; // load first 3 images immediately
+        const srcAttribute = shouldLoadImmediately ? `src="${imagePath}"` : `data-src="${imagePath}"`;
+        const lazyClass = shouldLoadImmediately ? '' : ' lazy';
         return `
-            <img src="${imagePath}" class="spotlight-gallery-image" data-index="${index}" loading="lazy" alt="${project.title}">
+            <img ${srcAttribute} class="spotlight-gallery-image${lazyClass}" data-index="${index}" loading="lazy" alt="${project.title}">
         `;
     }).join('\n');
 
@@ -52,7 +56,6 @@ function generateProjectHTML(project, imageMap) {
                 <div class="spotlight-gallery">
                     ${imageElements}
                 </div>
-                <div class="image-counter">${imageCounter}</div>
                 <div class="spotlight-id">${project.id}</div>
             </div>
         </div>
@@ -67,17 +70,22 @@ function generateVerticalProjectHTML(project, imageMap) {
     const imageElements = projectImages.map((fileName, index) => {
         const imagePath = `/content/images/${project.id}/${fileName}`;
         const isActive = index === 0 ? 'active' : '';
+        // use data-src for lazy loading, except for the first image
+        const srcAttribute = index === 0 ? `src="${imagePath}"` : `data-src="${imagePath}"`;
+        const lazyClass = index === 0 ? '' : ' lazy';
         return `
-            <img src="${imagePath}" class="spotlight-gallery-image ${isActive}" loading="lazy" alt="${project.title}">
+            <img ${srcAttribute} class="spotlight-gallery-image ${isActive}${lazyClass}" loading="lazy" alt="${project.title}">
         `;
     }).join('\n');
 
+    const imageCounter = projectImages.length > 0 ? `1/${projectImages.length}` : '';
 
     const verticalHTML = `
     <div class="spotlight-vertical">
         <div class="gallery">
             <div class="gallery-nav">
                 <p class="project-id">${project.id}</p>
+                <div class="vertical-image-counter">${imageCounter}</div>
             </div>
             ${imageElements}
         </div>
