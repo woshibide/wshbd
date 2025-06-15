@@ -145,7 +145,7 @@ section.list {
 
 .list li {
     list-style: none;
-    margin-block: 10svh;
+    margin-block: 30svh;
     position: relative;
     isolation: isolate;
     display: flex;
@@ -157,7 +157,7 @@ section.list {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 100%;
+    height: 130svh;
 }
 
 .spotlight-gallery-container {
@@ -167,6 +167,7 @@ section.list {
     height: 95svh;
     width: 75%;
     scrollbar-width: none;
+    scroll-behavior: smooth; /* smooth scrolling */
 }
 
 .spotlight-gallery-container::-webkit-scrollbar {
@@ -178,22 +179,18 @@ section.list {
     flex-direction: row;
     width: 100%;
     height: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    gap: 2px; /* space between images */
 }
 
-.spotlight-gallery .gallery-scroll {
-    display: flex;
-    flex-direction: row;
-    width: max-content;
-    animation: marquee 400s linear infinite;
-}
-
-@keyframes marquee {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
+.spotlight-gallery img {
+    flex-shrink: 0;
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .spotlight-gallery-container .spotlight-id {
@@ -209,11 +206,10 @@ section.list {
     transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-/* lazy loading states for marquee gallery */
-.spotlight-gallery-container img.lazy {
-    opacity: 0.3; /* subtle loading state for marquee */
-}
 
+.spotlight-gallery-container img.lazy {
+    opacity: 0.5; /* slightly visible while loading */
+}
 .spotlight-gallery-container img.lazyloaded {
     opacity: 1;
 }
@@ -228,9 +224,9 @@ section.list {
 }
 
 .spotlight-xtr-info {
-    position: absolute;
+    /* position: absolute;
     top: 0;
-    left: 0;
+    left: 0; */
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -252,6 +248,7 @@ section.list {
 
 
 .spotlight-description {
+    width: 200%;
     margin: 1rem 0 1rem 1rem;
     position: relative;
 }
@@ -274,6 +271,8 @@ section.list {
 .spotlight-gallery-image {
     display: block;
     opacity: 1;
+    overflow-x: auto;
+    scroll-behavior: smooth;
 }
 
 .spotlight-id {
@@ -309,7 +308,7 @@ section.list {
     .spotlight-gallery-container {
         flex: none;
         width: 100%;
-        height: 80svh;
+        height: 100svh;
     }
 
     .spotlight-info {
@@ -318,6 +317,7 @@ section.list {
     }
 
     .spotlight-description {
+        width: auto;
         margin: 1rem;
         text-justify: distribute;
     }
@@ -325,6 +325,10 @@ section.list {
     .spotlight-gallery-image{
         object-fit: contain;
         object-position: center;
+    }
+
+    .list li {
+        margin-block: 15svh;
     }
 }
 
@@ -411,7 +415,7 @@ section.list {
 
 /* lazy loading states for vertical gallery */
 .spotlight-vertical img.spotlight-gallery-image.lazy {
-    opacity: 0;
+    opacity: 0.5; /* slightly visible while loading */
 }
 
 .spotlight-vertical img.spotlight-gallery-image.lazyloaded {
@@ -453,7 +457,7 @@ section.list {
         flex-direction: column;
     }
     .spotlight-vertical .xtr-info {
-        margin: 0rem;
+        margin-bottom: 1rem;
         padding-inline: 1rem;
         background: none;
         align-items: flex-end;
@@ -492,6 +496,11 @@ section.list {
     background-color: none;
     /* padding: 4rem; */
     overflow: hidden; 
+}
+
+.spotlight-giant .image-counter {
+    /* TODO: fix lol */
+    display: none;
 }
 
 .spotlight-giant-gallery {
