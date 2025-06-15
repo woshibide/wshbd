@@ -248,7 +248,7 @@ section.list {
 
 
 .spotlight-description {
-    width: 200%;
+    width: calc(200% - 1rem);
     margin: 1rem 0 1rem 1rem;
     position: relative;
 }
