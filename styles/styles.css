@@ -67,12 +67,20 @@ html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}h1{font-size:2
 
 html {
     font-size: 14px;
+
     scroll-behavior: auto;
     scrollbar-width: none;
 
     font-family: "cofo-sans-variable", monospace;
     font-variation-settings: "slnt" 0, "wght" 500;
 }
+
+@media (min-width: 1600px) {
+    html {
+        font-size: 20px;
+    }
+}
+
 
 ::-moz-selection {
     color: var(--soft-white);
