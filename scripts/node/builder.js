@@ -1,3 +1,6 @@
+// TODO: check for script completion is actually false in some cases
+// TODO: config + TODO: reuse functions (recursive search, ignore folders, etc)
+
 const { execSync } = require('child_process');
 const path = require('path');
 const { checkAndProcessImages } = require('./compressImages');

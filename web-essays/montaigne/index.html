@@ -25,7 +25,7 @@
     <link rel="shortcut icon" type="image/png" href="/content/misc/favicon_180x180.png" />
 
     <!-- adobe fonts -->
-    <link rel="stylesheet" href="https://use.typekit.net/dxz4nuq.css">
+    <link rel="stylesheet" href="https://use.typekit.net/jri1rzb.css">
     <link rel="stylesheet" href="./styles.css">
     
 </head>
@@ -54107,6 +54107,38 @@ good Marot.
             </p>
         </div>
     </div>
+    <script>
+        document.getElementById('mode-toggle').addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+});
+
+// open me on a random chapter
+window.onload = function() {
+    var anchors = document.querySelectorAll('.section-nav a');
+    var randomIndex = Math.floor(Math.random() * anchors.length);
+    var randomAnchor = anchors[randomIndex];
+    // Smoothly scroll to the randomly chosen section
+    var targetId = randomAnchor.getAttribute('href').substring(1);
+    var targetElement = document.getElementById(targetId);
+    if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+    }
+};
+
+// Smooth scroll for anchor links
+var anchorLinks = document.querySelectorAll('.section-nav a');
+anchorLinks.forEach(link => {
+    link.addEventListener('click', function(event) {
+        event.preventDefault();
+        var targetId = this.getAttribute('href').substring(1);
+        var targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
+    </script>
 </body>
 
 </html>

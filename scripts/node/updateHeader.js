@@ -1,8 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
-// directories that need slides.css specific stylesheets
-const slidesDirectories = ['antecamara', '75b'];
+// slides directories that will have slides.css
+const slidesDir = ['antecamara', '75b', 'montaigne', 'the-forrest-passage'];
+
+// directories that have their own .css
+const ignoreDir = ['montaigne', 'the-forrest-passage'];
 
 const headerTemplatePath = path.join(__dirname, '/templates/header_template.html');
 const headerTemplate = fs.readFileSync(headerTemplatePath, 'utf-8');
@@ -25,12 +28,19 @@ function updateHtmlFile(filePath) {
         let content = fs.readFileSync(filePath, 'utf-8');
         let metaData = extractMetaData(content, filePath);
 
+        // check if its in ignore list
+        const pathSegments = filePath.split('/');
+        const shouldIgnore = pathSegments.some((segment) => ignoreDir.includes(segment));
+        if (shouldIgnore) {
+            return; // skip it
+        }
+
         // check if the file is in a directory that needs slides.css
         const pathParts = filePath.split('/');
         let needsSlides = false;
         
-        // check if any parent directory is in the slidesDirectories list
-        for (const dir of slidesDirectories) {
+        // check if any parent directory is in the slidesDir list
+        for (const dir of slidesDir) {
             if (pathParts.includes(dir)) {
                 needsSlides = true;
                 break;
