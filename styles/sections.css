@@ -674,7 +674,7 @@ section.list {
     padding: 2rem;
     margin: 0;
     position: relative;
-    height: 100vh;
+    height: auto;
     display: flex;
     flex-direction: column;
 }
