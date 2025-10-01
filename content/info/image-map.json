@@ -85,6 +85,10 @@
     "posters3.webp",
     "posters4.webp"
   ],
+  "A253": [
+    "1.webp",
+    "3.webp"
+  ],
   "B03": [
     "4096.webp",
     "comments_orange.webp"
@@ -528,6 +532,30 @@
     "10.webp",
     "11.webp",
     "12.webp",
+    "2.webp",
+    "3.webp",
+    "4.webp",
+    "5.webp",
+    "6.webp",
+    "7.webp",
+    "8.webp",
+    "9.webp"
+  ],
+  "W09": [
+    "1.webp",
+    "10.webp",
+    "11.webp",
+    "2.webp",
+    "3.webp",
+    "4.webp",
+    "5.webp",
+    "6.webp",
+    "7.webp",
+    "8.webp",
+    "9.webp"
+  ],
+  "W10": [
+    "1.webp",
     "2.webp",
     "3.webp",
     "4.webp",

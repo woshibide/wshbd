@@ -560,6 +560,39 @@
       "title": "Photo-book",
       "intro": "A space between cinema and sculpture: space within the sculptures, space of the photographs, space of the spreads. All united in a book.",
       "hashtags": "editorial, book"
+    },
+    {
+      "spotlight": false,
+      "location": "Netherlands",
+      "id": "W09",
+      "date": "2025 Aug",
+      "description": "A bilingual static website for the Leiden Essay Film Festival, with 200+ pages, all built with Flask. Tech minimalism to support the industrial aesthetic of the identity of the festival. Meet <a href=\"https://leidenessayfilmfestival.com/\" target=\"_blank\" style=\"padding: 0rem;\">leidenessayfilmfestival.com</a>",
+      "brand": "leff",
+      "title": "Website",
+      "intro": "Facade for the first essay film festival in Netherlands.",
+      "hashtags": "ux/ui, web app, back end, web design, development"
+    },
+    {
+      "spotlight": false,
+      "location": "Germany",
+      "id": "W10",
+      "date": "2025 Sep",
+      "description": "Personal web portfolio for an emerging filmmaker, meet <a href=\"https://anyavakodr.com\" target=\"_blank\" style=\"padding: 0rem;\">anyavakodr.com</a>",
+      "brand": "Anya Vakodr",
+      "title": "Website",
+      "intro": "Design and launch of readymag based website",
+      "hashtags": "web design, readymag"
+    },
+    {
+      "spotlight": false,
+      "location": "Netherlands",
+      "id": "A253",
+      "date": "2025 Sep",
+      "description": "A classical film poster you saw million times",
+      "brand": "TRACE",
+      "title": "Poster",
+      "intro": "Film poster for emerging filmmaker",
+      "hashtags": "poster"
     }
   ]
 }

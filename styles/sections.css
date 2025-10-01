@@ -679,6 +679,15 @@ section.list {
     flex-direction: column;
 }
 
+.project-info-columns {
+    display: flex;
+    flex-direction: row;
+    margin-block: 5rem;
+}
+.project-info-columns div {
+    width: 50%;
+}
+
 
 @media (max-width: 768px) {
     .project-info {
@@ -701,7 +710,7 @@ section.list {
     font-variation-settings: "slnt" 0, "wght" 450;
 }
 
-.project-info p {
+.project-info * p {
     /* margin-inline: 2rem; */
     max-width: 60ch;
 }
@@ -710,6 +719,10 @@ section.list {
 
     .project-info .id h1 {
         font-size: 7rem;
+    }
+
+    .project-info * p {
+        text-align: left;
     }
 }
 

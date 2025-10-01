@@ -22,14 +22,18 @@ function createHtmlContent(project, imageFiles, nextProjectId, prevProjectId) {
                 <div class="id">
                     <h1>${project.id}</h1>
                 </div>
-                <br><br><br>
-                <h2>${project.brand}</h2>
-                <p>${project.title}</p>
-                <p>${project.location}</p>
-                <p>${project.date}</p>
-                <br>
-                <h3>${project.intro}</h3>
-                <p>${project.description}</p>
+                <div class="project-info-columns">
+                    <div>
+                        <h2>${project.brand}</h2>
+                        <p>${project.title}</p>
+                        <p>${project.location}</p>
+                        <p>${project.date}</p>
+                    </div>
+                    <div>
+                        <h3>${project.intro}</h3>
+                        <p>${project.description}</p>
+                    </div>
+                </div>
             </div>
             <div class="solo-project-images">`;
 

@@ -289,6 +289,16 @@
     "mtime": 1745105875048,
     "hash": "897656fef318389d8f7211ed61f79c34"
   },
+  "/Users/usr/design/_portfolio/www/content/images/A253/1.webp": {
+    "size": 199656,
+    "mtime": 1759308540557,
+    "hash": "9e216027e34ff7d3b5a8d937e3b4a2e0"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/A253/3.webp": {
+    "size": 161120,
+    "mtime": 1759308539509,
+    "hash": "59f0af157cccdc202f65197fde8d96ba"
+  },
   "/Users/usr/design/_portfolio/www/content/images/B03/4096.webp": {
     "size": 122112,
     "mtime": 1745105716119,
@@ -2178,5 +2188,105 @@
     "size": 129790,
     "mtime": 1745212928402,
     "hash": "4dccfe0ba5c7d05ccee645c91b1099a2"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W09/1.webp": {
+    "size": 198082,
+    "mtime": 1759175507981,
+    "hash": "6b4631a49d58e5a7bc4f3fb9dbec68d8"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W09/10.webp": {
+    "size": 99844,
+    "mtime": 1759175504573,
+    "hash": "e88c18df61ce5e6d4eb4ab483b5dde47"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W09/11.webp": {
+    "size": 52758,
+    "mtime": 1759175504354,
+    "hash": "de6e1fe56ec068109f632931a23d080e"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W09/2.webp": {
+    "size": 40142,
+    "mtime": 1759175506915,
+    "hash": "da7d09d18fe43d82f52445b298254cc3"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W09/3.webp": {
+    "size": 64218,
+    "mtime": 1759175507102,
+    "hash": "e7fb5271fe59a5191f13aeecf0aed962"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W09/4.webp": {
+    "size": 186430,
+    "mtime": 1759175505336,
+    "hash": "b9825f1a5ee84826c005c3ce954bdae3"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W09/5.webp": {
+    "size": 183592,
+    "mtime": 1759175505573,
+    "hash": "534448a41fe214e9d98cdfaf595ceb8e"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W09/6.webp": {
+    "size": 135964,
+    "mtime": 1759175506738,
+    "hash": "cc7f1752274d31c1ece8aa91eae7e8a4"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W09/7.webp": {
+    "size": 191916,
+    "mtime": 1759175506521,
+    "hash": "e759263ecd4234d336889a11d9b7de3f"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W09/8.webp": {
+    "size": 193546,
+    "mtime": 1759175503356,
+    "hash": "eeb18534e3400038d88140c0ee89817c"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W09/9.webp": {
+    "size": 197292,
+    "mtime": 1759175504170,
+    "hash": "62f1dd3e755bdecd183d017a9a9bf689"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W10/1.webp": {
+    "size": 116580,
+    "mtime": 1759175512884,
+    "hash": "40c2f5ad2f92986c29bcea7a6d81b8aa"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W10/2.webp": {
+    "size": 88124,
+    "mtime": 1759175511872,
+    "hash": "a0b88585649126a21a8063290247d5ef"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W10/3.webp": {
+    "size": 184712,
+    "mtime": 1759175512681,
+    "hash": "16153f3d645d7e7f20c26a554e753b40"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W10/4.webp": {
+    "size": 174426,
+    "mtime": 1759175509438,
+    "hash": "53bd902a65e08933f32b3ada7d8ca336"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W10/5.webp": {
+    "size": 185822,
+    "mtime": 1759175510429,
+    "hash": "4d40f1fec7b0988fb2402f7da8688f66"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W10/6.webp": {
+    "size": 91906,
+    "mtime": 1759175511670,
+    "hash": "0623c5415f2f11b3dd3a787d657b78be"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W10/7.webp": {
+    "size": 194290,
+    "mtime": 1759175511428,
+    "hash": "a3e10fa4ff072694c111c92c05e04d0f"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W10/8.webp": {
+    "size": 145006,
+    "mtime": 1759175508290,
+    "hash": "e64a875a875683a18279bed87c54b087"
+  },
+  "/Users/usr/design/_portfolio/www/content/images/W10/9.webp": {
+    "size": 190440,
+    "mtime": 1759175509220,
+    "hash": "378b6f6ef70e65326a478d720502ed93"
   }
 }
