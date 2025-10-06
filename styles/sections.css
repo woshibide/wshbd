@@ -81,9 +81,12 @@ main {
     text-align: left;
     justify-content: start; 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding-top: calc(50svh + 1rem);
     top: 0px;
+}
+.hero-column:nth-child(4) a{
+    margin-left: 0.33rem;
 }
 
 .hero-column p{
@@ -131,7 +134,7 @@ main {
     .hero-column:nth-child(4) a{
         margin-left: 0.3rem;
         flex-direction: row;
-        padding: 0rem; 
+        padding: 0rem !important; 
         width: auto;
     }
 }
