@@ -518,7 +518,7 @@
       "hashtags": "web design, identity, development, front end"
     }, 
     {
-      "spotlight": false,
+      "spotlight": true,
       "location": "Netherlands",
       "id": "W08",
       "date": "2025 Apr",
@@ -551,7 +551,7 @@
       "hashtags": "editorial, book"
     },
     {
-      "spotlight": true,
+      "spotlight": false,
       "location": "Netherlands",
       "id": "E20",
       "date": "2025 May",
@@ -562,7 +562,7 @@
       "hashtags": "editorial, book"
     },
     {
-      "spotlight": false,
+      "spotlight": true,
       "location": "Netherlands",
       "id": "W09",
       "date": "2025 Aug",

@@ -53,6 +53,45 @@ export function showLoader(elementId = null) {
     }
 }
 
+export function enableDragToScroll(container) {
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    container.style.cursor = 'grab';
+
+    const onMouseDown = (e) => {
+        isDown = true;
+        container.style.cursor = 'grabbing';
+        startX = e.pageX - container.offsetLeft;
+        scrollLeft = container.scrollLeft;
+        e.preventDefault();
+    };
+
+    const onMouseLeave = () => {
+        isDown = false;
+        container.style.cursor = 'grab';
+    };
+
+    const onMouseUp = () => {
+        isDown = false;
+        container.style.cursor = 'grab';
+    };
+
+    const onMouseMove = (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - container.offsetLeft;
+        const walk = (x - startX) * 2; // scroll speed multiplier
+        container.scrollLeft = scrollLeft - walk;
+    };
+
+    container.addEventListener('mousedown', onMouseDown);
+    container.addEventListener('mouseleave', onMouseLeave);
+    container.addEventListener('mouseup', onMouseUp);
+    container.addEventListener('mousemove', onMouseMove);
+}
+
 export function updateTime() {
     const timeElement = document.getElementById('time');
     if (!timeElement) return; // safety check if element doesn't exist

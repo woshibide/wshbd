@@ -805,6 +805,10 @@ section.list {
     margin: 1rem;
 }
 
+.hashtag-container h2 {
+    padding: 0.25rem 1rem;
+}
+
 
 .archive-headers {
     display: flex;
@@ -841,6 +845,7 @@ section.list {
 
 
 .archive-item {
+    cursor: pointer;
     gap: 1rem;
     display: flex;
     width: 100%;
@@ -929,13 +934,13 @@ section.list {
 .archive-item.expanded .image-container {
     display: flex;
     position: absolute;
-    top: 0;
+    top: 2rem;
     left: 0;
     right: 0;
     bottom: 0;
     overflow-y: hidden;
     overflow-x: auto;
-    padding: 3rem 1rem 1rem 1rem;
+    padding: 1rem;
     scrollbar-width: none; 
     pointer-events: touch;
     width: 100%;

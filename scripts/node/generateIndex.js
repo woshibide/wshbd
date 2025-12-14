@@ -10,7 +10,7 @@ const imageMapData = readJSON(imageMapPath);
 const templatePath = path.join(__dirname, './templates/index_template.html');
 const outputPath = path.join(__dirname, '../../', 'index.html');
 
-const verticalProjectID = 'W04'; // MET Museum
+const verticalProjectID = 'W04'; // none
 const giantProjectID = 'B08';    // Ole
 
 function readJSON(filePath) {

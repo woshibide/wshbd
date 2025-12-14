@@ -1,4 +1,4 @@
-import { fetchJSON } from './utils.js';
+import { fetchJSON, enableDragToScroll } from './utils.js';
 
 //////////////////////////////////////////
 //              hashtags
@@ -258,6 +258,7 @@ async function toggleArchiveItem(item) {
                 imageContainer.appendChild(img);
             });
 
+            enableDragToScroll(imageContainer);
             lazyLoadImages();
         } else {
             console.warn('No image container found within the archive item.');
@@ -340,7 +341,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const archiveItems = document.querySelectorAll('.archive-item');
     if (archiveItems.length > 0) {
         archiveItems.forEach(item => {
-            item.addEventListener('click', () => toggleArchiveItem(item));
+            item.addEventListener('click', (e) => {
+                if (e.target.closest('.image-container')) return;
+                toggleArchiveItem(item);
+            });
         });
     }
 
