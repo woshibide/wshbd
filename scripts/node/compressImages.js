@@ -14,7 +14,7 @@ function setupPythonEnvironment() {
     if (!fs.existsSync(venvPath)) {
         console.log('python virtual environment not found, creating one...');
         try {
-            execSync(`python3 -m venv ${venvPath}`, { stdio: 'inherit' });
+            execSync(`python -m venv ${venvPath}`, { stdio: 'inherit' });
             console.log('virtual environment created successfully.');
         } catch (error) {
             console.error('failed to create python virtual environment:', error.message);
@@ -256,8 +256,8 @@ function checkAndProcessImages(baseDir) {
 
 // run the script when called directly
 if (require.main === module) {
-    const baseDir = '/Users/usr/design/_portfolio/www/content/images';
     const args = process.argv.slice(2);
+    const baseDir = args[0] || process.env.IMAGES_DIR || path.join(__dirname, '..', '..', 'content', 'images');
     
     if (args.includes('--force') || args.includes('-f')) {
         console.log('force mode: processing all images regardless of cache');
@@ -278,7 +278,7 @@ if (require.main === module) {
     } else {
         // default: smart detection mode
         const processed = checkAndProcessImages(baseDir);
-        
+
         if (processed) {
             console.log(`\ncompression process completed`);
         } else {

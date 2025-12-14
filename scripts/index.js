@@ -34,16 +34,46 @@ function initializeProjects() {
 
 // simple horizontal scrolling gallery - no auto-scroll, just manual
 function setupHorizontalGallery(container) {
+    // The actual scrolling element might be the .spotlight-gallery inside
+    const scrollTarget = container.querySelector('.spotlight-gallery') || container;
     const images = container.querySelectorAll('.spotlight-gallery-image');
     
     // setup simple lazy loading
     setupSimpleLazyLoading(images);
     
-    // browser will handle horizontal scrolling natively
-    // container.addEventListener('wheel', (e) => {
-    //     e.preventDefault();
-    //     container.scrollLeft += e.deltaY * 2; // scroll horizontally with wheel
-    // });
+    // drag to scroll implementation
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    // set initial cursor
+    scrollTarget.style.cursor = 'grab';
+
+    scrollTarget.addEventListener('mousedown', (e) => {
+        isDown = true;
+        scrollTarget.style.cursor = 'grabbing';
+        startX = e.pageX - scrollTarget.offsetLeft;
+        scrollLeft = scrollTarget.scrollLeft;
+        e.preventDefault(); // prevent selection
+    });
+
+    scrollTarget.addEventListener('mouseleave', () => {
+        isDown = false;
+        scrollTarget.style.cursor = 'grab';
+    });
+
+    scrollTarget.addEventListener('mouseup', () => {
+        isDown = false;
+        scrollTarget.style.cursor = 'grab';
+    });
+
+    scrollTarget.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - scrollTarget.offsetLeft;
+        const walk = (x - startX) * 2; // scroll speed multiplier
+        scrollTarget.scrollLeft = scrollLeft - walk;
+    });
 }
 
 // simple lazy loading - load images when they get close to viewport

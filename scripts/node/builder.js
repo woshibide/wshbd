@@ -7,7 +7,7 @@ const { checkAndProcessImages } = require('./compressImages');
 
 // complete portfolio build process
 async function buildPortfolio() {
-    const inputDirectory = '/Users/usr/design/_portfolio/www/content/images';
+    const inputDirectory = path.join(__dirname, '..', '..', 'content', 'images');
     const outputFilePath = path.join(__dirname, '..', '..', 'content', 'info', 'image-map.json');
     const executionResults = [];
 
@@ -28,12 +28,13 @@ async function buildPortfolio() {
     console.log('\n🚀 starting build...\n');
 
     // step 1: process images
-    runScript('compressImages.js');
+    // pass the workspace images directory to scripts that accept it
+    runScript('compressImages.js', `${inputDirectory}`);
     runScript('createImageMap.js', `${inputDirectory} ${outputFilePath}`);
     
     // step 3: setup and cleanup
-    runScript('createProjectDirectories.js');
-    runScript('cleanUpFolder.js');
+    runScript('createProjectDirectories.js', `${inputDirectory}`);
+    runScript('cleanUpFolder.js', `${inputDirectory}`);
 
     // step 4: generate pages
     runScript('generateProjects.js');

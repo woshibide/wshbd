@@ -3,7 +3,8 @@ const path = require('path');
 const readline = require('readline');
 
 const archiveJsonPath = path.join(__dirname, '../../content/info/archive.json');
-const inputDirectory = '/Users/usr/design/_portfolio/www/content/images';
+const args = process.argv.slice(2);
+const inputDirectory = args[0] || process.env.IMAGES_DIR || path.join(__dirname, '..', '..', 'content', 'images');
 
 const data = JSON.parse(fs.readFileSync(archiveJsonPath, 'utf8'));
 

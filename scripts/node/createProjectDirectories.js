@@ -17,8 +17,8 @@ function createProjectDirectories(jsonFilePath, imagesDirectory) {
         
         // Check if the directory exists
         if (!fs.existsSync(projectDir)) {
-            // If it doesn't exist, create the directory
-            fs.mkdirSync(projectDir);
+            // if it doesn't exist, create the directory (use recursive for safety)
+            fs.mkdirSync(projectDir, { recursive: true });
             console.log(`Created directory: ${projectDir}`);
             newDir += 1;
         } else {
@@ -31,7 +31,8 @@ function createProjectDirectories(jsonFilePath, imagesDirectory) {
 function main() {
 
     const archiveJsonPath = path.join(__dirname, '../../content/info/archive.json');
-    const imagesDirectory = '/Users/usr/design/_portfolio/www/content/images';
+    const args = process.argv.slice(2);
+    const imagesDirectory = args[0] || process.env.IMAGES_DIR || path.join(__dirname, '..', '..', 'content', 'images');
 
     createProjectDirectories(archiveJsonPath, imagesDirectory);
     

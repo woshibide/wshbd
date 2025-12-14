@@ -584,7 +584,7 @@ p {
 
 @media (max-width: 768px) {
     p {
-        /* font-size: 0.8rem; */
+        max-width: 50vw;
     }
 }
 
