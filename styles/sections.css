@@ -1010,7 +1010,8 @@ section.list {
     .archive-headers button:nth-child(1), /* index button */
     .archive-item .item-info#what,
     .archive-item .item-info#id, 
-    .archive-item .item-id {
+    .archive-item .item-id,
+    .archive-item .item-id-link {
         display: none;
     }
 }
