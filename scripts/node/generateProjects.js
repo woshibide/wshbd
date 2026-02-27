@@ -13,7 +13,7 @@ function createHtmlContent(project, imageFiles, nextProjectId, prevProjectId) {
     <!-- This head section will be replaced by updateHeader.js -->
     </head>
 
-    <body>
+    <body class="project-page">
         <header>
             <div id="menu-icon"> </nav>
         </header>

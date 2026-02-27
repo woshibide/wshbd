@@ -211,6 +211,11 @@ header #home-sticky{
     text-decoration: none;
 }
 
+body.project-page header #home-sticky{
+    color: var(--soft-black);
+    mix-blend-mode: normal;
+}
+
 header #home-sticky:hover{
     text-decoration: underline;
     mix-blend-mode: normal;
@@ -293,6 +298,7 @@ header #home-sticky:hover{
     align-items: flex-start;
     z-index: 2000;
     font-size: clamp(2rem, 4rem, 5vw);
+    letter-spacing: clamp(-1%, -5%, -9%);
     transition: all 0.5s var(--transition-timing);
 }
 
