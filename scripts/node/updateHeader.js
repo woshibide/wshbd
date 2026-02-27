@@ -11,6 +11,7 @@ const headerTemplatePath = path.join(__dirname, '/templates/header_template.html
 const headerTemplate = fs.readFileSync(headerTemplatePath, 'utf-8');
 
 let updCount = 0;
+const cssVersion = Date.now().toString();
 
 // Helper function to sanitize text for HTML attributes
 function sanitizeForHtml(text) {
@@ -55,8 +56,9 @@ function updateHtmlFile(filePath) {
             .replace('{{OG_DESCRIPTION}}', metaData.ogDescription)
             .replace('{{OG_URL}}', metaData.ogUrl)
             .replace('{{CHANGE_TITLE}}', metaData.title)
+            .replace(/{{CSS_VERSION}}/g, cssVersion)
             .replace('{{ADD_SLIDES}}', needsSlides ? 
-                '<link rel="stylesheet" href="/styles/slides.css">' : 
+                `<link rel="stylesheet" href="/styles/slides.css?v=${cssVersion}">` : 
                 '<!-- adobe fonts -->');
 
         // Replace existing head with updated template
