@@ -897,7 +897,7 @@ section.list {
 
 .archive-item:hover {
     border-bottom: 2px solid;
-    margin-bottom: -1px;
+    margin-bottom: 2rem;
 }
 
 .item-info {
@@ -989,9 +989,11 @@ section.list {
     object-fit: cover;
     opacity: 0;
     scrollbar-width: none; /* Firefox */
-    margin-right: 1px;
+    margin-right: 1rem;
 }
-
+.image-container img:last-child {
+    margin-right: 0rem;
+}
 
 .image-container img.lazyloaded {
     opacity: 1;

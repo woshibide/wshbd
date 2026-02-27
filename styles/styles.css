@@ -168,8 +168,6 @@ header {
 
 nav * {
     font-family: "cofo-sans-variable", monospace;
-    /* font-size: 2rem; */
-    /* font-variation-settings: "slnt" 0, "wght" 400; */
     color: var(--text-color);
 }
 
@@ -185,12 +183,11 @@ nav #contact {
         width: auto;
     }
 
-    nav * {
-        font-size: 1.5rem;
+    .nav-links-container {
+        padding-top: 2rem;
     }
 
     nav #contact {
-        font-size: 1rem;
         margin-bottom: 2rem;
     }
 }
@@ -294,7 +291,7 @@ header #home-sticky:hover{
     justify-content: space-between;
     align-items: flex-start;
     z-index: 2000;
-    font-size: 2rem;
+    font-size: clamp(2rem, 4rem, 5vw);
     transition: all 0.5s var(--transition-timing);
 }
 
@@ -302,7 +299,6 @@ header #home-sticky:hover{
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    justify-content: center;
 }
 
 .nav-links-container * {
@@ -646,6 +642,18 @@ button:hover {
 .xtr-info a,
 a{
     text-decoration: underline 2px;
+}
+
+.archive-item .item-id-link {
+    text-decoration: none;
+    padding: 0;
+    border: none;
+    display: inline-flex;
+}
+
+.archive-item .item-id-link:hover .item-id,
+.archive-item .item-id-link:hover .item-id * {
+    color: var(--special-color);
 }
 
 .extr-link{
