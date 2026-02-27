@@ -4,7 +4,7 @@ import argparse
 from PIL import Image
 
 # config
-MAX_SIZE = 200000       # maximum file size in bytes
+MAX_SIZE = 500000       # maximum file size in bytes
 INITIAL_QUALITY = 99    # starting quality for compression
 MIN_QUALITY = 1         # minimum quality to try
 OUTPUT_PREFIX = ""      # prefix for output files, empty for overwriting

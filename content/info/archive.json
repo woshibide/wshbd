@@ -106,7 +106,7 @@
       "brand": "MET Museum",
       "title": "Web App",
       "intro": "A better way to browse through MET museum collection",
-      "hashtags": "ux/ui, web app, back end, web design, development"
+      "hashtags": "nuxt, web app, back end, web design, development"
     },
     {
       "spotlight": false,
@@ -333,7 +333,7 @@
       "description": "Fun fact: nobody said upfront that its a year after the death and that the guy drowned saving his dog from under the ice. They liked the poster and the reference to Eisenstein’s Alexander Nevsky",
       "brand": "Zyuzino",
       "title": "Poster",
-      "intro": "An affiche for film screening commemorating death of solist from \"Zvuki Mu\" ban",
+      "intro": "An affiche for film screening commemorating death of solist from \"Zvuki Mu\" band",
       "hashtags": "poster"
     },
     {
@@ -647,6 +647,18 @@
       "title": "Poster",
       "intro": "Film poster for emerging filmmaker",
       "hashtags": "poster"
+    }, 
+        {
+      "spotlight": false,
+      "shown": true,
+      "location": "Russia",
+      "id": "W11",
+      "date": "2026 Jan",
+      "description": "High end accesories web shop, meet <a href=\"https://luxor-kmv.ru\" target=\"_blank\" style=\"padding: 0rem;\">Luxor</a>",
+      "brand": "Luxor",
+      "title": "Website",
+      "intro": "Design, art direction and launch of high end accesories boutique ",
+      "hashtags": "web design, back end, art direction, kirby"
     }
   ]
 }

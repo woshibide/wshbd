@@ -85,7 +85,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    padding-top: calc(50svh + 1rem);
+    padding-top: calc(75svh + 1rem);
     top: 0px;
 }
 
@@ -132,7 +132,7 @@ main {
         flex-wrap: wrap;
         height: auto;
         margin-bottom: 8vh;
-        padding-top: 32vh;
+        padding-top: 60vh;
     }
     .hero-column{
         width: 100%;
@@ -756,11 +756,20 @@ section.list {
 .images img {
     width: 100%;
     height: auto;
-    margin-bottom: 1px;
+    margin-block: 20vh;
+}
+
+.solo-project-images{
+    display: flex;
+    gap: 25vh;
+    flex-direction: column;
+    align-items: center;
+    padding-block: 50vh;
+    background-color: #000;
 }
 
 .solo-project-images img{
-    width: 100%;
+    width: 50%;
     height: auto;
     margin-bottom: 1px;
 }

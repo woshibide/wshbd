@@ -355,6 +355,12 @@
     <priority>0.4</priority>
   </url>
   <url>
+    <loc>https://wshbd.com/archive/W11/index.html</loc>
+    <lastmod>2026-02-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
     <loc>https://wshbd.com/archive/index.html</loc>
     <lastmod>2026-02-27</lastmod>
     <changefreq>monthly</changefreq>
