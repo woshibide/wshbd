@@ -2,6 +2,7 @@
   "projects": [
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "E04",
       "date": "2022 Dec",
@@ -13,6 +14,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "WWW",
       "id": "W02",
       "date": "2024 Mar",
@@ -24,6 +26,7 @@
     },
     {
       "spotlight": false,
+      "shown": false,
       "location": "Russia",
       "id": "W01",
       "date": "2023 Mar",
@@ -31,10 +34,11 @@
       "brand": "Dom s Mayakom",
       "title": "Website",
       "intro": "A tender landing page for a child hospice fundraiser",
-      "hashtags": "web design, landing page, motion design"
+      "hashtags": "web design, landing page, motion"
     },
     {
       "spotlight": true,
+      "shown": true,
       "location": "Netherlands",
       "id": "E05",
       "date": "2023 Jun",
@@ -46,6 +50,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "E08",
       "date": "2024 Jan",
@@ -57,6 +62,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "B10",
       "date": "2024 Feb",
@@ -68,6 +74,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "UK, USA",
       "id": "B11",
       "date": "2022 Jul",
@@ -79,6 +86,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "WWW",
       "id": "W03",
       "date": "2023 Oct",
@@ -90,6 +98,7 @@
     },
     {
       "spotlight": true,
+      "shown": true,
       "location": "WWW",
       "id": "W04",
       "date": "2024 Feb",
@@ -101,6 +110,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "W05",
       "date": "2024 Apr",
@@ -112,6 +122,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "M04",
       "date": "2024 Jul",
@@ -119,21 +130,23 @@
       "brand": "Leiden University",
       "title": "Motion Design",
       "intro": "A logo animation celebrating 450 years of Leiden University",
-      "hashtags": "motion design"
+      "hashtags": "motion"
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Russia",
       "id": "M02",
       "date": "2023 Dec",
-      "description": "A splash screen that’s less of a screen and more of an explosion of visuals. Noisy, bold, and unapologetically loud, this motion design introduces viewers to a world where aesthetics are meant to be felt, not just seen. With p5js as the engine, the result is an intro that sets the tone—disorienting, gripping, and impossible to ignore. Think of it as the opening act that makes you sit up and take notice",
+      "description": "A splash screen that’s less of a screen and more of an explosion of visuals. Noisy, bold, and unapologetically loud, this motion introduces viewers to a world where aesthetics are meant to be felt, not just seen. With p5js as the engine, the result is an intro that sets the tone—disorienting, gripping, and impossible to ignore. Think of it as the opening act that makes you sit up and take notice",
       "brand": "russen-geist-gewissen-schaft",
-      "title": "Motion Design",
+      "title": "motion",
       "intro": "A bold splash screen, powered by p5js, for a visual identity",
-      "hashtags": "p5js, motion design"
+      "hashtags": "p5js, motion"
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "E03",
       "date": "2022 Oct",
@@ -145,6 +158,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "E02",
       "date": "2023 Jan",
@@ -156,17 +170,19 @@
     },
     {
       "spotlight": false,
+      "shown": false,
       "location": "WWW",
       "id": "M01",
       "date": "2023 Oct",
       "description": "Inspired by Dziga Vertov’s iconic cinematic techniques, this splash screen for a film platform is an homage to the past, wrapped in a modern digital aesthetic. Fragmented visuals dance across the screen, flickering like an old film reel brought to life by code. It’s a nod to the avant-garde while keeping one foot firmly planted in today’s tech-driven world. Vertov would’ve approved—maybe",
       "brand": "Cinema Eye",
-      "title": "Motion Design",
+      "title": "motion",
       "intro": "A splash screen for a film platform",
-      "hashtags": "p5js, motion design"
+      "hashtags": "p5js, motion"
     },
     {
       "spotlight": false,
+      "shown": false,
       "location": "Russia",
       "id": "B03",
       "date": "2021 Dec",
@@ -178,6 +194,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Azerbaijan",
       "id": "E01",
       "date": "2022 Apr",
@@ -189,6 +206,7 @@
     },
     {
       "spotlight": true,
+      "shown": false,
       "location": "Sweden",
       "id": "B08",
       "date": "2022 May",
@@ -200,6 +218,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Russia",
       "id": "B09",
       "date": "2023 Jul",
@@ -211,6 +230,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "W06",
       "date": "2023 Jan",
@@ -222,6 +242,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "E11",
       "date": "2024 Jun",
@@ -233,6 +254,7 @@
     },
     {
       "spotlight": false,
+      "shown": false,
       "location": "Netherlands",
       "id": "E10",
       "date": "2024 May",
@@ -244,6 +266,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "E12",
       "date": "2024 Jul",
@@ -255,6 +278,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Russia",
       "id": "A072",
       "date": "2022 Jan",
@@ -266,39 +290,43 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Russia",
       "id": "A085",
       "date": "2022 Feb",
       "description": "Giraffe. It’s pink. It’s long. It’s funny. But what does it all mean? That’s for the viewer to decide, of course. Sometimes, a giraffe is just a giraffe—unless it’s more than that",
-      "brand": "wshbd",
+      "brand": "self-init",
       "title": "Poster",
       "intro": "GOLDEN BEE 2024 biennale participant",
       "hashtags": "poster"
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "WWW",
       "id": "A224",
       "date": "2024 Mar",
       "description": "Generative art that pushes the boundaries of form and function. This project delves into the aesthetic of engineering drawings, playing with the tension between mathematical precision and chaotic beauty. Blobs of structure and fluidity come together, challenging the viewer’s expectations and creating a dialogue between control and randomness",
-      "brand": "wshbd",
+      "brand": "self-init",
       "title": "Poster series",
       "intro": "An exploration of generative composition, blending structure and chaos",
       "hashtags": "poster, p5js, riso, generative graphics"
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "WWW",
       "id": "A222",
       "date": "2024 Mar",
       "description": "Elegance through code. An algorithm that explores the beauty of form, pushing it to the limits with Processing. It’s about creating something that looks engineered yet feels fluid, a careful dance between the technical and the organic. Each form tells a story of precision wrapped in spontaneity",
-      "brand": "wshbd",
+      "brand": "self-init",
       "title": "Poster series",
       "intro": "An algorithm-driven exploration of generative forms in Processing",
       "hashtags": "poster, riso, generative graphics"
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Russia",
       "id": "A109",
       "date": "2022 Feb",
@@ -310,6 +338,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Poland",
       "id": "A172",
       "date": "2022 Jul",
@@ -321,17 +350,19 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Russia",
       "id": "A122",
       "date": "2022 Mar",
       "description": "Brutalistic take on a typography reflecting the essence of this contemporary play",
-      "brand": "wshbd",
+      "brand": "self-init",
       "title": "Poster",
       "intro": "A brutalist typography proposal for Gogol Theater",
       "hashtags": "poster"
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Russia",
       "id": "A250",
       "date": "2024 Jul",
@@ -343,6 +374,7 @@
     },
     {
       "spotlight": false,
+      "shown": false,
       "location": "Russia",
       "id": "V02",
       "date": "2022 Jul",
@@ -354,17 +386,19 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "E06",
       "date": "2024 Jul",
       "description": "Zettel, a collection of random remarks, has nothing to do with Wittgenstein this time. Instead, it’s a collection of riso prints—leftovers, brought together into a zine that celebrates the beauty of the unplanned. Randomness at its finest, captured in print",
-      "brand": "wshbd",
+      "brand": "self-init",
       "title": "Zine",
       "intro": "A zine made from the random leftovers of riso prints",
       "hashtags": "editorial, p5js, poster, zine, riso"
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "WWW",
       "id": "A225",
       "date": "2024 Jun",
@@ -376,6 +410,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Russia",
       "id": "V01",
       "date": "2022 Jul",
@@ -387,6 +422,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Russia",
       "id": "A055",
       "date": "2021 Dec",
@@ -398,6 +434,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Russia",
       "id": "A079",
       "date": "2022 Jan",
@@ -409,6 +446,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Russia",
       "id": "A059",
       "date": "2021 Sep",
@@ -420,17 +458,19 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Russia",
       "id": "A193",
       "date": "2023 Sep",
       "description": "Felt blue, might delete later",
-      "brand": "wshbd",
+      "brand": "self-init",
       "title": "Poster",
       "intro": "It says \"life\"",
       "hashtags": "poster"
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "E13",
       "date": "2024 Jul",
@@ -442,17 +482,19 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "E14",
       "date": "2024 Oct",
       "description": "A collective creation, pieced together from a curated collection of cool, captivating images that we found on the web. There is a story in it, reflecting the spontaneity and shared excitement of finding beauty in unexpected places",
-      "brand": "wshbd",
+      "brand": "self-init",
       "title": "Zine",
       "intro": "A zine inspired by Andrea Laszlo De Simone lyrics",
       "hashtags": "editorial, riso, zine"
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "WWW",
       "id": "V03",
       "date": "2024 Jul",
@@ -464,6 +506,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "A252",
       "date": "2024 Nov",
@@ -475,6 +518,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "E15",
       "date": "2024 Nov",
@@ -486,17 +530,19 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "E16",
       "date": "2024 Dec",
       "description": "Working with large archive collections from the Chicago Institute of Art and the Metropolitan Museum of New York through publicly available APIs opened up possibilities for creating a book containing fifteen hundred images. Each spread features two images: one with a chair and another that complements it, aiming to demonstrate that 1+1=3. This opens a poetic landscape for exploring the third element, which emerges from the viewer's imagination",
-      "brand": "wshbd",
+      "brand": "self-init",
       "title": "Book",
       "intro": "This book contains nothing but chairs and things, chairs and things, chairs and things..",
       "hashtags": "editorial, book, back end, development"
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "E17",
       "date": "2025 Jan",
@@ -508,6 +554,7 @@
     },
     {
       "spotlight": true,
+      "shown": true,
       "location": "Netherlands",
       "id": "W07",
       "date": "2025 Feb",
@@ -519,6 +566,7 @@
     }, 
     {
       "spotlight": true,
+      "shown": true,
       "location": "Netherlands",
       "id": "W08",
       "date": "2025 Apr",
@@ -530,17 +578,19 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "E18",
       "date": "2025 Apr",
       "description": "Susanne Snyder talks with Joani Blank and Leigh Davidson about how they used publishing as a tool for sex liberation—doing it their own way, on their own terms. Their work pushed back against the flood of mainstream porn, offering something different, something personal. This magazine is a nod to them—two key voices in feminist self-publishing, who printed what they believed in when it wasn’t easy to do so.",
-      "brand": "wshbd",
+      "brand": "self-init",
       "title": "Porn Magazine",
       "intro": "I Am My Lover: Photoshoots Against the Backdrop of Oral History",
       "hashtags": "editorial, magazine"
     },
     {
       "spotlight": true,
+      "shown": true,
       "location": "Netherlands",
       "id": "E19",
       "date": "2025 Apr",
@@ -552,6 +602,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "E20",
       "date": "2025 May",
@@ -563,6 +614,7 @@
     },
     {
       "spotlight": true,
+      "shown": true,
       "location": "Netherlands",
       "id": "W09",
       "date": "2025 Aug",
@@ -574,6 +626,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Germany",
       "id": "W10",
       "date": "2025 Sep",
@@ -585,6 +638,7 @@
     },
     {
       "spotlight": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "A253",
       "date": "2025 Sep",

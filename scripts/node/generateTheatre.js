@@ -56,7 +56,7 @@ try {
     }
 
     console.log('Generating project sections HTML...')
-    let projectsList = archiveData.projects
+    let projectsList = archiveData.projects.filter(project => project.shown === true)
     let projectSectionsHtml = createProjectSections(projectsList, imageMap)
 
     template = template.replace('<!-- PROJECT_SECTION_PLACEHOLDER -->', projectSectionsHtml)

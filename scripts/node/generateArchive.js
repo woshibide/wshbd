@@ -39,8 +39,8 @@ function generateHashtagPoolHTML(hashtags) {
 
     let html = `
 
-    <div class="hashtag-container">
-        <h2>Project Scope</h2>
+    <section class="hashtag-container archive-areas" aria-labelledby="archive-areas-title">
+        <h2 id="archive-areas-title" class="archive-section-title">Areas</h2>
         <ul class="hashtag-pool">
             <li class="hashtag" id="hashtag-reset" data-tag="reset">scope:~# clear</li>`;
 
@@ -50,7 +50,7 @@ function generateHashtagPoolHTML(hashtags) {
 
     html += `
         </ul>
-    </div>
+    </section>
     `;
 
     return html;
@@ -108,10 +108,12 @@ function generateArchive() {
         return;
     }
 
-    const uniqueHashtags = extractUniqueHashtags(archiveData.projects);
+    const visibleProjects = archiveData.projects.filter(project => project.shown === true);
+
+    const uniqueHashtags = extractUniqueHashtags(visibleProjects);
 
     const hashtagPoolHTML = generateHashtagPoolHTML(uniqueHashtags);
-    const archiveItemsHTML = generateArchiveItemsHTML(archiveData.projects);
+    const archiveItemsHTML = generateArchiveItemsHTML(visibleProjects);
 
     let templateContent = fs.readFileSync(templatePath, 'utf8');
 

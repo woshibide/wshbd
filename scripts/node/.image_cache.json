@@ -379,45 +379,35 @@
     "mtime": 1745105868014,
     "hash": "a8011c54463fe8c1ec7210961c74e2fe"
   },
-  "/Users/usr/practice/profile/www/content/images/B10/1.webp": {
-    "size": 182916,
-    "mtime": 1745105629194,
-    "hash": "b5e2b3e5159d71a54bf0a906b54d0d2c"
+  "/Users/usr/practice/profile/www/content/images/B10/01.webp": {
+    "size": 198818,
+    "mtime": 1745105625528,
+    "hash": "ada5a77d96afdec9de3bfdb2e672e4e1"
   },
-  "/Users/usr/practice/profile/www/content/images/B10/3.webp": {
+  "/Users/usr/practice/profile/www/content/images/B10/02.webp": {
     "size": 95616,
     "mtime": 1745105628213,
     "hash": "2d323722639dc752f06de7f597907a65"
+  },
+  "/Users/usr/practice/profile/www/content/images/B10/03.webp": {
+    "size": 187608,
+    "mtime": 1745105628136,
+    "hash": "633bf645399ad15e96f0dcf02100ea91"
   },
   "/Users/usr/practice/profile/www/content/images/B10/6_14.08.40.webp": {
     "size": 195322,
     "mtime": 1745105623388,
     "hash": "e7c16dece2cbc85b45359df225c3fe5b"
   },
-  "/Users/usr/practice/profile/www/content/images/B10/free_wall_mockup.webp": {
-    "size": 198818,
-    "mtime": 1745105625528,
-    "hash": "ada5a77d96afdec9de3bfdb2e672e4e1"
-  },
   "/Users/usr/practice/profile/www/content/images/B10/paper_envelope_mockup_(7).webp": {
     "size": 199154,
     "mtime": 1745105624507,
     "hash": "e46e15d32cdbce7fff9db96a1d1c43a9"
   },
-  "/Users/usr/practice/profile/www/content/images/B10/sticker_mockup_(5).webp": {
-    "size": 187608,
-    "mtime": 1745105628136,
-    "hash": "633bf645399ad15e96f0dcf02100ea91"
-  },
   "/Users/usr/practice/profile/www/content/images/B10/totebag_mockup_copy.webp": {
     "size": 187948,
     "mtime": 1745105626538,
     "hash": "1cd7bf209e7c4e17b7c27154e3e38cda"
-  },
-  "/Users/usr/practice/profile/www/content/images/B10/vis3.webp": {
-    "size": 197656,
-    "mtime": 1745105627293,
-    "hash": "5de74ccfcb27d2b686d50ee2588a069c"
   },
   "/Users/usr/practice/profile/www/content/images/B11/1.webp": {
     "size": 197422,
@@ -1100,19 +1090,24 @@
     "hash": "4d85e655741cc9a562772473c80de96c"
   },
   "/Users/usr/practice/profile/www/content/images/E13/1.webp": {
-    "size": 198622,
-    "mtime": 1745105835920,
-    "hash": "00ad4e999536bc8b525fa706b90a7df4"
-  },
-  "/Users/usr/practice/profile/www/content/images/E13/2.webp": {
     "size": 61426,
     "mtime": 1745105834926,
     "hash": "286b0716ddd0626348718fbcd565edf6"
   },
-  "/Users/usr/practice/profile/www/content/images/E13/imgp6273.webp": {
+  "/Users/usr/practice/profile/www/content/images/E13/2.webp": {
     "size": 196990,
     "mtime": 1745105834706,
     "hash": "9a0ac597bc9394a46092d3f85f28dc40"
+  },
+  "/Users/usr/practice/profile/www/content/images/E13/3.webp": {
+    "size": 195400,
+    "mtime": 1745105831330,
+    "hash": "b0983b4204b2f85eb15a38d408d5393d"
+  },
+  "/Users/usr/practice/profile/www/content/images/E13/4.webp": {
+    "size": 199364,
+    "mtime": 1745105833415,
+    "hash": "5bd7d17600722190de1ae7dd794806e4"
   },
   "/Users/usr/practice/profile/www/content/images/E13/scan_2.webp": {
     "size": 194342,
@@ -1124,20 +1119,10 @@
     "mtime": 1745105830339,
     "hash": "0158fcc268e6e1257b8a4824b186503e"
   },
-  "/Users/usr/practice/profile/www/content/images/E13/scan_4.webp": {
-    "size": 195400,
-    "mtime": 1745105831330,
-    "hash": "b0983b4204b2f85eb15a38d408d5393d"
-  },
   "/Users/usr/practice/profile/www/content/images/E13/scan_5.webp": {
     "size": 197844,
     "mtime": 1745105832346,
     "hash": "1e98d3132d78d995209074157b8ab9ea"
-  },
-  "/Users/usr/practice/profile/www/content/images/E13/scan_6.webp": {
-    "size": 199364,
-    "mtime": 1745105833415,
-    "hash": "5bd7d17600722190de1ae7dd794806e4"
   },
   "/Users/usr/practice/profile/www/content/images/E14/scan_14.webp": {
     "size": 193958,
@@ -1589,10 +1574,10 @@
     "mtime": 1745105707346,
     "hash": "871d84258ce71132e963d616b553969d"
   },
-  "/Users/usr/practice/profile/www/content/images/E18/1.png": {
-    "size": 6769365,
-    "mtime": 1771414892619,
-    "hash": "4d4a6e001a9a5fa408c4ad0ed66d12b7"
+  "/Users/usr/practice/profile/www/content/images/E18/1.webp": {
+    "size": 199638,
+    "mtime": 1771414924833,
+    "hash": "80b5547841ad4ab056efa0a4b508522c"
   },
   "/Users/usr/practice/profile/www/content/images/E18/lover-0.webp": {
     "size": 184756,

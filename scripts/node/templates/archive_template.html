@@ -48,12 +48,12 @@
 <nav id="nav-menu">
     <!-- <button id="theme-toggle">lights</button> -->
     <div class="nav-links-container">
-        <a href="/">profile</a>
+        <a href="/">main</a>
         <a href="/archive">archive</a>
-        <a href="/about">about</a>
+        <a href="/about">profile</a>
         <a href="/theatre">theatre</a>
     </div>
-    <p id="contact">hello@wshbd.com</p>
+    <p id="contact">pyotr@wshbd.com</p>
 </nav>
     </header>
     <section id="extract-me">
@@ -65,12 +65,15 @@
         </main>
         <div class="archive" id="archive">
             <!-- HASHTAG_CONTAINER_PLACEHOLDER -->
-            <div class="archive-headers">
-                <button id="filter-index" class="archive-filters" onclick="filterIndex()">index <span class="sort-indicator">▼</span></button>
-                <button id="filter-who" class="archive-filters" onclick="filterWho()">who</button>
-                <button id="filter-what" class="archive-filters" onclick="filterWhat()">what</button>
-                <button id="filter-when" class="archive-filters" onclick="filterWhen()">when</button>
-            </div>
+            <section class="archive-controls" aria-labelledby="archive-controls-title">
+                <h2 id="archive-controls-title" class="archive-section-title">Projects</h2>
+                <div class="archive-headers" role="group" aria-label="archive sorting">
+                    <button id="filter-index" class="archive-filters" onclick="filterIndex()">index <span class="sort-indicator">▼</span></button>
+                    <button id="filter-who" class="archive-filters" onclick="filterWho()">who</button>
+                    <button id="filter-what" class="archive-filters" onclick="filterWhat()">what</button>
+                    <button id="filter-when" class="archive-filters" onclick="filterWhen()">when</button>
+                </div>
+            </section>
             <div class="archive-list">
                 <!-- ARCHIVE_ITEMS_PLACEHOLDER -->
             </div>
@@ -103,9 +106,8 @@
             </div>
             <div id="contact-details">
                 <h4>reach out</h4>
-                <p>pyotr[at]wshbd[dot]com</p>
-                <p>t[dot]me[slash]itspyotr</p>
-                <p>Amsterdam, Netherlands</p>
+                <p>pyotr@wshbd.com</p>
+                <p>t.me/itspyotr</p>
             </div>
         </div>
         <div class="footer-columns">
@@ -124,7 +126,7 @@
         </div>
     </div>
     <div class="footer-note">
-        <p>this website was designed and developed by pyotr goloub</p>
+        <p>this website was designed and developed by Pyotr Goloub</p>
         <p>2026</p>
     </div>
 </footer>

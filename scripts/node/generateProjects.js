@@ -127,7 +127,9 @@ function main() {
     const projectsData = JSON.parse(fs.readFileSync(projectsJsonPath, 'utf-8'));
     const imageMap = JSON.parse(fs.readFileSync(imageMapPath, 'utf-8'));
 
-    createHtmlFiles(projectsData.projects, imageMap);
+    const visibleProjects = projectsData.projects.filter(project => project.shown === true);
+
+    createHtmlFiles(visibleProjects, imageMap);
 }
 
 main();

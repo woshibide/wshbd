@@ -11,7 +11,9 @@ function createProjectDirectories(jsonFilePath, imagesDirectory) {
     const data = JSON.parse(fs.readFileSync(jsonFilePath, 'utf-8'));
 
     // Iterate through each project in the JSON file
-    data.projects.forEach(project => {
+    const visibleProjects = data.projects.filter(project => project.shown === true);
+
+    visibleProjects.forEach(project => {
         projectCount += 1;
         const projectDir = path.join(imagesDirectory, project.id);
         

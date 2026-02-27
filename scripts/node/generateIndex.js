@@ -137,7 +137,7 @@ function generateGiantProjectHTML(project, imageMap) {
 
 // extracts content from element with id 'extract-me' from provided HTML file
 function getOtherPagesContent(htmlContent) {
-    const extractMeMatch = htmlContent.match(/<(\w+)[^>]*id=["']extract-me["'][^>]*>([\s\S]*?)<\/\1>/);
+    const extractMeMatch = htmlContent.match(/<(\w+)[^>]*id=["']extract-me["'][^>]*>([\s\S]*)<\/\1>/);
     // check if match is found and return only the content inside the tags
     if (extractMeMatch) {
         return extractMeMatch[2]; // return only the content inside the tags
@@ -166,13 +166,15 @@ function generateIndex() {
         return;
     }
 
+    const visibleProjects = archiveData.projects.filter(p => p.shown === true);
+
     // Count total number of spotlight projects
-    const totalSpotlights = archiveData.projects.filter(p => p.spotlight).length;
+    const totalSpotlights = visibleProjects.filter(p => p.spotlight).length;
     console.log('Spotlight projects:', totalSpotlights);
 
     // Fetch vertical and giant projects by ID
-    const verticalProject = archiveData.projects.find(p => p.id === verticalProjectID);
-    const giantProject = archiveData.projects.find(p => p.id === giantProjectID);
+    const verticalProject = visibleProjects.find(p => p.id === verticalProjectID);
+    const giantProject = visibleProjects.find(p => p.id === giantProjectID);
 
     if (!verticalProject) {
         console.error(`Vertical project with ID "${verticalProjectID}" not found.`);
@@ -182,7 +184,7 @@ function generateIndex() {
     }
 
     // Generate HTML for standard projects
-    const standardProjects = archiveData.projects.filter(p => p.spotlight && p.id !== verticalProjectID && p.id !== giantProjectID);
+    const standardProjects = visibleProjects.filter(p => p.spotlight && p.id !== verticalProjectID && p.id !== giantProjectID);
     // const standardProjectsHTML = generateStandardProjectsHTML(standardProjects, imageMapData);
 
     // Generate HTML for vertical and giant projects
