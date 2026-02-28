@@ -42,6 +42,7 @@ async function buildPortfolio() {
     runScript('generateIndex.js');
     runScript('generateArchive.js');
     runScript('generateTheatre.js');
+    runScript('generateVideoTests.js');
 
     // step 5: update and finalize
     runScript('updateHtml.js');

@@ -28,6 +28,7 @@ function updateHtmlFile(filePath) {
     try {
         let content = fs.readFileSync(filePath, 'utf-8');
         let metaData = extractMetaData(content, filePath);
+        const videoTestHead = getVideoTestHead(filePath);
 
         // check if its in ignore list
         const pathSegments = filePath.split('/');
@@ -61,6 +62,10 @@ function updateHtmlFile(filePath) {
                 `<link rel="stylesheet" href="/styles/slides.css?v=${cssVersion}">` : 
                 '<!-- adobe fonts -->');
 
+        if (videoTestHead) {
+            updatedHeader = updatedHeader.replace('</head>', `${videoTestHead}\n</head>`);
+        }
+
         // Replace existing head with updated template
         content = content.replace(/<head>[\s\S]*?<\/head>/i, updatedHeader);
 
@@ -70,6 +75,56 @@ function updateHtmlFile(filePath) {
         console.error(`Error updating ${filePath}:`, error.message);
         return false;
     }
+}
+
+function getVideoTestHead(filePath) {
+    const videoTestMatch = filePath.match(/\/video_tests\/([^\/]+)\/index\.html$/);
+    if (!videoTestMatch) {
+        return '';
+    }
+
+    const testId = videoTestMatch[1];
+    const sizingStyles = [
+        '<style>',
+        '.hero-video .plyr,',
+        '.hero-video .video-js {',
+        '    position: absolute;',
+        '    inset: 0;',
+        '    width: 100%;',
+        '    height: 100%;',
+        '}',
+        '.hero-video .plyr__video-wrapper,',
+        '.hero-video .video-js .vjs-tech,',
+        '.hero-video video {',
+        '    width: 100%;',
+        '    height: 100%;',
+        '    object-fit: cover;',
+        '}',
+        '.hero-video .plyr__controls,',
+        '.hero-video .vjs-control-bar,',
+        '.hero-video .vjs-big-play-button,',
+        '.hero-video .vjs-error-display,',
+        '.hero-video .vjs-no-js {',
+        '    display: none;',
+        '}',
+        '</style>'
+    ].join('\n');
+
+    if (testId === '3') {
+        return [
+            '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css">',
+            sizingStyles
+        ].join('\n');
+    }
+
+    if (testId === '4') {
+        return [
+            '<link rel="stylesheet" href="https://vjs.zencdn.net/8.10.0/video-js.css">',
+            sizingStyles
+        ].join('\n');
+    }
+
+    return '';
 }
 
 // Extract existing metadata from HTML file or derive from filepath
@@ -120,6 +175,15 @@ function extractMetaData(content, filePath) {
             console.warn(`Warning: Could not extract metadata from ${filePath}`);
         }
     } else {
+        const videoTestMatch = filePath.match(/\/video_tests\/([^\/]+)\/index\.html$/);
+        if (videoTestMatch) {
+            const testId = videoTestMatch[1];
+            metaData.title = `video test ${testId} // wshbd`;
+            metaData.ogTitle = `video test ${testId} // wshbd`;
+            metaData.ogUrl = `https://wshbd.com/video_tests/${testId}`;
+            return metaData;
+        }
+
         // for non-archive pages, use folder name
         const pathParts = filePath.split('/');
         
