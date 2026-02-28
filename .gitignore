@@ -8,6 +8,8 @@ portfolio-woshibide.pub
 *.png
 *.txt
 *.ai
+*.webm
+*.mp4
 
 .vscode
 
