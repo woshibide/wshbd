@@ -79,10 +79,10 @@ main {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: baseline;
-    background-color: #000;
+    /* background-color: #000; */
 }
 #hero *{
-    color: var(--soft-white);
+    /* color: var(--soft-white); */
 }
 
 .hero-video {
