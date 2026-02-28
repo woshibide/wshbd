@@ -239,6 +239,7 @@ header #home-sticky:hover{
     width: 0.8rem;
     height: 1.5rem;
     z-index: +100;
+    color: var(--text-color);
     transition: all 0.5s var(--transition-timing);
 }
 
@@ -256,7 +257,7 @@ header #home-sticky:hover{
 
 #menu-icon .stripe {
     position: absolute;
-    background-color: var(--text-color);
+    background-color: currentColor;
     mix-blend-mode: exclusion;
     width: 2px;
     height: 100%;

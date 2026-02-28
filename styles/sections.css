@@ -157,14 +157,14 @@ main {
     }
     .hero-column{
         width: 100%;
-        padding: 0;
+        padding: 1rem;
         box-sizing: border-box;
     }
     .hero-spacer {
         display: none;
     }
     .hero-details {
-        padding-left: 0;
+        /* margin-bottom: 2rem; */
     }
 }
 
