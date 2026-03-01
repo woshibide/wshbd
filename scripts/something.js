@@ -1,20 +1,79 @@
 import { animateImageTransition } from './utils.js';
 
 let currentProjectIndex = 0
+const hashReplaceDelayMs = 180
+const curtainFallbackMs = 8000
+const curtainMinimumVisibleMs = 900
+const programmaticScrollLockMs = 1200
+
+let hashObserverLock = {
+    active: false,
+    targetId: null,
+    releaseAt: 0
+}
+
+function parseImageData(imgElement) {
+    if (!imgElement) return []
+
+    const rawImages = imgElement.getAttribute('data-images')
+    if (!rawImages) return []
+
+    try {
+        const parsed = JSON.parse(rawImages)
+        return Array.isArray(parsed) ? parsed : []
+    } catch {
+        return []
+    }
+}
+
+function waitForImageReady(imgElement) {
+    return new Promise(resolve => {
+        if (!imgElement) {
+            resolve()
+            return
+        }
+
+        if (imgElement.complete && imgElement.naturalWidth > 0) {
+            resolve()
+            return
+        }
+
+        let settled = false
+        const settle = () => {
+            if (settled) return
+            settled = true
+            imgElement.removeEventListener('load', onDone)
+            imgElement.removeEventListener('error', onDone)
+            resolve()
+        }
+
+        const onDone = () => settle()
+        imgElement.addEventListener('load', onDone)
+        imgElement.addEventListener('error', onDone)
+
+        if (typeof imgElement.decode === 'function') {
+            imgElement.decode().then(settle).catch(() => {})
+        }
+    })
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     // init the curtain loader
     initTheatreCurtain()
 
     const projectSections = document.querySelectorAll('.project-section')
+    if (!projectSections.length) return
 
     projectSections.forEach((section) => {
         const imageContainer = section.querySelector('.project-image')
+        if (!imageContainer) return
+
         const imgElement = imageContainer.querySelector('img')
+        if (!imgElement) return
 
         // get images from data-images attribute
-        let images = imgElement.getAttribute('data-images')
-        images = JSON.parse(images)
+        const images = parseImageData(imgElement)
+        if (!images.length) return
 
         addImageNavigation(imageContainer, images, imgElement)
     })
@@ -34,89 +93,126 @@ function initTheatreCurtain() {
     const leftCurtain = document.querySelector('.curtain-half.left')
     const rightCurtain = document.querySelector('.curtain-half.right')
     const loadingPercentage = document.querySelector('.loading-percentage')
+    if (!curtain || !leftCurtain || !rightCurtain || !loadingPercentage) return
+
+    const allSections = Array.from(document.querySelectorAll('.project-section'))
+    if (!allSections.length) {
+        curtain.style.display = 'none'
+        return
+    }
     
     // only load visible images and initial images
     const visibleSections = getVisibleSections()
-    const visibleImages = []
+    const visibleSectionSet = new Set(visibleSections)
     const heavyGifs = []
     const otherImages = []
+    const essentialImageElements = []
+    const seenOtherImages = new Set()
+    const seenHeavyGifs = new Set()
+
+    const firstSection = allSections[0]
+    if (firstSection) {
+        const firstImage = firstSection.querySelector('.project-image img')
+        if (firstImage && !essentialImageElements.includes(firstImage)) {
+            essentialImageElements.push(firstImage)
+        }
+    }
+
+    visibleSections.forEach(section => {
+        const visibleImage = section.querySelector('.project-image img')
+        if (visibleImage && !essentialImageElements.includes(visibleImage)) {
+            essentialImageElements.push(visibleImage)
+        }
+    })
     
     // categorize images by priority
-    document.querySelectorAll('.project-section').forEach((section, index) => {
+    allSections.forEach((section, index) => {
         const imgElement = section.querySelector('.project-image img')
-        const images = JSON.parse(imgElement.getAttribute('data-images'))
+        const images = parseImageData(imgElement)
+        if (!images.length) return
         
         // the first image is always the one shown initially
-        if (index === 0 || visibleSections.includes(section)) {
-            // prioritize visible sections' first images
-            visibleImages.push(images[0])
+        if (index === 0 || visibleSectionSet.has(section)) {
+            // visible and first sections are handled by essential image elements
         }
         
         // categorize the rest of the images
         images.slice(1).forEach(imgSrc => {
             if (imgSrc.toLowerCase().endsWith('.gif')) {
-                heavyGifs.push(imgSrc)
+                if (!seenHeavyGifs.has(imgSrc)) {
+                    heavyGifs.push(imgSrc)
+                    seenHeavyGifs.add(imgSrc)
+                }
             } else {
-                otherImages.push(imgSrc)
+                if (!seenOtherImages.has(imgSrc)) {
+                    otherImages.push(imgSrc)
+                    seenOtherImages.add(imgSrc)
+                }
             }
         })
     })
     
-    // load only essential images first
-    const initialImages = visibleImages
-    const totalInitialImages = initialImages.length
+    const totalInitialImages = essentialImageElements.length
     let loadedImages = 0
+    let curtainOpened = false
+    const curtainStartTime = performance.now()
+    let fallbackTimerId = null
+
+    const openCurtains = () => {
+        if (curtainOpened) return
+        curtainOpened = true
+
+        if (fallbackTimerId) {
+            clearTimeout(fallbackTimerId)
+            fallbackTimerId = null
+        }
+
+        loadingPercentage.classList.add('hidden')
+        leftCurtain.classList.add('open')
+        rightCurtain.classList.add('open')
+        
+        setTimeout(() => {
+            curtain.style.display = 'none'
+            preloadRemainingImages(heavyGifs, otherImages)
+        }, 1500)
+    }
+
+    const openCurtainsRespectingMinimumTime = () => {
+        if (curtainOpened) return
+        const elapsed = performance.now() - curtainStartTime
+        const remaining = Math.max(curtainMinimumVisibleMs - elapsed, 0)
+        setTimeout(openCurtains, remaining)
+    }
     
     // update loading percentage based on initial images only
     const updateProgress = () => {
+        if (curtainOpened) return
         loadedImages++
         const progress = Math.min(Math.floor((loadedImages / totalInitialImages) * 100), 100)
         loadingPercentage.textContent = `${progress}%`
         
         // open curtains when initial images are loaded
         if (loadedImages >= totalInitialImages) {
-            setTimeout(() => {
-                loadingPercentage.classList.add('hidden')
-                leftCurtain.classList.add('open')
-                rightCurtain.classList.add('open')
-                
-                // remove curtain after animation completes
-                setTimeout(() => {
-                    curtain.style.display = 'none'
-                    
-                    // start preloading heavy gifs and other images after curtains open
-                    preloadRemainingImages(heavyGifs, otherImages)
-                }, 1500)
-            }, 500)
+            openCurtainsRespectingMinimumTime()
         }
     }
     
-    // preload initial images
-    initialImages.forEach(src => {
-        const img = new Image()
-        img.onload = updateProgress
-        img.onerror = updateProgress
-        img.src = src
-    })
-    
+    if (!totalInitialImages) {
+        loadingPercentage.textContent = '100%'
+        openCurtainsRespectingMinimumTime()
+    } else {
+        essentialImageElements.forEach(imgElement => {
+            waitForImageReady(imgElement).then(updateProgress)
+        })
+    }
+
     // fallback in case no images load within 5 seconds
-    setTimeout(() => {
-        if (loadedImages < totalInitialImages) {
+    fallbackTimerId = setTimeout(() => {
+        if (!curtainOpened) {
             loadingPercentage.textContent = '100%'
-            setTimeout(() => {
-                loadingPercentage.classList.add('hidden')
-                leftCurtain.classList.add('open')
-                rightCurtain.classList.add('open')
-                
-                setTimeout(() => {
-                    curtain.style.display = 'none'
-                    
-                    // start preloading heavy gifs and other images after curtains open
-                    preloadRemainingImages(heavyGifs, otherImages)
-                }, 1500)
-            }, 500)
+            openCurtainsRespectingMinimumTime()
         }
-    }, 5000)
+    }, curtainFallbackMs)
 }
 
 // helper function to get visible sections
@@ -124,8 +220,7 @@ function getVisibleSections() {
     const sections = document.querySelectorAll('.project-section')
     return Array.from(sections).filter(section => {
         const rect = section.getBoundingClientRect()
-        return (rect.top >= 0 && rect.top <= window.innerHeight) ||
-               (rect.bottom >= 0 && rect.bottom <= window.innerHeight)
+        return rect.top < window.innerHeight && rect.bottom > 0
     })
 }
 
@@ -162,8 +257,11 @@ function preloadRemainingImages(heavyGifs, otherImages) {
 }
 
 function addTransitionStyles() {
+    if (document.getElementById('theatre-transition-style')) return
+
     // smooth transitions
     const style = document.createElement('style')
+    style.id = 'theatre-transition-style'
     style.textContent = `
         .project-image img {
             transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -245,9 +343,14 @@ function addProjectNavigation(projectSections) {
 
     document.addEventListener('keydown', (event) => {
         const currentProject = projectSections[currentProjectIndex]
+        if (!currentProject) return
+
         const imgElement = currentProject.querySelector('.project-image img')
+        if (!imgElement) return
+
         const counterElement = currentProject.querySelector('#gallery-counter')
-        const images = JSON.parse(imgElement.getAttribute('data-images'))
+        const images = parseImageData(imgElement)
+        if (!images.length) return
 
         if (event.key === 'ArrowLeft') {
             event.preventDefault()
@@ -288,11 +391,18 @@ function addProjectNavigation(projectSections) {
 
     function updateProjectView() {
         const currentProject = projectSections[currentProjectIndex]
+        if (!currentProject) return
+
+        const projectId = currentProject.getAttribute('id') // get project id
+        hashObserverLock = {
+            active: true,
+            targetId: projectId,
+            releaseAt: performance.now() + programmaticScrollLockMs
+        }
         
         currentProject.scrollIntoView({behavior: 'smooth'});
         
         currentImageIndex = 0 // reset image index when changing projects
-        const projectId = currentProject.getAttribute('id') // get project id
         // update url hash, ensuring it doesn't scroll again if already smooth scrolling
         if (window.location.hash !== `#${projectId}`) {
             history.pushState(null, null, `#${projectId}`);
@@ -301,14 +411,38 @@ function addProjectNavigation(projectSections) {
         // update counter for the new project
         const imgElement = currentProject.querySelector('.project-image img')
         const counterElement = currentProject.querySelector('#gallery-counter')
-        const images = JSON.parse(imgElement.getAttribute('data-images'))
+        const images = parseImageData(imgElement)
+        if (!images.length) return
         updateImageCounter(currentImageIndex, images.length, counterElement)
     }
 }
 
 function trackScrollPosition(projectSections) {
+    let hashUpdateTimer = null
+
+    const scheduleHashReplace = (projectId) => {
+        if (!projectId) return
+
+        if (hashObserverLock.active && hashObserverLock.targetId && projectId !== hashObserverLock.targetId) {
+            return
+        }
+
+        if (hashUpdateTimer) {
+            clearTimeout(hashUpdateTimer)
+        }
+
+        hashUpdateTimer = setTimeout(() => {
+            const nextHash = `#${projectId}`
+            if (window.location.hash !== nextHash) {
+                const nextUrl = `${window.location.pathname}${window.location.search}${nextHash}`
+                history.replaceState(null, null, nextUrl)
+            }
+        }, hashReplaceDelayMs)
+    }
+
     // intersection observer to detect which project is most visible
     const observer = new IntersectionObserver((entries) => {
+        if (!entries.length) return
 
         let maxEntry = entries[0];
         entries.forEach(entry => {
@@ -316,6 +450,22 @@ function trackScrollPosition(projectSections) {
                 maxEntry = entry;
             }
         });
+
+        const visibleProjectId = maxEntry?.target?.getAttribute('id')
+        if (hashObserverLock.active) {
+            const lockExpired = performance.now() >= hashObserverLock.releaseAt
+            const reachedTarget = visibleProjectId && visibleProjectId === hashObserverLock.targetId
+
+            if (lockExpired || reachedTarget) {
+                hashObserverLock = {
+                    active: false,
+                    targetId: null,
+                    releaseAt: 0
+                }
+            } else {
+                return
+            }
+        }
         
         // ff the most visible section has significant visibility
         if (maxEntry && maxEntry.intersectionRatio > 0.5) {
@@ -327,10 +477,7 @@ function trackScrollPosition(projectSections) {
             if (newIndex !== -1 && newIndex !== currentProjectIndex) {
                 currentProjectIndex = newIndex;
                 const projectId = maxEntry.target.getAttribute('id');
-                // update URL without triggering a scroll (using history.replaceState)
-                if (projectId && window.location.hash !== `#${projectId}`) {
-                    history.replaceState(null, null, `#${projectId}`);
-                }
+                scheduleHashReplace(projectId)
             }
         }
     }, {

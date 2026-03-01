@@ -1,4 +1,4 @@
-import { fetchJSON, toggleTheme, handleFooterClick, redirectToHomepage, navigateToProject, updateTime } from './utils.js';
+import { fetchJSON, toggleTheme, handleFooterClick, redirectToHomepage, navigateToProject, updateTime, initImageLoadIndicators } from './utils.js';
 
 // if ('serviceWorker' in navigator) {
 //     navigator.serviceWorker.register('/sw.js')
@@ -41,6 +41,7 @@ console.log(`
     `)
 
 document.addEventListener('DOMContentLoaded', () => {
+    initImageLoadIndicators();
     
     const savedTheme = localStorage.getItem('theme');
     

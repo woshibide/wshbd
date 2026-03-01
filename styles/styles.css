@@ -512,6 +512,57 @@ img {
     animation: none; /* disable any existing blinking animation */
 }
 
+.image-loading-host {
+    position: relative;
+}
+
+.image-load-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    pointer-events: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.2s var(--transition-timing);
+}
+
+.image-load-indicator-bar {
+    position: absolute;
+    left: 47%;
+    top: 8%;
+    width: 6%;
+    height: 52%;
+    border-radius: 999px;
+    background: currentColor;
+    opacity: 0.6;
+    transform-origin: center 350%;
+    transform: rotate(calc(var(--bar-index) * 30deg));
+    animation: image-load-indicator-fade 1s linear infinite;
+    animation-delay: calc(var(--bar-index) * -0.0833s);
+}
+
+.image-load-indicator.is-visible {
+    opacity: 1;
+}
+
+.image-load-indicator.is-finished {
+    opacity: 0;
+}
+
+
+@keyframes image-load-indicator-fade {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.2;
+    }
+}
+
 ol {
     list-style: none;
     padding: 0;
@@ -532,8 +583,6 @@ h1 {
 }
 @media (max-width: 758px) {
     h1 {
-        /* font-size: 3.5rem; */
-        /* letter-spacing: -1px; */
         /* font-variation-settings: "slnt" 0, "wght" 250; */
     }    
 }

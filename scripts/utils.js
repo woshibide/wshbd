@@ -13,10 +13,8 @@ export function redirectToHomepage() {
 }
 
 export function toggleTheme() {
-    // Toggle the dark-mode class on the body
     document.body.classList.toggle('dark-mode');
 
-    // Check the current state and save it to localStorage
     if (document.body.classList.contains('dark-mode')) {
         localStorage.setItem('theme', 'dark');
     } else {
@@ -25,34 +23,27 @@ export function toggleTheme() {
 }
 
 export function showLoader(elementId = null) {
-    // Default to covering the whole screen if no elementId is provided
     const isWholeScreen = elementId === null;
     const container = isWholeScreen ? document.body : document.getElementById(elementId);
 
-    // Check if the loader already exists, to avoid adding multiple loaders
     if (!document.getElementById('loader')) {
-        // Create the loader element
         const loader = document.createElement('div');
         loader.id = 'loader';
         loader.innerHTML = `
             <div class="spinner"></div>
         `;
 
-        // Set styles based on whether it covers the whole screen or a specific element
         if (isWholeScreen) {
             loader.style.position = 'fixed';
         } else {
             loader.style.position = 'absolute';
         }
 
-        // Append the loader to the container
         container.appendChild(loader);
-
-        // Add the 'loading' class to the container to hide the content
         container.classList.add('loading');
     }
 }
-
+    
 export function enableDragToScroll(container) {
     let isDown = false;
     let startX;
@@ -103,19 +94,19 @@ export function updateTime() {
     timeElement.textContent = `${hours}:${minutes}:${seconds}`;
 }
 
-export function hideLoader(elementId = null) {
-    // Default to covering the whole screen if no elementId is provided
-    const container = elementId === null ? document.body : document.getElementById(elementId);
+// export function hideLoader(elementId = null) {
+//     // Default to covering the whole screen if no elementId is provided
+//     const container = elementId === null ? document.body : document.getElementById(elementId);
 
-    // Remove the 'loading' class from container to show the content
-    container.classList.remove('loading');
+//     // Remove the 'loading' class from container to show the content
+//     container.classList.remove('loading');
 
-    // Find the loader element and remove it
-    const loader = document.getElementById('loader');
-    if (loader) {
-        loader.remove(); // Remove the loader from the DOM
-    }
-}
+//     // Find the loader element and remove it
+//     const loader = document.getElementById('loader');
+//     if (loader) {
+//         loader.remove(); // Remove the loader from the DOM
+//     }
+// }
 
 export async function fetchJSON(filePath) {
     const response = await fetch(filePath);
@@ -154,6 +145,133 @@ export function handleFooterClick() {
             const hashtag = element.textContent.trim();
             handleClick(hashtag);
         });
+    });
+}
+
+export function initImageLoadIndicators() {
+    const imageStates = new WeakMap();
+    const hostSelector = '.project-image, .spotlight-gallery-container, .spotlight-giant-gallery, figure, picture';
+
+    const getHost = (img) => {
+        const host = img.closest(hostSelector) || img.parentElement;
+        if (!host) return null;
+
+        if (window.getComputedStyle(host).position === 'static') {
+            host.classList.add('image-loading-host');
+        }
+
+        return host;
+    };
+
+    const ensureIndicator = (img) => {
+        const host = getHost(img);
+        if (!host) return null;
+
+        let indicator = host.querySelector(':scope > .image-load-indicator');
+        if (!indicator) {
+            indicator = document.createElement('span');
+            indicator.className = 'image-load-indicator';
+            indicator.setAttribute('aria-hidden', 'true');
+
+            for (let index = 0; index < 12; index++) {
+                const bar = document.createElement('span');
+                bar.className = 'image-load-indicator-bar';
+                bar.style.setProperty('--bar-index', String(index));
+                indicator.appendChild(bar);
+            }
+
+            host.appendChild(indicator);
+        }
+
+        return indicator;
+    };
+
+    const finishState = (img, state) => {
+        if (!state || state.finished) return;
+
+        state.finished = true;
+        state.indicator.classList.add('is-finished');
+
+        setTimeout(() => {
+            if (state.indicator) {
+                state.indicator.classList.remove('is-visible', 'is-finished');
+            }
+        }, 220);
+    };
+
+    const startState = (img) => {
+        const indicator = ensureIndicator(img);
+        if (!indicator) return;
+
+        const previousState = imageStates.get(img);
+        if (previousState) {
+            previousState.finished = true;
+        }
+
+        const state = {
+            indicator,
+            finished: false,
+            src: img.currentSrc || img.src
+        };
+
+        indicator.classList.remove('is-finished');
+        indicator.classList.add('is-visible');
+
+        imageStates.set(img, state);
+
+        const onDone = () => {
+            img.removeEventListener('load', onDone);
+            img.removeEventListener('error', onDone);
+            finishState(img, state);
+        };
+
+        img.addEventListener('load', onDone);
+        img.addEventListener('error', onDone);
+
+        if (img.complete) {
+            onDone();
+        }
+    };
+
+    const observeImage = (img) => {
+        if (!(img instanceof HTMLImageElement)) return;
+
+        startState(img);
+
+        const srcObserver = new MutationObserver(() => {
+            const nextSrc = img.currentSrc || img.src;
+            const currentState = imageStates.get(img);
+
+            if (!currentState || nextSrc !== currentState.src) {
+                startState(img);
+            }
+        });
+
+        srcObserver.observe(img, {
+            attributes: true,
+            attributeFilter: ['src', 'srcset']
+        });
+    };
+
+    document.querySelectorAll('img').forEach(observeImage);
+
+    const domObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (!(node instanceof Element)) return;
+
+                if (node.tagName === 'IMG') {
+                    observeImage(node);
+                }
+
+                node.querySelectorAll?.('img').forEach(observeImage);
+            });
+        });
+    });
+
+    domObserver.observe(document.body, {
+        childList: true,
+        subtree: true
     });
 }
 
@@ -210,18 +328,33 @@ export function animateImageTransition(options) {
         element.classList.add('transitioning');
         
         setTimeout(() => {
+            const clearTransition = () => {
+                element.classList.remove('transitioning');
+            };
+
+            const finishTransition = () => {
+                element.removeEventListener('load', finishTransition);
+                element.removeEventListener('error', finishTransition);
+                clearTransition();
+            };
+
             // update src for single image
             if (newSrc) {
+                element.addEventListener('load', finishTransition);
+                element.addEventListener('error', finishTransition);
                 element.src = newSrc;
+
+                if (element.complete) {
+                    finishTransition();
+                }
+            } else {
+                clearTransition();
             }
             
             // update counter if exists
             if (counterElement && images) {
                 counterElement.textContent = `[${newIndex + 1}/${images.length}]`;
             }
-            
-            // remove transitioning class after loading
-            element.onload = () => element.classList.remove('transitioning');
         }, transitionDelay);
     }
 }

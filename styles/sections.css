@@ -81,9 +81,6 @@ main {
     align-items: baseline;
     /* background-color: #000; */
 }
-#hero *{
-    /* color: var(--soft-white); */
-}
 
 .hero-video {
     position: absolute;
@@ -162,9 +159,6 @@ main {
     }
     .hero-spacer {
         display: none;
-    }
-    .hero-details {
-        /* margin-bottom: 2rem; */
     }
 }
 
@@ -676,10 +670,6 @@ section.list {
     #theatre-welcome h1{
         font-size: 4rem;
     }
-
-    #theatre-welcome a{
-
-    }
 }
 
 
@@ -990,9 +980,6 @@ section.list {
     .archive-item.expanded .image-container {
         padding: 4rem 1rem 1rem 1rem;
     }
-    .archive-item .item-info#when, #filter-when{
-        /* text-align: right; */
-    }
     .archive-item *{
         font-size: 1rem;
     }
@@ -1196,10 +1183,6 @@ section.list {
     }
     #contact-highlight .contact-way{
         margin-left: 25%; 
-    }
-
-    #contact-highlight .contact-info{
-
     }
 }
 
