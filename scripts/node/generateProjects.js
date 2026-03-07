@@ -3,6 +3,12 @@ const path = require('path');
 
 let projectCount = 0;
 
+function sortImageNames(imageNames) {
+    return [...imageNames].sort((a, b) =>
+        a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
+    );
+}
+
 function createHtmlContent(project, imageFiles, nextProjectId, prevProjectId) {
     const metaKeywords = Array.isArray(project.hashtags) ? project.hashtags.join(', ') : 'designed by wshbd';
 
@@ -73,7 +79,7 @@ function createHtmlFiles(projects, imageMap) {
         projectCount += 1;
         project.id = project.id.toUpperCase();
 
-        const projectImages = imageMap[project.id] || [];
+        const projectImages = sortImageNames(imageMap[project.id] || []);
         if (projectImages.length === 0) {
             console.log(`>>> No images found for project ${project.id}. Skipping...`);
             return;

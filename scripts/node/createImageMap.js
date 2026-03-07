@@ -7,6 +7,12 @@ const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.svg', '.webp'];
 let dirCount = 0;
 let imgCount = 0;
 
+function sortImageNames(imageNames) {
+    return [...imageNames].sort((a, b) =>
+        a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
+    );
+}
+
 function generateImageMap(inputDir, outputPath) {
     console.log(`Starting to generate image map...`);
     console.log(`Input Directory: ${inputDir}`);
@@ -59,6 +65,10 @@ function generateImageMap(inputDir, outputPath) {
     }
 
     readDir(inputDir);
+
+    Object.keys(imageMap).forEach(folderName => {
+        imageMap[folderName] = sortImageNames(imageMap[folderName]);
+    });
 
     // Ensure the output path is a file and not a directory
     const outputDir = path.dirname(outputPath);

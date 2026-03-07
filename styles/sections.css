@@ -786,7 +786,6 @@ section.list {
 }
 
 
-
 .projects-navigator {
     margin-top: 50svh;
     height: 50svh;
@@ -807,6 +806,10 @@ section.list {
 }
 
 @media (max-width: 768px) {
+    .solo-project-images img{
+        width: calc(100% - 2rem);
+    }
+
     .projects-navigator {
         margin-inline: 1rem; 
     }
