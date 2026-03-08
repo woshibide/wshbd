@@ -40,8 +40,43 @@ console.log(`
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     `)
 
+function setupHeroVideoPlayback() {
+    const heroVideo = document.querySelector('#hero .hero-video video');
+    if (!heroVideo) {
+        return;
+    }
+
+    const tryPlay = () => heroVideo.play();
+
+    // retry playback on any direct user interaction
+    const playOnInteraction = () => {
+        tryPlay().then(() => {
+            heroVideo.controls = false;
+        }).catch(() => {
+            heroVideo.controls = true;
+        });
+    };
+
+    heroVideo.addEventListener('click', playOnInteraction);
+    heroVideo.addEventListener('touchstart', playOnInteraction, { passive: true });
+    heroVideo.addEventListener('keydown', (event) => {
+        if (event.code === 'Space' || event.code === 'Enter') {
+            event.preventDefault();
+            playOnInteraction();
+        }
+    });
+
+    tryPlay().then(() => {
+        heroVideo.controls = false;
+    }).catch(() => {
+        // keep controls hidden unless autoplay is blocked
+        heroVideo.controls = true;
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initImageLoadIndicators();
+    setupHeroVideoPlayback();
     
     const savedTheme = localStorage.getItem('theme');
     
