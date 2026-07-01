@@ -132,9 +132,9 @@ function extractMetaData(content, filePath) {
     const metaData = {
         title: 'this is pyotr',
         keywords: 'design, creative coding, web design, editorial design',
-        description: 'portfolio of graphic designer & creative coder Pyotr Goloub',
+        description: 'portfolio of a creative technologist Pyotr Goloub',
         ogTitle: 'works by Pyotr Goloub',
-        ogDescription: 'works by graphic designer & creative coder Pyotr Goloub',
+        ogDescription: 'portfolio of a creative technologist Pyotr Goloub',
         ogUrl: 'https://its-pyotr.com/' // base URL with domain
     };
 
@@ -207,11 +207,11 @@ function extractMetaData(content, filePath) {
         } else if (folderName === "www") {
             // If it's the main index.html (homepage)
             metaData.title = `${folderName}`;
-            metaData.ogTitle = `${folderName} // wshbd`;
+            metaData.ogTitle = `${folderName} // pyotr`;
             metaData.ogUrl = "https://its-pyotr.com/"; // Root URL for homepage
         } else {
-            metaData.title = `${folderName} // wshbd`;
-            metaData.ogTitle = `${folderName} // wshbd`;
+            metaData.title = `${folderName} // pyotr`;
+            metaData.ogTitle = `${folderName} // pyotr`;
             metaData.ogUrl = `https://its-pyotr.com/${folderName}`;
         }
     }

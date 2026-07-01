@@ -311,7 +311,7 @@ body.project-page header #home-sticky{
     height: 100vh;
     color: var(--text-color);
     background-color: var(--nav-menu-bg-color);
-    backdrop-filter: blur(2rem); 
+    backdrop-filter: blur(3rem); 
     -webkit-backdrop-filter: blur(2rem); /* for safari */
     display: flex;
     flex-direction: column;
@@ -324,7 +324,7 @@ body.project-page header #home-sticky{
 }
 @media (max-width: 758px) {
     #nav-menu {
-        /* font-size: 1.75rem; */
+        font-size: 1.5rem;
         width: 75%;
     }
 }
