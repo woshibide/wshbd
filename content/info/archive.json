@@ -650,7 +650,7 @@
     }, 
         {
       "spotlight": false,
-      "shown": true,
+      "shown": false,
       "location": "Russia",
       "id": "W11",
       "date": "2026 Jan",

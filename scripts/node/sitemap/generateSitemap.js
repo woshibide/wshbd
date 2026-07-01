@@ -5,7 +5,7 @@ const { create } = require('xmlbuilder2');
 // Configuration
 const ROOT_DIR = path.resolve(__dirname, '../../..');
 const IGNORE_FOLDERS = ['node_modules', '.git', 'node', 'errors', 'web-essays'];
-const DOMAINS = ['https://wshbd.com'];
+const DOMAINS = ['https://its-pyotr.com'];
 const ROBOTS_FILENAME = 'robots.txt';
 
 let pageCount = 0;

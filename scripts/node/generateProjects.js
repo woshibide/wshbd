@@ -10,7 +10,7 @@ function sortImageNames(imageNames) {
 }
 
 function createHtmlContent(project, imageFiles, nextProjectId, prevProjectId) {
-    const metaKeywords = Array.isArray(project.hashtags) ? project.hashtags.join(', ') : 'designed by wshbd';
+    const metaKeywords = Array.isArray(project.hashtags) ? project.hashtags.join(', ') : 'designed by pyotr';
 
     let htmlContent = `<!DOCTYPE html>
     <html lang="en">

@@ -891,8 +891,16 @@ section.list {
     /* margin-bottom: 0.5rem; */
     position: relative;
     overflow: hidden;
+    background: var(--main-bg);
     transition: all 0.5s var(--transition-timing);
 }
+.archive-item:hover {
+    border-bottom: 2px solid;
+    margin-bottom: 2rem;
+    transition: all 0.5s var(--transition-timing);
+    color: var(--soft-black);
+}
+
 
 .archive-item.expanded {
     height: 110vh;
@@ -926,10 +934,6 @@ section.list {
     }
 }
 
-.archive-item:hover {
-    border-bottom: 2px solid;
-    margin-bottom: 2rem;
-}
 
 .item-info {
     box-sizing: border-box; 
@@ -1210,7 +1214,7 @@ section.list {
 
 .extr-link {
     font-style: normal;
-    padding-block: 0;
+    padding: 0;
 }
 
 .extr-link:hover {
@@ -1220,8 +1224,8 @@ section.list {
 
 .links {
     display: grid;
-    grid-template-columns: repeat(4, 2fr);
-    gap: 0.25rem;
+    /* grid-template-columns: repeat(4, 2fr); */
+    /* gap: 0.5rem; */
     
 }
 
@@ -1313,6 +1317,7 @@ body.theatre-page header nav#nav-menu.open div.nav-links-container a:hover{
     height: 100%;
     width: 100%;
     object-fit: contain;
+    padding: 4rem;
 }
 
 

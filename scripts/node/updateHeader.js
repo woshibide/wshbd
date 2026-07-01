@@ -130,19 +130,19 @@ function getVideoTestHead(filePath) {
 // Extract existing metadata from HTML file or derive from filepath
 function extractMetaData(content, filePath) {
     const metaData = {
-        title: 'wshbd',
+        title: 'this is pyotr',
         keywords: 'design, creative coding, web design, editorial design',
         description: 'portfolio of graphic designer & creative coder Pyotr Goloub',
-        ogTitle: 'works by Pyotr Goloub aka wshbd',
+        ogTitle: 'works by Pyotr Goloub',
         ogDescription: 'works by graphic designer & creative coder Pyotr Goloub',
-        ogUrl: 'https://wshbd.com/' // base URL with domain
+        ogUrl: 'https://its-pyotr.com/' // base URL with domain
     };
 
     const isRootIndex = path.resolve(filePath) === path.resolve(path.join(__dirname, '../../index.html'));
     if (isRootIndex) {
-        metaData.title = 'wshbd';
-        metaData.ogTitle = 'wshbd';
-        metaData.ogUrl = 'https://wshbd.com/';
+        metaData.title = 'pyotr';
+        metaData.ogTitle = 'pyotr';
+        metaData.ogUrl = 'https://pyotr.com/';
         return metaData;
     }
 
@@ -150,17 +150,17 @@ function extractMetaData(content, filePath) {
     const archiveMatch = filePath.match(/\/archive\/([^\/]+)\/index\.html$/);
     if (archiveMatch) {
         const projectId = archiveMatch[1];
-        metaData.ogUrl = `https://wshbd.com/archive/${projectId}`; 
+        metaData.ogUrl = `https://its-pyotr.com/archive/${projectId}`; 
         
         try {
             const brandMatch = content.match(/<h2>(.*?)<\/h2>/i);
             if (brandMatch) {
                 metaData.title = brandMatch[1]; // brand name as title
-                metaData.ogTitle = `${brandMatch[1]} // wshbd`;
+                metaData.ogTitle = `${brandMatch[1]} // pyotr`;
             } else {
                 // If no brand name, use project ID
                 metaData.title = projectId;
-                metaData.ogTitle = `${projectId} // wshbd`;
+                metaData.ogTitle = `${projectId} // pyotr`;
             }
 
             // Extract keywords
@@ -178,9 +178,9 @@ function extractMetaData(content, filePath) {
         const videoTestMatch = filePath.match(/\/video_tests\/([^\/]+)\/index\.html$/);
         if (videoTestMatch) {
             const testId = videoTestMatch[1];
-            metaData.title = `video test ${testId} // wshbd`;
-            metaData.ogTitle = `video test ${testId} // wshbd`;
-            metaData.ogUrl = `https://wshbd.com/video_tests/${testId}`;
+            metaData.title = `video test ${testId} // pyotr`;
+            metaData.ogTitle = `video test ${testId} // pyotr`;
+            metaData.ogUrl = `https://pyotr.com/video_tests/${testId}`;
             return metaData;
         }
 
@@ -188,7 +188,7 @@ function extractMetaData(content, filePath) {
         const pathParts = filePath.split('/');
         
         // find the containing folder name
-        let folderName = "wshbd"; // fallback 
+        let folderName = "pyotr"; // fallback 
         
         if (pathParts.length >= 2) {
             const parentFolder = pathParts[pathParts.length - 2];
@@ -200,19 +200,19 @@ function extractMetaData(content, filePath) {
         const fileName = pathParts[pathParts.length - 1].replace('.html', '');
         
         if (fileName !== 'index') {
-            metaData.title = `${fileName} // wshbd`;
-            metaData.ogTitle = `${fileName} // wshbd`;
-            metaData.ogUrl = `https://wshbd.com/${fileName}`;
+            metaData.title = `${fileName} // pyotr`;
+            metaData.ogTitle = `${fileName} // pyotr`;
+            metaData.ogUrl = `https://its-pyotr.com/${fileName}`;
             
         } else if (folderName === "www") {
             // If it's the main index.html (homepage)
             metaData.title = `${folderName}`;
             metaData.ogTitle = `${folderName} // wshbd`;
-            metaData.ogUrl = "https://wshbd.com/"; // Root URL for homepage
+            metaData.ogUrl = "https://its-pyotr.com/"; // Root URL for homepage
         } else {
             metaData.title = `${folderName} // wshbd`;
             metaData.ogTitle = `${folderName} // wshbd`;
-            metaData.ogUrl = `https://wshbd.com/${folderName}`;
+            metaData.ogUrl = `https://its-pyotr.com/${folderName}`;
         }
     }
 
