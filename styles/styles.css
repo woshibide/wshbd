@@ -201,14 +201,35 @@ nav > {
 
 header #home-sticky{
     position: fixed;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-family: "cofo-sans-variable", monospace;
     z-index: 1001;
-    padding: 1rem;
-    top: 0rem;
-    right: 0;
-    color: #fff;
-    mix-blend-mode: exclusion;
+    /* padding: 0.75rem; */
+    top: 1rem;
+    right: 1rem;
+    color: #000;
     text-decoration: none;
+}
+
+header #home-sticky a,
+header #home-sticky span {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.65rem;
+    /* border: 1px solid currentColor; */
+    /* border-radius: 999px; */
+    line-height: 1;
+    text-decoration: none;
+    color: inherit;
+    background: transparent;
+}
+
+header #home-sticky .sticky-link:hover {
+    mix-blend-mode: normal;
+    color: var(--main-bg);
+    background-color: var(--soft-black);
 }
 
 body.project-page header #home-sticky{
@@ -216,17 +237,15 @@ body.project-page header #home-sticky{
     mix-blend-mode: normal;
 }
 
-header #home-sticky:hover{
-    text-decoration: underline;
-    mix-blend-mode: normal;
-    color: var(--main-bg);
-    background-color: var(--soft-black);
-}
-
 @media (max-width: 758px) {
     header #home-sticky{
-        right: 0;
+        right: 1rem;
         top: 1rem;
+        padding: 0.5rem;
+    }
+
+    header #home-sticky .sticky-link {
+        display: none;
     }
 }
 
@@ -302,6 +321,11 @@ header #home-sticky:hover{
     font-size: 2rem;
     letter-spacing: clamp(-1%, -5%, -9%);
     transition: all 0.5s var(--transition-timing);
+}
+@media (max-width: 758px) {
+    #nav-menu {
+        font-size: 1.5rem;
+    }
 }
 
 .nav-links-container {
