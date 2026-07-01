@@ -310,6 +310,9 @@ header #home-sticky:hover{
     flex-direction: column;
     flex-grow: 1;
 }
+.nav-links-container p{
+    padding: 1rem;
+}
 
 .nav-links-container * {
     display: inline-block;
