@@ -341,6 +341,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const archiveItems = document.querySelectorAll('.archive-item');
     if (archiveItems.length > 0) {
         archiveItems.forEach(item => {
+            if (item.dataset.shown === 'false') return;
+
             item.addEventListener('click', (e) => {
                 if (e.target.closest('.image-container')) return;
                 toggleArchiveItem(item);

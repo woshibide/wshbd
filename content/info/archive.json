@@ -194,7 +194,7 @@
     },
     {
       "spotlight": false,
-      "shown": true,
+      "shown": false,
       "location": "Azerbaijan",
       "id": "E01",
       "date": "2022 Apr",
@@ -499,7 +499,7 @@
       "id": "V03",
       "date": "2024 Jul",
       "description": "Very much inspired by Vladimir Tsesler poetic language. The notion of a joker, who spawns a third meaning upon bringing two unrelated phenomenons together. Two subcultures, in this particular case. The reader will excuse of having to explaing full subcultural background of this creation",
-      "brand": "Morning To The Office",
+      "brand": "Self Initiated",
       "title": "Apparel",
       "intro": "Happy hour. Coffee to be sweet. Forward momentum, clarity of purpose. Good luck in business endeavors, skill in decisions. Strategic moves, optimized processes",
       "hashtags": "apparel"
@@ -644,11 +644,11 @@
       "date": "2025 Sep",
       "description": "A classical film poster you saw million times",
       "brand": "TRACE",
-      "title": "Poster",
+      "title": "Film Graphic Support",
       "intro": "Film poster for emerging filmmaker",
       "hashtags": "poster"
     }, 
-        {
+      {
       "spotlight": false,
       "shown": false,
       "location": "Russia",
@@ -659,6 +659,90 @@
       "title": "Website",
       "intro": "Design, art direction and launch of high end accesories boutique ",
       "hashtags": "web design, back end, art direction, kirby"
+    },
+      {
+      "spotlight": false,
+      "shown": false,
+      "location": "Russia",
+      "id": "W12",
+      "date": "2026 May",
+      "description": "",
+      "brand": "Studio Kitchen",
+      "title": "Website",
+      "intro": "Design, art direction and web activation of high end kitchen store",
+      "hashtags": "web design, art direction, kirby"
+    },
+      {
+      "spotlight": false,
+      "shown": false,
+      "location": "Netherlands",
+      "id": "A254",
+      "date": "2026 Jun",
+      "description": "",
+      "brand": "Becoming the Warden",
+      "title": "Film Graphic Support",
+      "intro": "",
+      "hashtags": "web design, back end, art direction, kirby"
+    },
+      {
+      "spotlight": false,
+      "shown": false,
+      "location": "Germany",
+      "id": "M06",
+      "date": "2026 Jun",
+      "description": "",
+      "brand": "newen spaces",
+      "title": "Generative Graphics",
+      "intro": "",
+      "hashtags": "p5js, motion"
+    },
+      {
+      "spotlight": false,
+      "shown": false,
+      "location": "Netherlands",
+      "id": "M05",
+      "date": "2026 feb",
+      "description": "",
+      "brand": "IBA",
+      "title": "Generative Graphics",
+      "intro": "",
+      "hashtags": "p5js, motion"
+    },
+    {
+      "spotlight": false,
+      "shown": false,
+      "location": "Netherlands",
+      "id": "M08",
+      "date": "2026 jun",
+      "description": "",
+      "brand": "Self Initiated",
+      "title": "Generative Graphics",
+      "intro": "",
+      "hashtags": "p5js, motion"
+    },
+    {
+      "spotlight": false,
+      "shown": false,
+      "location": "Netherlands",
+      "id": "M08",
+      "date": "2026 may",
+      "description": "",
+      "brand": "TAG Hackhathon",
+      "title": "TV Advertisement",
+      "intro": "",
+      "hashtags": "art direction, advertisement"
+    },
+        {
+      "spotlight": false,
+      "shown": false,
+      "location": "Netherlands",
+      "id": "A260",
+      "date": "2025 OCT",
+      "description": "",
+      "brand": "HEIST",
+      "title": "Album cover",
+      "intro": "",
+      "hashtags": "album cover, identity"
     }
   ]
 }

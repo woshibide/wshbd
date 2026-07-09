@@ -894,6 +894,17 @@ section.list {
     background: var(--main-bg);
     transition: all 0.5s var(--transition-timing);
 }
+.archive-item--hidden {
+    opacity: 0.25;
+    color: var(--text-color);
+    cursor: default;
+    pointer-events: none;
+}
+.archive-item--hidden:hover {
+    border-bottom: none;
+    margin-bottom: 0;
+    color: var(--text-color);
+}
 .archive-item:hover {
     border-bottom: 2px solid;
     margin-bottom: 2rem;
@@ -957,6 +968,15 @@ section.list {
 }
 .archive-item a:hover {
     color: var(--special-color);
+}
+
+.item-id-link--disabled {
+    color: inherit;
+    width: 100%;
+    background-color: transparent;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+    pointer-events: none;
 }
 
 

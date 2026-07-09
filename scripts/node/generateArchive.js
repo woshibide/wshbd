@@ -63,6 +63,8 @@ function generateArchiveItemsHTML(projects) {
     projects.forEach(project => {
         projectCount += 1;
 
+        const isShown = project.shown !== false;
+
         const hashtags = project.hashtags ? project.hashtags.split(',').map(tag => tag.trim()) : [];
         const hashtagsHTML = hashtags.map(tag => `<p class="hashtag">${tag}</p>`).join('');
 
@@ -77,18 +79,18 @@ function generateArchiveItemsHTML(projects) {
 
 
         const archiveItem = `
-<div class="archive-item" id="${project.id}">
-    <a class="item-id-link" href="/archive/${project.id}">
+<div class="archive-item${isShown ? '' : ' archive-item--hidden'}" id="${project.id}" data-shown="${isShown}" aria-disabled="${isShown ? 'false' : 'true'}">
+    ${isShown ? `<a class="item-id-link" href="./${project.id}/">` : `<div class="item-id-link item-id-link--disabled">`}
         <div class="item-id" id="id">
             <div class="id-letter">${idLetter}</div>
             <div class="id-number">${idNumber}</div>
         </div>
-    </a>
+    ${isShown ? `</a>` : `</div>`}
     <div class="item-info" id="who">${project.brand}</div>
     <div class="item-info" id="what">${project.title}</div>
     <div class="item-info" id="when">${project.date}</div>
     ${hashtagsDiv}
-    <div class="image-container"></div>
+    ${isShown ? `<div class="image-container"></div>` : ''}
 </div>
 `;
 
@@ -108,12 +110,12 @@ function generateArchive() {
         return;
     }
 
-    const visibleProjects = archiveData.projects.filter(project => project.shown === true);
+    const allProjects = archiveData.projects;
 
-    const uniqueHashtags = extractUniqueHashtags(visibleProjects);
+    const uniqueHashtags = extractUniqueHashtags(allProjects);
 
     const hashtagPoolHTML = generateHashtagPoolHTML(uniqueHashtags);
-    const archiveItemsHTML = generateArchiveItemsHTML(visibleProjects);
+    const archiveItemsHTML = generateArchiveItemsHTML(allProjects);
 
     let templateContent = fs.readFileSync(templatePath, 'utf8');
 
