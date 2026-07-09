@@ -1,5 +1,58 @@
 import { fetchJSON, enableDragToScroll } from './utils.js';
 
+const videoExtensions = new Set(['.mp4', '.webm', '.mov', '.m4v', '.ogv']);
+const videoMimeTypes = {
+    '.mp4': 'video/mp4',
+    '.webm': 'video/webm',
+    '.mov': 'video/quicktime',
+    '.m4v': 'video/mp4',
+    '.ogv': 'video/ogg'
+};
+
+function getExtension(fileName) {
+    const dotIndex = fileName.lastIndexOf('.');
+    return dotIndex >= 0 ? fileName.slice(dotIndex).toLowerCase() : '';
+}
+
+function isVideoFile(fileName) {
+    return videoExtensions.has(getExtension(fileName));
+}
+
+function createMediaNode(projectId, fileName) {
+    if (fileName.startsWith('/')) {
+        const img = document.createElement('img');
+        img.classList.add('archive-media-item');
+        img.src = fileName;
+        img.alt = projectId;
+        return img;
+    }
+
+    if (isVideoFile(fileName)) {
+        const ext = getExtension(fileName);
+        const video = document.createElement('video');
+        video.classList.add('archive-media-item', 'archive-media-video');
+        video.autoplay = true;
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+        video.controls = true;
+        video.preload = 'metadata';
+
+        const source = document.createElement('source');
+        source.src = `/content/projects/${projectId}/${fileName}`;
+        source.type = videoMimeTypes[ext] || 'video/mp4';
+        video.appendChild(source);
+
+        return video;
+    }
+
+    const img = document.createElement('img');
+    img.classList.add('archive-media-item', 'lazy');
+    img.dataset.src = `/content/projects/${projectId}/${fileName}`;
+    img.alt = projectId;
+    return img;
+}
+
 //////////////////////////////////////////
 //              hashtags
 //////////////////////////////////////////
@@ -239,10 +292,9 @@ async function toggleArchiveItem(item) {
         item.classList.add(expandedClass);
 
         const projectId = item.id;
-        const imageMap = await getImageMapData();
+        const mediaMap = await getMediaMapData();
 
-        // TODO: doesnt work
-        const imageUrls = imageMap[projectId] ? imageMap[projectId] : ['/content/misc/non-image.svg'];
+        const mediaFiles = mediaMap[projectId] ? mediaMap[projectId] : ['/content/misc/non-image.svg'];
 
         const imageContainer = item.querySelector('.image-container');
 
@@ -250,12 +302,9 @@ async function toggleArchiveItem(item) {
         if (imageContainer) {
             imageContainer.innerHTML = '';
 
-            imageUrls.forEach((imageUrl) => {
-                const img = document.createElement('img');
-                img.dataset.src = `/content/images/${projectId}/${imageUrl}`;
-                img.alt = projectId;
-                img.classList.add('lazy');
-                imageContainer.appendChild(img);
+            mediaFiles.forEach((fileName) => {
+                const mediaNode = createMediaNode(projectId, fileName);
+                imageContainer.appendChild(mediaNode);
             });
 
             enableDragToScroll(imageContainer);
@@ -324,13 +373,13 @@ function lazyLoadImages() {
 }
 
 
-let imageMapData = null;
+let mediaMapData = null;
 
-async function getImageMapData() {
-    if (!imageMapData) {
-        imageMapData = await fetchJSON('/content/info/image-map.json');
+async function getMediaMapData() {
+    if (!mediaMapData) {
+        mediaMapData = await fetchJSON('/content/info/media-map.json');
     }
-    return imageMapData;
+    return mediaMapData;
 }
 
 //////////////////////////////////////////

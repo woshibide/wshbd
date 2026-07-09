@@ -257,7 +257,7 @@ function checkAndProcessImages(baseDir) {
 // run the script when called directly
 if (require.main === module) {
     const args = process.argv.slice(2);
-    const baseDir = args[0] || process.env.IMAGES_DIR || path.join(__dirname, '..', '..', 'content', 'images');
+    const baseDir = args[0] || process.env.PROJECTS_DIR || path.join(__dirname, '..', '..', 'content', 'projects');
     
     if (args.includes('--force') || args.includes('-f')) {
         console.log('force mode: processing all images regardless of cache');

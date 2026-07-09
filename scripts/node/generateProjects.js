@@ -3,13 +3,39 @@ const path = require('path');
 
 let projectCount = 0;
 
-function sortImageNames(imageNames) {
-    return [...imageNames].sort((a, b) =>
+const videoMimeTypes = {
+    '.mp4': 'video/mp4',
+    '.webm': 'video/webm',
+    '.mov': 'video/quicktime',
+    '.m4v': 'video/mp4',
+    '.ogv': 'video/ogg'
+};
+
+function sortMediaNames(mediaNames) {
+    return [...mediaNames].sort((a, b) =>
         a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
     );
 }
 
-function createHtmlContent(project, imageFiles, nextProjectId, prevProjectId) {
+function isVideoFile(fileName) {
+    return Boolean(videoMimeTypes[path.extname(fileName).toLowerCase()]);
+}
+
+function renderProjectMedia(project, fileName) {
+    if (isVideoFile(fileName)) {
+        const ext = path.extname(fileName).toLowerCase();
+        const mimeType = videoMimeTypes[ext] || 'video/mp4';
+        return `
+            <video class="project-media project-media-video" autoplay muted loop playsinline controls preload="metadata">
+                <source src="/content/projects/${project.id}/${fileName}" type="${mimeType}">
+            </video>`;
+    }
+
+    return `
+            <img class="project-media project-media-image" src="/content/projects/${project.id}/${fileName}" alt="${project.title}">`;
+}
+
+function createHtmlContent(project, mediaFiles, nextProjectId, prevProjectId) {
     const metaKeywords = Array.isArray(project.hashtags) ? project.hashtags.join(', ') : 'designed by pyotr';
 
     let htmlContent = `<!DOCTYPE html>
@@ -43,8 +69,8 @@ function createHtmlContent(project, imageFiles, nextProjectId, prevProjectId) {
             </div>
             <div class="solo-project-images">`;
 
-    imageFiles.forEach(image => {
-        htmlContent += `\n            <img src="/content/images/${project.id}/${image}" alt="${project.title}">`;
+    mediaFiles.forEach(fileName => {
+        htmlContent += renderProjectMedia(project, fileName);
     });
 
     htmlContent += `
@@ -73,15 +99,15 @@ function createHtmlContent(project, imageFiles, nextProjectId, prevProjectId) {
     return htmlContent;
 }
 
-function createHtmlFiles(projects, imageMap) {
+function createHtmlFiles(projects, mediaMap) {
     // create html files for each project
     projects.forEach((project, index) => {
         projectCount += 1;
         project.id = project.id.toUpperCase();
 
-        const projectImages = sortImageNames(imageMap[project.id] || []);
-        if (projectImages.length === 0) {
-            console.log(`>>> No images found for project ${project.id}. Skipping...`);
+        const projectMedia = sortMediaNames(mediaMap[project.id] || []);
+        if (projectMedia.length === 0) {
+            console.log(`>>> No media found for project ${project.id}. Skipping...`);
             return;
         }
 
@@ -96,7 +122,7 @@ function createHtmlFiles(projects, imageMap) {
         // create the html content
         const htmlContent = createHtmlContent(
             project,
-            projectImages,
+            projectMedia,
             nextProjectId,
             prevProjectId
         );
@@ -125,17 +151,17 @@ function getRandomProjectId(projects, currentProjectId) {
 
 function main() {
     const projectsJsonPath = path.join(__dirname, '../../content/info/archive.json');
-    const imageMapPath = path.join(__dirname, '../../content/info/image-map.json');
+    const mediaMapPath = path.join(__dirname, '../../content/info/media-map.json');
 
     console.log(`Reading project data from ${projectsJsonPath}`);
-    console.log(`Reading image map from ${imageMapPath}`);
+    console.log(`Reading media map from ${mediaMapPath}`);
 
     const projectsData = JSON.parse(fs.readFileSync(projectsJsonPath, 'utf-8'));
-    const imageMap = JSON.parse(fs.readFileSync(imageMapPath, 'utf-8'));
+    const mediaMap = JSON.parse(fs.readFileSync(mediaMapPath, 'utf-8'));
 
     const visibleProjects = projectsData.projects.filter(project => project.shown === true);
 
-    createHtmlFiles(visibleProjects, imageMap);
+    createHtmlFiles(visibleProjects, mediaMap);
 }
 
 main();

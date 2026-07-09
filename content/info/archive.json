@@ -1,7 +1,6 @@
 {
   "projects": [
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "E04",
@@ -13,7 +12,6 @@
       "hashtags": "book, editorial"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "WWW",
       "id": "W02",
@@ -25,7 +23,6 @@
       "hashtags": "front end, web design, editorial"
     },
     {
-      "spotlight": false,
       "shown": false,
       "location": "Russia",
       "id": "W01",
@@ -37,7 +34,6 @@
       "hashtags": "web design, landing page, motion"
     },
     {
-      "spotlight": true,
       "shown": true,
       "location": "Netherlands",
       "id": "E05",
@@ -49,7 +45,6 @@
       "hashtags": "editorial, book"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "E08",
@@ -61,7 +56,6 @@
       "hashtags": "editorial, book"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "B10",
@@ -73,7 +67,6 @@
       "hashtags": "identity, apparel"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "UK, USA",
       "id": "B11",
@@ -85,7 +78,6 @@
       "hashtags": "identity, ux/ui, apparel"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "WWW",
       "id": "W03",
@@ -97,7 +89,6 @@
       "hashtags": "front end, ux/ui, web design"
     },
     {
-      "spotlight": true,
       "shown": true,
       "location": "WWW",
       "id": "W04",
@@ -109,7 +100,6 @@
       "hashtags": "nuxt, web app, back end, web design, development"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "W05",
@@ -121,7 +111,6 @@
       "hashtags": "p5js, development, data visualisation"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "M04",
@@ -133,7 +122,6 @@
       "hashtags": "motion"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Russia",
       "id": "M02",
@@ -145,7 +133,6 @@
       "hashtags": "p5js, motion"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "E03",
@@ -157,7 +144,6 @@
       "hashtags": "editorial"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "E02",
@@ -169,7 +155,6 @@
       "hashtags": "editorial, zine, riso, stable diffusion, generative graphics"
     },
     {
-      "spotlight": false,
       "shown": false,
       "location": "WWW",
       "id": "M01",
@@ -181,7 +166,6 @@
       "hashtags": "p5js, motion"
     },
     {
-      "spotlight": false,
       "shown": false,
       "location": "Russia",
       "id": "B03",
@@ -193,7 +177,6 @@
       "hashtags": "identity"
     },
     {
-      "spotlight": false,
       "shown": false,
       "location": "Azerbaijan",
       "id": "E01",
@@ -205,7 +188,6 @@
       "hashtags": "editorial"
     },
     {
-      "spotlight": true,
       "shown": false,
       "location": "Sweden",
       "id": "B08",
@@ -217,7 +199,6 @@
       "hashtags": "identity"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Russia",
       "id": "B09",
@@ -229,7 +210,6 @@
       "hashtags": "identity"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "W06",
@@ -241,7 +221,6 @@
       "hashtags": "identity, ux/ui, web design, front end, stable diffusion, generative graphics"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "E11",
@@ -253,7 +232,6 @@
       "hashtags": "editorial, book"
     },
     {
-      "spotlight": false,
       "shown": false,
       "location": "Netherlands",
       "id": "E10",
@@ -265,7 +243,6 @@
       "hashtags": "editorial, book"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "E12",
@@ -277,7 +254,6 @@
       "hashtags": "editorial, book"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Russia",
       "id": "A072",
@@ -289,7 +265,6 @@
       "hashtags": "poster"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Russia",
       "id": "A085",
@@ -301,7 +276,6 @@
       "hashtags": "poster"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "WWW",
       "id": "A224",
@@ -313,7 +287,6 @@
       "hashtags": "poster, p5js, riso, generative graphics"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "WWW",
       "id": "A222",
@@ -325,7 +298,6 @@
       "hashtags": "poster, riso, generative graphics"
     },
     {
-      "spotlight": false,
       "shown": false,
       "location": "Russia",
       "id": "A109",
@@ -337,7 +309,6 @@
       "hashtags": "poster"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Poland",
       "id": "A172",
@@ -349,7 +320,6 @@
       "hashtags": "poster, riso"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Russia",
       "id": "A122",
@@ -361,7 +331,6 @@
       "hashtags": "poster"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Russia",
       "id": "A250",
@@ -373,7 +342,6 @@
       "hashtags": "poster"
     },
     {
-      "spotlight": false,
       "shown": false,
       "location": "Russia",
       "id": "V02",
@@ -385,7 +353,6 @@
       "hashtags": "apparel"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "E06",
@@ -397,7 +364,6 @@
       "hashtags": "editorial, p5js, poster, zine, riso"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "WWW",
       "id": "A225",
@@ -409,7 +375,6 @@
       "hashtags": "poster, p5js, generative graphics"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Russia",
       "id": "V01",
@@ -421,7 +386,6 @@
       "hashtags": "apparel"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Russia",
       "id": "A055",
@@ -433,7 +397,6 @@
       "hashtags": "poster"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Russia",
       "id": "A079",
@@ -445,7 +408,6 @@
       "hashtags": "poster"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Russia",
       "id": "A059",
@@ -457,7 +419,6 @@
       "hashtags": "poster"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Russia",
       "id": "A193",
@@ -469,7 +430,6 @@
       "hashtags": "poster"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "E13",
@@ -481,7 +441,6 @@
       "hashtags": "editorial, magazine"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "E14",
@@ -493,7 +452,6 @@
       "hashtags": "editorial, riso, zine"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "WWW",
       "id": "V03",
@@ -505,7 +463,6 @@
       "hashtags": "apparel"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "A252",
@@ -517,7 +474,6 @@
       "hashtags": "poster"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "E15",
@@ -529,7 +485,6 @@
       "hashtags": "editorial, book"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "E16",
@@ -541,7 +496,6 @@
       "hashtags": "editorial, book, back end, development"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "E17",
@@ -553,7 +507,6 @@
       "hashtags": "editorial, magazine"
     },
     {
-      "spotlight": true,
       "shown": true,
       "location": "Netherlands",
       "id": "W07",
@@ -563,9 +516,8 @@
       "title": "Visual Identity",
       "intro": "Identity for community run wineyard in the middle of the city for people who want to slow down",
       "hashtags": "web design, identity, development, front end"
-    }, 
+    },
     {
-      "spotlight": true,
       "shown": true,
       "location": "Netherlands",
       "id": "W08",
@@ -577,7 +529,6 @@
       "hashtags": "web design, data visualisation, editorial, front end"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "E18",
@@ -589,7 +540,6 @@
       "hashtags": "editorial, magazine"
     },
     {
-      "spotlight": true,
       "shown": true,
       "location": "Netherlands",
       "id": "E19",
@@ -601,7 +551,6 @@
       "hashtags": "editorial, book"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "E20",
@@ -613,7 +562,6 @@
       "hashtags": "editorial, book"
     },
     {
-      "spotlight": true,
       "shown": true,
       "location": "Netherlands",
       "id": "W09",
@@ -625,7 +573,6 @@
       "hashtags": "ux/ui, web app, back end, web design, development"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Germany",
       "id": "W10",
@@ -637,7 +584,6 @@
       "hashtags": "web design, readymag"
     },
     {
-      "spotlight": false,
       "shown": true,
       "location": "Netherlands",
       "id": "A253",
@@ -647,9 +593,8 @@
       "title": "Film Graphic Support",
       "intro": "Film poster for emerging filmmaker",
       "hashtags": "poster"
-    }, 
-      {
-      "spotlight": false,
+    },
+    {
       "shown": false,
       "location": "Russia",
       "id": "W11",
@@ -660,8 +605,7 @@
       "intro": "Design, art direction and launch of high end accesories boutique ",
       "hashtags": "web design, back end, art direction, kirby"
     },
-      {
-      "spotlight": false,
+    {
       "shown": false,
       "location": "Russia",
       "id": "W12",
@@ -672,8 +616,7 @@
       "intro": "Design, art direction and web activation of high end kitchen store",
       "hashtags": "web design, art direction, kirby"
     },
-      {
-      "spotlight": false,
+    {
       "shown": false,
       "location": "Netherlands",
       "id": "A254",
@@ -684,8 +627,7 @@
       "intro": "",
       "hashtags": "web design, back end, art direction, kirby"
     },
-      {
-      "spotlight": false,
+    {
       "shown": false,
       "location": "Germany",
       "id": "M06",
@@ -696,8 +638,7 @@
       "intro": "",
       "hashtags": "p5js, motion"
     },
-      {
-      "spotlight": false,
+    {
       "shown": false,
       "location": "Netherlands",
       "id": "M05",
@@ -709,8 +650,7 @@
       "hashtags": "p5js, motion"
     },
     {
-      "spotlight": false,
-      "shown": false,
+      "shown": true,
       "location": "Netherlands",
       "id": "M08",
       "date": "2026 jun",
@@ -721,7 +661,6 @@
       "hashtags": "p5js, motion"
     },
     {
-      "spotlight": false,
       "shown": false,
       "location": "Netherlands",
       "id": "M09",
@@ -733,7 +672,6 @@
       "hashtags": "processing, motion"
     },
     {
-      "spotlight": false,
       "shown": false,
       "location": "Netherlands",
       "id": "M08",
@@ -744,8 +682,7 @@
       "intro": "",
       "hashtags": "art direction, advertisement"
     },
-        {
-      "spotlight": false,
+    {
       "shown": false,
       "location": "Netherlands",
       "id": "A260",

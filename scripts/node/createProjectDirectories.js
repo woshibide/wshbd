@@ -34,7 +34,7 @@ function main() {
 
     const archiveJsonPath = path.join(__dirname, '../../content/info/archive.json');
     const args = process.argv.slice(2);
-    const imagesDirectory = args[0] || process.env.IMAGES_DIR || path.join(__dirname, '..', '..', 'content', 'images');
+    const imagesDirectory = args[0] || process.env.PROJECTS_DIR || path.join(__dirname, '..', '..', 'content', 'projects');
 
     createProjectDirectories(archiveJsonPath, imagesDirectory);
     

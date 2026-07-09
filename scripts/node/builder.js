@@ -7,8 +7,10 @@ const { checkAndProcessImages } = require('./compressImages');
 
 // complete portfolio build process
 async function buildPortfolio() {
-    const inputDirectory = path.join(__dirname, '..', '..', 'content', 'images');
-    const outputFilePath = path.join(__dirname, '..', '..', 'content', 'info', 'image-map.json');
+    const inputDirectory = path.join(__dirname, '..', '..', 'content', 'projects');
+    const imageMapPath = path.join(__dirname, '..', '..', 'content', 'info', 'image-map.json');
+    const videoMapPath = path.join(__dirname, '..', '..', 'content', 'info', 'video-map.json');
+    const mediaMapPath = path.join(__dirname, '..', '..', 'content', 'info', 'media-map.json');
     const executionResults = [];
 
     // helper function to run scripts with error tracking
@@ -27,13 +29,16 @@ async function buildPortfolio() {
 
     console.log('\n🚀 starting build...\n');
 
-    // step 1: process images
+    // step 1: setup project directories first
+    runScript('createProjectDirectories.js', `${inputDirectory}`);
+
+    // step 2: process images and maps
     // pass the workspace images directory to scripts that accept it
     runScript('compressImages.js', `${inputDirectory}`);
-    runScript('createImageMap.js', `${inputDirectory} ${outputFilePath}`);
+    runScript('createImageMap.js', `${inputDirectory} ${imageMapPath}`);
+    runScript('createVideoMap.js', `${inputDirectory} ${imageMapPath} ${videoMapPath} ${mediaMapPath}`);
     
-    // step 3: setup and cleanup
-    runScript('createProjectDirectories.js', `${inputDirectory}`);
+    // step 3: cleanup
     runScript('cleanUpFolder.js', `${inputDirectory}`);
 
     // step 4: generate pages

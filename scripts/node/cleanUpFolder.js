@@ -4,7 +4,7 @@ const readline = require('readline');
 
 const archiveJsonPath = path.join(__dirname, '../../content/info/archive.json');
 const args = process.argv.slice(2);
-const inputDirectory = args[0] || process.env.IMAGES_DIR || path.join(__dirname, '..', '..', 'content', 'images');
+const inputDirectory = args[0] || process.env.PROJECTS_DIR || path.join(__dirname, '..', '..', 'content', 'projects');
 
 const data = JSON.parse(fs.readFileSync(archiveJsonPath, 'utf8'));
 

@@ -150,7 +150,7 @@ export function handleFooterClick() {
 
 export function initImageLoadIndicators() {
     const imageStates = new WeakMap();
-    const hostSelector = '.project-image, .spotlight-gallery-container, .spotlight-giant-gallery, figure, picture';
+    const hostSelector = '.project-image, figure, picture';
 
     const getHost = (img) => {
         const host = img.closest(hostSelector) || img.parentElement;
