@@ -170,7 +170,6 @@ function createMediaNode(mediaItem, mediaList, mediaIndex, projectTitle) {
         video.muted = true
         video.loop = true
         video.playsInline = true
-        video.controls = true
         video.preload = 'auto'
         video.setAttribute('aria-label', projectTitle || 'project video')
         video.setAttribute('data-media', JSON.stringify(mediaList))

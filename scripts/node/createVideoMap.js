@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
+const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.svg', '.webp'];
 const videoExtensions = ['.mp4', '.webm', '.mov', '.m4v', '.ogv'];
 
 function sortMediaNames(names) {
@@ -30,8 +31,8 @@ function normalizeFileName(fileName) {
     return fileName.toLowerCase().replace(/\s+/g, '_');
 }
 
-function buildVideoMap(inputDir) {
-    const videoMap = {};
+function buildMediaMap(inputDir) {
+    const mediaMap = {};
 
     function readDir(dir) {
         const items = fs.readdirSync(dir).sort();
@@ -46,13 +47,13 @@ function buildVideoMap(inputDir) {
             }
 
             const ext = path.extname(item).toLowerCase();
-            if (!videoExtensions.includes(ext)) {
+            if (!imageExtensions.includes(ext) && !videoExtensions.includes(ext)) {
                 return;
             }
 
             const folderName = path.basename(dir);
-            if (!videoMap[folderName]) {
-                videoMap[folderName] = [];
+            if (!mediaMap[folderName]) {
+                mediaMap[folderName] = [];
             }
 
             const normalizedName = normalizeFileName(item);
@@ -60,61 +61,41 @@ function buildVideoMap(inputDir) {
 
             if (normalizedName !== item) {
                 fs.renameSync(fullPath, normalizedPath);
-                console.log(`Renamed video: ${fullPath} -> ${normalizedPath}`);
+                console.log(`Renamed media: ${fullPath} -> ${normalizedPath}`);
             }
 
-            videoMap[folderName].push(normalizedName);
+            mediaMap[folderName].push(normalizedName);
         });
     }
 
     readDir(inputDir);
 
-    Object.keys(videoMap).forEach(folder => {
-        const deduped = Array.from(new Set(videoMap[folder]));
-        videoMap[folder] = sortMediaNames(deduped);
-    });
-
-    return videoMap;
-}
-
-function mergeMaps(imageMap, videoMap) {
-    const mediaMap = {};
-    const allProjects = new Set([...Object.keys(imageMap), ...Object.keys(videoMap)]);
-
-    allProjects.forEach(projectId => {
-        const images = imageMap[projectId] || [];
-        const videos = videoMap[projectId] || [];
-        const merged = Array.from(new Set([...images, ...videos]));
-        mediaMap[projectId] = sortMediaNames(merged);
+    Object.keys(mediaMap).forEach(folder => {
+        const deduped = Array.from(new Set(mediaMap[folder]));
+        mediaMap[folder] = sortMediaNames(deduped);
     });
 
     return mediaMap;
 }
 
-function generateVideoAndMediaMaps(inputDir, imageMapPath, videoMapPath, mediaMapPath) {
-    console.log('Starting video/media map generation...');
+function generateMediaMap(inputDir, mediaMapPath) {
+    console.log('Starting media map generation...');
     console.log(`Input Directory: ${inputDir}`);
 
-    const imageMap = readJSON(imageMapPath, {});
-    const videoMap = buildVideoMap(inputDir);
-    const mediaMap = mergeMaps(imageMap, videoMap);
-
-    ensureDirForFile(videoMapPath);
     ensureDirForFile(mediaMapPath);
 
-    fs.writeFileSync(videoMapPath, JSON.stringify(videoMap, null, 2), 'utf-8');
+    const mediaMap = buildMediaMap(inputDir);
     fs.writeFileSync(mediaMapPath, JSON.stringify(mediaMap, null, 2), 'utf-8');
 
-    console.log(`Wrote video map: ${videoMapPath}`);
     console.log(`Wrote media map: ${mediaMapPath}`);
-    console.log('Video/media map generation completed.');
+    console.log('Media map generation completed.');
 }
 
 const args = process.argv.slice(2);
-if (args.length !== 4) {
-    console.error('Usage: node createVideoMap.js <input-directory> <image-map-path> <video-map-path> <media-map-path>');
+if (args.length !== 2) {
+    console.error('Usage: node createVideoMap.js <input-directory> <media-map-path>');
     process.exit(1);
 }
 
-const [inputDirectory, imageMapPath, videoMapPath, mediaMapPath] = args;
-generateVideoAndMediaMaps(inputDirectory, imageMapPath, videoMapPath, mediaMapPath);
+const [inputDirectory, mediaMapPath] = args;
+generateMediaMap(inputDirectory, mediaMapPath);

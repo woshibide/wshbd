@@ -214,6 +214,18 @@ section.list {
     font-size: inherit;
 }
 
+body.theatre-page video::-webkit-media-controls {
+    display: none !important;
+}
+
+body.theatre-page video::-webkit-media-controls-enclosure {
+    display: none !important;
+}
+
+body.theatre-page video {
+    outline: none;
+}
+
 @media (max-width: 768px) {
     #theatre-welcome h1{
         font-size: 3rem;
@@ -568,9 +580,6 @@ section.list {
 }
 
 @media (max-width: 768px) {
-    .archive-item.expanded .image-container {
-        /* padding: 4rem 1rem 1rem 1rem; */
-    }
     .archive-item *{
         font-size: 1rem;
     }

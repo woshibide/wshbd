@@ -8,8 +8,6 @@ const { checkAndProcessImages } = require('./compressImages');
 // complete portfolio build process
 async function buildPortfolio() {
     const inputDirectory = path.join(__dirname, '..', '..', 'content', 'projects');
-    const imageMapPath = path.join(__dirname, '..', '..', 'content', 'info', 'image-map.json');
-    const videoMapPath = path.join(__dirname, '..', '..', 'content', 'info', 'video-map.json');
     const mediaMapPath = path.join(__dirname, '..', '..', 'content', 'info', 'media-map.json');
     const executionResults = [];
 
@@ -35,8 +33,7 @@ async function buildPortfolio() {
     // step 2: process images and maps
     // pass the workspace images directory to scripts that accept it
     runScript('compressImages.js', `${inputDirectory}`);
-    runScript('createImageMap.js', `${inputDirectory} ${imageMapPath}`);
-    runScript('createVideoMap.js', `${inputDirectory} ${imageMapPath} ${videoMapPath} ${mediaMapPath}`);
+    runScript('createVideoMap.js', `${inputDirectory} ${mediaMapPath}`);
     
     // step 3: cleanup
     runScript('cleanUpFolder.js', `${inputDirectory}`);

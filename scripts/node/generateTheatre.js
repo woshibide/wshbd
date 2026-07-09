@@ -35,7 +35,7 @@ try {
 
     function createMediaElement(projectTitle, mediaItem, index) {
         if (mediaItem.type === 'video') {
-            return `<video class="project-media" src="${mediaItem.path}" data-media='${JSON.stringify(mediaItem.list)}' data-media-index="${index}" autoplay muted loop playsinline controls preload="metadata" aria-label="${projectTitle}"></video>`
+            return `<video class="project-media" src="${mediaItem.path}" data-media='${JSON.stringify(mediaItem.list)}' data-media-index="${index}" autoplay muted loop playsinline preload="metadata" aria-label="${projectTitle}"></video>`
         }
 
         return `<img class="project-media" src="${mediaItem.path}" alt="${projectTitle}" loading="lazy" data-media='${JSON.stringify(mediaItem.list)}' data-media-index="${index}">`
