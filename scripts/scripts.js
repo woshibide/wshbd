@@ -42,17 +42,63 @@ console.log(`
 
 function setupHeroVideoPlayback() {
     const heroVideo = document.querySelector('#hero .hero-video video');
+    const heroOverlay = document.querySelector('#hero .hero-video-overlay');
     if (!heroVideo) {
         return;
     }
 
-    const tryPlay = () => heroVideo.play();
+    let overlayFaded = false;
+
+    const fadeHeroOverlay = () => {
+        if (!heroOverlay || overlayFaded) {
+            return;
+        }
+
+        overlayFaded = true;
+        requestAnimationFrame(() => {
+            heroOverlay.classList.add('hero-video-overlay--fade');
+        });
+    };
+
+    const isBufferedToHalf = () => {
+        if (!heroVideo.duration || heroVideo.buffered.length === 0) {
+            return false;
+        }
+
+        const bufferedEnd = heroVideo.buffered.end(heroVideo.buffered.length - 1);
+        return bufferedEnd / heroVideo.duration >= 0.5;
+    };
+
+    const tryPlay = () => {
+        if (!isBufferedToHalf()) {
+            return Promise.resolve(false);
+        }
+
+        return heroVideo.play();
+    };
 
     // retry playback on any direct user interaction
     const playOnInteraction = () => {
         tryPlay().then(() => {
+            if (isBufferedToHalf()) {
+                fadeHeroOverlay();
+                heroVideo.controls = false;
+            }
+        }).catch(() => {
+            heroVideo.controls = true;
+        });
+    };
+
+    const playWhenReady = () => {
+        tryPlay().then((didPlay) => {
+            if (didPlay === false) {
+                return;
+            }
+
+            fadeHeroOverlay();
             heroVideo.controls = false;
         }).catch(() => {
+            // keep controls hidden unless autoplay is blocked
             heroVideo.controls = true;
         });
     };
@@ -66,12 +112,11 @@ function setupHeroVideoPlayback() {
         }
     });
 
-    tryPlay().then(() => {
-        heroVideo.controls = false;
-    }).catch(() => {
-        // keep controls hidden unless autoplay is blocked
-        heroVideo.controls = true;
-    });
+    heroVideo.addEventListener('loadedmetadata', playWhenReady);
+    heroVideo.addEventListener('progress', playWhenReady);
+    heroVideo.addEventListener('canplay', playWhenReady);
+
+    playWhenReady();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
