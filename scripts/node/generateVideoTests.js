@@ -17,7 +17,7 @@ function replaceHeroVideo(html, replacement) {
 }
 
 function updateMeta(html, title, urlPath) {
-    const ogTitle = `${title} // pyotr`;
+    const ogTitle = `${title}`;
     const ogUrl = `https://its-pyotr.com${urlPath}`;
     let updated = html
         .replace(/<title>[\s\S]*?<\/title>/, `<title>${ogTitle}</title>`)

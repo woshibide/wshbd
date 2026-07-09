@@ -1489,5 +1489,11 @@ div#gallery-info a#brand{
 }
 
 .web-essays {
-    margin-top: 30svh;
+    margin-top: 15svh;
+}
+
+.web-essays a:hover{
+    padding: 0.15rem;
+    background-color: var(--soft-black);
+    color: var(--main-bg);
 }
