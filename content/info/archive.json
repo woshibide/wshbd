@@ -567,7 +567,7 @@
       "id": "W09",
       "date": "2025 Aug",
       "description": "A bilingual static website for the Leiden Essay Film Festival, with 200+ pages, all built with Flask. Tech minimalism to support the industrial aesthetic of the identity of the festival. Meet <a href=\"https://leidenessayfilmfestival.com/\" target=\"_blank\" style=\"padding: 0rem;\">leidenessayfilmfestival.com</a>",
-      "brand": "leff",
+      "brand": "leff '25",
       "title": "Website",
       "intro": "Facade for the first essay film festival in Netherlands.",
       "hashtags": "ux/ui, web app, back end, web design, development"
@@ -692,6 +692,17 @@
       "title": "Album cover",
       "intro": "",
       "hashtags": "album cover, identity"
+    },
+      {
+      "shown": false,
+      "location": "Netherlands",
+      "id": "W13",
+      "date": "2026 Jun",
+      "description": "",
+      "brand": "leff '26",
+      "title": "Website",
+      "intro": "",
+      "hashtags": "development, kirby"
     }
   ]
 }
