@@ -24,6 +24,25 @@ function sanitizeForHtml(text) {
         .replace(/>/g, '&gt;'); // greater-than
 }
 
+function formatPageTitle(title) {
+    const normalizedTitle = String(title || '').trim();
+
+    if (normalizedTitle.toLowerCase() === 'pyotr') {
+        return "IT'S PYOTR";
+    }
+
+    return normalizedTitle.toUpperCase();
+}
+
+function finalizeMetaData(metaData) {
+    metaData.description = sanitizeForHtml(metaData.description);
+    metaData.ogDescription = sanitizeForHtml(metaData.ogDescription);
+    metaData.title = sanitizeForHtml(formatPageTitle(metaData.title));
+    metaData.ogTitle = sanitizeForHtml(formatPageTitle(metaData.ogTitle));
+
+    return metaData;
+}
+
 function updateHtmlFile(filePath) {
     try {
         let content = fs.readFileSync(filePath, 'utf-8');
@@ -60,7 +79,7 @@ function updateHtmlFile(filePath) {
             .replace(/{{CSS_VERSION}}/g, cssVersion)
             .replace('{{ADD_SLIDES}}', needsSlides ? 
                 `<link rel="stylesheet" href="/styles/slides.css?v=${cssVersion}">` : 
-                '<!-- adobe fonts -->');
+                '');
 
         if (videoTestHead) {
             updatedHeader = updatedHeader.replace('</head>', `${videoTestHead}\n</head>`);
@@ -143,7 +162,7 @@ function extractMetaData(content, filePath) {
         metaData.title = 'pyotr';
         metaData.ogTitle = 'pyotr';
         metaData.ogUrl = 'https://pyotr.com/';
-        return metaData;
+        return finalizeMetaData(metaData);
     }
 
     // for archive pages
@@ -181,7 +200,7 @@ function extractMetaData(content, filePath) {
             metaData.title = `video test ${testId} // pyotr`;
             metaData.ogTitle = `video test ${testId} // pyotr`;
             metaData.ogUrl = `https://pyotr.com/video_tests/${testId}`;
-            return metaData;
+            return finalizeMetaData(metaData);
         }
 
         // for non-archive pages, use folder name
@@ -216,13 +235,7 @@ function extractMetaData(content, filePath) {
         }
     }
 
-    // sanitanization for html
-    metaData.description = sanitizeForHtml(metaData.description);
-    metaData.ogDescription = sanitizeForHtml(metaData.ogDescription);
-    metaData.title = sanitizeForHtml(metaData.title);
-    metaData.ogTitle = sanitizeForHtml(metaData.ogTitle);
-
-    return metaData;
+    return finalizeMetaData(metaData);
 }
 
 function findHtmlFiles(dirPath) {

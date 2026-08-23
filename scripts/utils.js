@@ -134,16 +134,34 @@ export function handleFooterClick() {
     }
 
     designBriefElements.forEach(element => {
-        element.addEventListener('click', () => {
-            const hashtag = element.textContent.trim();
+        const activateFilter = () => {
+            const hashtag = element.textContent.trim().toLowerCase();
             handleClick(hashtag);
+        };
+
+        element.tabIndex = 0;
+        element.setAttribute('role', 'button');
+        element.addEventListener('click', activateFilter);
+        element.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            event.preventDefault();
+            activateFilter();
         });
     });
 
     devBriefElements.forEach(element => {
-        element.addEventListener('click', () => {
-            const hashtag = element.textContent.trim();
+        const activateFilter = () => {
+            const hashtag = element.textContent.trim().toLowerCase();
             handleClick(hashtag);
+        };
+
+        element.tabIndex = 0;
+        element.setAttribute('role', 'button');
+        element.addEventListener('click', activateFilter);
+        element.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            event.preventDefault();
+            activateFilter();
         });
     });
 }
@@ -358,4 +376,3 @@ export function animateImageTransition(options) {
         }, transitionDelay);
     }
 }
-

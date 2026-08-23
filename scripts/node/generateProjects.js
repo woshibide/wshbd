@@ -35,7 +35,7 @@ function renderProjectMedia(project, fileName) {
             <img class="project-media project-media-image" src="/content/projects/${project.id}/${fileName}" alt="${project.title}">`;
 }
 
-function createHtmlContent(project, mediaFiles, nextProjectId, prevProjectId) {
+function createHtmlContent(project, mediaFiles, nextProject, nextProjectPreview) {
     const metaKeywords = Array.isArray(project.hashtags) ? project.hashtags.join(', ') : 'designed by pyotr';
 
     let htmlContent = `<!DOCTYPE html>
@@ -51,11 +51,9 @@ function createHtmlContent(project, mediaFiles, nextProjectId, prevProjectId) {
         </header>
         <main>
             <div class="project-info">
-                <div class="id">
-                    <h1>${project.id}</h1>
-                </div>
                 <div class="project-info-columns">
-                    <div>
+                <div>
+                        <h1>${project.id}</h1>
                         <h2>${project.brand}</h2>
                         <p>${project.title}</p>
                         <p>${project.location}</p>
@@ -79,11 +77,14 @@ function createHtmlContent(project, mediaFiles, nextProjectId, prevProjectId) {
 
     <section>
         <div class="projects-navigator">
-            <div id="prev-project" data-prev-id="${prevProjectId}">
-                <span>previous</span>
-            </div>
-            <div id="next-project" data-next-id="${nextProjectId}">
-                <span>next</span>
+            <div class="next-project-panel">
+                <div id="next-project" data-next-id="${nextProject.id}">
+                    <span>NEXT PROJECT</span>
+                </div>
+                <a class="next-project-preview" href="/archive/${nextProject.id}/" aria-label="Next project: ${nextProject.title}">
+                    <img src="/content/projects/${nextProject.id}/${nextProjectPreview}" alt="${nextProject.title}">
+                    <span>${nextProject.title}, ${nextProject.date}</span>
+                </a>
             </div>
         </div>
     </section>
@@ -111,20 +112,17 @@ function createHtmlFiles(projects, mediaMap) {
             return;
         }
 
-        // calculate next and previous project ids
-        const nextProjectId = projects[index + 1]
-            ? projects[index + 1].id.toUpperCase()
-            : getRandomProjectId(projects, project.id);
-        const prevProjectId = projects[index - 1]
-            ? projects[index - 1].id.toUpperCase()
-            : getRandomProjectId(projects, project.id);
+        // Only projects in this already-filtered list can be navigation targets.
+        const nextProject = getNextProjectWithPreview(projects, mediaMap, index);
+        const nextProjectMedia = sortMediaNames(mediaMap[nextProject.id] || []);
+        const nextProjectPreview = nextProjectMedia.find(fileName => !isVideoFile(fileName));
 
         // create the html content
         const htmlContent = createHtmlContent(
             project,
             projectMedia,
-            nextProjectId,
-            prevProjectId
+            nextProject,
+            nextProjectPreview
         );
 
         // create directory with the project id
@@ -140,14 +138,17 @@ function createHtmlFiles(projects, mediaMap) {
     console.log('Created', projectCount, 'project pages');
 }
 
-function getRandomProjectId(projects, currentProjectId) {
-    let randomProject;
-    do {
-        randomProject = projects[Math.floor(Math.random() * projects.length)];
-    } while (randomProject.id.toUpperCase() === currentProjectId);
-    return randomProject.id.toUpperCase();
-}
+function getNextProjectWithPreview(projects, mediaMap, currentIndex) {
+    for (let offset = 1; offset <= projects.length; offset += 1) {
+        const candidate = projects[(currentIndex + offset) % projects.length];
+        const media = mediaMap[candidate.id] || [];
+        if (media.some(fileName => !isVideoFile(fileName))) {
+            return candidate;
+        }
+    }
 
+    throw new Error('At least one visible project needs an image for the next-project preview.');
+}
 
 function main() {
     const projectsJsonPath = path.join(__dirname, '../../content/info/archive.json');
@@ -159,7 +160,13 @@ function main() {
     const projectsData = JSON.parse(fs.readFileSync(projectsJsonPath, 'utf-8'));
     const mediaMap = JSON.parse(fs.readFileSync(mediaMapPath, 'utf-8'));
 
-    const visibleProjects = projectsData.projects.filter(project => project.shown === true);
+    const visibleProjects = projectsData.projects
+        .filter(project => project.shown === true)
+        .map(project => ({ ...project, id: project.id.toUpperCase() }))
+        .filter(project => {
+            const media = mediaMap[project.id] || [];
+            return media.length > 0;
+        });
 
     createHtmlFiles(visibleProjects, mediaMap);
 }

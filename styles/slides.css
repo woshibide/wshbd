@@ -75,7 +75,7 @@
 }
 
 .a-slide {
-    outline: solid 1px rgb(35, 35, 35);
+    outline: solid 1px var(--color-slide-border);
     height: 100svh;
     width: 100%;
     display: flex;
@@ -143,7 +143,6 @@
     .index-link-container{
         width: 100%;
         max-width: 100vw;
-        /* outline: 1px aqua solid; */
     }
 }
 
@@ -276,7 +275,6 @@ video::-webkit-media-controls {
     position: relative;
     bottom: 25vh;
     text-align: justify;
-    /* background-color: aquamarine; */
 }
 
 .slide-text {
@@ -371,7 +369,7 @@ video::-webkit-media-controls {
     display: flex;
     flex-direction: column;
     transition: transform 0.6s var(--transition-timing);
-    background-color: rgba(0, 0, 0, 0);
+    background-color: var(--color-transparent);
 }
 
 #slides-current-project-container .project-name {
@@ -474,8 +472,7 @@ video::-webkit-media-controls {
     position: absolute;
     z-index: 12;
     color: var(--text-color);
-    font-family: "cofo-sans-variable", Helvetica, sans-serif;
-    font-variation-settings: "slnt" 0, "wght" 400;
+    font-family: var(--font-family);
     font-size: 2rem;
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.05rem;
@@ -587,5 +584,3 @@ video::-webkit-media-controls {
         font-size: 1.5rem;
     }
 }
-
-

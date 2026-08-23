@@ -8,13 +8,13 @@
     <meta name="keywords" content="design, creative coding, web design, editorial design">
     <meta name="description" content="portfolio of a creative technologist Pyotr Goloub">
     
-    <meta property="og:title" content="403 // pyotr">
+    <meta property="og:title" content="403 // PYOTR">
     <meta property="og:description" content="portfolio of a creative technologist Pyotr Goloub">
     <meta property="og:image" content="/content/misc/og_1200x1200.png">
     <meta property="og:url" content="https://its-pyotr.com/403">
     <meta name="twitter:card" content="/content/misc/og_1200x1200.png" />
 
-    <title>403 // pyotr</title>
+    <title>403 // PYOTR</title>
     
     <link rel="icon" type="image/png" sizes="32x32" href="/content/misc/favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/content/misc/favicon_16x16.png">
@@ -24,12 +24,18 @@
     <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/content/misc/favicon_180x180.png">
     <link rel="shortcut icon" type="image/png" href="/content/misc/favicon_180x180.png" />
 
-    <!-- adobe fonts -->
-    <link rel="stylesheet" href="https://use.typekit.net/dxz4nuq.css">
-    <link rel="stylesheet" href="/styles/styles.css?v=1784070941007">
-    <link rel="stylesheet" href="/styles/sections.css?v=1784070941007">
+    
+    <link rel="stylesheet" href="/styles/styles.css?v=1787527502234">
+    <link rel="stylesheet" href="/styles/sections.css?v=1787527502234">
     
 </head>
+
+
+
+
+
+
+
 <body>
     <script type="module" src="/scripts/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
@@ -40,15 +46,17 @@
         const savedTheme = 'dark';
 
         let bgCol, txtCol, xtrCol;
+        const rootStyles = getComputedStyle(document.documentElement);
+        const siteColor = (token) => rootStyles.getPropertyValue(token).trim();
 
         if (savedTheme === 'dark') {
-            bgCol = 'rgb(0, 0, 0)';
-            txtCol = 'rgb(255, 255, 255)';
-            xtrCol = 'rgb(255, 0, 53)';
+            bgCol = siteColor('--color-black');
+            txtCol = siteColor('--color-white');
+            xtrCol = siteColor('--color-accent');
         } else {
-            bgCol = 'rgb(255, 255, 255)';
-            txtCol = 'rgb(0, 0, 0)';
-            xtrCol = 'rgb(255, 0, 53)';
+            bgCol = siteColor('--color-white');
+            txtCol = siteColor('--color-black');
+            xtrCol = siteColor('--color-accent');
         }
 
         // ------ [logic] ------
@@ -229,25 +237,543 @@
 <div id="home-sticky" class="sticky-nav-actions">
     <a class="sticky-link" href="/">main</a>
     <a class="sticky-link" href="/about">profile</a>
-    <a class="sticky-email" href="mailto:yes@its-pyotr.com class=">email</a>
+    <a class="sticky-email" href="mailto:yes@its-pyotr.com">email</a>
 </div>
 <nav id="nav-menu">
     <!-- <button id="theme-toggle">lights</button> -->
     <div class="nav-links-container">
-        <a href="/">main</a>
-        <a href="/archive">archive</a>
-        <a href="/about">profile</a>
-        <a href="/theatre">theatre</a>
-        <p style="margin-top: 2rem;">
-            Pyotr Goloub is a creative technologist, blurring the line between design and engineering. As design evolves from fixed environments into adaptable systems, he builds his own tooling to reshape the process itself, removing friction between idea and execution. This approach accelerates both his own speed and internal team workflows, without compromising precision or visual quality. Fluent across both creative and technical domains, he understands the underlying mechanics that connect them, allowing him to design with systems, code, and a clear awareness of how implementation shape material and ultimately the outcomes.
-        </p>
-        <p>
-            Limited availability until November 2026
-        </p>
-        <a id="contact" href="mailto:yes@its-pyotr.com">yes@its-pyotr.com</a>
+        <div>
+            <a href="/">main</a>
+            <a href="/archive">archive</a>
+            <a href="/about">profile</a>
+            <a href="/theatre">theatre</a>
+        </div>
+
+        <div>
+            <p class="nav-hello">
+                Pyotr Goloub is a computational designer, blurring the line between design and engineering. As design evolves from fixed environments into adaptable systems, he builds his own tooling to reshape the process itself, removing friction between idea and execution. This approach accelerates both his own speed and internal team workflows, without compromising precision or visual quality. Fluent across both creative and technical domains, he understands the underlying mechanics that connect them, allowing him to design with systems, code, and a clear awareness of how implementation shape material and ultimately the outcomes.
+            </p>
+            <p class="nav-hello">
+                Limited availability until November 2026
+            </p>
+            <a id="contact" href="mailto:yes@its-pyotr.com">yes@its-pyotr.com</a>
+        </div>
+
     </div>
 </nav>
-    </header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</header>
     <div class="hello">
         <h1 style="padding: 2rem; margin-top: 30vh;">403 :(</h1>
     </div>
@@ -259,48 +785,47 @@
     <div class="footer-wrapper">
         <div class="footer-columns">
             <div id="links">
-                
-            </div>
-            <div id="design-brief">
-                <h4>design</h4>
-                <p>web design</p>
-                <p>ux/ui</p>
-                <p>motion design</p>
-                <p>poster</p>
-                <p>editorial</p>
-                <p>visual identity</p>
-            </div>
-            <div id="dev-brief">
-                <h4>development</h4>
-                <p>front end</p>
-                <p>data visualisation</p>
-                <p>p5js</p>
-                <p>web app</p>
-                <p>generative graphics</p>
+
             </div>
             <div id="contact-details">
-                <h4>reach out</h4>
-                <p>yes@its-pyotr.com</p>
-                <p>t.me/itspyotr</p>
+                <h4>REACH OUT</h4>
+                <p>YES@ITS-PYOTR.COM</p>
+                <p>T.ME/ITSPYOTR</p>
+            </div>
+            <div id="design-brief">
+                <h4>DESIGN</h4>
+                <p>WEB DESIGN</p>
+                <p>UX/UI</p>
+                <p>MOTION DESIGN</p>
+                <p>POSTER</p>
+                <p>EDITORIAL</p>
+                <p>VISUAL IDENTITY</p>
+            </div>
+            <div id="dev-brief">
+                <h4>DEVELOPMENT</h4>
+                <p>FRONT END</p>
+                <p>DATA VISUALISATION</p>
+                <p>P5JS</p>
+                <p>WEB APP</p>
+                <p>GENERATIVE GRAPHICS</p>
             </div>
         </div>
         <div class="footer-columns">
             <div class="extr-link">
-                
             </div>
             <div class="extr-link">
-                <a href="https://be.net/woshibide" target="_blank">behance &#8599;</a>
+                <a href="https://instagram.com/itspyotr" target="_blank">INSTAGRAM &#8599;</a>
             </div>
             <div class="extr-link">
-                <a href="https://github.com/woshibide" target="_blank">github &#8599;</a>
+                <a href="https://be.net/woshibide" target="_blank">BEHANCE &#8599;</a>
             </div>
             <div class="extr-link">
-                <a href="https://instagram.com/itspyotr" target="_blank">instagram &#8599;</a>
+                <a href="https://github.com/woshibide" target="_blank">GITHUB &#8599;</a>
             </div>
         </div>
     </div>
     <div class="footer-note">
-        <p>this website was designed and developed by Pyotr Goloub</p>
+        <p>THIS WEBSITE WAS DESIGNED AND DEVELOPED BY PYOTR GOLOUB</p>
         <p>2026</p>
     </div>
 </footer>

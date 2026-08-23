@@ -69,6 +69,7 @@ function resetHashtagSelection() {
     allHashtags.forEach(tagElement => {
 
         tagElement.classList.remove('selected');
+        tagElement.querySelector('.hashtag-button')?.setAttribute('aria-pressed', 'false');
         tagElement.classList.add('blinking');
 
         setTimeout(() => {
@@ -96,6 +97,10 @@ function toggleHashtagSelection(element) {
     const tag = element.dataset.tag.trim();
 
     element.classList.toggle(selectedClass);
+    element.querySelector('.hashtag-button')?.setAttribute(
+        'aria-pressed',
+        String(element.classList.contains(selectedClass))
+    );
 
     if (element.classList.contains(selectedClass)) {
         selectedHashtags.push(tag);
@@ -172,8 +177,8 @@ function updateSortIndicator() {
             if(field === 'what') {
                 btn.innerHTML = "what <span class='sort-indicator'>" + currentWhatIndicator + "</span>";
             } else {
-                // For non-'what', use arrow based on sort order: asc => ▼, desc => ▲
-                let arrow = sortState[field] === 'asc' ? '▼' : '▲';
+                // For non-'what', use arrow based on sort order: asc => ↓, desc => ↑
+                let arrow = sortState[field] === 'asc' ? '↓' : '↑';
                 btn.innerHTML = field + " <span class='sort-indicator'>" + arrow + "</span>";
             }
         } else {
@@ -196,11 +201,11 @@ function sortArchive(field, type = 'text', order = 'asc') {
         let valueA, valueB;
 
         if (type === 'date') {
-            valueA = parseDate(a.querySelector(`#${field}`).textContent.trim());
-            valueB = parseDate(b.querySelector(`#${field}`).textContent.trim());
+            valueA = parseDate(a.querySelector(`[data-field="${field}"]`).textContent.trim());
+            valueB = parseDate(b.querySelector(`[data-field="${field}"]`).textContent.trim());
         } else {
-            valueA = a.querySelector(`#${field}`).textContent.trim().toLowerCase();
-            valueB = b.querySelector(`#${field}`).textContent.trim().toLowerCase();
+            valueA = a.querySelector(`[data-field="${field}"]`).textContent.trim().toLowerCase();
+            valueB = b.querySelector(`[data-field="${field}"]`).textContent.trim().toLowerCase();
         }
 
         if (valueA < valueB) return -1 * sortOrder;
@@ -291,7 +296,7 @@ async function toggleArchiveItem(item) {
         // expand item
         item.classList.add(expandedClass);
 
-        const projectId = item.id;
+        const projectId = item.dataset.projectId;
         const mediaMap = await getMediaMapData();
 
         const mediaFiles = mediaMap[projectId] ? mediaMap[projectId] : ['/content/misc/non-image.svg'];
@@ -393,20 +398,22 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (item.dataset.shown === 'false') return;
 
             item.addEventListener('click', (e) => {
-                if (e.target.closest('.image-container')) return;
+                if (e.target.closest('.image-container, .item-id-link')) return;
                 toggleArchiveItem(item);
             });
         });
     }
 
-    const hashtagElements = document.querySelectorAll('.hashtag-pool .hashtag');
+    const hashtagElements = document.querySelectorAll('.hashtag-pool .hashtag:not(#hashtag-reset)');
     if (hashtagElements.length > 0) {
         hashtagElements.forEach(tagElement => {
-            tagElement.addEventListener('click', () => toggleHashtagSelection(tagElement));
+            tagElement.querySelector('.hashtag-button')?.addEventListener('click', () => {
+                toggleHashtagSelection(tagElement);
+            });
         });
     }
 
-    const resetButton = document.getElementById('hashtag-reset');
+    const resetButton = document.querySelector('#hashtag-reset .hashtag-button');
     if (resetButton) {
         resetButton.addEventListener('click', resetHashtagSelection);
     }

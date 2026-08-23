@@ -79,7 +79,7 @@ main {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: baseline;
-    /* background-color: #000; */
+    /* background-color: var(--color-black); */
 }
 
 .hero-video {
@@ -89,26 +89,7 @@ main {
     pointer-events: auto;
 }
 
-.hero-video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: min(24svh, 18rem);
-    background: #000;
-    opacity: 1;
-    transition: opacity 2s ease;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.hero-video-overlay--fade {
-    opacity: 0;
-}
-
 .hero-video video {
-    position: relative;
-    z-index: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -165,8 +146,9 @@ main {
     text-decoration: none;
 }
 .hero-column p, .hero-column h1, .hero-link{
-    text-shadow: 0px 0px 1rem #000;
-    color: #fff;
+    text-shadow: 0px 0px 1rem var(--color-black);
+    letter-spacing: 0.025rem;
+    color: var(--color-white);
 }
 
 @media (max-width: 768px) {
@@ -216,7 +198,7 @@ section.list {
 }
 
 #theatre-welcome h1 a{
-    /* font-size: 2rem; */
+    color: var(--special-color);
     text-decoration: none;
 }
 
@@ -314,8 +296,10 @@ body.theatre-page video {
 .project-info h2 {
     max-width: 40ch;
     font-size: 1.5rem;
-    letter-spacing: -2.5%;
-    margin-block: 5rem;
+    margin-bottom: 5rem;
+    text-transform: none !important;
+    text-wrap: balance;
+    /* letter-spacing: -2.5%; */
     /* font-variation-settings: "slnt" 0, "wght" 450; */
 }
 
@@ -356,7 +340,7 @@ body.theatre-page video {
     flex-direction: column;
     align-items: center;
     padding-block: 50vh;
-    background-color: #000;
+    background-color: var(--color-black);
 }
 
 .solo-project-images img,
@@ -369,21 +353,52 @@ body.theatre-page video {
 
 .projects-navigator {
     margin-top: 50svh;
-    height: 50svh;
     display: flex;
-    margin-inline: 3rem; 
+    margin-inline: 0;
 }
 
-.projects-navigator #next-project, .projects-navigator #prev-project {
-    font-family: "cofo-sans-variable", Helvetica, sans-serif;
+.next-project-panel {
+    width: 50%;
+    margin-left: auto;
+
+    a {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.projects-navigator #next-project {
+    font-family: var(--font-family);
     font-size: 2rem;
     display: flex;
     cursor: pointer;
     text-align: center;
-    transition: all 0.3s var(--transition-timing);
-    height: 100%;
-    width: 50%;
-    align-items: center;
+    color: var(--text-color);
+    background-color: var(--color-transparent);
+    text-decoration: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: var(--special-color-off);
+    transition: color 0.2s var(--transition-timing), background-color 0.2s var(--transition-timing);
+    width: 100%;
+    align-items: end;
+}
+
+.next-project-preview {
+    display: block;
+    text-align: left;
+    text-decoration: none;
+}
+
+.next-project-preview img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-bottom: 0.5rem;
+}
+
+
+.next-project-preview span {
+    display: block;
 }
 
 @media (max-width: 768px) {
@@ -398,11 +413,25 @@ body.theatre-page video {
     .projects-navigator #next-project{
         justify-content: flex-start;
     }
+
+    .next-project-panel {
+        width: 100%;
+    }
 }
 
-#next-project:hover *, #prev-project:hover *{
-    color: var(--special-color);
-    text-decoration: underline var(--special-color) 0.2rem;
+.projects-navigator #next-project:is(:hover, :focus-visible) {
+    color: var(--main-bg);
+    background-color: var(--soft-black);
+}
+
+.projects-navigator #next-project:is(:hover, :focus-visible) * {
+    color: inherit;
+    text-decoration: none;
+}
+
+.projects-navigator #next-project:focus-visible {
+    outline: 0.2rem solid var(--special-color);
+    outline-offset: 0.2rem;
 }
 
 
@@ -416,6 +445,7 @@ body.theatre-page video {
     ================ */
 
 .archive {
+    padding-top: 4rem;
     margin: 1rem;
 }
 
@@ -442,7 +472,7 @@ body.theatre-page video {
 .archive-filters {
     width: 100%;
     border-bottom: 0.1rem solid var(--text-color);
-    transition: all 0.2s var(--transition-timing);
+    transition: color 0.2s var(--transition-timing), background-color 0.2s var(--transition-timing);
     padding: 0 !important;
     /* font-variation-settings: "slnt" 0, "wght" 500; */
 }
@@ -452,7 +482,7 @@ body.theatre-page video {
 }
 
 
-#when {
+.archive-item [data-field="when"] {
     font-style: normal;
     text-transform: uppercase;
     font-variant-numeric: tabular-nums;
@@ -468,7 +498,7 @@ body.theatre-page video {
     position: relative;
     overflow: hidden;
     background: var(--main-bg);
-    transition: all 0.5s var(--transition-timing);
+    transition: color 0.5s var(--transition-timing), background-color 0.5s var(--transition-timing), margin-bottom 0.5s var(--transition-timing), border-color 0.5s var(--transition-timing);
 }
 .archive-item--hidden {
     opacity: 0.25;
@@ -484,7 +514,6 @@ body.theatre-page video {
 .archive-item:hover {
     border-bottom: 2px solid;
     margin-bottom: 2rem;
-    transition: all 0.5s var(--transition-timing);
     color: var(--soft-black);
 }
 
@@ -495,17 +524,18 @@ body.theatre-page video {
     width: calc(100% + 3rem);
     margin-inline: -2rem;
     background-color: var(--soft-black);
-    color: var(--main-bg);
+    color: var(--soft-white);
 }
 
 
 .archive-item.expanded *{
     width: auto;
+    color: var(--soft-white);
     /* gap: 4rem; */
 }
 
 .archive-item.expanded .item-id {
-    color: var(--main-bg);
+    color: var(--soft-white);
     margin-left: 2rem;
     width: 100%
 }
@@ -525,7 +555,7 @@ body.theatre-page video {
 .item-info {
     box-sizing: border-box; 
     /* padding-inline: 1rem; */
-    padding-block: 0.5rem;
+    padding: 0.125rem 0;
     color: inherit;
     width: 100%;
 }
@@ -535,30 +565,88 @@ body.theatre-page video {
 .archive-item a {
     color: var(--text-color);
     width: 100%;
-    background-color: transparent;
+    background-color: var(--color-transparent);
     padding-inline: 1rem;
     padding-block: 0.5rem;
 }
 .archive-item > a:nth-child(2) > div:nth-child(1){
     padding: 0;
 }
-.archive-item a:hover {
-    color: var(--special-color);
+.archive-item .item-id-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    color: inherit;
+    text-decoration: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: var(--special-color-off);
+    transition: color 0.2s var(--transition-timing), background-color 0.2s var(--transition-timing);
+}
+
+.archive-item a.item-id-link::after {
+    content: "\2192";
+    position: static;
+    margin-left: auto;
+    color: inherit;
+    opacity: 1;
+    transform: none;
+}
+
+.archive-item a.item-id-link .item-id {
+    flex: 0 0 auto;
+    width: auto;
+}
+
+.archive-item .item-id-link:is(:hover, :focus-visible) {
+    color: var(--main-bg);
+    background-color: var(--text-color);
+}
+
+.archive-item .item-id-link:is(:hover, :focus-visible) .item-id,
+.archive-item .item-id-link:is(:hover, :focus-visible) .item-id * {
+    color: inherit;
+    background-color: var(--color-transparent);
+}
+
+.archive-item.expanded .item-id-link {
+    color: var(--soft-white);
+}
+
+.archive-item.expanded .item-id-link:is(:hover, :focus-visible) {
+    color: var(--soft-black);
+    background-color: var(--soft-white);
+}
+
+.archive-item.expanded .item-id-link:is(:hover, :focus-visible) .item-id,
+.archive-item.expanded .item-id-link:is(:hover, :focus-visible) .item-id * {
+    color: inherit;
+}
+
+.archive-item .item-id-link:focus-visible,
+.hashtag-button:focus-visible,
+.archive-filters:focus-visible {
+    outline: 0.2rem solid var(--special-color);
+    outline-offset: -0.2rem;
 }
 
 .item-id-link--disabled {
     color: inherit;
     width: 100%;
-    background-color: transparent;
-    padding-inline: 1rem;
-    padding-block: 0.5rem;
+    background-color: var(--color-transparent);
+    padding: 0;
     pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .archive-item .item-id-link {
+        padding: 0.5rem 1rem;
+    }
 }
 
 
 .item-id {
-    /* padding-inline: 1rem; */
-    padding-block: 0.5rem;
+    padding: 0;
     font-style: normal;
     color: inherit;
     width: 100%;
@@ -591,11 +679,11 @@ body.theatre-page video {
     overflow-x: auto;
     padding: 12rem;
     scrollbar-width: none; 
-    pointer-events: touch;
+    pointer-events: auto;
     width: 100%;
-    background-color: #000;
+    background-color: var(--color-black);
     color: var(--main-bg);
-    transition: all 0.6s var(--transition-timing);
+    transition: color 0.6s var(--transition-timing), background-color 0.6s var(--transition-timing);
 }
 
 @media (max-width: 768px) {
@@ -640,11 +728,7 @@ body.theatre-page video {
 /* hide columns in mobile view */
 @media (max-width: 768px) {
     .archive-headers #filter-what,
-    .archive-headers button:nth-child(1), /* index button */
-    .archive-item .item-info#what,
-    .archive-item .item-info#id, 
-    .archive-item .item-id,
-    .archive-item .item-id-link {
+    .archive-item .item-info[data-field="what"] {
         display: none;
     }
 }
@@ -670,7 +754,6 @@ body.theatre-page video {
 
 
 .hashtag-container {
-    margin-top: 4rem;
     margin-bottom: 2rem;
     padding: 0rem;
 }
@@ -679,10 +762,6 @@ body.theatre-page video {
     margin-top: 4rem;
 }
 
-
-#hashtag-reset:hover {
-    background-color: var(--special-color);
-}
 
 .hashtag-pool {
     margin: 1rem;
@@ -708,10 +787,25 @@ body.theatre-page video {
     /* padding: 0.25rem 1rem; */
     overflow: hidden;
     /* margin-bottom: 0.25rem; */
-    border: var(--border-def);
+    border: 0;
+    background-color: var(--color-transparent);
+    color: inherit;
+    cursor: default;
+    break-inside: avoid;
+}
+
+.hashtag-button {
+    display: block;
+    width: 100%;
+    padding: 0.125rem 0;
+    border: 0;
     background-color: var(--main-bg);
     color: var(--text-color);
     cursor: pointer;
+    text-align: left;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: var(--special-color-off);
+    transition: color 0.2s var(--transition-timing), background-color 0.2s var(--transition-timing);
 }
 
 @media (max-width: 768px) {
@@ -719,30 +813,44 @@ body.theatre-page video {
         padding-block: 1rem;
     }
     
-    .hashtag {
+    .hashtag-button {
         padding: 0.5rem 1rem;
+        min-height: 2.75rem;
         height: auto;
     }
 }
 
-.hashtag-pool .hashtag:hover {
+.hashtag-pool .hashtag-button:is(:hover, :focus-visible),
+.hashtag.selected .hashtag-button {
     font-style: normal;
-    /* font-variation-settings: "slnt" 0, "wght" 600; */
     background-color: var(--text-color);
     color: var(--main-bg);
 }
 
-.hashtag.selected {
-    background-color: var(--text-color);
-    color: var(--main-bg);
-    letter-spacing: normal;
-    /* font-variation-settings: "wght" 500; */
+.hashtag--reset .hashtag-button:is(:hover, :focus-visible) {
+    background-color: var(--special-color);
+    color: var(--soft-white);
 }
 
-.hashtag.selected:hover {
-    /* font-variation-settings: "wght" 500; */
-    letter-spacing: normal;
-    background-color: var(--text-color);
+@media (prefers-reduced-motion: reduce) {
+    .archive-item,
+    .archive-filters,
+    .archive-item .item-id-link,
+    .archive-item a.item-id-link::after,
+    .hashtag-button,
+    .projects-navigator #next-project,
+    #design-brief p,
+    #dev-brief p,
+    #home-sticky a,
+    a.extr-link,
+    .extr-link > a {
+        animation: none;
+        transition-duration: 0.01ms;
+    }
+
+    .blinking {
+        animation: none;
+    }
 }
 
 /* ============================================ */
@@ -817,8 +925,26 @@ body.theatre-page video {
 }
 
 .extr-link:hover {
-    color: #fff;
+    color: var(--color-white);
     background-color: var(--special-color);
+}
+
+a.extr-link,
+.extr-link > a {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: var(--special-color-off);
+}
+
+a.extr-link:is(:hover, :focus-visible),
+.extr-link > a:is(:hover, :focus-visible) {
+    color: var(--soft-white);
+    background-color: var(--special-color);
+}
+
+a.extr-link:focus-visible,
+.extr-link > a:focus-visible {
+    outline: 0.2rem solid var(--special-color);
+    outline-offset: 0.2rem;
 }
 
 .links {
@@ -851,19 +977,11 @@ body.theatre-page video {
     ================ */
 
 body.theatre-page #menu-icon .stripe {
-    background-color: #fff;
+    background-color: var(--color-white);
 }
-
-body.theatre-page nav * {
-    color: #fff;
-}
-body.theatre-page header nav#nav-menu.open div.nav-links-container a:hover{
-    color: var(--special-color);
-}
-
 
 .random-gallery {
-    background-color: #000;
+    background-color: var(--color-black);
     height: 100svh;
     width: 100%;
     overflow-y: scroll;
@@ -943,8 +1061,8 @@ body.theatre-page header nav#nav-menu.open div.nav-links-container a:hover{
 }
 
 .text-columns * {
-    color: #fff;
-    /* outline: 1px white solid; */
+    color: var(--color-white);
+    /* outline: 1px solid var(--color-white); */
 }
 
 .text-columns > div {
@@ -974,8 +1092,8 @@ body.theatre-page header nav#nav-menu.open div.nav-links-container a:hover{
 }
 
 div#gallery-info a#brand{
-    color: #fff; /* needed cuz otherwise weird display */
-    font-family: "cofo-sans-variable", Helvetica, sans-serif;
+    color: var(--color-white); /* Explicit override needed for the gallery link. */
+    font-family: var(--font-family);
     /* font-variation-settings: inherit; */
     pointer-events: all;
     padding: 0;
@@ -983,7 +1101,7 @@ div#gallery-info a#brand{
 
 
 #gallery-counter-container {
-    font-family: "cofo-sans-variable", Helvetica, sans-serif;
+    font-family: var(--font-family);
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.2rem;
     font-style: normal;
@@ -1054,7 +1172,7 @@ div#gallery-info a#brand{
     position: absolute;
     z-index: 10002;
     color: var(--text-color);
-    font-family: "cofo-sans-variable", Helvetica, sans-serif;
+    font-family: var(--font-family);
     /* font-variation-settings: "slnt" 0, "wght" 400; */
     font-size: 3rem;
     font-variant-numeric: tabular-nums;

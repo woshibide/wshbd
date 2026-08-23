@@ -467,6 +467,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function loadDefaultSketch(container, curtain, leftCurtain, rightCurtain, loadingPercentage) {
         debugLog(`Loading default fallback sketch for container: ${container.id}`);
 
+        const rootStyles = getComputedStyle(document.documentElement);
+        const siteColor = (token) => rootStyles.getPropertyValue(token).trim();
+        const fallbackCanvasColor = siteColor('--color-fallback-canvas');
+        const fallbackCanvasTrailColor = siteColor('--color-fallback-canvas-trail');
+        const fallbackCanvasTextColor = siteColor('--color-fallback-canvas-text');
+
         const sketch = new p5(function(p) {
             
             // dvd stuff
@@ -481,7 +487,7 @@ document.addEventListener('DOMContentLoaded', function() {
             p.setup = function() {
                 const canvas = p.createCanvas(container.clientWidth, container.clientHeight);
                 canvas.parent(container.querySelector('.canvas-wrapper'));
-                p.background(0);
+                p.background(fallbackCanvasColor);
                 
                 // initialize position to center
                 x = p.width / 2 - dvdWidth / 2;
@@ -498,14 +504,14 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             
             p.draw = function() {
-                p.background(20, 20);
+                p.background(fallbackCanvasTrailColor);
                 
                 // draw dvd
                 p.fill(textColor);
                 p.noStroke();
                 p.rect(x, y, dvdWidth, dvdHeight);
                 
-                p.fill(0);
+                p.fill(fallbackCanvasTextColor);
                 p.text("something went wrong...", x + dvdWidth/2, y + dvdHeight/2 - 10);
                 p.text("but at least dvd thingy is here flying", x + dvdWidth/2, y + dvdHeight/2 + 10);
                 p.text("maybe see next one and comeback here later", x + dvdWidth/2, y + dvdHeight/2 + 30);

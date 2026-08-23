@@ -42,10 +42,12 @@ function generateHashtagPoolHTML(hashtags) {
     <section class="hashtag-container archive-areas" aria-labelledby="archive-areas-title">
         <h2 id="archive-areas-title" class="archive-section-title">Areas</h2>
         <ul class="hashtag-pool">
-            <li class="hashtag" id="hashtag-reset" data-tag="reset">scope:~# clear</li>`;
+            <li class="hashtag hashtag--reset" id="hashtag-reset" data-tag="reset">
+                <button class="hashtag-button" type="button">scope:~# clear</button>
+            </li>`;
 
     hashtags.forEach(tag => {
-        html += `<li class="hashtag" data-tag="${tag}">${tag}</li>`;
+        html += `<li class="hashtag" data-tag="${tag}"><button class="hashtag-button" type="button" aria-pressed="false">${tag}</button></li>`;
     });
 
     html += `
@@ -60,6 +62,7 @@ function generateHashtagPoolHTML(hashtags) {
 function generateArchiveItemsHTML(projects) {
     let html = '';
     projectCount = 0;
+    const seenProjectIds = new Map();
     projects.forEach(project => {
         projectCount += 1;
 
@@ -76,19 +79,22 @@ function generateArchiveItemsHTML(projects) {
 
         const idLetter = project.id.match(/[A-Za-z]+/)[0];
         const idNumber = project.id.match(/\d+/)[0];
+        const idOccurrence = (seenProjectIds.get(project.id) || 0) + 1;
+        const domId = idOccurrence === 1 ? project.id : `${project.id}-${idOccurrence}`;
+        seenProjectIds.set(project.id, idOccurrence);
 
 
         const archiveItem = `
-<div class="archive-item${isShown ? '' : ' archive-item--hidden'}" id="${project.id}" data-shown="${isShown}" aria-disabled="${isShown ? 'false' : 'true'}">
-    ${isShown ? `<a class="item-id-link" href="./${project.id}/">` : `<div class="item-id-link item-id-link--disabled">`}
-        <div class="item-id" id="id">
+<div class="archive-item${isShown ? '' : ' archive-item--hidden'}" id="${domId}" data-project-id="${project.id}" data-shown="${isShown}" aria-disabled="${isShown ? 'false' : 'true'}">
+    ${isShown ? `<a class="item-id-link" href="./${project.id}/" aria-label="Open project ${project.id}">` : `<div class="item-id-link item-id-link--disabled">`}
+        <div class="item-id" data-field="id">
             <div class="id-letter">${idLetter}</div>
             <div class="id-number">${idNumber}</div>
         </div>
     ${isShown ? `</a>` : `</div>`}
-    <div class="item-info" id="who">${project.brand}</div>
-    <div class="item-info" id="what">${project.title}</div>
-    <div class="item-info" id="when">${project.date}</div>
+    <div class="item-info" data-field="who">${project.brand}</div>
+    <div class="item-info" data-field="what">${project.title}</div>
+    <div class="item-info" data-field="when">${project.date}</div>
     ${hashtagsDiv}
     ${isShown ? `<div class="image-container"></div>` : ''}
 </div>

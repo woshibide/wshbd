@@ -40,89 +40,9 @@ console.log(`
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     `)
 
-function setupHeroVideoPlayback() {
-    const heroVideo = document.querySelector('#hero .hero-video video');
-    const heroOverlay = document.querySelector('#hero .hero-video-overlay');
-    if (!heroVideo) {
-        return;
-    }
-
-    let overlayFaded = false;
-
-    const fadeHeroOverlay = () => {
-        if (!heroOverlay || overlayFaded) {
-            return;
-        }
-
-        overlayFaded = true;
-        requestAnimationFrame(() => {
-            heroOverlay.classList.add('hero-video-overlay--fade');
-        });
-    };
-
-    const isBufferedToHalf = () => {
-        if (!heroVideo.duration || heroVideo.buffered.length === 0) {
-            return false;
-        }
-
-        const bufferedEnd = heroVideo.buffered.end(heroVideo.buffered.length - 1);
-        return bufferedEnd / heroVideo.duration >= 0.5;
-    };
-
-    const tryPlay = () => {
-        if (!isBufferedToHalf()) {
-            return Promise.resolve(false);
-        }
-
-        return heroVideo.play();
-    };
-
-    // retry playback on any direct user interaction
-    const playOnInteraction = () => {
-        tryPlay().then(() => {
-            if (isBufferedToHalf()) {
-                fadeHeroOverlay();
-                heroVideo.controls = false;
-            }
-        }).catch(() => {
-            heroVideo.controls = true;
-        });
-    };
-
-    const playWhenReady = () => {
-        tryPlay().then((didPlay) => {
-            if (didPlay === false) {
-                return;
-            }
-
-            fadeHeroOverlay();
-            heroVideo.controls = false;
-        }).catch(() => {
-            // keep controls hidden unless autoplay is blocked
-            heroVideo.controls = true;
-        });
-    };
-
-    heroVideo.addEventListener('click', playOnInteraction);
-    heroVideo.addEventListener('touchstart', playOnInteraction, { passive: true });
-    heroVideo.addEventListener('keydown', (event) => {
-        if (event.code === 'Space' || event.code === 'Enter') {
-            event.preventDefault();
-            playOnInteraction();
-        }
-    });
-
-    heroVideo.addEventListener('loadedmetadata', playWhenReady);
-    heroVideo.addEventListener('progress', playWhenReady);
-    heroVideo.addEventListener('canplay', playWhenReady);
-
-    playWhenReady();
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     initImageLoadIndicators();
-    setupHeroVideoPlayback();
-    
+
     const savedTheme = localStorage.getItem('theme');
     
     if (savedTheme === 'dark') {
@@ -140,19 +60,20 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(updateTime, 1000); // update every second
     }
 
-    const prevProjectButton = document.getElementById('prev-project');
-    if (prevProjectButton) { 
-        prevProjectButton.addEventListener('click', function() {
-            const prevProjectId = this.getAttribute('data-prev-id');
-            navigateToProject(prevProjectId);
-        });
-    }
-
     const nextProjectButton = document.getElementById('next-project');
-    if (nextProjectButton) { 
-        nextProjectButton.addEventListener('click', function() {
+    if (nextProjectButton) {
+        const openNextProject = function() {
             const nextProjectId = this.getAttribute('data-next-id');
             navigateToProject(nextProjectId);
+        };
+
+        nextProjectButton.tabIndex = 0;
+        nextProjectButton.setAttribute('role', 'link');
+        nextProjectButton.addEventListener('click', openNextProject);
+        nextProjectButton.addEventListener('keydown', function(event) {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            event.preventDefault();
+            openNextProject.call(this);
         });
     }
 
