@@ -299,12 +299,10 @@ body.theatre-page video {
     margin-bottom: 5rem;
     text-transform: none !important;
     text-wrap: balance;
-    /* letter-spacing: -2.5%; */
-    /* font-variation-settings: "slnt" 0, "wght" 450; */
 }
 
 .project-info * p {
-    /* margin-inline: 2rem; */
+    font-size: 1.5rem;
     max-width: 60ch;
 }
 
