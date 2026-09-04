@@ -472,7 +472,7 @@ video::-webkit-media-controls {
     position: absolute;
     z-index: 12;
     color: var(--text-color);
-    font-family: var(--font-family);
+    font-family: var(--font-readme);
     font-size: 2rem;
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.05rem;

@@ -366,7 +366,7 @@ body.theatre-page video {
 }
 
 .projects-navigator #next-project {
-    font-family: var(--font-family);
+    font-family: var(--font-readme);
     font-size: 2rem;
     display: flex;
     cursor: pointer;
@@ -1091,7 +1091,7 @@ body.theatre-page #menu-icon .stripe {
 
 div#gallery-info a#brand{
     color: var(--color-white); /* Explicit override needed for the gallery link. */
-    font-family: var(--font-family);
+    font-family: var(--font-readme);
     /* font-variation-settings: inherit; */
     pointer-events: all;
     padding: 0;
@@ -1099,7 +1099,7 @@ div#gallery-info a#brand{
 
 
 #gallery-counter-container {
-    font-family: var(--font-family);
+    font-family: var(--font-readme);
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.2rem;
     font-style: normal;
@@ -1170,7 +1170,7 @@ div#gallery-info a#brand{
     position: absolute;
     z-index: 10002;
     color: var(--text-color);
-    font-family: var(--font-family);
+    font-family: var(--font-readme);
     /* font-variation-settings: "slnt" 0, "wght" 400; */
     font-size: 3rem;
     font-variant-numeric: tabular-nums;

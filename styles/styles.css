@@ -1,8 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Cossette+Titre&display=swap");
+
 @font-face {
     font-family: "Inter Tight";
-    src: url("/content/misc/InterTight-Bold.ttf") format("truetype");
+    src: url("/content/misc/InterTight-SemiBold.ttf") format("truetype");
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Cossette";
+    src: url("/content/misc/CossetteTitre-Bold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 600;
     font-display: swap;
 }
 
@@ -20,8 +30,9 @@ html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}h1{font-size:2
 :root {
     vertical-align: baseline;
 
-    --font-family: "Inter Tight", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --font-family-mono: "Necto Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    --font-readme: "Inter Tight", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-display: "Cossette Titre", "Inter Tight", system-ui, sans-serif;
+    --font-mono: "Necto Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
     /*
      * Palette primitives. Keep literal color values in this block only;
@@ -105,15 +116,15 @@ html {
     scroll-behavior: auto;
     scrollbar-width: none;
 
-    font-family: var(--font-family);
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-weight: 600;
 }
 
 pre,
 code,
 kbd,
 samp {
-    font-family: var(--font-family-mono);
+    font-family: var(--font-mono);
 }
 
 @media (min-width: 1600px) {
@@ -201,11 +212,11 @@ header {
     margin-inline: 1rem;
     justify-content: center;
     align-items: center;
+    font-family: var(--font-display);
 }
 
 
 nav * {
-    font-family: var(--font-family);
     color: var(--text-color);
 }
 
@@ -247,7 +258,7 @@ header #home-sticky{
     gap: 0.125rem;
     top: 1rem;
     width: 25%;
-    font-family: var(--font-family);
+    /* font-family: var(--font-readme); */
     z-index: 1001;
     right: 0;
     color: var(--text-color);
@@ -366,6 +377,7 @@ body.project-page header #home-sticky{
 
 .nav-hello {
     font-size: 1.5rem;
+    font-family: var(--font-readme);
     padding: 1rem;
     text-align: left;
     text-wrap: balance;
@@ -420,6 +432,7 @@ body.project-page header #home-sticky{
 }
 
 .nav-links-container * {
+    font-family: var(--font-display);
     display: inline-block;
     text-decoration: none;
 }
@@ -538,13 +551,10 @@ footer {
 
 
 .footer-columns h4 {
-    font-family: var(--font-family);
+    font-family: var(--font-display);
     font-style: normal;
     border-bottom: var(--border-def);
     margin-bottom: 2rem;
-}
-
-.footer-columns p {
 }
 
 .footer-columns>div {
@@ -764,7 +774,7 @@ ol {
 
 h1 {
     /* font-size: 5.5em; */
-    font-family: var(--font-family);
+    /* font-family: var(--font-readme); */
     /* font-variation-settings: "slnt" 0, "wght" 100; */
     /* font-weight: 200; */
     /* letter-spacing: -5%; */
@@ -782,7 +792,7 @@ h2 {
     /* font-weight: 500; */
     /* font-variation-settings: "slnt" 0, "wght" 350; */
     /* letter-spacing: -3%; */
-    font-family: var(--font-family);
+    /* font-family: var(--font-readme); */
     font-style: normal;
     color: var(--text-color);
 }
@@ -795,34 +805,34 @@ h2 {
 
 
 h3 {
-    font-family: var(--font-family);
-    font-style: normal;
+    /* font-family: var(--font-readme); */
     /* font-weight: 450; */
     /* font-variation-settings: "slnt" 0, "wght" 450; */
+    font-style: normal;
     letter-spacing: normal;
     color: var(--text-color);
 }
 
 h4 {
-    font-family: var(--font-family);
-    font-style: normal;
+    /* font-family: var(--font-readme); */
     /* font-weight: 400; */
     /* font-variation-settings: "slnt" 0, "wght" 400; */
+    font-style: normal;
     letter-spacing: normal;
 }
 
 
 h5,
 h6 {
-    color: var(--text-color);
-    font-family: var(--font-family);
     /* font-weight: 200; */
+    color: var(--text-color);
+    /* font-family: var(--font-readme); */
     font-style: normal;
 
 }
 
 p {
-    font-family: var(--font-family);
+    font-family: var(--font-readme);
     text-align: justify;
     text-justify: auto;
     font-style: normal;
@@ -947,6 +957,8 @@ a{
     #gallery-info #date,
     #gallery-counter
 ) {
+    /* font-family: var(--font-readme); */
+    font-weight: 400;
     text-transform: uppercase;
 }
 
@@ -958,5 +970,7 @@ button {
 /* Client names are the one metadata field kept in their natural casing. */
 .archive-item .item-info[data-field="who"],
 .project-info-columns > div:first-child h2 {
+    /* font-family: var(--font-readme); */
+    font-weight: 600;
     text-transform: none;
 }
