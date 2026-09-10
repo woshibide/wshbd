@@ -118,7 +118,8 @@ main {
 }
 
 .hero-column h1{
-    /* font-size: 1rem; */
+    font-size: inherit;
+    font-family: var(--font-readme);
     margin: 0;
 }
 
@@ -146,7 +147,7 @@ main {
     text-decoration: none;
 }
 .hero-column p, .hero-column h1, .hero-link{
-    text-shadow: 0px 0px 1rem var(--color-black);
+    text-shadow: 0px 0px 2rem #00000080;
     letter-spacing: 0.025rem;
     color: var(--color-white);
 }
@@ -488,6 +489,7 @@ body.theatre-page video {
 
 
 .archive-item {
+    --archive-hover-gap: 2rem;
     cursor: pointer;
     gap: 1rem;
     display: flex;
@@ -511,12 +513,26 @@ body.theatre-page video {
 }
 .archive-item:hover {
     border-bottom: 2px solid;
-    margin-bottom: 2rem;
+    margin-bottom: var(--archive-hover-gap);
     color: var(--soft-black);
+}
+
+/* Keep the hover gap interactive while the preceding row's gap collapses. */
+.archive-item:not(.expanded):hover {
+    overflow: visible;
+    z-index: 1;
+}
+
+.archive-item:not(.expanded):hover::before {
+    content: "";
+    position: absolute;
+    inset: 100% 0 auto;
+    height: calc(var(--archive-hover-gap) + 2px);
 }
 
 
 .archive-item.expanded {
+    align-items: baseline;
     height: 110vh;
     background-image: none;
     width: calc(100% + 3rem);
@@ -608,17 +624,27 @@ body.theatre-page video {
 }
 
 .archive-item.expanded .item-id-link {
-    color: var(--soft-white);
-}
-
-.archive-item.expanded .item-id-link:is(:hover, :focus-visible) {
+    flex: 0 0 auto;
+    min-height: 2rem;
+    gap: 1rem;
+    padding: 0 1rem 0 2rem;
     color: var(--soft-black);
     background-color: var(--soft-white);
 }
 
-.archive-item.expanded .item-id-link:is(:hover, :focus-visible) .item-id,
-.archive-item.expanded .item-id-link:is(:hover, :focus-visible) .item-id * {
+.archive-item.expanded .item-id-link:is(:hover, :focus-visible) {
+    color: var(--soft-white);
+    background-color: var(--soft-black);
+}
+
+.archive-item.expanded .item-id-link .item-id {
+    margin-left: 0;
+}
+
+.archive-item.expanded .item-id-link .item-id,
+.archive-item.expanded .item-id-link .item-id * {
     color: inherit;
+    background-color: var(--color-transparent);
 }
 
 .archive-item .item-id-link:focus-visible,
