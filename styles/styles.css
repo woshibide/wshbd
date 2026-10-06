@@ -234,6 +234,10 @@ nav #contact {
         width: auto;
     }
 
+    header:has(#hero) {
+        margin-top: 0;
+    }
+
     .nav-links-container {
         padding-top: 2rem;
     }
@@ -964,13 +968,4 @@ a{
 /* Override the normalize rule that explicitly resets button casing. */
 button {
     text-transform: uppercase;
-}
-
-/* Client names are the one metadata field kept in their natural casing. */
-.archive-item .item-info[data-field="who"],
-.project-info-columns > div:first-child h2 {
-    /* font-family: var(--font-readme); */
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: none;
 }
