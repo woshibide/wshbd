@@ -151,9 +151,9 @@ function extractMetaData(content, filePath) {
     const metaData = {
         title: 'this is pyotr',
         keywords: 'design, creative coding, web design, editorial design',
-        description: 'portfolio of a creative technologist Pyotr Goloub',
+        description: 'computational desginer. he uses programming to design',
         ogTitle: 'works by Pyotr Goloub',
-        ogDescription: 'portfolio of a creative technologist Pyotr Goloub',
+        ogDescription: 'computational desginer. he uses programming to design',
         ogUrl: 'https://its-pyotr.com/' // base URL with domain
     };
 
