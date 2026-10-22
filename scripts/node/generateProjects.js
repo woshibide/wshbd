@@ -78,12 +78,13 @@ function createHtmlContent(project, mediaFiles, nextProject, nextProjectPreview)
     <section>
         <div class="projects-navigator">
             <div class="next-project-panel">
-                <div id="next-project" data-next-id="${nextProject.id}">
-                    <span>NEXT PROJECT</span>
-                </div>
-                <a class="next-project-preview" href="/archive/${nextProject.id}/" aria-label="Next project: ${nextProject.title}">
+                <a id="next-project" class="next-project-preview" href="/archive/${nextProject.id}/" aria-label="Next project: ${nextProject.title}">
+                    <span class="next-project-label">NEXT PROJECT</span>
                     <img src="/content/projects/${nextProject.id}/${nextProjectPreview}" alt="${nextProject.title}">
-                    <span>${nextProject.title}, ${nextProject.date}</span>
+                    <div class="next-project-caption">
+                        <span class="next-project-title">${nextProject.title}</span>
+                        <span class="next-project-date">${nextProject.date}</span>
+                    </div>
                 </a>
             </div>
         </div>

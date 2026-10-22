@@ -189,7 +189,7 @@ function createMediaNode(mediaItem, mediaList, mediaIndex, projectTitle) {
 
 function updateMediaCounter(currentIndex, totalMedia, counterElement) {
     if (!counterElement) return
-    counterElement.textContent = `[${currentIndex + 1}/${totalMedia}]`
+    counterElement.textContent = `IMAGE ${currentIndex + 1} OUT OF ${totalMedia}`
 }
 
 function replaceProjectMedia(section, mediaList, mediaIndex) {

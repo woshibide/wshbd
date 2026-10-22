@@ -41,8 +41,8 @@ async function buildPortfolio() {
     // step 4: generate pages
     runScript('generateProjects.js');
     runScript('generateErrorPages.js');
-    runScript('generateIndex.js');
     runScript('generateArchive.js');
+    runScript('generateIndex.js');
     runScript('generateTheatre.js');
     // runScript('generateVideoTests.js');
 

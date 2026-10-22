@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const archivePath = path.join(__dirname, '../../content/info/archive.json');
+const mediaMapPath = path.join(__dirname, '../../content/info/media-map.json');
 const templatePath = path.join(__dirname, './templates/archive_template.html');
 const outputPath = path.join(__dirname, '../../archive/index.html');
 
@@ -15,6 +16,39 @@ function readJSON(filePath) {
         console.error(`Error reading JSON from ${filePath}:`, error);
         return null;
     }
+}
+
+function escapeAttribute(value) {
+    return String(value).replace(/[&"<>]/g, character => ({
+        '&': '&amp;',
+        '"': '&quot;',
+        '<': '&lt;',
+        '>': '&gt;'
+    })[character]);
+}
+
+function generateMediaHTML(projectId, mediaFiles) {
+    return mediaFiles.map(fileName => {
+        const source = fileName.startsWith('/')
+            ? fileName
+            : `/content/projects/${projectId}/${fileName}`;
+        const safeSource = escapeAttribute(source);
+        const safeProjectId = escapeAttribute(projectId);
+
+        if (/\.(mp4|webm|mov|m4v|ogv)$/i.test(fileName)) {
+            const mimeType = {
+                mp4: 'video/mp4',
+                webm: 'video/webm',
+                mov: 'video/quicktime',
+                m4v: 'video/mp4',
+                ogv: 'video/ogg'
+            }[fileName.split('.').pop().toLowerCase()];
+
+            return `<video class="archive-media-item archive-media-video" autoplay muted loop playsinline controls preload="none"><source src="${safeSource}" type="${mimeType}"></video>`;
+        }
+
+        return `<img class="archive-media-item" src="${safeSource}" alt="${safeProjectId}" loading="eager" decoding="async">`;
+    }).join('');
 }
 
 // Function to extract unique hashtags
@@ -59,7 +93,7 @@ function generateHashtagPoolHTML(hashtags) {
 }
 
 // Function to generate archive items HTML
-function generateArchiveItemsHTML(projects) {
+function generateArchiveItemsHTML(projects, mediaMap) {
     let html = '';
     projectCount = 0;
     const seenProjectIds = new Map();
@@ -83,21 +117,28 @@ function generateArchiveItemsHTML(projects) {
         const domId = idOccurrence === 1 ? project.id : `${project.id}-${idOccurrence}`;
         seenProjectIds.set(project.id, idOccurrence);
 
+        const mediaFiles = mediaMap[project.id] || ['/content/misc/non-image.svg'];
+        const mediaHTML = generateMediaHTML(project.id, mediaFiles);
+
 
         const archiveItem = `
-<div class="archive-item${isShown ? '' : ' archive-item--hidden'}" id="${domId}" data-project-id="${project.id}" data-shown="${isShown}" aria-disabled="${isShown ? 'false' : 'true'}">
-    ${isShown ? `<a class="item-id-link" href="./${project.id}/" aria-label="Open project ${project.id}">` : `<div class="item-id-link item-id-link--disabled">`}
-        <div class="item-id" data-field="id">
-            <div class="id-letter">${idLetter}</div>
-            <div class="id-number">${idNumber}</div>
-        </div>
-    ${isShown ? `</a>` : `</div>`}
-    <div class="item-info" data-field="who">${project.brand}</div>
-    <div class="item-info" data-field="what">${project.title}</div>
-    <div class="item-info" data-field="when">${project.date}</div>
+<details class="archive-item${isShown ? '' : ' archive-item--hidden'}" id="${domId}" data-project-id="${project.id}" data-shown="${isShown}" aria-disabled="${isShown ? 'false' : 'true'}"${isShown ? '' : ' inert'}>
+    <summary class="archive-summary">
+      <span class="archive-summary-content">
+    ${isShown ? `<a class="item-id-link" href="./${project.id}/" aria-label="Open project ${project.id}">` : `<span class="item-id-link item-id-link--disabled">`}
+        <span class="item-id" data-field="id">
+            <span class="id-letter">${idLetter}</span>
+            <span class="id-number">${idNumber}</span>
+        </span>
+    ${isShown ? `</a>` : `</span>`}
+    <span class="item-info" data-field="who">${project.brand}</span>
+    <span class="item-info" data-field="what">${project.title}</span>
+    <span class="item-info" data-field="when">${project.date}</span>
+      </span>
+      <span class="image-container">${mediaHTML}</span>
+    </summary>
     ${hashtagsDiv}
-    ${isShown ? `<div class="image-container"></div>` : ''}
-</div>
+</details>
 `;
 
 
@@ -111,7 +152,8 @@ function generateArchiveItemsHTML(projects) {
 function generateArchive() {
     // Read data
     const archiveData = readJSON(archivePath);
-    if (!archiveData) {
+    const mediaMap = readJSON(mediaMapPath);
+    if (!archiveData || !mediaMap) {
         console.error('Error reading archive data. Aborting.');
         return;
     }
@@ -121,7 +163,7 @@ function generateArchive() {
     const uniqueHashtags = extractUniqueHashtags(allProjects);
 
     const hashtagPoolHTML = generateHashtagPoolHTML(uniqueHashtags);
-    const archiveItemsHTML = generateArchiveItemsHTML(allProjects);
+    const archiveItemsHTML = generateArchiveItemsHTML(allProjects, mediaMap);
 
     let templateContent = fs.readFileSync(templatePath, 'utf8');
 

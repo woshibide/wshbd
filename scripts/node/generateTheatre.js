@@ -73,13 +73,11 @@ try {
                 <div class="text-columns">
                     <div id="gallery-info">
                         <a id="brand" href="/archive/${project.id}">${project.brand}</a>
-                        <p id="title">${project.title}</p>
-                        <p id="date">${project.date}</p>
-                    </div>
-                    <div class="empty-column"></div>
-                    <div class="empty-column"></div>
-                    <div id="gallery-counter-container">
-                        <p id="gallery-counter">[1/${mediaList.length}]</p>
+                        <div class="gallery-info-details">
+                            <p id="title">${project.title}</p>
+                            <p id="gallery-counter">IMAGE 1 OUT OF ${mediaList.length}</p>
+                            <p id="date">${project.date}</p>
+                        </div>
                     </div>
                 </div>
             </div>

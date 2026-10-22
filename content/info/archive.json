@@ -40,7 +40,7 @@
       "date": "2023 Jun",
       "description": "Think of it as a rebellion in fabric form. Fashion doesn’t just sit here—it erupts, like sound given shape. There’s no neatness, no order, just a raw collision of ideas that challenge you to see clothes as something more than what you wear. It’s not about trends or statements; it’s about the chaos that’s left behind when art and fashion collide at full force",
       "brand": "Karl Yoon",
-      "title": "Photo-book",
+      "title": "Book",
       "intro": "A magazine showcasing Karl's fashion collection",
       "hashtags": "editorial, book"
     },
@@ -75,7 +75,7 @@
       "brand": "sizl",
       "title": "Visual Identity",
       "intro": "A sleek visual identity for a luxury dark kitchen startup",
-      "hashtags": "identity, ux/ui, apparel"
+      "hashtags": "identity, experience, apparel"
     },
     {
       "shown": true,
@@ -86,7 +86,7 @@
       "brand": "Michel de Montaigne",
       "title": "Website",
       "intro": "A non-linear web experience for classical text \"Les Essais\"",
-      "hashtags": "front end, ux/ui, web design"
+      "hashtags": "front end, experience, web design"
     },
     {
       "shown": true,
@@ -95,7 +95,7 @@
       "date": "2024 Feb",
       "description": "Browsing through the Metropolitan Museum’s collection is now as sleek as it is inspiring. This web app strips away the clutter, letting the art take center stage. Designed with creatives in mind, each piece is displayed against a clean, minimalist backdrop that lets you explore without distraction",
       "brand": "MET Museum",
-      "title": "Web App",
+      "title": "Website",
       "intro": "A better way to browse through MET museum collection",
       "hashtags": "nuxt, web app, back end, web design, development"
     },
@@ -117,7 +117,7 @@
       "date": "2024 Jul",
       "description": "For Leiden University’s 450th anniversary, the logo animation brings its history to life. It flows between centuries, effortlessly blending the past and the future in a visual rhythm that mirrors the university’s journey. More than a static symbol, it captures a sense of movement, showing that even after 450 years, this institution is anything but stuck in time",
       "brand": "Leiden University",
-      "title": "Motion Design",
+      "title": "Motion",
       "intro": "A logo animation celebrating 450 years of Leiden University",
       "hashtags": "motion"
     },
@@ -127,7 +127,7 @@
       "id": "M02",
       "date": "2023 Dec",
       "description": "A splash screen that’s less of a screen and more of an explosion of visuals. Noisy, bold, and unapologetically loud, this motion introduces viewers to a world where aesthetics are meant to be felt, not just seen. With p5js as the engine, the result is an intro that sets the tone—disorienting, gripping, and impossible to ignore. Think of it as the opening act that makes you sit up and take notice",
-      "brand": "russen-geist-gewissen-schaft",
+      "brand": "russengeistgewissenschaft",
       "title": "Motion",
       "intro": "A bold splash screen, powered by p5js, for a visual identity",
       "hashtags": "p5js, motion"
@@ -139,9 +139,9 @@
       "date": "2022 Oct",
       "description": "The Rewire Festival proposal takes typography and lets it run wild. No images, just letters doing what they do best—making noise, creating chaos, and somehow still staying in sync with the festival’s eclectic spirit. The design feels like a visual manifestation of experimental sound, with text that’s always on the edge of breaking free from the page. It’s as avant-garde as the festival itself, and twice as daring",
       "brand": "Rewire",
-      "title": "Flyers",
+      "title": "Posters",
       "intro": "A typography-driven editorial proposal for Rewire festival",
-      "hashtags": "editorial"
+      "hashtags": "posters, editorial"
     },
     {
       "shown": true,
@@ -218,7 +218,7 @@
       "brand": "≥working_title",
       "title": "Visual Identity",
       "intro": "An identity for film festival",
-      "hashtags": "identity, ux/ui, web design, front end, stable diffusion, generative graphics"
+      "hashtags": "identity, experience, web design, front end, stable diffusion, generative graphics"
     },
     {
       "shown": true,
@@ -270,7 +270,7 @@
       "id": "A085",
       "date": "2022 Feb",
       "description": "Giraffe. It’s pink. It’s long. It’s funny. But what does it all mean? That’s for the viewer to decide, of course. Sometimes, a giraffe is just a giraffe—unless it’s more than that",
-      "brand": "Self Initiated",
+      "brand": "Propaganda",
       "title": "Poster",
       "intro": "GOLDEN BEE 2024 biennale participant",
       "hashtags": "poster"
@@ -281,8 +281,8 @@
       "id": "A224",
       "date": "2024 Mar",
       "description": "Generative art that pushes the boundaries of form and function. This project delves into the aesthetic of engineering drawings, playing with the tension between mathematical precision and chaotic beauty. Blobs of structure and fluidity come together, challenging the viewer’s expectations and creating a dialogue between control and randomness",
-      "brand": "Self Initiated",
-      "title": "Poster series",
+      "brand": "Propaganda",
+      "title": "poster",
       "intro": "An exploration of generative composition, blending structure and chaos",
       "hashtags": "poster, p5js, riso, generative graphics"
     },
@@ -292,8 +292,8 @@
       "id": "A222",
       "date": "2024 Mar",
       "description": "Elegance through code. An algorithm that explores the beauty of form, pushing it to the limits with Processing. It’s about creating something that looks engineered yet feels fluid, a careful dance between the technical and the organic. Each form tells a story of precision wrapped in spontaneity",
-      "brand": "Self Initiated",
-      "title": "Poster series",
+      "brand": "Propaganda",
+      "title": "poster",
       "intro": "An algorithm-driven exploration of generative forms in Processing",
       "hashtags": "poster, riso, generative graphics"
     },
@@ -325,7 +325,7 @@
       "id": "A122",
       "date": "2022 Mar",
       "description": "Brutalistic take on a typography reflecting the essence of this contemporary play",
-      "brand": "Self Initiated",
+      "brand": "Propaganda",
       "title": "Poster",
       "intro": "A brutalist typography proposal for Gogol Theater",
       "hashtags": "poster"
@@ -358,7 +358,7 @@
       "id": "E06",
       "date": "2024 Jul",
       "description": "Zettel, a collection of random remarks, has nothing to do with Wittgenstein this time. Instead, it’s a collection of riso prints—leftovers, brought together into a zine that celebrates the beauty of the unplanned. Randomness at its finest, captured in print",
-      "brand": "Self Initiated",
+      "brand": "Propaganda",
       "title": "Zine",
       "intro": "A zine made from the random leftovers of riso prints",
       "hashtags": "editorial, p5js, poster, zine, riso"
@@ -370,7 +370,7 @@
       "date": "2024 Jun",
       "description": "Generative blobs meet the aesthetic of engineering drawings, and the result is pure harmony. This piece brings together precision and fluidity, turning what could be technical into something almost poetic. It’s a dialogue between order and chaos, with plenty of room for interpretation",
       "brand": "Museon",
-      "title": "Poster series",
+      "title": "poster",
       "intro": "Generative composition exploring the balance between precision and chaos",
       "hashtags": "poster, p5js, generative graphics"
     },
@@ -424,7 +424,7 @@
       "id": "A193",
       "date": "2023 Sep",
       "description": "Felt blue, might delete later",
-      "brand": "Self Initiated",
+      "brand": "Propaganda",
       "title": "Poster",
       "intro": "It says \"life\"",
       "hashtags": "poster"
@@ -446,7 +446,7 @@
       "id": "E14",
       "date": "2024 Oct",
       "description": "A collective creation, pieced together from a curated collection of cool, captivating images that we found on the web. There is a story in it, reflecting the spontaneity and shared excitement of finding beauty in unexpected places",
-      "brand": "Self Initiated",
+      "brand": "Propaganda",
       "title": "Zine",
       "intro": "A zine inspired by Andrea Laszlo De Simone lyrics",
       "hashtags": "editorial, riso, zine"
@@ -457,7 +457,7 @@
       "id": "V03",
       "date": "2024 Jul",
       "description": "Very much inspired by Vladimir Tsesler poetic language. The notion of a joker, who spawns a third meaning upon bringing two unrelated phenomenons together. Two subcultures, in this particular case. The reader will excuse of having to explaing full subcultural background of this creation",
-      "brand": "Self Initiated",
+      "brand": "Propaganda",
       "title": "Apparel",
       "intro": "Happy hour. Coffee to be sweet. Forward momentum, clarity of purpose. Good luck in business endeavors, skill in decisions. Strategic moves, optimized processes",
       "hashtags": "apparel"
@@ -470,7 +470,7 @@
       "description": "Doodles on these tubes were stolen from canvases of the exhibiting artists, who were totally cool about it",
       "brand": "Alper Cekinmez",
       "title": "Poster",
-      "intro": "Poster series for painting exhibition",
+      "intro": "poster for painting exhibition",
       "hashtags": "poster"
     },
     {
@@ -490,7 +490,7 @@
       "id": "E16",
       "date": "2024 Dec",
       "description": "Working with large archive collections from the Chicago Institute of Art and the Metropolitan Museum of New York through publicly available APIs opened up possibilities for creating a book containing fifteen hundred images. Each spread features two images: one with a chair and another that complements it, aiming to demonstrate that 1+1=3. This opens a poetic landscape for exploring the third element, which emerges from the viewer's imagination",
-      "brand": "Self Initiated",
+      "brand": "Propaganda",
       "title": "Book",
       "intro": "This book contains nothing but chairs and things, chairs and things, chairs and things..",
       "hashtags": "editorial, book, back end, development"
@@ -502,7 +502,7 @@
       "date": "2025 Jan",
       "description": "Concept proposal for pilot issue of literature magazine, with a collectible touch to it",
       "brand": "Zanaves",
-      "title": "Literature Magazine",
+      "title": "Magazine",
       "intro": "Literature magazine with collectible aspect touch to it",
       "hashtags": "editorial, magazine"
     },
@@ -534,7 +534,7 @@
       "id": "E18",
       "date": "2025 Apr",
       "description": "Susanne Snyder talks with Joani Blank and Leigh Davidson about how they used publishing as a tool for sex liberation—doing it their own way, on their own terms. Their work pushed back against the flood of mainstream porn, offering something different, something personal. This magazine is a nod to them—two key voices in feminist self-publishing, who printed what they believed in when it wasn’t easy to do so.",
-      "brand": "Self Initiated",
+      "brand": "Propaganda",
       "title": "Porn Magazine",
       "intro": "I Am My Lover: Photoshoots Against the Backdrop of Oral History",
       "hashtags": "editorial, magazine"
@@ -557,7 +557,7 @@
       "date": "2025 May",
       "description": "Think less of a photobook. More of a space between cinema and sculpture: space within the sculptures, space of the photographs, space of spreads, that add another layer forming a different composition. It is a multilayered non-linear narrative where light and transparent paper are the guides through the layers of time.",
       "brand": "Alexandra Pavlovskaya-Lokchine",
-      "title": "Photo-book",
+      "title": "Book",
       "intro": "A space between cinema and sculpture: space within the sculptures, space of the photographs, space of the spreads. All united in a book.",
       "hashtags": "editorial, book"
     },
@@ -570,7 +570,7 @@
       "brand": "leff '25",
       "title": "Website",
       "intro": "Facade for the first essay film festival in Netherlands.",
-      "hashtags": "ux/ui, web app, back end, web design, development"
+      "hashtags": "experience, web app, back end, web design, development"
     },
     {
       "shown": true,
@@ -590,7 +590,7 @@
       "date": "2025 Sep",
       "description": "A classical film poster you saw million times",
       "brand": "TRACE",
-      "title": "Film Graphic Support",
+      "title": "Film",
       "intro": "Film poster for emerging filmmaker",
       "hashtags": "poster, titles, typography treatment"
     },
@@ -623,7 +623,7 @@
       "date": "2026 Jun",
       "description": "",
       "brand": "Becoming the Warden",
-      "title": "Film Graphic Support",
+      "title": "Film",
       "intro": "",
       "hashtags": "poster, titles, typography treatment"
     },
@@ -655,7 +655,7 @@
       "id": "M08",
       "date": "2026 jun",
       "description": "",
-      "brand": "Self Initiated",
+      "brand": "Propaganda",
       "title": "Generative Graphics",
       "intro": "",
       "hashtags": "p5js, motion"
@@ -678,7 +678,7 @@
       "date": "2026 may",
       "description": "",
       "brand": "TAG Hackhathon",
-      "title": "TV Advertisement",
+      "title": "AD",
       "intro": "",
       "hashtags": "art direction, advertisement"
     },
@@ -711,7 +711,7 @@
       "date": "2026 Sep",
       "description": "",
       "brand": "Signal Leak",
-      "title": "Art Exhibition Identity",
+      "title": "Visual Identity",
       "intro": "",
       "hashtags": "poster, campaign, identity"
     }

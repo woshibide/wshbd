@@ -9,6 +9,7 @@ const ignoreDir = ['montaigne', 'the-forrest-passage'];
 
 const headerTemplatePath = path.join(__dirname, '/templates/header_template.html');
 const headerTemplate = fs.readFileSync(headerTemplatePath, 'utf-8');
+const siteDescription = 'Pyotr is a computational designer, blurring the line between design and engineering. As design evolves from fixed environments into adaptable systems, he builds his own tooling to reshape the process itself, removing friction between idea and execution. This approach accelerates both his own speed and internal team workflows, without compromising precision or visual quality. Fluent across both creative and technical domains, he understands the underlying mechanics that connect them, allowing him to design with systems, code, and a clear awareness of how implementation shape material and ultimately the outcomes.';
 
 let updCount = 0;
 const cssVersion = Date.now().toString();
@@ -151,9 +152,9 @@ function extractMetaData(content, filePath) {
     const metaData = {
         title: 'this is pyotr',
         keywords: 'design, creative coding, web design, editorial design',
-        description: 'computational desginer. he uses programming to design',
+        description: siteDescription,
         ogTitle: 'works by Pyotr Goloub',
-        ogDescription: 'computational desginer. he uses programming to design',
+        ogDescription: siteDescription,
         ogUrl: 'https://its-pyotr.com/' // base URL with domain
     };
 
@@ -186,10 +187,8 @@ function extractMetaData(content, filePath) {
             const keywordsMatch = content.match(/<meta name="keywords" content="(.*?)"/i);
             if (keywordsMatch) metaData.keywords = keywordsMatch[1];
 
-            // Extract description or intro for project
-            const introMatch = content.match(/<h3>(.*?)<\/h3>/i);
-            if (introMatch) metaData.description = introMatch[1];
-            metaData.ogDescription = metaData.description;
+            metaData.description = siteDescription;
+            metaData.ogDescription = siteDescription;
         } catch (error) {
             console.warn(`Warning: Could not extract metadata from ${filePath}`);
         }

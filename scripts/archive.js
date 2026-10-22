@@ -1,57 +1,4 @@
-import { fetchJSON, enableDragToScroll } from './utils.js';
-
-const videoExtensions = new Set(['.mp4', '.webm', '.mov', '.m4v', '.ogv']);
-const videoMimeTypes = {
-    '.mp4': 'video/mp4',
-    '.webm': 'video/webm',
-    '.mov': 'video/quicktime',
-    '.m4v': 'video/mp4',
-    '.ogv': 'video/ogg'
-};
-
-function getExtension(fileName) {
-    const dotIndex = fileName.lastIndexOf('.');
-    return dotIndex >= 0 ? fileName.slice(dotIndex).toLowerCase() : '';
-}
-
-function isVideoFile(fileName) {
-    return videoExtensions.has(getExtension(fileName));
-}
-
-function createMediaNode(projectId, fileName) {
-    if (fileName.startsWith('/')) {
-        const img = document.createElement('img');
-        img.classList.add('archive-media-item');
-        img.src = fileName;
-        img.alt = projectId;
-        return img;
-    }
-
-    if (isVideoFile(fileName)) {
-        const ext = getExtension(fileName);
-        const video = document.createElement('video');
-        video.classList.add('archive-media-item', 'archive-media-video');
-        video.autoplay = true;
-        video.muted = true;
-        video.loop = true;
-        video.playsInline = true;
-        video.controls = true;
-        video.preload = 'metadata';
-
-        const source = document.createElement('source');
-        source.src = `/content/projects/${projectId}/${fileName}`;
-        source.type = videoMimeTypes[ext] || 'video/mp4';
-        video.appendChild(source);
-
-        return video;
-    }
-
-    const img = document.createElement('img');
-    img.classList.add('archive-media-item', 'lazy');
-    img.dataset.src = `/content/projects/${projectId}/${fileName}`;
-    img.alt = projectId;
-    return img;
-}
+import { enableDragToScroll } from './utils.js';
 
 //////////////////////////////////////////
 //              hashtags
@@ -77,16 +24,8 @@ function resetHashtagSelection() {
         }, blinkTimeout);
     });
 
-    // collapse all expanded items
-    const expandedItems = document.querySelectorAll('.archive-item.expanded');
-    expandedItems.forEach(item => {
-        item.classList.remove('expanded');
-        
-        // clear image container content
-        const imageContainer = item.querySelector('.image-container');
-        if (imageContainer) {
-            imageContainer.innerHTML = '';
-        }
+    document.querySelectorAll('.archive-item[open]').forEach(item => {
+        item.open = false;
     });
 
     filterProjectsByHashtags();
@@ -168,6 +107,7 @@ let sortState = {
 
 let currentSortedField = 'when';
 let currentWhatIndicator = '☄'; // default indicator for what
+let hasWhatBeenSorted = false;
 
 function updateSortIndicator() {
     ['index','who','what','when'].forEach(field => {
@@ -175,7 +115,8 @@ function updateSortIndicator() {
         if (!btn) return;
         if(field === currentSortedField) {
             if(field === 'what') {
-                btn.innerHTML = "what <span class='sort-indicator'>" + currentWhatIndicator + "</span>";
+                const indicator = hasWhatBeenSorted ? currentWhatIndicator : (sortState.what === 'asc' ? '↓' : '↑');
+                btn.innerHTML = "what <span class='sort-indicator'>" + indicator + "</span>";
             } else {
                 // For non-'what', use arrow based on sort order: asc => ↓, desc => ↑
                 let arrow = sortState[field] === 'asc' ? '↓' : '↑';
@@ -247,6 +188,13 @@ function filterWhat() {
     currentSortedField = 'what';
     const whatIndicators = ['☄','☯','✈','😱','🔫','🏃','👤','😉','𝄞','🚁','†','▩','♬','👾'];
     currentWhatIndicator = whatIndicators[Math.floor(Math.random() * whatIndicators.length)];
+
+    if (!hasWhatBeenSorted) {
+        sortArchive('what', 'text', 'asc');
+        updateSortIndicator();
+        hasWhatBeenSorted = true;
+        return;
+    }
     
     const archiveList = document.querySelector('.archive-list');
     const items = Array.from(archiveList.getElementsByClassName('archive-item'));
@@ -277,132 +225,27 @@ window.toggleHashtagSelection = toggleHashtagSelection;
 window.resetHashtagSelection = resetHashtagSelection;
 
 //////////////////////////////////////////
-//        Toggle Archive Item
-//////////////////////////////////////////
-
-async function toggleArchiveItem(item) {
-    const expandedClass = 'expanded';
-    const isExpanded = item.classList.contains(expandedClass);
-
-    if (isExpanded) {
-        // collapse the item
-        item.classList.remove(expandedClass);
-
-        const imageContainer = item.querySelector('.image-container');
-        if (imageContainer) {
-            imageContainer.innerHTML = '';
-        }
-    } else {
-        // expand item
-        item.classList.add(expandedClass);
-
-        const projectId = item.dataset.projectId;
-        const mediaMap = await getMediaMapData();
-
-        const mediaFiles = mediaMap[projectId] ? mediaMap[projectId] : ['/content/misc/non-image.svg'];
-
-        const imageContainer = item.querySelector('.image-container');
-
-
-        if (imageContainer) {
-            imageContainer.innerHTML = '';
-
-            mediaFiles.forEach((fileName) => {
-                const mediaNode = createMediaNode(projectId, fileName);
-                imageContainer.appendChild(mediaNode);
-            });
-
-            enableDragToScroll(imageContainer);
-            lazyLoadImages();
-        } else {
-            console.warn('No image container found within the archive item.');
-        }
-    }
-}
-
-// expands random projects on page load
-function expandRandomProjects(maxToExpand = 4) {
-    // get all archive items
-    const archiveItems = document.querySelectorAll('.archive-list .archive-item');
-    
-    // if no items, exit
-    if (archiveItems.length === 0) return;
-    
-    // determine how many to expand (up to maxToExpand or as many as available)
-    const numToExpand = Math.min(maxToExpand, archiveItems.length);
-    
-    // convert nodeList to array for easier manipulation
-    const itemsArray = Array.from(archiveItems);
-    
-    // shuffle the array using fisher-yates algorithm
-    for (let i = itemsArray.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [itemsArray[i], itemsArray[j]] = [itemsArray[j], itemsArray[i]];
-    }
-    
-    // expand the first numToExpand items
-    for (let i = 0; i < numToExpand; i++) {
-        // use setTimeout to stagger the expansion slightly
-        setTimeout(() => {
-            toggleArchiveItem(itemsArray[i]);
-        }, i * 100);
-    }
-}
-
-function lazyLoadImages() {
-    const images = document.querySelectorAll('img.lazy');
-
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver(function(entries, observer) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.onload = () => img.classList.add('lazyloaded');
-                    img.classList.remove('lazy');
-                    imageObserver.unobserve(img);
-                }
-            });
-        });
-
-        images.forEach(function(img) {
-            imageObserver.observe(img);
-        });
-    } else {
-        images.forEach(function(img) {
-            img.src = img.dataset.src;
-            img.onload = () => img.classList.add('lazyloaded');
-            img.classList.remove('lazy');
-        });
-    }
-}
-
-
-let mediaMapData = null;
-
-async function getMediaMapData() {
-    if (!mediaMapData) {
-        mediaMapData = await fetchJSON('/content/info/media-map.json');
-    }
-    return mediaMapData;
-}
-
-//////////////////////////////////////////
 //               Misc
 //////////////////////////////////////////
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const archiveItems = document.querySelectorAll('.archive-item');
-    if (archiveItems.length > 0) {
-        archiveItems.forEach(item => {
-            if (item.dataset.shown === 'false') return;
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.archive-item[data-shown="true"]').forEach(item => {
+        const gallery = item.querySelector('.image-container');
 
-            item.addEventListener('click', (e) => {
-                if (e.target.closest('.image-container, .item-id-link')) return;
-                toggleArchiveItem(item);
-            });
+        item.addEventListener('toggle', () => {
+            if (!item.open) return;
+            if (gallery && gallery.dataset.dragEnabled !== 'true') {
+                enableDragToScroll(gallery);
+                gallery.dataset.dragEnabled = 'true';
+            }
         });
-    }
+
+        gallery?.addEventListener('click', event => {
+            if (item.open && !event.target.closest('video, button, a')) {
+                event.preventDefault();
+            }
+        });
+    });
 
     const hashtagElements = document.querySelectorAll('.hashtag-pool .hashtag:not(#hashtag-reset)');
     if (hashtagElements.length > 0) {
@@ -429,9 +272,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     updateSortIndicator(); // ensure correct default indicator on load
     
-    // expand random projects on page load
-    // expandRandomProjects(4);
-
     filterWhen(); // sort by 'when' on page load
 });
 
