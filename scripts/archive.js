@@ -231,8 +231,24 @@ window.resetHashtagSelection = resetHashtagSelection;
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.archive-item[data-shown="true"]').forEach(item => {
         const gallery = item.querySelector('.image-container');
+        let videoStartTimers = [];
 
         item.addEventListener('toggle', () => {
+            videoStartTimers.forEach(clearTimeout);
+            videoStartTimers = [];
+
+            const videos = gallery?.querySelectorAll('video.archive-media-video') ?? [];
+            if (item.open) {
+                videos.forEach((video, index) => {
+                    const timer = setTimeout(() => {
+                        if (item.open) video.play().catch(() => {});
+                    }, index * 400);
+                    videoStartTimers.push(timer);
+                });
+            } else {
+                videos.forEach(video => video.pause());
+            }
+
             if (!item.open) return;
             if (gallery && gallery.dataset.dragEnabled !== 'true') {
                 enableDragToScroll(gallery);

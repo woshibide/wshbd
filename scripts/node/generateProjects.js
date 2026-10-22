@@ -83,7 +83,6 @@ function createHtmlContent(project, mediaFiles, nextProject, nextProjectPreview)
                     <img src="/content/projects/${nextProject.id}/${nextProjectPreview}" alt="${nextProject.title}">
                     <div class="next-project-caption">
                         <span class="next-project-title">${nextProject.title}</span>
-                        <span class="next-project-date">${nextProject.date}</span>
                     </div>
                 </a>
             </div>

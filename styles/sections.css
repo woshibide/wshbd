@@ -158,6 +158,10 @@ main {
     color: var(--color-white);
 }
 
+.hero-column .hero-link {
+    color: var(--special-color);
+}
+
 @media (max-width: 768px) {
     #hero{
         display: flex;
@@ -470,7 +474,7 @@ body.theatre-page video {
 
 .projects-navigator #next-project:is(:hover, :focus-visible) {
     color: var(--color-white);
-    background-color: var(--soft-black);
+    background-color: var(--special-color);
 }
 
 .projects-navigator #next-project:is(:hover, :focus-visible) * {
@@ -485,7 +489,7 @@ body.theatre-page video {
 
 .next-project-label {
     display: block;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .next-project-preview img {
@@ -510,12 +514,7 @@ body.theatre-page video {
 }
 
 .next-project-preview .next-project-date {
-    display: block;
-    flex: 0 0 auto;
-    padding-top: 0.3rem;
-    font-size: 1rem;
-    font-family: var(--font-readme);
-    line-height: 1.2;
+    display: none;
 }
 
 @media (max-width: 768px) {
@@ -640,12 +639,12 @@ body.theatre-page video {
 .archive-item:hover {
     border-bottom: none;
     margin-bottom: var(--archive-hover-gap);
-    background-color: var(--soft-black);
+    background-color: var(--special-color);
     color: var(--soft-white);
 }
 
 .archive-item:hover .item-info {
-    color: var(--soft-white);
+    color: var(--color-white);
 }
 
 /* Keep the hover gap interactive while the preceding row's gap collapses. */
@@ -658,7 +657,7 @@ body.theatre-page video {
     position: absolute;
     inset: 100% 0 auto;
     height: calc(var(--archive-hover-gap) + 2px);
-    background: var(--soft-black);
+    background: var(--special-color);
 }
 
 
@@ -668,7 +667,7 @@ body.theatre-page video {
     background-image: none;
     width: calc(100% + 3rem);
     margin-inline: -2rem;
-    background-color: var(--soft-black);
+    background-color: var(--special-color);
     color: var(--soft-white);
 }
 
@@ -693,9 +692,12 @@ body.theatre-page video {
     margin-top: var(--archive-open-following-text-space);
 }
 
-.archive-item .item-info[data-field="when"],
-.archive-item:hover .item-info[data-field="when"] {
+.archive-item .item-info[data-field="when"] {
     color: var(--color-black);
+}
+
+.archive-item:hover:not(.archive-item--hidden) .item-info[data-field="when"] {
+    color: var(--color-white);
 }
 
 .archive-item[open]:not(.archive-item--hidden) .item-info[data-field="when"] {
@@ -846,7 +848,7 @@ body.theatre-page video {
 
 .archive-item:hover .item-id-link:is(:hover, :focus-visible) {
     color: var(--main-bg);
-    background-color: var(--soft-black);
+    background-color: var(--special-color);
     border: 0;
 }
 
@@ -873,7 +875,7 @@ body.theatre-page video {
 
 .archive-item[open] .item-id-link:is(:hover, :focus-visible) {
     color: var(--main-bg);
-    background-color: var(--soft-black);
+    background-color: var(--special-color);
 }
 
 .archive-item .item-id-link:hover:not(:focus-visible) {
@@ -979,7 +981,7 @@ body.theatre-page video {
     overflow: hidden;
     padding: 0;
     gap: 1rem;
-    background: var(--soft-black);
+    background: var(--color-black);
 }
 
 .archive-item:hover:not([open]) .image-container img,
@@ -1250,7 +1252,7 @@ body.theatre-page video {
 }
 
 .extr-link:hover {
-    color: var(--color-white);
+    color: var(--color-black);
     background-color: var(--special-color);
 }
 
@@ -1262,7 +1264,7 @@ a.extr-link,
 
 a.extr-link:is(:hover, :focus-visible),
 .extr-link > a:is(:hover, :focus-visible) {
-    color: var(--soft-white);
+    color: var(--color-black);
     background-color: var(--special-color);
 }
 
@@ -1434,8 +1436,8 @@ div#gallery-info a#brand::before {
 }
 
 div#gallery-info a#brand:is(:hover, :focus-visible) {
-    color: var(--color-black);
-    background: var(--color-white);
+    color: var(--color-white);
+    background: var(--special-color);
 }
 
 #gallery-info p,

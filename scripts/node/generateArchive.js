@@ -43,8 +43,9 @@ function generateMediaHTML(projectId, mediaFiles) {
                 m4v: 'video/mp4',
                 ogv: 'video/ogg'
             }[fileName.split('.').pop().toLowerCase()];
+            const posterSource = source.replace(/\.[^.]+$/, '-poster.webp');
 
-            return `<video class="archive-media-item archive-media-video" autoplay muted loop playsinline controls preload="none"><source src="${safeSource}" type="${mimeType}"></video>`;
+            return `<video class="archive-media-item archive-media-video" poster="${escapeAttribute(posterSource)}" muted loop playsinline controls preload="none"><source src="${safeSource}" type="${mimeType}"></video>`;
         }
 
         return `<img class="archive-media-item" src="${safeSource}" alt="${safeProjectId}" loading="eager" decoding="async">`;
@@ -77,7 +78,7 @@ function generateHashtagPoolHTML(hashtags) {
         <h2 id="archive-areas-title" class="archive-section-title">Areas</h2>
         <ul class="hashtag-pool">
             <li class="hashtag hashtag--reset" id="hashtag-reset" data-tag="reset">
-                <button class="hashtag-button" type="button">scope:~# clear</button>
+                <button class="hashtag-button" type="button">~ % RESET SCOPE</button>
             </li>`;
 
     hashtags.forEach(tag => {

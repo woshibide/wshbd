@@ -32,7 +32,7 @@ html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}h1{font-size:2
 
     --font-readme: "Inter Tight", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
     --font-display: "Cossette Titre", "Inter Tight", system-ui, sans-serif;
-    --display-type-size: 4rem;
+    --display-type-size: 3rem;
     --font-mono: "Necto Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
     /*
@@ -41,15 +41,28 @@ html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}h1{font-size:2
      */
     --color-black: #000000;
     --color-white: #ffffff;
-    --color-gray: #b3b3b3;
-    --color-soft-white: #F2F0EF;
-    --color-soft-white-muted: #f5f5f5bb;
-    --color-charcoal: #212427;
-    --color-canvas: #f3f4f8;
+    --bs-gray-025: color-mix(in oklch, var(--color-white) 94%, oklch(60% 0.02 245deg));
+    --bs-gray-050: color-mix(in oklch, var(--color-white) 90%, oklch(60% 0.02 245deg));
+    --bs-gray-100: color-mix(in oklch, var(--color-white) 80%, oklch(60% 0.02 245deg));
+    --bs-gray-200: color-mix(in oklch, var(--color-white) 60%, oklch(60% 0.02 245deg));
+    --bs-gray-300: color-mix(in oklch, var(--color-white) 40%, oklch(60% 0.02 245deg));
+    --bs-gray-400: color-mix(in oklch, var(--color-white) 20%, oklch(60% 0.02 245deg));
+    --bs-gray-500: oklch(60% 0.02 245deg);
+    --bs-gray-600: color-mix(in oklch, var(--color-black) 16%, oklch(60% 0.02 245deg));
+    --bs-gray-700: color-mix(in oklch, var(--color-black) 32%, oklch(60% 0.02 245deg));
+    --bs-gray-800: color-mix(in oklch, var(--color-black) 48%, oklch(60% 0.02 245deg));
+    --bs-gray-900: color-mix(in oklch, var(--color-black) 64%, oklch(60% 0.02 245deg));
+    --bs-gray-950: color-mix(in oklch, var(--color-black) 70%, oklch(60% 0.02 245deg));
+    --bs-gray-975: color-mix(in oklch, var(--color-black) 76%, oklch(60% 0.02 245deg));
+    --color-gray: var(--bs-gray-100);
+    --color-soft-white: var(--bs-gray-025);
+    --color-soft-white-muted: var(--bs-gray-050);
+    --color-charcoal: var(--bs-gray-900);
+    --color-canvas: var(--bs-gray-025);
     --color-accent: #ff0035;
     --color-accent-muted: #ff003380;
-    --color-slide-border: #232323;
-    --color-fallback-canvas-trail: #14141414;
+    --color-slide-border: var(--bs-gray-900);
+    --color-fallback-canvas-trail: color-mix(in oklch, var(--bs-gray-900) 8%, transparent);
     --color-transparent: transparent;
 
     --color-fallback-canvas: var(--color-black);
@@ -301,8 +314,8 @@ header #home-sticky span {
 
 header #home-sticky .sticky-link:is(:hover, :focus-visible) {
     mix-blend-mode: normal;
-    color: var(--main-bg);
-    background-color: var(--text-color);
+    color: var(--color-white);
+    background-color: var(--special-color);
 }
 
 header #home-sticky .sticky-email:is(:hover, :focus-visible) {
@@ -519,17 +532,13 @@ body.theatre-page #nav-menu {
     transition: width 120ms var(--hover-transition-timing), color 120ms var(--hover-transition-timing), background-color 120ms var(--hover-transition-timing);
 }
 
-.nav-links-container a:hover {
-    background-color: var(--sidebar-foreground) !important;
-    color: var(--sidebar-background) !important;
-}
-
+.nav-links-container a:is(:hover, :focus-visible),
 #nav-menu #contact:is(:hover, :focus-visible) {
-    background-color: var(--sidebar-background) !important;
-    color: var(--sidebar-foreground) !important;
+    background-color: var(--special-color) !important;
+    color: var(--color-white) !important;
 }
 
-.nav-links-container a:hover {
+.nav-links-container a:is(:hover, :focus-visible) {
     width: 100%;
 }
 .nav-links-container a:visited {
