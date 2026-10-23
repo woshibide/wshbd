@@ -35,6 +35,17 @@ function renderProjectMedia(project, fileName) {
             <img class="project-media project-media-image" src="/content/projects/${project.id}/${fileName}" alt="${project.title}">`;
 }
 
+function renderNextProjectPreview(project, fileName) {
+    const mediaPath = `/content/projects/${project.id}/${fileName}`;
+
+    if (isVideoFile(fileName)) {
+        const posterPath = mediaPath.replace(/\.[^.]+$/, '-poster.webp');
+        return `<video class="next-project-preview-media" src="${mediaPath}" poster="${posterPath}" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>`;
+    }
+
+    return `<img src="${mediaPath}" alt="${project.title}">`;
+}
+
 function createHtmlContent(project, mediaFiles, nextProject, nextProjectPreview) {
     const metaKeywords = Array.isArray(project.hashtags) ? project.hashtags.join(', ') : 'designed by pyotr';
 
@@ -80,7 +91,7 @@ function createHtmlContent(project, mediaFiles, nextProject, nextProjectPreview)
             <div class="next-project-panel">
                 <a id="next-project" class="next-project-preview" href="/archive/${nextProject.id}/" aria-label="Next project: ${nextProject.title}">
                     <span class="next-project-label">NEXT PROJECT</span>
-                    <img src="/content/projects/${nextProject.id}/${nextProjectPreview}" alt="${nextProject.title}">
+                    ${renderNextProjectPreview(nextProject, nextProjectPreview)}
                     <div class="next-project-caption">
                         <span class="next-project-title">${nextProject.title}</span>
                     </div>
@@ -115,7 +126,7 @@ function createHtmlFiles(projects, mediaMap) {
         // Only projects in this already-filtered list can be navigation targets.
         const nextProject = getNextProjectWithPreview(projects, mediaMap, index);
         const nextProjectMedia = sortMediaNames(mediaMap[nextProject.id] || []);
-        const nextProjectPreview = nextProjectMedia.find(fileName => !isVideoFile(fileName));
+        const nextProjectPreview = nextProjectMedia[0];
 
         // create the html content
         const htmlContent = createHtmlContent(
@@ -142,12 +153,12 @@ function getNextProjectWithPreview(projects, mediaMap, currentIndex) {
     for (let offset = 1; offset <= projects.length; offset += 1) {
         const candidate = projects[(currentIndex + offset) % projects.length];
         const media = mediaMap[candidate.id] || [];
-        if (media.some(fileName => !isVideoFile(fileName))) {
+        if (media.length > 0) {
             return candidate;
         }
     }
 
-    throw new Error('At least one visible project needs an image for the next-project preview.');
+    throw new Error('At least one visible project needs media for the next-project preview.');
 }
 
 function main() {

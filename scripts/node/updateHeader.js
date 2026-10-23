@@ -237,7 +237,9 @@ function extractMetaData(content, filePath) {
     return finalizeMetaData(metaData);
 }
 
-function findHtmlFiles(dirPath) {
+const ignoredDirectories = new Set(['.git', 'node_modules', 'scripts']);
+
+function findHtmlFiles(dirPath, isRoot = true) {
     const files = fs.readdirSync(dirPath);
 
     files.forEach(file => {
@@ -245,7 +247,8 @@ function findHtmlFiles(dirPath) {
         const stat = fs.statSync(filePath);
 
         if (stat.isDirectory()) {
-            findHtmlFiles(filePath); // recursive search in subdirectories
+            if (isRoot && ignoredDirectories.has(file)) return;
+            findHtmlFiles(filePath, false);
         } else if (path.extname(file) === '.html') {
             // skip header_template.html
             if (file === 'header_template.html') {

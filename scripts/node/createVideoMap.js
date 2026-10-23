@@ -31,6 +31,19 @@ function normalizeFileName(fileName) {
     return fileName.toLowerCase().replace(/\s+/g, '_');
 }
 
+function isVideoPoster(fileName, mediaFiles) {
+    const posterMatch = fileName.match(/^(.*)-poster\.webp$/i);
+    if (!posterMatch) {
+        return false;
+    }
+
+    const videoBaseName = posterMatch[1].toLowerCase();
+    return mediaFiles.some(candidate =>
+        path.basename(candidate, path.extname(candidate)).toLowerCase() === videoBaseName &&
+        videoExtensions.includes(path.extname(candidate).toLowerCase())
+    );
+}
+
 function buildMediaMap(inputDir) {
     const mediaMap = {};
 
@@ -72,7 +85,9 @@ function buildMediaMap(inputDir) {
 
     Object.keys(mediaMap).forEach(folder => {
         const deduped = Array.from(new Set(mediaMap[folder]));
-        mediaMap[folder] = sortMediaNames(deduped);
+        mediaMap[folder] = sortMediaNames(
+            deduped.filter(fileName => !isVideoPoster(fileName, deduped))
+        );
     });
 
     return mediaMap;

@@ -5,7 +5,7 @@ const { execFileSync } = require('child_process');
 const navTemplatePath = path.join(__dirname, '/templates/nav.html');
 const footerTemplatePath = path.join(__dirname, '/templates/footer.html');
 
-const navTemplate = fs.readFileSync(navTemplatePath, 'utf-8');
+const navTemplate = fs.readFileSync(navTemplatePath, 'utf-8').trimEnd();
 const buildTime = new Date();
 const siteRoot = path.join(__dirname, '../..');
 
