@@ -702,18 +702,62 @@
       "brand": "leff '26",
       "title": "Website",
       "intro": "",
-      "hashtags": "development, kirby"
+      "hashtags": "web design, development,  kirby"
     },
     {
       "shown": false,
-      "location": "Netherlands",
-      "id": "A261",
+      "location": "USA",
+      "id": "B12",
       "date": "2026 Sep",
       "description": "",
-      "brand": "Signal Leak",
+      "brand": "OpenAI Dev Day 2026",
+      "title": "Generative Graphics",
+      "intro": "",
+      "hashtags": "motion, generative graphics, p5js, Three.js"
+    },
+    {
+      "shown": false,
+      "location": "USA",
+      "id": "B13",
+      "date": "2026 Sep",
+      "description": "",
+      "brand": "Paradigm",
+      "title": "Motion",
+      "intro": "",
+      "hashtags": "motion, poster, generative graphics, p5js, Three.js"
+    },
+    {
+      "shown": false,
+      "location": "USA",
+      "id": "B13",
+      "date": "2026 Sep",
+      "description": "",
+      "brand": "Frontiers",
+      "title": "Generative Graphics",
+      "intro": "",
+      "hashtags": "motion, generative graphics, hydra, p5js, Three.js"
+    },
+    {
+      "shown": false,
+      "location": "USA",
+      "id": "B14",
+      "date": "2026 Oct",
+      "description": "",
+      "brand": "Tempo",
+      "title": "Motion",
+      "intro": "",
+      "hashtags": "motion, Three.js, generative graphics"
+    },
+    {
+      "shown": false,
+      "location": "USA",
+      "id": "B15",
+      "date": "2026 Oct",
+      "description": "",
+      "brand": "Underline",
       "title": "Visual Identity",
       "intro": "",
-      "hashtags": "poster, campaign, identity"
+      "hashtags": "motion, p5js, Three.js, generative graphics"
     }
   ]
 }
