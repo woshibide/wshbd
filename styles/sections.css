@@ -582,6 +582,7 @@ body.theatre-page video {
 .archive-filters {
     width: 100%;
     font-size: var(--display-type-size);
+    font-family: var(--font-display);
     border-bottom: 0.2rem solid var(--text-color);
     transition: color 0.2s var(--hover-transition-timing), background-color 0.2s var(--hover-transition-timing);
     padding: 0 !important;
