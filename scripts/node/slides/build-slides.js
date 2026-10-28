@@ -1,1 +1,0 @@
-// idea is that on run it will generate pdf with most recent projects
