@@ -1,10 +1,11 @@
+import { initInfiniteProjectScroll } from './theatre-scroll.js'
+
 const mediaNavigationState = new WeakMap()
 const hashReplaceDelayMs = 180
 const curtainFallbackMs = 8000
 const curtainMinimumVisibleMs = 900
 const curtainProgressTransitionMs = 600
 const programmaticScrollLockMs = 1200
-const scrollSettleDelayMs = 180
 
 let hashObserverLock = {
     active: false,
@@ -226,8 +227,8 @@ function replaceProjectMedia(section, mediaList, mediaIndex) {
     return mediaIndex
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.project-section details.project-copy').forEach(copy => {
+function initializeProjectSection(section) {
+    section.querySelectorAll('details.project-copy').forEach(copy => {
         copy.addEventListener('click', event => {
             if (event.target.closest('summary, a, button, input, textarea, select')) return
             if (window.getSelection()?.toString()) return
@@ -235,20 +236,22 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     })
 
+    const mediaElement = getProjectMediaElement(section)
+    const mediaList = parseMediaData(mediaElement)
+    if (mediaList.length) addMediaNavigation(section, mediaList)
+}
+
+document.addEventListener('DOMContentLoaded', () => {
     const projectSections = document.querySelectorAll('.project-section')
     if (!projectSections.length) return
-
-    projectSections.forEach((section) => {
-        const mediaElement = getProjectMediaElement(section)
-        const mediaList = parseMediaData(mediaElement)
-        if (!mediaList.length) return
-        addMediaNavigation(section, mediaList)
+    projectSections.forEach(initializeProjectSection)
+    const projectScroll = initInfiniteProjectScroll(initializeProjectSection, section => {
+        clearTimeout(mediaNavigationState.get(section)?.timer)
+        section.querySelectorAll('video').forEach(video => video.pause())
     })
-
-    initInfiniteProjectScroll(projectSections)
     initTheatreCurtain()
-    addProjectNavigation()
-    trackScrollPosition(projectSections)
+    addProjectNavigation(projectScroll)
+    trackScrollPosition()
     addTransitionStyles()
 })
 
@@ -495,69 +498,6 @@ function navigateProjectMedia(section, direction) {
     replaceProjectMedia(section, mediaList, (index + direction + mediaList.length) % mediaList.length)
 }
 
-function initInfiniteProjectScroll(projectSections) {
-    const container = document.getElementById('random-gallery-container')
-    const sequences = container?.querySelectorAll(':scope > .project-sequence')
-    if (!sequences || sequences.length !== 2 || projectSections.length < 4) return
-
-    const initialSections = [...sequences[0].querySelectorAll('.project-section')]
-    const initialSection = initialSections[Math.floor(Math.random() * initialSections.length)]
-    container.scrollTo({ top: initialSection.offsetTop, behavior: 'instant' })
-    history.replaceState(null, '', `${location.pathname}${location.search}#${initialSection.dataset.projectId}`)
-
-    let settleTimer = null
-    let touchActive = false
-
-    const recycleOffscreenSequence = () => {
-        clearTimeout(settleTimer)
-        if (touchActive) return
-
-        const first = container.querySelector('.project-sequence')
-        const last = container.lastElementChild
-        const height = first.getBoundingClientRect().height
-        const scrollTop = container.scrollTop
-        const buffer = Math.min(height / 4, container.clientHeight * 2)
-        let nextScrollTop
-
-        if (scrollTop < buffer) {
-            nextScrollTop = scrollTop + height
-        } else if (scrollTop > container.scrollHeight - container.clientHeight - buffer) {
-            nextScrollTop = scrollTop - height
-        } else {
-            return
-        }
-
-        // Recycle only after scrolling settles so native touch momentum stays intact.
-        container.style.scrollSnapType = 'none'
-        if (nextScrollTop > scrollTop) {
-            container.prepend(last)
-        } else {
-            container.append(first)
-        }
-        container.scrollTo({ top: nextScrollTop, behavior: 'instant' })
-        requestAnimationFrame(() => container.style.removeProperty('scroll-snap-type'))
-    }
-
-    const scheduleRecycle = () => {
-        clearTimeout(settleTimer)
-        settleTimer = setTimeout(recycleOffscreenSequence, scrollSettleDelayMs)
-    }
-
-    // Keep recycling available in browsers that do not dispatch scrollend.
-    container.addEventListener('scroll', scheduleRecycle, { passive: true })
-    container.addEventListener('scrollend', recycleOffscreenSequence)
-    container.addEventListener('touchstart', () => {
-        touchActive = true
-        clearTimeout(settleTimer)
-    }, { passive: true })
-    const finishTouch = () => {
-        touchActive = false
-        scheduleRecycle()
-    }
-    container.addEventListener('touchend', finishTouch, { passive: true })
-    container.addEventListener('touchcancel', finishTouch, { passive: true })
-}
-
 function getVisibleProjectIndex(projectSections) {
     let nearestIndex = 0
     let nearestDistance = Infinity
@@ -572,14 +512,15 @@ function getVisibleProjectIndex(projectSections) {
     return nearestIndex
 }
 
-function addProjectNavigation() {
+function addProjectNavigation(projectScroll) {
     let navigationTarget = null
     document.addEventListener('keydown', (event) => {
         if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey ||
             event.target.closest('.project-copy, #nav-menu, input, textarea, select, button, a, [contenteditable="true"]')) return
         if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return
+        projectScroll?.ensureAround(hashObserverLock.active && navigationTarget?.isConnected ? navigationTarget.offsetTop : undefined)
         const projectSections = [...document.querySelectorAll('.project-section')]
-        const currentProjectIndex = hashObserverLock.active && performance.now() < hashObserverLock.releaseAt && navigationTarget
+        const currentProjectIndex = hashObserverLock.active && performance.now() < hashObserverLock.releaseAt && navigationTarget?.isConnected
             ? projectSections.indexOf(navigationTarget)
             : getVisibleProjectIndex(projectSections)
 
@@ -608,6 +549,7 @@ function addProjectNavigation() {
     function updateProjectView(currentProject) {
         if (!currentProject) return
         navigationTarget = currentProject
+        projectScroll?.ensureAround(currentProject.offsetTop)
 
         const projectId = currentProject.dataset.projectId || currentProject.id
         hashObserverLock = {
@@ -624,7 +566,7 @@ function addProjectNavigation() {
     }
 }
 
-function trackScrollPosition(projectSections) {
+function trackScrollPosition() {
     let hashUpdateTimer = null
 
     const scheduleHashReplace = (projectId) => {
@@ -649,6 +591,7 @@ function trackScrollPosition(projectSections) {
     }
 
     const syncVisibleProject = () => {
+        const projectSections = [...document.querySelectorAll('.project-section')]
         const visibleIndex = getVisibleProjectIndex(projectSections)
         const section = projectSections[visibleIndex]
         const projectId = section.dataset.projectId || section.id

@@ -1703,7 +1703,12 @@ html:has(body.theatre-page) {
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
     overflow-anchor: none;
+    scrollbar-width: none;
     position: relative;
+}
+
+.random-gallery::-webkit-scrollbar {
+    display: none;
 }
 
 .project-section {
