@@ -1,4 +1,4 @@
-const CACHE_NAME = 'project-cache-v2';
+const CACHE_NAME = 'project-cache-v3';
 const IMAGE_CACHE_NAME = 'image-cache-v2';
 const JSON_CACHE_NAME = 'json-cache-v2';
 

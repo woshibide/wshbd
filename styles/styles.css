@@ -259,7 +259,6 @@ nav #contact {
     width: 100%;
     font-size: var(--display-type-size);
     padding-left: 1rem;
-    padding-bottom: 1rem;
 }
 
 @media (max-width: 758px) {
@@ -369,21 +368,27 @@ body.project-page header #home-sticky{
 
 #menu-icon {
     --menu-grid-gap: 1rem;
+    --nav-column-width: calc((100vw - var(--menu-grid-gap)) / 4);
     position: fixed;
+    left: 0;
     cursor: pointer;
     display: flex;
-    top: 1rem;
+    top: 0;
     flex-direction: row;
     justify-content: space-between;
-    width: 0.8rem;
+    width: var(--nav-column-width);
     height: var(--display-type-size);
     z-index: 1002;
     color: var(--text-color);
+    background-color: transparent;
     transition:
+        left 120ms var(--hover-transition-timing),
         width 120ms var(--hover-transition-timing),
         height 120ms var(--hover-transition-timing),
         margin-left 120ms var(--hover-transition-timing),
-        padding-left 120ms var(--hover-transition-timing);
+        padding-left 120ms var(--hover-transition-timing),
+        color 0.2s var(--hover-transition-timing),
+        background-color 0.2s var(--hover-transition-timing);
 }
 
 #column-grid-overlay {
@@ -432,20 +437,14 @@ body.project-page header #home-sticky{
 }
 
 
-#menu-icon:hover {
-    width: calc(100% - 2rem);
-    padding-left: 3rem;
-}
-
-#menu-icon:hover::before {
-    content: '';
-    transform: translateX(1rem);
+#menu-icon:is(:hover, :focus-visible) {
+    color: var(--color-white);
+    background-color: var(--color-black);
 }
 
 #menu-icon .stripe {
     position: absolute;
     background-color: currentColor;
-    mix-blend-mode: exclusion;
     width: 3px;
     height: 100%;
     top: 0;
@@ -455,27 +454,22 @@ body.project-page header #home-sticky{
 }
 
 #menu-icon .stripe:nth-child(1) {
-    left: 0rem;
+    left: var(--menu-grid-gap);
 }
 
 #menu-icon .stripe:nth-child(2) {
-    left: calc(2 * (100% - 3 * var(--menu-grid-gap)) / 4 + var(--menu-grid-gap));
-    opacity: 0;
+    left: calc(2 * var(--menu-grid-gap));
+    opacity: 1;
 }
 
 #menu-icon .stripe:nth-child(3) {
-    left: calc(2 * ((100% - 3 * var(--menu-grid-gap)) / 4 + var(--menu-grid-gap)));
+    right: var(--menu-grid-gap);
     margin-left: 0;
-    opacity: 0;
-}
-
-#menu-icon:is(:hover, .open) .stripe:nth-child(2),
-#menu-icon:is(:hover, .open) .stripe:nth-child(3) {
     opacity: 1;
 }
 
 #menu-icon .stripe:nth-child(4) {
-    right: 0rem;
+    right: 0;
 }
 
 .nav-hello {
@@ -514,10 +508,6 @@ body.project-page header #home-sticky{
     color: var(--sidebar-foreground);
 }
 
-body.theatre-page #nav-menu {
-    --sidebar-background: var(--color-white);
-    --sidebar-foreground: var(--color-black);
-}
 @media (max-width: 758px) {
     #nav-menu {
         font-size: 1.5rem;
@@ -556,6 +546,11 @@ body.theatre-page #nav-menu {
     transition: width 120ms var(--hover-transition-timing), color 120ms var(--hover-transition-timing), background-color 120ms var(--hover-transition-timing);
 }
 
+#nav-menu a:is([aria-current="page"], [aria-current="location"]) {
+    color: var(--sidebar-background);
+    background-color: var(--main-bg);
+}
+
 .nav-links-container a:is(:hover, :focus-visible),
 #nav-menu #contact:is(:hover, :focus-visible) {
     background-color: var(--special-color) !important;
@@ -578,7 +573,17 @@ body.theatre-page #nav-menu {
     left: 0;
 }
 
+#menu-icon:is(:hover, :focus-visible) .stripe {
+    background-color: var(--color-white);
+}
+
+#menu-icon:is(:hover, :focus-visible) .stripe:first-child,
+#menu-icon:is(:hover, :focus-visible) .stripe:last-child {
+    box-shadow: -1px 0 0 var(--color-black), 1px 0 0 var(--color-black);
+}
+
 #menu-icon.open {
+    left: 1rem;
     margin-left: calc(50svw - 0.5rem);
     width: calc(50svw - 1.5rem);
     justify-content: space-between;
@@ -602,7 +607,6 @@ body.theatre-page #nav-menu {
     }
 
     #menu-icon {
-        top: 2rem;
         height: 2.25rem;
     }
 }
@@ -620,6 +624,7 @@ body.theatre-page #nav-menu {
 }
 
 #menu-icon.open .stripe:nth-child(3) {
+    right: auto;
     left: calc((100% + var(--menu-grid-gap)) / 2);
 }
 
@@ -1164,19 +1169,6 @@ button:hover {
 .xtr-info a,
 a{
     text-decoration: underline 2px;
-}
-
-.archive-item .item-id-link {
-    text-decoration: none;
-    padding: 0;
-    border: none;
-    display: inline-flex;
-}
-
-.archive-item .item-id-link:hover .item-id,
-.archive-item .item-id-link:hover .item-id * {
-    color: var(--special-color);
-    background-color: var(--color-black);
 }
 
 .extr-link{

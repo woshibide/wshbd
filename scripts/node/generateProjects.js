@@ -21,18 +21,24 @@ function isVideoFile(fileName) {
     return Boolean(videoMimeTypes[path.extname(fileName).toLowerCase()]);
 }
 
+function renderProjectMediaSection(media) {
+    return `
+            <figure class="project-media-section">${media}
+            </figure>`;
+}
+
 function renderProjectMedia(project, fileName) {
     if (isVideoFile(fileName)) {
         const ext = path.extname(fileName).toLowerCase();
         const mimeType = videoMimeTypes[ext] || 'video/mp4';
-        return `
+        return renderProjectMediaSection(`
             <video class="project-media project-media-video" autoplay muted loop playsinline controls preload="metadata">
                 <source src="/content/projects/${project.id}/${fileName}" type="${mimeType}">
-            </video>`;
+            </video>`);
     }
 
-    return `
-            <img class="project-media project-media-image" src="/content/projects/${project.id}/${fileName}" alt="${project.title}">`;
+    return renderProjectMediaSection(`
+            <img class="project-media project-media-image" src="/content/projects/${project.id}/${fileName}" alt="${project.title}">`);
 }
 
 function renderNextProjectPreview(project, fileName) {

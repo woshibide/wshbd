@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { renderProjectText } = require('./projectText');
 
 const archivePath = path.join(__dirname, '../../content/info/archive.json');
 const mediaMapPath = path.join(__dirname, '../../content/info/media-map.json');
@@ -119,11 +120,13 @@ function generateArchiveItemsHTML(projects, mediaMap) {
         seenProjectIds.set(project.id, idOccurrence);
 
         const mediaFiles = mediaMap[project.id] || ['/content/misc/non-image.svg'];
-        const mediaHTML = generateMediaHTML(project.id, mediaFiles);
+        const mediaHTML = isShown
+            ? generateMediaHTML(project.id, mediaFiles)
+            : '<span class="archive-nda">NDA</span>';
 
 
         const archiveItem = `
-<details class="archive-item${isShown ? '' : ' archive-item--hidden'}" id="${domId}" data-project-id="${project.id}" data-shown="${isShown}" aria-disabled="${isShown ? 'false' : 'true'}"${isShown ? '' : ' inert'}>
+<details class="archive-item${isShown ? '' : ' archive-item--hidden'}" id="${domId}" data-project-id="${project.id}" data-shown="${isShown}"${isShown ? '' : ' title="Project is under NDA"'}>
     <summary class="archive-summary">
       <span class="archive-summary-content">
     ${isShown ? `<a class="item-id-link" href="./${project.id}/" aria-label="Open project ${project.id}">` : `<span class="item-id-link item-id-link--disabled">`}
@@ -136,7 +139,7 @@ function generateArchiveItemsHTML(projects, mediaMap) {
     <span class="item-info" data-field="what">${project.title}</span>
     <span class="item-info" data-field="when">${project.date}</span>
       </span>
-      <span class="image-container">${mediaHTML}</span>
+      <span class="image-container">${isShown ? renderProjectText(project) : ''}${mediaHTML}</span>
     </summary>
     ${hashtagsDiv}
 </details>

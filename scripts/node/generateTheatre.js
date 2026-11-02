@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const { renderProjectText } = require('./projectText')
 
 const archivePath = path.join(__dirname, '../../content/info/archive.json')
 const mediaMapPath = path.join(__dirname, '../../content/info/media-map.json')
@@ -41,7 +42,7 @@ try {
         return `<img class="project-media" src="${mediaItem.path}" alt="${projectTitle}" loading="lazy" data-media='${JSON.stringify(mediaItem.list)}' data-media-index="${index}">`
     }
 
-    function createProjectSections(projectsList, mediaMap) {
+    function createProjectSections(projectsList, mediaMap, copyIndex) {
         let sectionsHtml = ''
 
         for (let project of projectsList) {
@@ -66,7 +67,7 @@ try {
 
             // create project sections
             let sectionHtml = `
-            <div class="project-section" id="${project.id}">
+            <div class="project-section" id="${project.id}${copyIndex ? '-loop' : ''}" data-project-id="${project.id}">
                 <div class="project-image">
                     ${firstMediaElement}
                 </div>
@@ -79,20 +80,25 @@ try {
                             <p id="date">${project.date}</p>
                         </div>
                     </div>
+                    ${renderProjectText(project, { collapsible: true })}
                 </div>
             </div>
             `
-            sectionsHtml += sectionHtml
+            sectionsHtml += sectionHtml.trimEnd()
         }
 
-        return sectionsHtml
+        return sectionsHtml.trim()
     }
 
     console.log('Generating project sections HTML...')
     let projectsList = [...archiveData.projects]
-        .filter(project => project.shown === true)
+        .filter(project => project.shown === true && project.selection === true)
         .reverse()
-    let projectSectionsHtml = createProjectSections(projectsList, mediaMap)
+    const projectSectionsHtml = [0, 1].map(copyIndex => `
+        <div class="project-sequence">
+            ${createProjectSections(projectsList, mediaMap, copyIndex)}
+        </div>
+    `.trim()).join('\n')
 
     template = template.replace('<!-- PROJECT_SECTION_PLACEHOLDER -->', projectSectionsHtml)
 

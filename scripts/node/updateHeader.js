@@ -175,12 +175,12 @@ function extractMetaData(content, filePath) {
         try {
             const brandMatch = content.match(/<h2>(.*?)<\/h2>/i);
             if (brandMatch) {
-                metaData.title = brandMatch[1]; // brand name as title
-                metaData.ogTitle = `${brandMatch[1]} // pyotr`;
+                metaData.title = `${brandMatch[1]} × pyotr`;
+                metaData.ogTitle = metaData.title;
             } else {
                 // If no brand name, use project ID
-                metaData.title = projectId;
-                metaData.ogTitle = `${projectId} // pyotr`;
+                metaData.title = `${projectId} × pyotr`;
+                metaData.ogTitle = metaData.title;
             }
 
             // Extract keywords
@@ -228,8 +228,9 @@ function extractMetaData(content, filePath) {
             metaData.ogTitle = `${folderName} // pyotr`;
             metaData.ogUrl = "https://its-pyotr.com/"; // Root URL for homepage
         } else {
-            metaData.title = `${folderName} // pyotr`;
-            metaData.ogTitle = `${folderName} // pyotr`;
+            const pageName = folderName === 'theatre' ? 'selected projects' : folderName;
+            metaData.title = `${pageName} // pyotr`;
+            metaData.ogTitle = `${pageName} // pyotr`;
             metaData.ogUrl = `https://its-pyotr.com/${folderName}`;
         }
     }

@@ -206,9 +206,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const menuIcon = document.getElementById('menu-icon');
     const navMenu = document.getElementById('nav-menu');
+    const normalizePagePath = pathname => pathname.replace(/\/index\.html$/, '/').replace(/\/+$/, '') || '/';
+    const currentPagePath = normalizePagePath(window.location.pathname);
+    navMenu.querySelectorAll('a[href]').forEach(link => {
+        const destination = new URL(link.href);
+        const destinationPath = normalizePagePath(destination.pathname);
+        const isSameOrigin = destination.origin === window.location.origin;
+        if (isSameOrigin && destinationPath === currentPagePath) {
+            link.setAttribute('aria-current', 'page');
+        } else if (isSameOrigin && destinationPath === '/archive' && currentPagePath.startsWith('/archive/')) {
+            link.setAttribute('aria-current', 'location');
+        } else {
+            link.removeAttribute('aria-current');
+        }
+    });
+
     menuIcon.addEventListener('click', () => {
         navMenu.classList.toggle('open');
         menuIcon.classList.toggle('open');
+    });
+
+    document.addEventListener('keydown', event => {
+        if (event.key !== 'Escape' || !navMenu.classList.contains('open')) return;
+
+        navMenu.classList.remove('open');
+        menuIcon.classList.remove('open');
     });
 
     const columnGrid = document.createElement('div');

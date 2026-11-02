@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 
+const navOnly = process.argv.includes('--nav-only');
+
 const navTemplatePath = path.join(__dirname, '/templates/nav.html');
 const footerTemplatePath = path.join(__dirname, '/templates/footer.html');
 
@@ -53,7 +55,9 @@ function updateHtmlFile(filePath) {
     // Replace existing content with templates
     // use regex to replace the existing nav section with the nav template
     content = content.replace(/<div id="menu-icon">[\s\S]*?<\/nav>/i, navTemplate);
-    content = content.replace(/<footer[\s\S]*?<\/footer>/i, footerTemplate);
+    if (!navOnly) {
+        content = content.replace(/<footer[\s\S]*?<\/footer>/i, footerTemplate);
+    }
 
     fs.writeFileSync(filePath, content, 'utf-8');
 }
@@ -80,4 +84,4 @@ const targetDirectory = path.join(__dirname, '../..');
 
 findHtmlFiles(targetDirectory);
 
-console.log('Updated', updCount, 'html files with footer and nav');
+console.log('Updated', updCount, navOnly ? 'html files with nav' : 'html files with footer and nav');

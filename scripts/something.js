@@ -1,7 +1,9 @@
 let currentProjectIndex = 0
+const mediaNavigationState = new WeakMap()
 const hashReplaceDelayMs = 180
 const curtainFallbackMs = 8000
 const curtainMinimumVisibleMs = 900
+const curtainProgressTransitionMs = 600
 const programmaticScrollLockMs = 1200
 
 let hashObserverLock = {
@@ -200,12 +202,17 @@ function replaceProjectMedia(section, mediaList, mediaIndex) {
     const mediaItem = mediaList[mediaIndex]
     const projectTitle = section.querySelector('#title')?.textContent || section.id
 
+    const state = mediaNavigationState.get(section) || {}
+    clearTimeout(state.timer)
+    state.index = mediaIndex
+    mediaNavigationState.set(section, state)
     imageContainer.classList.add('transitioning')
 
-    setTimeout(() => {
+    state.timer = setTimeout(() => {
         imageContainer.innerHTML = ''
         const nextNode = createMediaNode(mediaItem, mediaList, mediaIndex, projectTitle)
         imageContainer.appendChild(nextNode)
+        updateMediaCounter(mediaIndex, mediaList.length, counterElement)
         imageContainer.classList.remove('transitioning')
 
         if (nextNode instanceof HTMLVideoElement) {
@@ -216,12 +223,17 @@ function replaceProjectMedia(section, mediaList, mediaIndex) {
         }
     }, 180)
 
-    updateMediaCounter(mediaIndex, mediaList.length, counterElement)
     return mediaIndex
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    initTheatreCurtain()
+    document.querySelectorAll('.project-section details.project-copy').forEach(copy => {
+        copy.addEventListener('click', event => {
+            if (event.target.closest('summary, a, button, input, textarea, select')) return
+            if (window.getSelection()?.toString()) return
+            copy.open = !copy.open
+        })
+    })
 
     const projectSections = document.querySelectorAll('.project-section')
     if (!projectSections.length) return
@@ -233,6 +245,8 @@ document.addEventListener('DOMContentLoaded', () => {
         addMediaNavigation(section, mediaList)
     })
 
+    initInfiniteProjectScroll(projectSections)
+    initTheatreCurtain()
     addProjectNavigation(projectSections)
     trackScrollPosition(projectSections)
     addTransitionStyles()
@@ -242,8 +256,8 @@ function initTheatreCurtain() {
     const curtain = document.getElementById('theatre-curtain')
     const leftCurtain = document.querySelector('.curtain-half.left')
     const rightCurtain = document.querySelector('.curtain-half.right')
-    const loadingPercentage = document.querySelector('.loading-percentage')
-    if (!curtain || !leftCurtain || !rightCurtain || !loadingPercentage) return
+    const loadingIndicator = curtain?.querySelector('.curtain-loading')
+    if (!curtain || !leftCurtain || !rightCurtain || !loadingIndicator) return
 
     const allSections = Array.from(document.querySelectorAll('.project-section'))
     if (!allSections.length) {
@@ -258,7 +272,7 @@ function initTheatreCurtain() {
     const seenOtherImages = new Set()
     const seenHeavyGifs = new Set()
 
-    const firstSection = allSections[0]
+    const firstSection = visibleSections[0] || allSections[0]
     if (firstSection) {
         const firstMedia = getProjectMediaElement(firstSection)
         if (firstMedia && !essentialMediaElements.includes(firstMedia)) {
@@ -313,60 +327,68 @@ function initTheatreCurtain() {
             fallbackTimerId = null
         }
 
-        loadingPercentage.classList.add('hidden')
+        loadingIndicator.classList.add('hidden')
         leftCurtain.classList.add('open')
         rightCurtain.classList.add('open')
 
         setTimeout(() => {
             curtain.style.display = 'none'
             preloadRemainingImages(heavyGifs, otherImages)
-        }, 1500)
+        }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1500)
     }
 
     const openCurtainsRespectingMinimumTime = () => {
         if (curtainOpened) return
         const elapsed = performance.now() - curtainStartTime
-        const remaining = Math.max(curtainMinimumVisibleMs - elapsed, 0)
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        const remaining = reducedMotion ? 0 : Math.max(curtainMinimumVisibleMs - elapsed, curtainProgressTransitionMs)
         setTimeout(openCurtains, remaining)
     }
 
-    const updateProgress = () => {
-        if (curtainOpened) return
-        loadedMedia++
-        const progress = Math.min(Math.floor((loadedMedia / totalInitialMedia) * 100), 100)
-        loadingPercentage.textContent = `${progress}%`
+    const setProgress = progress => {
+        loadingIndicator.style.setProperty('--loading-progress', String(progress))
+        loadingIndicator.querySelector('.curtain-loading-label').textContent = String(Math.floor(progress * 100))
+    }
 
+    const mediaProgress = new Map(essentialMediaElements.map(media => [media, 0]))
+    const updateProgress = (mediaElement, progress) => {
+        if (curtainOpened) return
+        mediaProgress.set(mediaElement, progress)
+        const totalProgress = Array.from(mediaProgress.values()).reduce((sum, value) => sum + value, 0)
+        setProgress(totalProgress / totalInitialMedia)
+    }
+
+    const onMediaReady = (mediaElement) => {
+        if (curtainOpened) return
+        updateProgress(mediaElement, 1)
+        loadedMedia++
         if (loadedMedia >= totalInitialMedia) {
             openCurtainsRespectingMinimumTime()
         }
     }
 
     if (!totalInitialMedia) {
-        loadingPercentage.textContent = '100%'
+        setProgress(1)
         openCurtainsRespectingMinimumTime()
-    } else if (hasPrimaryVideo) {
-        waitForVideoBufferedRatio(primaryVideoElement, 0.33, (ratio) => {
-            if (curtainOpened) return
-            const progressFromBuffer = Math.min(Math.floor((ratio / 0.33) * 100), 99)
-            loadingPercentage.textContent = `${progressFromBuffer}%`
-        }).then(() => {
-            if (curtainOpened) return
-            const playPromise = primaryVideoElement.play()
-            if (playPromise && typeof playPromise.catch === 'function') {
-                playPromise.catch(() => {})
-            }
-            loadingPercentage.textContent = '100%'
-            openCurtainsRespectingMinimumTime()
-        })
     } else {
         essentialMediaElements.forEach(mediaElement => {
-            waitForMediaReady(mediaElement).then(updateProgress)
+            if (mediaElement === primaryVideoElement && hasPrimaryVideo) {
+                waitForVideoBufferedRatio(mediaElement, 0.33, ratio => {
+                    updateProgress(mediaElement, Math.min(ratio / 0.33, 0.99))
+                }).then(() => {
+                    if (curtainOpened) return
+                    mediaElement.play().catch(() => {})
+                    onMediaReady(mediaElement)
+                })
+            } else {
+                waitForMediaReady(mediaElement).then(() => onMediaReady(mediaElement))
+            }
         })
     }
 
     fallbackTimerId = setTimeout(() => {
         if (!curtainOpened) {
-            loadingPercentage.textContent = '100%'
+            setProgress(1)
             openCurtainsRespectingMinimumTime()
         }
     }, curtainFallbackMs)
@@ -425,12 +447,9 @@ function addMediaNavigation(section, mediaList) {
     const imageContainer = section.querySelector('.project-image')
     if (!imageContainer || !mediaList.length) return
 
-    let currentMediaIndex = Number(getProjectMediaElement(section)?.getAttribute('data-media-index') || 0)
-    const update = () => {
-        replaceProjectMedia(section, mediaList, currentMediaIndex)
-    }
-
+    let lastSwipeTime = -Infinity
     imageContainer.addEventListener('click', (event) => {
+        if (performance.now() - lastSwipeTime < 500) return
         const rect = imageContainer.getBoundingClientRect()
         if (event.clientY > rect.bottom - 56) {
             return
@@ -438,11 +457,10 @@ function addMediaNavigation(section, mediaList) {
 
         const clickX = event.clientX - rect.left
         if (clickX < rect.width / 2) {
-            currentMediaIndex = (currentMediaIndex - 1 + mediaList.length) % mediaList.length
+            navigateProjectMedia(section, -1)
         } else {
-            currentMediaIndex = (currentMediaIndex + 1) % mediaList.length
+            navigateProjectMedia(section, 1)
         }
-        update()
     })
 
     let touchStartX = null
@@ -457,22 +475,88 @@ function addMediaNavigation(section, mediaList) {
         const diffX = touchEndX - touchStartX
 
         if (Math.abs(diffX) > 20) {
+            lastSwipeTime = performance.now()
             if (diffX > 0) {
-                currentMediaIndex = (currentMediaIndex - 1 + mediaList.length) % mediaList.length
+                navigateProjectMedia(section, -1)
             } else {
-                currentMediaIndex = (currentMediaIndex + 1) % mediaList.length
+                navigateProjectMedia(section, 1)
             }
-            update()
         }
 
         touchStartX = null
     })
 }
 
-function addProjectNavigation(projectSections) {
-    let currentMediaIndex = 0
+function navigateProjectMedia(section, direction) {
+    const mediaElement = getProjectMediaElement(section)
+    const mediaList = parseMediaData(mediaElement)
+    if (!mediaList.length) return
+    const index = mediaNavigationState.get(section)?.index ?? Number(mediaElement.dataset.mediaIndex || 0)
+    replaceProjectMedia(section, mediaList, (index + direction + mediaList.length) % mediaList.length)
+}
 
+function initInfiniteProjectScroll(projectSections) {
+    const container = document.getElementById('random-gallery-container')
+    const sequences = container?.querySelectorAll(':scope > .project-sequence')
+    if (!sequences || sequences.length !== 2 || projectSections.length < 4) return
+
+    const initialSections = [...sequences[1].querySelectorAll('.project-section')]
+    const initialSection = initialSections.find(section => section.dataset.projectId === location.hash.slice(1)) || initialSections[0]
+    container.scrollTo({ top: initialSection.offsetTop, behavior: 'instant' })
+
+    const recycleOffscreenSequence = () => {
+        const first = container.querySelector('.project-sequence')
+        const last = container.lastElementChild
+        const height = first.getBoundingClientRect().height
+        const scrollTop = container.scrollTop
+        const buffer = Math.min(height / 4, container.clientHeight * 2)
+        let nextScrollTop
+
+        if (scrollTop < buffer) {
+            nextScrollTop = scrollTop + height
+        } else if (scrollTop > container.scrollHeight - container.clientHeight - buffer) {
+            nextScrollTop = scrollTop - height
+        } else {
+            return
+        }
+
+        // Recycle only after scrolling settles so native touch momentum stays intact.
+        container.style.scrollSnapType = 'none'
+        if (nextScrollTop > scrollTop) {
+            container.prepend(last)
+        } else {
+            container.append(first)
+        }
+        container.scrollTo({ top: nextScrollTop, behavior: 'instant' })
+        requestAnimationFrame(() => container.style.removeProperty('scroll-snap-type'))
+    }
+
+    container.addEventListener('scrollend', recycleOffscreenSequence)
+}
+
+function getVisibleProjectIndex(projectSections) {
+    let nearestIndex = 0
+    let nearestDistance = Infinity
+    projectSections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect()
+        const distance = Math.abs((rect.top + rect.bottom) / 2 - window.innerHeight / 2)
+        if (distance < nearestDistance) {
+            nearestDistance = distance
+            nearestIndex = index
+        }
+    })
+    return nearestIndex
+}
+
+function addProjectNavigation(projectSections) {
     document.addEventListener('keydown', (event) => {
+        if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey ||
+            event.target.closest('.project-copy, #nav-menu, input, textarea, select, button, a, [contenteditable="true"]')) return
+        if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return
+        if (!hashObserverLock.active || performance.now() >= hashObserverLock.releaseAt) {
+            currentProjectIndex = getVisibleProjectIndex(projectSections)
+        }
+
         const currentProject = projectSections[currentProjectIndex]
         if (!currentProject) return
 
@@ -482,12 +566,10 @@ function addProjectNavigation(projectSections) {
 
         if (event.key === 'ArrowLeft') {
             event.preventDefault()
-            currentMediaIndex = (currentMediaIndex - 1 + mediaList.length) % mediaList.length
-            replaceProjectMedia(currentProject, mediaList, currentMediaIndex)
+            navigateProjectMedia(currentProject, -1)
         } else if (event.key === 'ArrowRight') {
             event.preventDefault()
-            currentMediaIndex = (currentMediaIndex + 1) % mediaList.length
-            replaceProjectMedia(currentProject, mediaList, currentMediaIndex)
+            navigateProjectMedia(currentProject, 1)
         } else if (event.key === 'ArrowUp') {
             event.preventDefault()
             currentProjectIndex = (currentProjectIndex - 1 + projectSections.length) % projectSections.length
@@ -503,7 +585,7 @@ function addProjectNavigation(projectSections) {
         const currentProject = projectSections[currentProjectIndex]
         if (!currentProject) return
 
-        const projectId = currentProject.getAttribute('id')
+        const projectId = currentProject.dataset.projectId || currentProject.id
         hashObserverLock = {
             active: true,
             targetId: projectId,
@@ -512,16 +594,9 @@ function addProjectNavigation(projectSections) {
 
         currentProject.scrollIntoView({ behavior: 'smooth' })
 
-        currentMediaIndex = 0
         if (window.location.hash !== `#${projectId}`) {
             history.pushState(null, null, `#${projectId}`)
         }
-
-        const mediaElement = getProjectMediaElement(currentProject)
-        const counterElement = currentProject.querySelector('#gallery-counter')
-        const mediaList = parseMediaData(mediaElement)
-        if (!mediaList.length) return
-        updateMediaCounter(currentMediaIndex, mediaList.length, counterElement)
     }
 }
 
@@ -540,6 +615,7 @@ function trackScrollPosition(projectSections) {
         }
 
         hashUpdateTimer = setTimeout(() => {
+            if (hashObserverLock.active && projectId !== hashObserverLock.targetId) return
             const nextHash = `#${projectId}`
             if (window.location.hash !== nextHash) {
                 const nextUrl = `${window.location.pathname}${window.location.search}${nextHash}`
@@ -548,50 +624,37 @@ function trackScrollPosition(projectSections) {
         }, hashReplaceDelayMs)
     }
 
-    const observer = new IntersectionObserver((entries) => {
-        if (!entries.length) return
-
-        let maxEntry = entries[0]
-        entries.forEach(entry => {
-            if (entry.intersectionRatio > maxEntry.intersectionRatio) {
-                maxEntry = entry
-            }
-        })
-
-        const visibleProjectId = maxEntry?.target?.getAttribute('id')
+    const syncVisibleProject = () => {
+        const visibleIndex = getVisibleProjectIndex(projectSections)
+        const section = projectSections[visibleIndex]
+        const projectId = section.dataset.projectId || section.id
         if (hashObserverLock.active) {
-            const lockExpired = performance.now() >= hashObserverLock.releaseAt
-            const reachedTarget = visibleProjectId && visibleProjectId === hashObserverLock.targetId
-
-            if (lockExpired || reachedTarget) {
-                hashObserverLock = {
-                    active: false,
-                    targetId: null,
-                    releaseAt: 0
-                }
-            } else {
-                return
-            }
+            const reachedTarget = projectId === hashObserverLock.targetId &&
+                Math.abs(section.getBoundingClientRect().top) < 1
+            if (!reachedTarget && performance.now() < hashObserverLock.releaseAt) return
+            hashObserverLock = { active: false, targetId: null, releaseAt: 0 }
         }
+        currentProjectIndex = visibleIndex
+        scheduleHashReplace(projectId)
+    }
 
-        if (maxEntry && maxEntry.intersectionRatio > 0.5) {
-            const newIndex = Array.from(projectSections).findIndex(
-                section => section === maxEntry.target
-            )
-
-            if (newIndex !== -1 && newIndex !== currentProjectIndex) {
-                currentProjectIndex = newIndex
-                const projectId = maxEntry.target.getAttribute('id')
-                scheduleHashReplace(projectId)
-            }
-        }
-    }, {
-        root: null,
-        threshold: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
-        rootMargin: '0px'
+    const scrollContainer = document.getElementById('random-gallery-container')
+    let scrollFrame = null
+    scrollContainer.addEventListener('scroll', () => {
+        if (scrollFrame !== null) return
+        scrollFrame = requestAnimationFrame(() => {
+            scrollFrame = null
+            syncVisibleProject()
+        })
+    }, { passive: true })
+    scrollContainer.addEventListener('scrollend', () => {
+        hashObserverLock = { active: false, targetId: null, releaseAt: 0 }
+        syncVisibleProject()
     })
-
-    projectSections.forEach(section => {
-        observer.observe(section)
-    })
+    const releaseScrollLock = () => {
+        hashObserverLock = { active: false, targetId: null, releaseAt: 0 }
+    }
+    scrollContainer.addEventListener('wheel', releaseScrollLock, { passive: true })
+    scrollContainer.addEventListener('touchstart', releaseScrollLock, { passive: true })
+    syncVisibleProject()
 }
