@@ -1083,6 +1083,7 @@ body:has(.solo-project-images) > footer {
 }
 
 .archive-item[open] .image-container > .project-copy {
+    flex-basis: calc((100vw - 1rem) / 2);
     padding-left: 3rem;
     padding-bottom: 1rem;
     scrollbar-width: thin;
@@ -1095,6 +1096,7 @@ body:has(.solo-project-images) > footer {
     }
 
     .archive-item[open] .image-container > .project-copy {
+        flex-basis: calc(100vw - 2rem);
         padding-left: 0;
     }
 }

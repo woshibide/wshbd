@@ -1,19 +1,17 @@
-@import url("https://fonts.googleapis.com/css2?family=Cossette+Titre&display=swap");
-
 @font-face {
     font-family: "Inter Tight";
     src: url("/content/misc/InterTight-SemiBold.ttf") format("truetype");
     font-style: normal;
     font-weight: 600;
-    font-display: swap;
+    font-display: block;
 }
 
 @font-face {
-    font-family: "Cossette";
-    src: url("/content/misc/CossetteTitre-Bold.ttf") format("truetype");
+    font-family: "Cossette Titre";
+    src: url("/content/misc/CossetteTitre-Regular.ttf") format("truetype");
     font-style: normal;
-    font-weight: 600;
-    font-display: swap;
+    font-weight: 400;
+    font-display: block;
 }
 
 @font-face {
@@ -21,7 +19,7 @@
     src: url("/content/misc/Necto-Mono.woff2") format("woff2");
     font-style: normal;
     font-weight: 400;
-    font-display: swap;
+    font-display: block;
 }
 
 /* to normalize cross browser look */
