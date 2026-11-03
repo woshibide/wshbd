@@ -1,0 +1,27 @@
+
+
+    <header>{% include 'nav.njk' %}</header>
+    <section id="extract-me">
+        <main>
+            <div class="hello">
+                <h1>ARCHIVE</h1>
+                <p>A collection of projects across editorial, web, generative graphics, and experimental interfaces. Code shapes both process and outcome, from early prototypes to final builds. Each explores how computational thinking can shape visual form, interaction, and digital experience.</p>
+            </div>
+        </main>
+        <div class="archive" id="archive">
+            {% include 'archive-tags.njk' %}
+            <section class="archive-controls" aria-label="Archive sorting">
+                <div class="archive-headers" role="group" aria-label="archive sorting">
+                    <button id="filter-index" class="archive-filters" onclick="filterIndex()">index <span class="sort-indicator">↓</span></button>
+                    <button id="filter-who" class="archive-filters" onclick="filterWho()">who</button>
+                    <button id="filter-what" class="archive-filters" onclick="filterWhat()">what</button>
+                    <button id="filter-when" class="archive-filters" onclick="filterWhen()">when</button>
+                </div>
+            </section>
+            <div class="archive-list">
+                {% include 'archive-items.njk' %}
+            </div>
+        </div>
+    </section>
+
+    {% include 'footer.njk' %}

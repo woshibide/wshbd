@@ -1,0 +1,16 @@
+<header>{% include 'nav.njk' %}</header>
+<section><div class="random-gallery" id="random-gallery-container">
+  <div class="project-sequence">
+    {% for project in selectedProjects %}<div class="project-section" id="{{ project.id }}" data-project-id="{{ project.id }}">
+      <div class="project-image">
+        {% set media = project.media[0] %}
+        {% if media.type == 'video' %}<video class="project-media" data-src="{{ media.path }}"{% if media.poster %} poster="{{ media.poster }}"{% endif %} muted loop playsinline preload="none" aria-label="{{ project.title }}" data-media="{{ project.mediaJson }}" data-media-index="0"></video>
+        {% else %}<img class="project-media" {% if loop.first %}src{% else %}data-src{% endif %}="{{ media.path }}"{% if media.srcset %} {% if loop.first %}srcset{% else %}data-srcset{% endif %}="{{ media.srcset }}" sizes="(max-width: 758px) 100vw, 75vw"{% endif %} width="{{ media.width }}" height="{{ media.height }}" alt="{{ project.title }}" loading="{% if loop.first %}eager{% else %}lazy{% endif %}"{% if loop.first %} fetchpriority="high"{% endif %} decoding="async" data-media="{{ project.mediaJson }}" data-media-index="0">{% endif %}
+      </div>
+      <div class="text-columns"><div id="gallery-info"><a id="brand" href="/archive/{{ project.id }}/">{{ project.brand }}</a><div class="gallery-info-details"><p id="title">{{ project.title }}</p><p id="gallery-counter">IMAGE 1 OUT OF {{ project.media.length }}</p><p id="date">{{ project.date }}</p></div></div>
+        <details class="selected-project-details"><summary><span class="project-summary">{{ project.intro or project.title }}</span><span class="project-description-preview" aria-hidden="true">{{ project.description | striptags }}</span></summary><div class="project-description">{{ project.description | safe }}</div></details>
+      </div>
+    </div>{% endfor %}
+  </div>
+  <noscript><p>Scroll selected projects, or explore <a href="/archive/">archive</a>.</p></noscript>
+</div></section>

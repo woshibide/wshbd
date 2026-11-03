@@ -1,0 +1,35 @@
+#selected-welcome {
+  text-wrap: balance;
+  padding-inline: 1rem;
+  margin-top: 50vh;
+  width: 100%;
+}
+#selected-welcome h1 a {
+  color: var(--special-color);
+  text-decoration: none;
+}
+#selected-welcome h1 a:hover {
+  text-decoration: solid 1em inherit;
+}
+#selected-welcome a {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  width: min-content;
+  color: var(--special-color);
+  font-size: inherit;
+}
+body.selected-page video::-webkit-media-controls {
+  display: none !important;
+}
+body.selected-page video::-webkit-media-controls-enclosure {
+  display: none !important;
+}
+body.selected-page video {
+  outline: none;
+}
+@media (max-width: 768px) {
+  #selected-welcome h1 {
+    font-size: var(--display-type-size);
+  }
+}

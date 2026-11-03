@@ -1,0 +1,145 @@
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+h1 {
+  font-size: var(--display-type-size);
+  color: var(--text-color);
+}
+@media (max-width: 758px) {
+  h1 {
+  }
+}
+h2 {
+  font-size: var(--display-type-size);
+  font-style: normal;
+  color: var(--text-color);
+}
+@media (max-width: 758px) {
+  h3 {
+  }
+}
+h3 {
+  font-size: var(--display-type-size);
+  font-style: normal;
+  letter-spacing: normal;
+  color: var(--text-color);
+}
+h4 {
+  font-size: var(--display-type-size);
+  font-style: normal;
+  letter-spacing: normal;
+}
+h5,
+h6 {
+  font-size: var(--display-type-size);
+  color: var(--text-color);
+  font-style: normal;
+}
+p {
+  font-size: 1rem;
+  font-family: var(--font-readme);
+  text-align: justify;
+  text-justify: auto;
+  font-style: normal;
+}
+@media (max-width: 768px) {
+  p {
+    max-width: 60ch;
+    text-align: left;
+  }
+}
+a {
+  text-decoration: underline;
+  display: flex;
+  cursor: pointer;
+  padding: 0rem 0 0.125rem;
+  font-style: normal;
+  border: var(--border-def);
+  color: var(--text-color);
+  transition:
+    color 0.2s var(--hover-transition-timing),
+    background-color 0.2s var(--hover-transition-timing);
+}
+p a {
+  display: inline;
+}
+a:visited {
+  color: var(--text-color);
+  border: var(--border-red);
+}
+a:hover {
+  border: var(--border-def);
+  color: var(--special-color);
+}
+@media (max-width: 758px) {
+  a:hover {
+    border: 0rem solid var(--special-color);
+  }
+}
+button {
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  width: 100%;
+  background-color: var(--main-bg);
+  border: var(--border-def);
+  color: var(--text-color);
+  cursor: pointer;
+  text-align: start;
+  transition:
+    color 0.2s var(--hover-transition-timing),
+    background-color 0.2s var(--hover-transition-timing);
+}
+button:hover {
+  background-color: var(--text-color);
+  color: var(--main-bg);
+}
+.archive-item a,
+.xtr-info a,
+a {
+  text-decoration: underline 2px;
+}
+.extr-link {
+  text-decoration: none;
+}
+:where(
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  button,
+  label,
+  summary,
+  th,
+  figcaption,
+  #home-sticky a,
+  #nav-menu a,
+  .hero-tags,
+  .hero-availability,
+  .hero-contact p,
+  .hashtag,
+  .archive-item .item-id,
+  .archive-item .item-info,
+  .footer-columns p,
+  .footer-columns a,
+  .footer-note p,
+  #contact-highlight p,
+  .media .links a,
+  .project-info-columns > div:first-child p,
+  .projects-navigator span,
+  .slide-project-tags,
+  #slides-nav,
+  #gallery-info #brand,
+  #gallery-info #title,
+  #gallery-info #date,
+  #gallery-counter
+) {
+  font-weight: 400;
+  text-transform: uppercase;
+}
+button {
+  text-transform: uppercase;
+}

@@ -1,0 +1,27 @@
+{% for project in projects %}
+<details class="archive-item{% if not project.shown %} archive-item--hidden{% endif %}" id="{{ project.domId }}" data-project-id="{{ project.id }}" data-shown="{{ project.shown }}"{% if not project.shown %} title="Project is under NDA"{% endif %}>
+  <summary class="archive-summary">
+    <span class="archive-summary-content">
+      {% if project.shown %}<a class="item-id-link" href="/archive/{{ project.id }}/" aria-label="Open project {{ project.id }}">{% else %}<span class="item-id-link item-id-link--disabled">{% endif %}
+        <span class="item-id" data-field="id"><span class="id-letter">{{ project.letter }}</span><span class="id-number">{{ project.number }}</span></span>
+      {% if project.shown %}</a>{% else %}</span>{% endif %}
+      <span class="item-info" data-field="who">{{ project.brand }}</span>
+      <span class="item-info" data-field="what">{{ project.title }}</span>
+      <span class="item-info" data-field="when">{{ project.date }}</span>
+    </span>
+    <span class="image-container">
+      {% if project.shown %}
+        <span class="archive-project-details"><span class="project-summary">{{ project.intro | safe }}</span><span class="project-description">{{ project.description | safe }}</span></span>
+        {% for media in project.media %}
+          {% if media.type == 'video' %}
+            <video class="archive-media-item archive-media-video"{% if media.poster %} data-poster="{{ media.poster }}"{% endif %} muted loop playsinline controls preload="none"><source data-src="{{ media.path }}" type="{{ media.mime }}"></video>
+          {% else %}
+            <img class="archive-media-item" data-src="{{ media.path }}"{% if media.srcset %} data-srcset="{{ media.srcset }}" sizes="(max-width: 768px) 85vw, 45vw"{% endif %} width="{{ media.width }}" height="{{ media.height }}" alt="{{ project.title }}" decoding="async">
+          {% endif %}
+        {% endfor %}
+      {% else %}<span class="archive-nda">NDA</span>{% endif %}
+    </span>
+  </summary>
+  <div class="hashtags-line" hidden>{% for tag in project.tags %}<p class="hashtag">{{ tag }}</p>{% endfor %}</div>
+</details>
+{% endfor %}

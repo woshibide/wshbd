@@ -1,0 +1,30 @@
+{
+  "name": "its-pyotr-portfolio",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.19"
+  },
+  "scripts": {
+    "build": "node build/build.mjs",
+    "dev": "node build/serve.mjs --watch",
+    "preview": "node build/serve.mjs",
+    "media": "node build/media.mjs",
+    "media:backup": "node build/media-store.mjs backup",
+    "media:restore": "node build/media-store.mjs restore",
+    "check": "node build/check.mjs && node --test tests/*.test.mjs",
+    "test:e2e": "playwright test",
+    "audit": "node build/audit.mjs",
+    "deploy": "node build/deploy.mjs",
+    "deploy:prepare": "node build/deploy.mjs --prepare-legacy"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "esbuild": "^0.25.12",
+    "html-minifier-terser": "^7.2.0",
+    "lighthouse": "^13.0.1",
+    "nunjucks": "^3.2.4",
+    "parse5": "^8.0.0",
+    "sharp": "^0.34.5"
+  }
+}

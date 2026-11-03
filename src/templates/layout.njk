@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Pyotr Goloub">
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
+  <meta property="og:url" content="{{ canonical }}">
+  <meta property="og:image" content="{{ origin }}/content/misc/og_1200x1200.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="{{ canonical }}">
+  {% if noindex %}<meta name="robots" content="noindex">{% endif %}
+  <link rel="icon" type="image/png" sizes="32x32" href="/content/misc/favicon_32x32.png">
+  <link rel="apple-touch-icon" href="/content/misc/favicon_180x180.png">
+  <link rel="preload" href="/content/misc/CossetteTitre-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  {% if kind in ['home', 'about', 'archive', 'selected', 'project'] %}<link rel="preload" href="/content/misc/InterTight-SemiBold.ttf" as="font" type="font/ttf" crossorigin>{% endif %}
+  {% if kind == 'home' %}<style>.hero-video{background:#000}#hero{background:#000}</style>{% endif %}
+  {% if kind == 'selected' %}
+  {% set initialMedia = selectedProjects[0].media[0] %}
+  {% if initialMedia.type == 'image' %}<link rel="preload" as="image" href="{{ initialMedia.path }}"{% if initialMedia.srcset %} imagesrcset="{{ initialMedia.srcset }}" imagesizes="(max-width: 758px) 100vw, 75vw"{% endif %} fetchpriority="high">{% endif %}
+  {% endif %}
+  {% if kind == 'project' and project and project.media[0].type == 'video' and project.media[0].poster %}<link rel="preload" as="image" href="{{ project.media[0].poster }}" fetchpriority="high">{% endif %}
+  {% for file in styles %}<link rel="stylesheet" href="{{ file }}">{% endfor %}
+</head>
+<body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
+  {{ body | safe }}
+  {% for file in scripts %}<script type="module" src="{{ file }}"></script>{% endfor %}
+</body>
+</html>

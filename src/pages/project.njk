@@ -1,0 +1,21 @@
+<header>{% include 'nav.njk' %}</header>
+<main>
+  <div class="project-info"><div class="project-info-columns">
+    <div><h1>{{ project.id }}</h1><h2>{{ project.brand }}</h2><p>{{ project.title }}</p><p>{{ project.location }}</p><p>{{ project.date }}</p></div>
+    <div><h3 class="project-summary">{{ project.intro | safe }}</h3><p class="project-description">{{ project.description | safe }}</p></div>
+  </div></div>
+  <div class="solo-project-images">
+    {% for media in project.media %}<figure class="project-media-section">
+      {% if media.type == 'video' %}<video class="project-media project-media-video" data-src="{{ media.path }}"{% if media.poster %} poster="{{ media.poster }}"{% endif %} muted loop playsinline controls preload="none"></video>
+      {% else %}<img class="project-media project-media-image" src="{{ media.path }}"{% if media.srcset %} srcset="{{ media.srcset }}" sizes="100vw"{% endif %} width="{{ media.width }}" height="{{ media.height }}" alt="{{ project.title }}" loading="{% if loop.first %}eager{% else %}lazy{% endif %}" decoding="async"{% if loop.first %} fetchpriority="high"{% endif %}>{% endif %}
+    </figure>{% endfor %}
+  </div>
+</main>
+<section><div class="projects-navigator"><div class="next-project-panel">
+  <a id="next-project" class="next-project-preview" href="/archive/{{ nextProject.id }}/" aria-label="Next project: {{ nextProject.title }}">
+    <span class="next-project-label">NEXT PROJECT</span>
+    {% if nextProject.media[0].type == 'video' %}<img class="next-project-preview-media" src="{{ nextProject.media[0].poster or '/content/misc/non-image.svg' }}" alt="{{ nextProject.title }}" loading="lazy">{% else %}<img src="{{ nextProject.media[0].path }}" alt="{{ nextProject.title }}" loading="lazy" width="{{ nextProject.media[0].width }}" height="{{ nextProject.media[0].height }}">{% endif %}
+    <div class="next-project-caption"><span class="next-project-title">{{ nextProject.title }}</span></div>
+  </a>
+</div></div></section>
+{% include 'footer.njk' %}

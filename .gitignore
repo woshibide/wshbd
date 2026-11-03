@@ -11,3 +11,27 @@ portfolio-woshibide.pub
 
 test.mp4
 unwanted/
+
+node_modules/
+.cache/
+work/
+outputs/
+.env
+.env.*
+!.env.example
+*.log
+scripts/node/venv/
+scripts/node/.image_cache.json
+
+# Media stays local and is published directly with rsync.
+/content/projects/
+/content/video/
+/content/optimized/
+/content/misc/*
+!/content/misc/*.ttf
+!/content/misc/*.otf
+!/content/misc/*.woff
+!/content/misc/*.woff2
+
+# Keep generated text metadata available to Git.
+!/robots.txt

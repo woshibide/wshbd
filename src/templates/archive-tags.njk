@@ -1,0 +1,7 @@
+<section class="hashtag-container archive-areas" aria-labelledby="archive-areas-title">
+  <h2 id="archive-areas-title" class="archive-section-title">Areas</h2>
+  <ul class="hashtag-pool">
+    <li class="hashtag hashtag--reset" id="hashtag-reset" data-tag="reset"><button class="hashtag-button" type="button">~ % RESET SCOPE</button></li>
+    {% for tag in tags %}<li class="hashtag" data-tag="{{ tag }}"><button class="hashtag-button" type="button" aria-pressed="false">{{ tag }}</button></li>{% endfor %}
+  </ul>
+</section>

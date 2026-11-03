@@ -1,0 +1,7 @@
+@media (prefers-reduced-motion: reduce) {
+  .curtain-half,
+  .curtain-loading,
+  .curtain-loading-line {
+    transition: none;
+  }
+}

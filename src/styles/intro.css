@@ -1,0 +1,37 @@
+.hello {
+  margin-top: 15rem;
+  margin-left: calc(25% + 0.5rem);
+}
+.hello p {
+  max-width: 60ch;
+}
+.hello span {
+  margin-top: 3rem;
+  right: 2rem;
+  text-align: right;
+}
+@media (max-width: 768px) {
+  #extract-me main .hello {
+    padding: 1rem;
+  }
+  #selected-works {
+    padding-inline: 1rem;
+  }
+  .hello {
+    margin: 0;
+    margin-block: 4rem;
+    margin-top: 15rem;
+  }
+  .hello span {
+    margin-block: 2rem;
+    text-justify: none;
+  }
+}
+main {
+  padding: 0rem;
+}
+@media (max-width: 768px) {
+  main {
+    padding: 0rem;
+  }
+}

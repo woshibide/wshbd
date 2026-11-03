@@ -1,0 +1,118 @@
+footer {
+  margin-top: 30svh;
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 758px) {
+  footer {
+    margin: 0rem;
+    margin-top: 30svh;
+  }
+}
+.footer-wrapper {
+  margin: 1rem;
+}
+@media (max-width: 758px) {
+  .footer-wrapper {
+    margin: 0 0.5rem;
+  }
+}
+.footer-columns {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  width: 100%;
+  margin-top: 1rem;
+  align-items: baseline;
+}
+@media (max-width: 758px) {
+  .footer-columns {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+  #contact-details {
+    grid-column: 3 / span 2;
+  }
+}
+.footer-columns h4 {
+  font-family: var(--font-display);
+  font-style: normal;
+  border-bottom: var(--border-def);
+  margin-bottom: 1rem;
+}
+.footer-columns > div {
+  flex: 1;
+}
+#design-brief p,
+#dev-brief p {
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: var(--special-color-off);
+  transition:
+    color 0.2s var(--hover-transition-timing),
+    background-color 0.2s var(--hover-transition-timing);
+}
+#design-brief p:is(:hover, :focus-visible),
+#dev-brief p:is(:hover, :focus-visible) {
+  color: var(--main-bg);
+  background-color: var(--soft-black);
+  text-decoration: none;
+  border: none;
+}
+#design-brief p:focus-visible,
+#dev-brief p:focus-visible {
+  outline: 0.2rem solid var(--special-color);
+  outline-offset: -0.2rem;
+}
+#home:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  border: none;
+  color: var(--special-color);
+}
+.extr-link a {
+  border: none;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+@media (max-width: 758px) {
+  .extr-link a,
+  #design-brief,
+  #dev-brief {
+    display: none;
+  }
+}
+.extr-link a:hover {
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  background: var(--special-color);
+  color: var(--main-bg);
+}
+.footer-note {
+  margin-top: 20vh;
+  margin-bottom: 1rem;
+  padding-inline: 1rem;
+  justify-content: flex-start;
+  display: flex;
+}
+.footer-note p {
+  white-space: nowrap;
+}
+@media (max-width: 758px) {
+  .footer-note {
+    margin-top: 5rem;
+  }
+  .footer-note p {
+    max-width: none;
+    font-size: 1rem;
+    white-space: normal;
+    display: flex;
+    flex-direction: column;
+  }
+  .footer-note-separator {
+    display: none;
+  }
+}
